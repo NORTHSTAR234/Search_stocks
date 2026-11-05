@@ -659,4 +659,4 @@ Shariah screening: [ON / OFF]
 
 Existing holdings: [OPTIONAL]
 
-Use the latest reliable information and the complete Version 2.0 fixed response format.
+Use the latest reliable information, apply the mandatory Musaffa-first eligibility gate, and use the complete Version 2.1 fixed response format.
