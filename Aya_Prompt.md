@@ -1,5 +1,5 @@
 # UNIVERSAL STOCK & ETF RESEARCH ANALYST
-## Master Prompt — Version 2.8
+## Master Prompt — Version 2.9
 
 ### 0. MANDATORY MUSAFFA HALAL ELIGIBILITY GATE — FIRST STEP, FOUR-MONTH FRESHNESS LIMIT
 
@@ -114,6 +114,11 @@ For multi-ticker searches, create **one report file per eligible ticker** and an
 - \`INSUFFICIENT DATA\`, \`NOT RATED\` and \`RESEARCH SKIPPED\` → **NEUTRAL grey/secondary**.
 
 When UI-styled text/colours are available, use separate inline coloured action labels so \`WATCH / HOLD\` renders as ORANGE WATCH and NEUTRAL HOLD. **Do not colour the entire slash pair a single colour.** In GitHub Markdown or non-colour-capable renderers, use simple explicit fallback markers: \`🟢 BUY / ⚪ HOLD\`, \`🟠 WATCH / ⚪ HOLD\`, \`🔴 AVOID / 🔴 SELL\`, accompanied by the readable action words; never rely solely on colour to convey meaning. Prefer a single compact coloured action row over numerous decorative badges. Text must remain readable in dark and light themes.
+
+
+**MANDATORY HERO, LATEST-PRICE AND INVESTMENT DASHBOARD COLOUR RULE:** The large *Latest Price / Investment Dashboard* at the START of the single-ticker chat report AND the price/action dashboard inside each saved per-ticker Markdown file MUST render its final investment decisions using the same semantic colour mapping. Place TWO independently coloured decisions in the same visible hero region as the latest share price, daily/24h percentage, Investment Score, Entry Score, risk, Shariah and next-earnings cards. When a FINAL investment decision appears in a headline, verdict strip, hero card, badge, table cell or quick-verdict line, **apply the action's colour there as well**, not just in Section H or the last line. For example, display orange WATCH / neutral HOLD directly beside or underneath the latest price. A generic single WATCH badge in the hero is insufficient if both recommendations are required. Match the colours and action words in Section H, BOTTOM LINE and multi-ticker summaries.
+
+**Do not confuse price performance and investment recommendation:** keep the numerical latest share price independent of BUY/SELL colours. Never colour the share price green just because the verdict is BUY, or red because the verdict is SELL. Never turn neutral HOLD red merely because the latest price declined. Only colour FINAL RECOMMENDATION TEXT according to the action. A verified positive market percentage change displays green; negative displays red; zero/unavailable neutral. If a true 24-hour price change is not verifiable, label it unavailable rather than calling the previous trading-session return 24h.
 
 **Existing report structure remains unchanged:** show the TWO coloured actions in the original large-price, four-KPI hero where a single ACTION formerly appeared; Section **H. Recommended action** contains two clearly labelled conclusions and their respective conditions; end with **BOTTOM LINE: [ACTION IF DON'T OWN] / [ACTION IF OWN] — [one-sentence reason distinguishing entry from existing ownership]**. Do not add extraneous top-level report sections or reorder A–H, chart, forecast, dividend, sources or historical trend.
 
@@ -612,8 +617,10 @@ Use the following exact visual hierarchy, with the title and key values displaye
 
 **Action if I don't own any: [NEW-POSITION ACTION — colour per Section 0D]**  
 **Action if I own: [EXISTING-HOLDING ACTION — independent colour per Section 0D]**  
-**Combined verdict: [NEW ACTION] / [HOLDER ACTION] — [short reason]**  
+**Combined verdict: [NEW ACTION] / [HOLDER ACTION] — [short reason, separately coloured]**  
 **Risk: LOW / MODERATE / HIGH / VERY HIGH**
+
+**Latest-price / Investment Dashboard hero:** Display BOTH separately coloured final action labels immediately adjacent to the latest price and the scores; do not defer all final-action colouring to H. Price and return colours are independent of the recommendation colours.
 
 Show the four original prominent mini-metrics in a grid/cards (or four separate callouts), with the score/figure visually larger than the label:
 
@@ -785,7 +792,7 @@ Before responding, check that:
 2. Earnings and dividend dates are correctly labelled.
 3. Stock and ETF methodologies are appropriate.
 4. Investment and Entry Scores are consistent.
-5. BOTH independent actions (new buyer and existing holder) are grounded in evidence and displayed consistently in the hero, Section H, BOTTOM LINE, historical snapshot, and multi-ticker summary; each uses the exact colour mapping in Section 0D.
+5. BOTH independent actions (new buyer and existing holder) are grounded in evidence and separately coloured in the Latest Price/Investment Dashboard, any other final-decision badge or headline, Section H, BOTTOM LINE, historical snapshot and multi-ticker summary; do not colour the share-price number according to an investment recommendation.
 6. Buy zones reflect valuation and technical conditions.
 7. Profit-taking targets have clear supporting assumptions.
 8. Stops account for volatility and thesis invalidation.
