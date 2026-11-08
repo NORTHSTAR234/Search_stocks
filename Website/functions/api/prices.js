@@ -29,6 +29,7 @@ async function authenticatedOwner(request,env) {
     return await crypto.subtle.verify("RSASSA-PKCS1-v1_5",imported,b64url(pieces[2]),new TextEncoder().encode(pieces[0]+"."+pieces[1]));
   }catch{return false;}
 }
+// latest_trade is an observed IEX transaction, not a certified regular-session closing price.
 const within24h=(current,old)=>{
   const a=Date.parse(current),b=Date.parse(old);
   return Number.isFinite(a)&&Number.isFinite(b)&&Math.abs(a-b-86400000)<=1800000;
@@ -42,7 +43,7 @@ function validateQuote(symbol,raw) {
   const session=String(raw.session||"");
   const adjustment=String(raw.adjustment||"");
   if(!["IEX","SIP"].includes(feed)||!["regular","extended"].includes(sessionScope)||
-     !["live","delayed","last_close"].includes(session)||!["raw","split_adjusted"].includes(adjustment))return null;
+     !["live","delayed","last_close","latest_trade"].includes(session)||!["raw","split_adjusted"].includes(adjustment))return null;
   let change24hPercent=null,reference24hAsOf=null;
   const old=raw.reference24h;
   if(old&&Number(old.price)>0&&old.currency===raw.currency&&old.feed===raw.feed&&
