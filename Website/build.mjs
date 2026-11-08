@@ -160,7 +160,7 @@ export function build() {
     fs.mkdirSync(path.join(output,"assets"),{recursive:true});
     fs.copyFileSync(path.join(here,"assets","style.css"),path.join(output,"assets","style.css"));
     fs.copyFileSync(path.join(here,"_headers"),path.join(output,"_headers"));
-    fs.writeFileSync(path.join(output,"robots.txt"),"User-agent: *\\nDisallow: /\\n");
+    fs.writeFileSync(path.join(output,"robots.txt"),"User-agent: *\nDisallow: /\n");
     fs.writeFileSync(path.join(output,"index.html"),page("Setup in progress",'<header class="top"><span class="brand">◈ Stock Research</span></header><main class="report-layout"><section class="hero"><p class="eyebrow">PRIVATE SITE · SETUP</p><h1>Website setup in progress</h1><p>Research reports have not been published to this domain. Enable and verify Cloudflare Access for all hostnames before activating the reports build.</p></section></main>'));
     console.log("Safe placeholder deployed. PUBLISH_REPORTS=yes required for report publication.");
     return;
