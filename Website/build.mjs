@@ -103,7 +103,7 @@ export function parseReport(info,raw) {
     /(?:Bursa|Malaysia|ACE Market)/i.test(header.slice(0,2200))?"BURSA":"US";
   const values={
     company:companyName(header,info.ticker),ticker:info.ticker,exchange,
-    bucket:info.bucket,timestamp:info.timestamp,statusOnly,
+    bucket:info.bucket,timestamp:info.timestamp,statusOnly:screeningOnly,
     action:screeningOnly?"SCREENING ONLY — NO INVESTMENT REPORT":(newAction||"NOT RATED"),
     ownerAction:screeningOnly?"RESEARCH SKIPPED":(holdAction||"NOT RATED"),
     risk:screeningOnly?"NOT RATED":risk,
