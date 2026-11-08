@@ -1,13 +1,20 @@
 (() => {
   "use strict";
   const $ = id => document.getElementById(id);
-  const state={rows:[],quotes:{},loading:false,generatedAt:null};
+  const state={rows:[],quotes:{},loading:false,generatedAt:null,providerReady:true};
   const escape=s=>String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
   const fmt=iso=>{try{return new Intl.DateTimeFormat("en-AU",{timeZone:"Australia/Melbourne",day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",timeZoneName:"short"}).format(new Date(iso));}catch{return iso||"Unknown";}};
   const norm=s=>String(s??"").toUpperCase().replace(/[^A-Z0-9 ]/g," ").trim();
   const score=s=>{const m=String(s).match(/(\d{1,3})\s*\/\s*100/);return m?Number(m[1]):-1;};
   const badge=(value,kind)=>'<span class="badge '+kind+'">'+escape(value)+'</span>';
-  const actionKind=v=>/\b(BUY|STRONG BUY)\b/i.test(v)?"good":/\b(SELL|AVOID|REDUCE)\b/i.test(v)?"bad":/\b(WATCH)\b/i.test(v)?"warn":"neutral";
+  // Rate the leading verdict only. "WATCH — wait for buy-zone" is WATCH, never BUY.
+  const actionKind=v=>{
+    const verdict=String(v||"").replace(/^[^A-Za-z]+/,"").trim().toUpperCase();
+    if(/^(STRONG\\s+BUY|BUY)\\b/.test(verdict))return "good";
+    if(/^(SELL|AVOID|REDUCE|EXIT|STRONG\\s+SELL)\\b/.test(verdict))return "bad";
+    if(/^(WATCH|WAIT)\\b/.test(verdict))return "warn";
+    return "neutral";
+  };
   const cap=(v,n=95)=>{let s=String(v||"NOT RATED");return s.length>n?s.slice(0,n-1)+"…":s;};
   function quoteCell(r){
     const q=state.quotes[r.ticker.toUpperCase()];
@@ -78,8 +85,11 @@
         ". All other fields are archived. Data may be delayed.";
     }catch(error){
       state.quotes={};
-      $("marketNotice").textContent="Market prices are unavailable: "+String(error.message)+
-        ". No archived price or previous-close change has been substituted.";
+      const message=String(error.message||error);
+      state.providerReady=!/503/.test(message);
+      $("marketNotice").textContent=/503/.test(message)
+        ?"Alpaca quote connection is not yet active. The dashboard is available; prices and 24h changes remain unavailable until the read-only service is configured."
+        :"Market prices unavailable: "+message+". Archived prices are never substituted.";
     }finally{state.loading=false;$("refresh").disabled=false;render();}
   }
   async function init(){
@@ -91,7 +101,7 @@
       state.generatedAt=data.generatedAt;
       $("marketNotice").textContent="Archive built "+fmt(data.generatedAt)+". Live market integration pending.";
       render();await refresh();
-      setInterval(()=>{if(document.visibilityState==="visible")refresh();},60000);
+      setInterval(()=>{if(document.visibilityState==="visible"&&state.providerReady)refresh();},60000);
       document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")refresh();});
     }catch(e){$("marketNotice").textContent="Could not load archive: "+e.message;$("rows").innerHTML='<tr><td colspan="10">Archive unavailable.</td></tr>';}
   }
