@@ -10,9 +10,9 @@
   // Rate the leading verdict only. "WATCH — wait for buy-zone" is WATCH, never BUY.
   const actionKind=v=>{
     const verdict=String(v||"").replace(/^[^A-Za-z]+/,"").trim().toUpperCase();
-    if(/^(STRONG\\s+BUY|BUY)\\b/.test(verdict))return "good";
-    if(/^(SELL|AVOID|REDUCE|EXIT|STRONG\\s+SELL)\\b/.test(verdict))return "bad";
-    if(/^(WATCH|WAIT)\\b/.test(verdict))return "warn";
+    if(/^(STRONG\s+BUY|BUY)\b/.test(verdict))return "good";
+    if(/^(SELL|AVOID|REDUCE|EXIT|STRONG\s+SELL)\b/.test(verdict))return "bad";
+    if(/^(WATCH|WAIT)\b/.test(verdict))return "warn";
     return "neutral";
   };
   const cap=(v,n=95)=>{let s=String(v||"NOT RATED");return s.length>n?s.slice(0,n-1)+"…":s;};
