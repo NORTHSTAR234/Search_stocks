@@ -68,6 +68,8 @@ function score(raw,name) {
 }
 function companyName(raw,ticker) {
   const title=(raw.match(/^#\s+(.+)$/m)||[])[1]||"";
+  const leading=title.match(/^(.+?)\s*\((?:NASDAQ|NYSE|ASX|TWSE|Bursa|NYSEARCA):[A-Z0-9.-]+\)/i);
+  if(leading)return short(leading[1],95);
   const bracket=title.match(/(?:—|–)\s*(.*?)\s*\((?:NASDAQ|NYSE|ASX|TWSE|NYSEARCA|Bursa|[A-Z]{2,}):/i);
   if (bracket) return short(bracket[1],95);
   const general=title.match(/(?:Research\s*[—–-]\s*|—\s*)(.*?)\s*\((?:NASDAQ|NYSE|ASX|TWSE|Bursa|[A-Z]{2,}):/i);
@@ -100,7 +102,8 @@ export function parseReport(info,raw) {
   const risk=first(rs,/^Risk(?:\s*\/.*)?$/i)||short((first(rs,/^Action\s*\/\s*risk$/i).match(/\s\/\s((?:VERY )?(?:LOW|MODERATE|MEDIUM|HIGH)[^/]*)$/i)||[])[1])||"NOT RATED";
   const exchange=info.ticker.toUpperCase().endsWith(".AX")?"ASX":info.ticker.toUpperCase().endsWith(".TW")?"TWSE":
     /\.(KL|MY)$/.test(info.ticker.toUpperCase())?"BURSA":/\./.test(info.ticker)?"OTHER":
-    /(?:Bursa|Malaysia|ACE Market)/i.test(header.slice(0,2200))?"BURSA":"US";
+    /(?:Bursa|Malaysia|ACE Market)/i.test(header.slice(0,800))?"BURSA":
+    /(?:\bASX\s*:\s*[A-Z]{2,6}\b|\bAustralian Securities Exchange\b|\b[A-Z]{2,6}\.AX\b)/i.test(header.slice(0,800))?"ASX":"US";
   const values={
     company:screeningOnly?short((header.match(/Exact user-confirmed security:\*\*\s*([^,\n]+)/i)||[])[1]||info.ticker,95):companyName(header,info.ticker),ticker:info.ticker,exchange,
     bucket:info.bucket,timestamp:info.timestamp,statusOnly:screeningOnly,
