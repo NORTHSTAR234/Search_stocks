@@ -66,7 +66,17 @@ export async function onRequestGet({request,env}) {
     const upstream=new URL("https://price-provider.internal/quotes");
     upstream.searchParams.set("symbols",symbols.join(","));
     const response=await env.PRICE_PROVIDER.fetch(new Request(upstream.toString(),{method:"GET",headers:{"Accept":"application/json"}}));
-    if(!response.ok)return reply({error:"PRICE_PROVIDER_UNAVAILABLE",quotes:{}},503);
+    if(!response.ok){
+      // Return only a documented upstream error code, not provider payloads,
+      // credentials, or exception strings. Owner is already authenticated.
+      let upstreamError="UNSPECIFIED";
+      try{
+        const upstreamBody=await response.json();
+        const known=new Set(["ALPACA_NOT_CONFIGURED","ALPACA_DATA_UNAVAILABLE","INVALID_ALPACA_DATA","INVALID_SYMBOLS","NOT_FOUND"]);
+        if(known.has(upstreamBody?.error))upstreamError=upstreamBody.error;
+      }catch{}
+      return reply({error:"PRICE_PROVIDER_HTTP_ERROR",upstreamStatus:response.status,upstreamError,quotes:{}},503);
+    }
     const data=await response.json();
     const result={};
     for(const symbol of symbols){
@@ -74,5 +84,8 @@ export async function onRequestGet({request,env}) {
       if(q)result[symbol]=q;
     }
     return reply({quotes:result,source:"configured read-only price provider"});
-  }catch{return reply({error:"PRICE_PROVIDER_UNAVAILABLE",quotes:{}},503);}
+  }catch(e){
+    const allowed=new Set(["TypeError","NetworkError","InvalidStateError","AbortError"]);
+    return reply({error:"PRICE_PROVIDER_SERVICE_ERROR",exceptionType:allowed.has(e?.name)?e.name:"Other",quotes:{}},503);
+  }
 }
