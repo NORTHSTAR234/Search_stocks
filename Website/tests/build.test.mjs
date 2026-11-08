@@ -25,3 +25,13 @@ test("extracts full dashboard and never calculates 24h from report",()=>{
   assert.deepEqual(r.zoneBands,[[275,305],[306,325]]);
   assert.equal(Object.hasOwn(r,"price"),false);
 });
+
+test("unsuffixed ASX security identity is not sent to US price feed",()=>{
+  const x=archiveInfo("halal/ORG/ORG_2026-11-05_12-00-18Z.md");
+  const report="# Origin Energy Ltd (ASX:ORG) — Research Report\n**Security:** Origin Energy Ltd, Australian Securities Exchange (ORG.AX)\n";
+  const r=parseReport(x,report);
+  assert.equal(r.exchange,"ASX");
+  assert.equal(r.company,"Origin Energy Ltd");
+  assert.equal(r.nativeCurrency,"AUD");
+  assert.deepEqual(r.zoneBands,[]);
+});
