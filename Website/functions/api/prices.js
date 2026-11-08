@@ -75,7 +75,3 @@ export async function onRequestGet({request,env}) {
     return reply({quotes:result,source:"configured read-only price provider"});
   }catch{return reply({error:"PRICE_PROVIDER_UNAVAILABLE",quotes:{}},503);}
 }
-export async function onRequest({request}) {
-  if(request.method!=="GET")return reply({error:"METHOD_NOT_ALLOWED"},405);
-  return reply({error:"METHOD_NOT_ALLOWED"},405);
-}
