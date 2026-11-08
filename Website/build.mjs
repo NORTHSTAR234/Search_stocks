@@ -91,18 +91,18 @@ export function parseReport(info,raw) {
      short((header.match(/(?:Action if I own|Existing holder)\s*:\s*([^\n]{3,130})/i)||[])[1]);
   const combinedScore=first(rs,/^(Investment\s*\/\s*Entry|Investment\s*Score\s*\/\s*Entry|Investment\s*&\s*Entry)/i);
   const combinedNumbers=[...clean(combinedScore).matchAll(/(\d{1,3})\s*\/\s*100/g)].map(m=>m[1]+"/100");
-  const investment=first(rs,/^Investment Score$/i)||combinedNumbers[0]||score(header,"Investment");
-  const entry=first(rs,/^Entry Score$/i)||combinedNumbers[1]||score(header,"Entry");
+  const investment=combinedNumbers[0]||first(rs,/^Investment Score$/i)||score(header,"Investment");
+  const entry=combinedNumbers[1]||first(rs,/^Entry Score$/i)||score(header,"Entry");
   const musaffa=first(rs,/^Musaffa$/i)||short((header.match(/(?:Classification|Musaffa classification)\s*:\s*([^\n]{2,150})/i)||[])[1])||"NOT VERIFIED";
   const earnings=first(rs,/^(Confirmed next earnings|Next earnings|Upcoming earnings)/i)||"NOT VERIFIED";
   const zones=first(rs,/^(Preferred\s*\/\s*acceptable|Preferred\s*\/\s*acceptable\s*zone|Preferred\s*\/\s*acceptable\s*entry|Preferred \/ acceptable zone)/i)||"NOT RATED";
   const stops=first(rs,/^Initial stop\s*\/\s*no_?chase/i)||"NOT RATED";
-  const risk=first(rs,/^Risk(?:\s*\/.*)?$/i)||"NOT RATED";
+  const risk=first(rs,/^Risk(?:\s*\/.*)?$/i)||short((first(rs,/^Action\s*\/\s*risk$/i).match(/\s\/\s((?:VERY )?(?:LOW|MODERATE|MEDIUM|HIGH)[^/]*)$/i)||[])[1])||"NOT RATED";
   const exchange=info.ticker.toUpperCase().endsWith(".AX")?"ASX":info.ticker.toUpperCase().endsWith(".TW")?"TWSE":
     /\.(KL|MY)$/.test(info.ticker.toUpperCase())?"BURSA":/\./.test(info.ticker)?"OTHER":
     /(?:Bursa|Malaysia|ACE Market)/i.test(header.slice(0,2200))?"BURSA":"US";
   const values={
-    company:companyName(header,info.ticker),ticker:info.ticker,exchange,
+    company:screeningOnly?short((header.match(/Exact user-confirmed security:\*\*\s*([^,\n]+)/i)||[])[1]||info.ticker,95):companyName(header,info.ticker),ticker:info.ticker,exchange,
     bucket:info.bucket,timestamp:info.timestamp,statusOnly:screeningOnly,
     action:screeningOnly?"SCREENING ONLY — NO INVESTMENT REPORT":(newAction||"NOT RATED"),
     ownerAction:screeningOnly?"RESEARCH SKIPPED":(holdAction||"NOT RATED"),
