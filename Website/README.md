@@ -1,82 +1,61 @@
 # Stock Research Website
 
-Private-ready Cloudflare Pages frontend for the *latest* archived Search_stock reports. All website source files live **only in Website/**. The existing halal/ and nonhalal/ report trees are read-only and are never modified by this build.
+Cloudflare Pages website for the **latest archived Search_stock report for each exact ticker**. Website source files live in `Website/`; `halal/` and `nonhalal/` are read-only build inputs and must never be rewritten by the site.
 
-## Status and security
+## Production status (9 November 2026)
 
-**Not yet deployed.** The GitHub repository is public. The default build intentionally publishes **only a setup placeholder**, not research reports. This prevents accidental publication during the first Pages deployment. The X-Robots-Tag and robots.txt files are not access controls. Set PUBLISH_REPORTS=yes only after Cloudflare Access is configured and verified on the production pages.dev URL, previews, and any custom domain.
+- Website: https://search-stocks-research.pages.dev
+- Pages project: `search-stocks-research`
+- Source: `NORTHSTAR234/Search_stocks`, branch `main`, root directory `Website`
+- Build: `npm install --no-audit --no-fund && npm test && npm run build`
+- Output: `dist`
+- `PUBLISH_REPORTS=yes` is enabled **only in production** after the owner confirmed an anonymous incognito browser is redirected to Cloudflare Access sign-in.
+- Cloudflare Access owner-only policies protect the production hostname and wildcard deployment URLs. Access must also protect any custom domain added in future.
+- Cloudflare Pages deployment and regression tests have passed. The dashboard builds one HTML report for each ticker's latest canonical report across both archive buckets, and retains status-only rows without backfilling old scores.
+- The GitHub source repository is **public**. The website's login protection does **not** make the Markdown files in GitHub private; do not put confidential information into this public repository.
 
-The price gateway is **fail-closed**. It cannot return market data until the Cloudflare Access team domain, Access application AUD, owner email, and a Worker service binding to an approved read-only price provider have been configured. The existing stockresearch-fred-mcp Worker is **not modified**. An existing encrypted Alpaca credential alone does not establish a callable quote endpoint.
+## Alpaca price service
 
-## Cloudflare Pages setup
+The dashboard requests `/api/prices` for US-listed symbols only, on page load, manual refresh, and at most once per 60 seconds while visible. This Pages Function cryptographically checks the owner's Cloudflare Access JWT and exact email before calling a private `PRICE_PROVIDER` service binding.
 
-- Git provider: GitHub; repository: NORTHSTAR234/Search_stocks
-- Framework: None
-- Production branch: main
-- Root directory (advanced): Website
-- Build command: npm install --no-audit --no-fund && npm run build
-- Build output directory: dist
-- Runtime: Node.js 22
-- Pages Functions: Website/functions/api/prices.js (automatically detected under configured Pages root)
+The `PRICE_PROVIDER` binding connects to named entrypoint `WebsitePrices` of the existing `stockresearch-fred-mcp` Worker. The named entrypoint uses the Worker's **existing encrypted Alpaca API credentials**, calls read-only Alpaca IEX endpoints, and returns timestamped observations. It has no public route, no trading methods, and no use of portfolio/account data. The Worker's original OAuth/MCP default handler and all original secret/KV bindings were preserved. The existing FRED tool was checked successfully after deployment.
 
-**Two-stage private rollout:** (1) Leave PUBLISH_REPORTS absent. Deploy the harmless setup placeholder and note the actual pages.dev hostname. (2) Create restrictive Cloudflare Access applications for this production hostname, preview hostnames and any custom domain. The preview-only Access toggle does not protect production pages.dev. (3) Confirm an unauthenticated browser is denied. (4) In Pages build environment variables set PUBLISH_REPORTS=yes and redeploy; repeat anonymous checks for /, /reports/<ticker>/, /data/reports.json and /api/prices. Restrict preview deployments before enabling the flag. Do not assume the GitHub repository is private.
+**Data quality rules:**
 
-## Price integration (future wiring)
+- IEX prices are **latest observed IEX trades**, not a consolidated US-market (SIP) price or necessarily an official regular-session close. Show the original trade timestamp, currency and feed.
+- A 24-hour percentage is calculated **only** when a same-feed, raw-basis IEX minute-bar observation exists within 30 minutes of the exact T minus 24 elapsed hours. Otherwise show `24h N/A` (never substitute the previous session's daily change).
+- Positive verified 24h percentages are green; negative are red; unavailable or zero are neutral.
+- A matching valid quote can independently highlight archived preferred/acceptable buy zones. Buy zones and recommendation scores themselves are not refreshed.
+- Non-US exchanges (ASX, Taiwan, Bursa Malaysia, etc.) are **not supported** by the Alpaca IEX feed. The site displays unavailable, never US proxy quotes.
+- The backend wiring, source-provider observations and build have been checked independently; **the authenticated browser price flow still requires an owner session smoke test**. If unavailable, do not claim live prices are working.
+- Owner-only live market-data access avoids automatic redistribution to friends. Expanding access requires checking Alpaca licensing and quote redistribution rights.
 
-The dashboard polls /api/prices every 60 seconds when visible and on manual refresh. It never embeds Alpaca keys or directly fetches Alpaca from browsers. The Pages Function authenticates the owner's Access JWT cryptographically, validates the email and allowed application audience, and requests data through a private Cloudflare Worker **service binding** named PRICE_PROVIDER. The Function never accepts arbitrary target URLs.
+## Safe rollout and fallback
 
-Set Pages Function runtime values:
-- ACCESS_TEAM_DOMAIN: your-team.cloudflareaccess.com (not secret)
-- ACCESS_AUD: the specific Access application's audience tag (not secret)
-- OWNER_EMAIL: exact owner's Access-authenticated email (configure privately)
-- PRICE_PROVIDER: Service Binding to a dedicated, read-only, approved quote endpoint **only after inspecting the existing Worker**.
+Without `PUBLISH_REPORTS=yes`, the build creates only a harmless setup placeholder. This is a deliberate fail-closed fallback if access needs to be disabled or reconfigured.
 
-The bound price provider must implement GET /quotes?symbols=AAPL,AMD and return JSON of this shape:
+Only enable `PUBLISH_REPORTS=yes` after confirming Cloudflare Access for production, preview and custom hostnames. Preview builds do not currently have this flag. Robots and noindex headers are **not security controls**.
 
-~~~json
-{
-  "quotes": {
-    "AAPL": {
-      "price": 123.45,
-      "currency": "USD",
-      "asOf": "2026-11-06T20:00:00Z",
-      "feed": "IEX",
-      "session": "last_close",
-      "sessionScope": "regular",
-      "adjustment": "raw",
-      "reference24h": {
-        "price": 122.00,
-        "currency": "USD",
-        "asOf": "2026-11-05T20:00:00Z",
-        "feed": "IEX",
-        "sessionScope": "regular",
-        "adjustment": "raw"
-      }
-    }
-  }
-}
-~~~
+The Pages price function also fails closed with 403/503 when owner JWT, binding, or valid upstream quote data is unavailable. No archived price should be presented as a current quote. No trades are placed.
 
-These are schema example numbers **only, not real market observations**. The Pages Function independently checks time proximity (24 hours +/- 30 min), feed, session, currency, and adjustment before computing any 24-hour return. When no valid 24h reference exists, it returns null, displayed as 24h N/A. Market-closed prices must be marked last_close. Never replace unavailable quotes with prices found in old reports or standard prior-session daily percent changes.
+## Development
 
-**Market-data licence:** Personal Alpaca data must not automatically be redistributed to friends. The gateway permits only OWNER_EMAIL until display/redistribution rights are confirmed. ASX, Bursa, Taiwan, and other non-US markets are not covered by the Alpaca US quote feed; the dashboard shows unavailable instead of matching unrelated US symbols. Existing FRED Worker deployment/keys remain untouched.
+From `Website/`:
 
-## Local build and tests
-
-From Website/ run:
-
-~~~sh
+```sh
 npm install
 npm test
 PUBLISH_REPORTS=yes npm run build
-~~~
+```
 
-The full (PUBLISH_REPORTS=yes) build reads ../halal and ../nonhalal read-only. Without that flag the build produces only the safe setup page. Outputs: dist/index.html, dist/data/reports.json, and one dist/reports/TICKER/index.html for every latest exact ticker. The latest status-only record replaces previous investment analysis; no stale scores are backfilled. The generated HTML renders Markdown with raw HTML **disabled**. Data fields are best-effort conservative extraction, and any unrecognized field is shown as NOT RATED/NOT VERIFIED rather than invented.
+Seven website tests cover archive handling, status-only records, WATCH/BUY/SELL/HOLD colors, and price gateway authorization/configuration checks. Cloudflare Pages runs these tests as part of its build command, so a failing test blocks new deployments.
 
-## Checklist before launch
+The full build creates `dist/index.html`, `dist/data/reports.json`, and `dist/reports/<ticker>/index.html` from the latest eligible Markdown file per exact listing. It renders Markdown with raw embedded HTML disabled and preserves source reports in their original directory.
 
-1. Confirm Access blocks anonymous requests to every hostname and its report/data paths.
-2. Inspect stockresearch-fred-mcp source and its actual endpoints. Reuse a read-only price path if genuinely available, or create a dedicated verified adapter, without changing existing trading/MCP behavior.
-3. Connect the private service binding and test with an owner Access session and with an unapproved account.
-4. Verify feed/license entitlement, regular vs extended session, weekend 24h N/A, date-zone currency matching, and international unsupported handling.
-5. Verify report extraction against current full and screening-only examples. Do not claim the website is private or the quote feed is live before tests pass.
+## Operational checks
+
+1. Refresh the website in an owner-authenticated browser; confirm verified IEX quotes display where available, with actual timestamps and correct 24-hour N/A/return formatting.
+2. Confirm unauthenticated browsers cannot access `/`, `/data/reports.json`, `/reports/<ticker>/` or `/api/prices`; production and deployment alias hostname protection must remain active.
+3. Verify FRED/MCP remains operational following any future `stockresearch-fred-mcp` deployments; the GitHub source for that Worker contains the `WebsitePrices` named entrypoint.
+4. Confirm the Cloudflare Pages GitHub integration actually triggers an automatic rebuild on a new report commit; initial releases were manually triggered through the Cloudflare API even though Git integration is configured.
+5. Do not add friends to the quote API until market-data licensing permits redistribution. Friends can receive research access through explicit additional Access allowlist policies.
