@@ -25,7 +25,7 @@
       '<span class="change '+(q.change24hPercent<0?"loss":q.change24hPercent>0?"gain":"flat")+'">'+
       (q.change24hPercent>0?"+":"")+q.change24hPercent.toFixed(2)+'%</span>':
       '<span class="muted">24h N/A</span>';
-    return '<strong>'+escape(price)+'</strong><small>'+change+' · '+escape(q.session||"status unverified")+
+    return '<strong>'+escape(price)+'</strong><small>'+change+' · '+escape(q.session==="latest_trade"?"latest IEX trade":q.session||"status unverified")+
       '<br>'+escape(q.feed||"feed unspecified")+' · '+escape(fmt(q.asOf))+'</small>'+
       (q.reference24hAsOf?'<small>24h reference: '+escape(fmt(q.reference24hAsOf))+'</small>':"");
   }
