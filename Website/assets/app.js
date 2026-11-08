@@ -75,8 +75,13 @@
       let combined={};let count=0;
       for(let i=0;i<symbols.length;i+=40){
         const res=await fetch("/api/prices?symbols="+encodeURIComponent(symbols.slice(i,i+40).join(",")),{credentials:"same-origin",cache:"no-store"});
-        if(!res.ok)throw Error("Price service unavailable ("+res.status+")");
-        const data=await res.json();
+        const data=await res.json().catch(()=>({}));
+        if(!res.ok){
+          const code=typeof data.error==="string"?data.error:"UNKNOWN";
+          const upstream=typeof data.upstreamError==="string"?"/"+data.upstreamError:"";
+          const providerStatus=Number.isInteger(data.upstreamStatus)?" (upstream "+data.upstreamStatus+")":"";
+          throw Error("HTTP "+res.status+" · "+code+upstream+providerStatus);
+        }
         if(!data||typeof data.quotes!=="object")throw Error("Invalid provider response");
         Object.assign(combined,data.quotes);count++;
       }
@@ -87,9 +92,7 @@
       state.quotes={};
       const message=String(error.message||error);
       state.providerReady=!/503/.test(message);
-      $("marketNotice").textContent=/503/.test(message)
-        ?"Alpaca quote connection is not yet active. The dashboard is available; prices and 24h changes remain unavailable until the read-only service is configured."
-        :"Market prices unavailable: "+message+". Archived prices are never substituted.";
+      $("marketNotice").textContent="Live IEX quotes unavailable: "+message+". This report dashboard remains usable; no old report prices are substituted.";
     }finally{state.loading=false;$("refresh").disabled=false;render();}
   }
   async function init(){
