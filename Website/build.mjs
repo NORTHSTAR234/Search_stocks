@@ -153,6 +153,18 @@ function reportPage(r,body) {
     '<article class="markdown">'+body+'</article></main>',true);
 }
 export function build() {
+  // Fail closed: the initial Cloudflare Pages deployment must not publish reports.
+  // Activate only after Cloudflare Access protects production, preview and custom hostnames.
+  if(process.env.PUBLISH_REPORTS!=="yes"){
+    fs.rmSync(output,{recursive:true,force:true});
+    fs.mkdirSync(path.join(output,"assets"),{recursive:true});
+    fs.copyFileSync(path.join(here,"assets","style.css"),path.join(output,"assets","style.css"));
+    fs.copyFileSync(path.join(here,"_headers"),path.join(output,"_headers"));
+    fs.writeFileSync(path.join(output,"robots.txt"),"User-agent: *\\nDisallow: /\\n");
+    fs.writeFileSync(path.join(output,"index.html"),page("Setup in progress",'<header class="top"><span class="brand">◈ Stock Research</span></header><main class="report-layout"><section class="hero"><p class="eyebrow">PRIVATE SITE · SETUP</p><h1>Website setup in progress</h1><p>Research reports have not been published to this domain. Enable and verify Cloudflare Access for all hostnames before activating the reports build.</p></section></main>'));
+    console.log("Safe placeholder deployed. PUBLISH_REPORTS=yes required for report publication.");
+    return;
+  }
   const archives=[...scan("halal"),...scan("nonhalal")];
   if(!archives.length) throw new Error("No valid archived stock reports were found. Build stopped.");
   fs.rmSync(output,{recursive:true,force:true});
