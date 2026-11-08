@@ -43,7 +43,7 @@ export function latestArchive(files) {
 }
 function clean(text) {
   return String(text ?? "").replace(/!\[[^\]]*\]\([^)]*\)/g,"").replace(/\[([^\]]+)\]\([^)]+\)/g,"$1")
-    .replace(/<[^>]+>/g,"").replace(/[*_~]/g,"").replace(/\s+/g," ").trim();
+    .replace(/<[^>]+>/g,"").replace(/[*~]/g,"").replace(/(^|\s)_{1,2}|_{1,2}(?=\s|$)/g,"").replace(/\s+/g," ").trim();
 }
 function short(text,n=165) {const value=clean(text);return value.length>n?value.slice(0,n-1).trimEnd()+"…":value;}
 function rows(raw) {
@@ -72,7 +72,7 @@ function companyName(raw,ticker) {
   if (bracket) return short(bracket[1],95);
   const general=title.match(/(?:Research\s*[—–-]\s*|—\s*)(.*?)\s*\((?:NASDAQ|NYSE|ASX|TWSE|Bursa|[A-Z]{2,}):/i);
   if (general) return short(general[1],95);
-  const after=title.match(/(?:Research|Report)\s*[—–-]\s*(.*?)\s*\(/i);
+  const after=title.match(/(?:Search_stock|Research|Report)\s*[—–-]\s*(.*?)\s*\(/i);
   if (after) return short(after[1],95);
   return ticker;
 }
@@ -90,12 +90,13 @@ export function parseReport(info,raw) {
   const holdAction=first(rs,/^(Action if I own|Existing holder action|Existing shareholder action)/i)||
      short((header.match(/(?:Action if I own|Existing holder)\s*:\s*([^\n]{3,130})/i)||[])[1]);
   const combinedScore=first(rs,/^(Investment\s*\/\s*Entry|Investment\s*Score\s*\/\s*Entry|Investment\s*&\s*Entry)/i);
-  const investment=first(rs,/^Investment Score$/i)||score(header,"Investment");
-  const entry=first(rs,/^Entry Score$/i)||score(header,"Entry");
+  const combinedNumbers=[...clean(combinedScore).matchAll(/(\d{1,3})\s*\/\s*100/g)].map(m=>m[1]+"/100");
+  const investment=first(rs,/^Investment Score$/i)||combinedNumbers[0]||score(header,"Investment");
+  const entry=first(rs,/^Entry Score$/i)||combinedNumbers[1]||score(header,"Entry");
   const musaffa=first(rs,/^Musaffa$/i)||short((header.match(/(?:Classification|Musaffa classification)\s*:\s*([^\n]{2,150})/i)||[])[1])||"NOT VERIFIED";
   const earnings=first(rs,/^(Confirmed next earnings|Next earnings|Upcoming earnings)/i)||"NOT VERIFIED";
   const zones=first(rs,/^(Preferred\s*\/\s*acceptable|Preferred\s*\/\s*acceptable\s*zone|Preferred\s*\/\s*acceptable\s*entry|Preferred \/ acceptable zone)/i)||"NOT RATED";
-  const stops=first(rs,/^Initial stop\s*\/\s*no_chase/i)||"NOT RATED";
+  const stops=first(rs,/^Initial stop\s*\/\s*no_?chase/i)||"NOT RATED";
   const risk=first(rs,/^Risk(?:\s*\/.*)?$/i)||"NOT RATED";
   const exchange=info.ticker.toUpperCase().endsWith(".AX")?"ASX":info.ticker.toUpperCase().endsWith(".TW")?"TWSE":
     /\.(KL|MY)$/.test(info.ticker.toUpperCase())?"BURSA":/\./.test(info.ticker)?"OTHER":
@@ -106,8 +107,8 @@ export function parseReport(info,raw) {
     action:screeningOnly?"SCREENING ONLY — NO INVESTMENT REPORT":(newAction||"NOT RATED"),
     ownerAction:screeningOnly?"RESEARCH SKIPPED":(holdAction||"NOT RATED"),
     risk:screeningOnly?"NOT RATED":risk,
-    investment:screeningOnly?"NOT RATED":(investment||short(combinedScore)||"NOT RATED"),
-    entry:screeningOnly?"NOT RATED":(entry||short(combinedScore)||"NOT RATED"),
+    investment:screeningOnly?"NOT RATED":(investment||"NOT RATED"),
+    entry:screeningOnly?"NOT RATED":(entry||"NOT RATED"),
     musaffa,earnings:screeningOnly?"NOT RATED":earnings,
     zones:screeningOnly?"NOT RATED":zones,
     stops:screeningOnly?"NOT RATED":stops,
