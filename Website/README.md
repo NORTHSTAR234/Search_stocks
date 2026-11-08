@@ -4,7 +4,7 @@ Private-ready Cloudflare Pages frontend for the *latest* archived Search_stock r
 
 ## Status and security
 
-**Not deployed or private by default.** The GitHub repository is public. Creating a Pages project without Cloudflare Access would publish the generated HTML reports to the web. Do not deploy until Cloudflare Access is configured and verified on the production pages.dev URL, previews, and any custom domain. The X-Robots-Tag and robots.txt files are not access controls.
+**Not yet deployed.** The GitHub repository is public. The default build intentionally publishes **only a setup placeholder**, not research reports. This prevents accidental publication during the first Pages deployment. The X-Robots-Tag and robots.txt files are not access controls. Set PUBLISH_REPORTS=yes only after Cloudflare Access is configured and verified on the production pages.dev URL, previews, and any custom domain.
 
 The price gateway is **fail-closed**. It cannot return market data until the Cloudflare Access team domain, Access application AUD, owner email, and a Worker service binding to an approved read-only price provider have been configured. The existing stockresearch-fred-mcp Worker is **not modified**. An existing encrypted Alpaca credential alone does not establish a callable quote endpoint.
 
@@ -19,7 +19,7 @@ The price gateway is **fail-closed**. It cannot return market data until the Clo
 - Runtime: Node.js 22
 - Pages Functions: Website/functions/api/prices.js (automatically detected under configured Pages root)
 
-**Important:** Before selecting Save and Deploy, create restrictive Cloudflare Access applications for the production hostname, preview hostnames, and every custom domain. Cloudflare's preview-only Access toggle does not protect the production pages.dev hostname. Verify unauthorized access is denied for /, /reports/<ticker>/, /data/reports.json and /api/prices. Do not assume the GitHub repository is private.
+**Two-stage private rollout:** (1) Leave PUBLISH_REPORTS absent. Deploy the harmless setup placeholder and note the actual pages.dev hostname. (2) Create restrictive Cloudflare Access applications for this production hostname, preview hostnames and any custom domain. The preview-only Access toggle does not protect production pages.dev. (3) Confirm an unauthenticated browser is denied. (4) In Pages build environment variables set PUBLISH_REPORTS=yes and redeploy; repeat anonymous checks for /, /reports/<ticker>/, /data/reports.json and /api/prices. Restrict preview deployments before enabling the flag. Do not assume the GitHub repository is private.
 
 ## Price integration (future wiring)
 
@@ -68,10 +68,10 @@ From Website/ run:
 ~~~sh
 npm install
 npm test
-npm run build
+PUBLISH_REPORTS=yes npm run build
 ~~~
 
-The build reads ../halal and ../nonhalal read-only. Outputs: dist/index.html, dist/data/reports.json, and one dist/reports/TICKER/index.html for every latest exact ticker. The latest status-only record replaces previous investment analysis; no stale scores are backfilled. The generated HTML renders Markdown with raw HTML **disabled**. Data fields are best-effort conservative extraction, and any unrecognized field is shown as NOT RATED/NOT VERIFIED rather than invented.
+The full (PUBLISH_REPORTS=yes) build reads ../halal and ../nonhalal read-only. Without that flag the build produces only the safe setup page. Outputs: dist/index.html, dist/data/reports.json, and one dist/reports/TICKER/index.html for every latest exact ticker. The latest status-only record replaces previous investment analysis; no stale scores are backfilled. The generated HTML renders Markdown with raw HTML **disabled**. Data fields are best-effort conservative extraction, and any unrecognized field is shown as NOT RATED/NOT VERIFIED rather than invented.
 
 ## Checklist before launch
 
