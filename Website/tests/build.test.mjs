@@ -118,6 +118,23 @@ test("full TWSE archive suffix accepts only the exact TW exchange alias",async()
  assert.throws(()=>parseHtmlReport(info,generate({...rawData,exchange:"ASX"})),/identity mismatch/);
 });
 
+
+test("Aya 3.1 canonical-only snapshots index without weakening exact ticker identity",async()=>{
+  const {archiveInfo,parseHtmlReport}=await import("../lib/report-archive.mjs");
+  const info=archiveInfo("halal/XOM/XOM_2026-11-09_21-21-54Z.html");
+  const base={canonical_archive_ticker:"XOM",source_market_ticker:"XOM",
+    exchange:"NYSE",company:"ExxonMobil",report_type:"full",investment_score:76};
+  const make=(snapshot)=>'<!doctype html><html><head><title>XOM</title></head><body>'+
+    '<h1>ExxonMobil Corporation</h1><script type="application/json" id="aya-report-snapshot">'+
+    JSON.stringify(snapshot)+'</script><p>Research report</p></body></html>';
+  const result=parseHtmlReport(info,make(base));
+  assert.equal(result.ticker,"XOM");
+  assert.equal(result.statusOnly,false);
+  assert.throws(()=>parseHtmlReport(info,make({...base,canonical_archive_ticker:"CVX"})),/identity mismatch/);
+  assert.throws(()=>parseHtmlReport(info,make({...base,ticker:"CVX"})),/identity mismatch/);
+  assert.throws(()=>parseHtmlReport(info,make({exchange:"NYSE"})),/identity mismatch/);
+});
+
 test("newer screening-only HTML never backfills earlier investment scores",async()=>{
  const {archiveInfo,parseHtmlReport}=await import("../lib/report-archive.mjs");
  const info=archiveInfo("nonhalal/1519.TW/1519.TW_2026-11-09_05-23-30Z.html");
