@@ -38,8 +38,36 @@
       const navigation=symbol?'<small><a href="https://finance.yahoo.com/quote/'+encodeURIComponent(symbol)+'/" target="_blank" rel="noopener noreferrer">View on Yahoo Finance (delayed) ↗</a></small>':"";
       return '<span class="muted">LIVE DATA UNAVAILABLE</span><small>No verified '+(r.exchange==="US"?"Alpaca":"EODHD")+' quote</small>'+navigation;
     }
-    const p=Number(q.price),currency=q.currency==="USD"?"US$":q.currency==="AUD"?"A$":q.currency==="TWD"?"NT$":q.currency==="MYR"?"RM ":q.currency+" ";
-    const price=Number.isFinite(p)?currency+p.toLocaleString("en-AU",{minimumFractionDigits:2,maximumFractionDigits:3}):"LIVE DATA UNAVAILABLE";
+    const currency=q.currency==="USD"?"US$":q.currency==="AUD"?"A$":q.currency==="TWD"?"NT$":q.currency==="MYR"?"RM ":q.currency+" ";
+    const money=n=>currency+Number(n).toLocaleString("en-AU",{minimumFractionDigits:2,maximumFractionDigits:3});
+    const p=Number(q.price);
+    const price=Number.isFinite(p)&&p>0?money(p):"LIVE DATA UNAVAILABLE";
+    const close=q.regularClose,night=q.overnight;
+    // Two different observations: completed consolidated US regular close
+    // and a subsequent indicative, 15-minute-delayed overnight price.
+    // Neither is a 24h movement; show the source date on both.
+    if(q.feed==="IEX"&&close&&night&&
+       Number.isFinite(close.price)&&close.price>0&&
+       Number.isFinite(night.price)&&night.price>0&&
+       Number.isFinite(q.overnightChangePercent)){
+      const delta=Number(q.overnightChangeAmount);
+      const pct=Number(q.overnightChangePercent);
+      const movement='<span class="change '+(pct<0?"loss":pct>0?"gain":"flat")+'">'+
+        (delta>0?"+":delta<0?"−":"")+escape(money(Math.abs(delta)))+
+        ' ('+(pct>0?"+":"")+pct.toFixed(2)+'%) vs regular close</span>';
+      const iexChange=typeof q.change24hPercent==="number"&&Number.isFinite(q.change24hPercent)?
+        ' · IEX 24h '+(q.change24hPercent>0?"+":"")+q.change24hPercent.toFixed(2)+"%":"";
+      return '<div class="session-prices">'+
+        '<small class="price-label">Overnight indication · 15-min delayed</small>'+
+        '<strong class="overnight-value">'+escape(money(night.price))+'</strong>'+
+        '<small>'+escape(fmt(night.asOf))+'</small>'+
+        '<small class="price-label">Last US regular close · consolidated</small>'+
+        '<strong class="regular-value">'+escape(money(close.price))+'</strong>'+
+        '<small>Session '+escape(close.sessionDate)+' · delayed SIP</small>'+
+        movement+
+        '<small class="muted">Last IEX trade: '+escape(price)+' · '+escape(fmt(q.asOf))+iexChange+'</small>'+
+        '</div>';
+    }
     const isEodhd=q.feed==="EODHD";
     const change=isEodhd?
       (typeof q.previousCloseChangePercent==="number"&&Number.isFinite(q.previousCloseChangePercent)?
@@ -50,8 +78,11 @@
         '<span class="change '+(q.change24hPercent<0?"loss":q.change24hPercent>0?"gain":"flat")+'">'+
         (q.change24hPercent>0?"+":"")+q.change24hPercent.toFixed(2)+'% (24h)</span>':
         '<span class="muted">24h N/A</span>';
+    const completed=close&&Number.isFinite(Number(close.price))&&Number(close.price)>0?
+      '<small>Last regular close: '+escape(money(close.price))+' · '+escape(close.sessionDate)+' (delayed SIP)</small>':"";
     return '<strong>'+escape(price)+'</strong><small>'+change+' · '+escape(q.session==="latest_trade"?"latest IEX trade":q.session||"status unverified")+
       '<br>'+escape(q.feed||"feed unspecified")+(isEodhd?" · delayed quote":"")+' · '+escape(fmt(q.asOf))+'</small>'+
+      completed+
       (q.reference24hAsOf?'<small>24h reference: '+escape(fmt(q.reference24hAsOf))+'</small>':"");
   }
   function zoneCell(r){

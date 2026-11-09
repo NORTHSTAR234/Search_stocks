@@ -34,7 +34,7 @@ const within24h=(current,old)=>{
   const a=Date.parse(current),b=Date.parse(old);
   return Number.isFinite(a)&&Number.isFinite(b)&&Math.abs(a-b-86400000)<=1800000;
 };
-function validateQuote(symbol,raw) {
+export function validateQuote(symbol,raw,now=Date.now()) {
   if(!raw||typeof raw!=="object")return null;
   const price=Number(raw.price);
   if(!Number.isFinite(price)||price<=0||raw.currency!=="USD"||!Number.isFinite(Date.parse(raw.asOf)))return null;
@@ -52,7 +52,28 @@ function validateQuote(symbol,raw) {
     change24hPercent=Math.round((price/oldPrice-1)*100000)/1000;
     reference24hAsOf=old.asOf;
   }
-  return {price,currency:"USD",asOf:raw.asOf,feed,session,sessionScope,adjustment,change24hPercent,reference24hAsOf};
+  // Optional independent feeds. DailyBar t is NY midnight; its sessionDate
+  // identifies the completed regular session (not an exact 4 PM tick).
+  let regularClose=null,overnight=null,overnightChangeAmount=null,overnightChangePercent=null;
+  const close=raw.regularClose;
+  if(close&&close.feed==="DELAYED_SIP"&&close.label==="completed_regular_session_close"&&
+     typeof close.sessionDate==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(close.sessionDate)&&
+     Number.isFinite(Number(close.price))&&Number(close.price)>0&&
+     Number.isFinite(Date.parse(close.asOf))&&Date.parse(close.asOf)<=now+120000&&
+     now-Date.parse(close.asOf)<=14*86400000){
+    regularClose={price:Number(close.price),asOf:close.asOf,sessionDate:close.sessionDate,feed:"DELAYED_SIP"};
+  }
+  const night=raw.overnight;
+  if(regularClose&&night?.feed==="OVERNIGHT"&&night.label==="indicative_delayed_15m"&&
+     night.delayMinutes===15&&Number.isFinite(Number(night.price))&&Number(night.price)>0&&
+     Number.isFinite(Date.parse(night.asOf))&&Date.parse(night.asOf)>Date.parse(regularClose.asOf)+16*3600000&&
+     Date.parse(night.asOf)<=now+120000&&now-Date.parse(night.asOf)<=2*86400000){
+    overnight={price:Number(night.price),asOf:night.asOf,feed:"OVERNIGHT",delayMinutes:15};
+    overnightChangeAmount=Math.round((overnight.price-regularClose.price)*100)/100;
+    overnightChangePercent=Math.round((overnight.price/regularClose.price-1)*100000)/1000;
+  }
+  return {price,currency:"USD",asOf:raw.asOf,feed,session,sessionScope,adjustment,
+    change24hPercent,reference24hAsOf,regularClose,overnight,overnightChangeAmount,overnightChangePercent};
 }
 export async function onRequestGet({request,env}) {
   if(!env.PRICE_PROVIDER||!env.ACCESS_TEAM_DOMAIN||!env.ACCESS_AUD||!env.OWNER_EMAIL)

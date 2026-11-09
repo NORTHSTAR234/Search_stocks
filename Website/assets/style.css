@@ -25,3 +25,11 @@
 
 /* GitHub archive sync status is independent of quote-provider status. */
 .report-sync{border-top:1px solid #334761;background:#15263b;color:#9dc9e8;font-size:12px;line-height:1.55}
+
+/* Separate completed regular close from indicative delayed overnight trades. */
+.session-prices{display:flex;flex-direction:column;gap:3px;min-width:170px}
+.session-prices .price-label{font-weight:650;color:#a9c9e9;margin-top:5px}
+.session-prices .overnight-value{font-size:1.15rem;font-weight:760;line-height:1.25}
+.session-prices .regular-value{font-weight:710;line-height:1.25}
+.session-prices .change{font-weight:740;margin-top:5px;overflow-wrap:anywhere}
+.session-prices small{overflow-wrap:anywhere}

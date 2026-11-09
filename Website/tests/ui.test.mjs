@@ -68,3 +68,14 @@ test("unknown international tickers cannot break existing EODHD quote batches",(
  assert(source.includes('eodhdSymbols.has(r.ticker.toUpperCase())'));
  assert(source.includes('eodhdSymbols=new Set(["ORG","APA.AX"'));
 });
+
+test("NVDA shows both consolidated regular close and indicative overnight price separately",()=>{
+ assert(source.includes('Overnight indication · 15-min delayed'));
+ assert(source.includes('Last US regular close · consolidated'));
+ assert(source.includes('vs regular close'));
+ assert(source.includes('Last IEX trade:'));
+ assert(source.includes('q.overnightChangePercent'));
+ assert(source.includes('q.overnightChangeAmount'));
+ assert(source.includes('close.sessionDate'));
+ assert(!source.includes("Overnight live price"));
+});
