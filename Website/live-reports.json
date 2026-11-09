@@ -1,11 +1,43 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-09T21:20:49Z",
-  "htmlReportCount": 8,
-  "uniqueTickers": 7,
-  "revision": "41d72949571793fef62b715c5987339d",
+  "latestHtmlReportAt": "2026-11-09T21:21:04Z",
+  "htmlReportCount": 9,
+  "uniqueTickers": 8,
+  "revision": "f6de5ff268660141b1b5eb514d234823",
   "rows": [
+    {
+      "company": "Eli Lilly and Company",
+      "ticker": "LLY",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-09T21:21:04Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "75/100",
+      "entry": "39/100",
+      "musaffa": "HALAL · A · 2026-08-07",
+      "earnings": "10 Feb 2027 estimated",
+      "zones": "US$1,150–1,230 / US$1,231–1,300",
+      "stops": "US$1,080 / US$1,400",
+      "nativeCurrency": "USD",
+      "zoneBands": [
+        [
+          1150,
+          1230
+        ],
+        [
+          1231,
+          1300
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/LLY/LLY_2026-11-09_21-21-04Z.html",
+      "reportPath": "/view-report?path=halal%2FLLY%2FLLY_2026-11-09_21-21-04Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Visa Inc.",
       "ticker": "V",
