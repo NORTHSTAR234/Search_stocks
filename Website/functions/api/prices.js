@@ -61,7 +61,11 @@ export function validateQuote(symbol,raw,now=Date.now()) {
      Number.isFinite(Number(close.price))&&Number(close.price)>0&&
      Number.isFinite(Date.parse(close.asOf))&&Date.parse(close.asOf)<=now+120000&&
      now-Date.parse(close.asOf)<=14*86400000){
-    regularClose={price:Number(close.price),asOf:close.asOf,sessionDate:close.sessionDate,feed:"DELAYED_SIP"};
+    const prev=typeof close.previousClose==="number"&&Number.isFinite(close.previousClose)&&close.previousClose>0?close.previousClose:null;
+    regularClose={price:Number(close.price),asOf:close.asOf,sessionDate:close.sessionDate,feed:"DELAYED_SIP",
+      previousClose:prev,
+      regularChangeAmount:prev===null?null:Math.round((Number(close.price)-prev)*1000)/1000,
+      regularChangePercent:prev===null?null:Math.round((Number(close.price)/prev-1)*100000)/1000};
   }
   const night=raw.overnight;
   if(regularClose&&night?.feed==="OVERNIGHT"&&night.label==="indicative_delayed_15m"&&
