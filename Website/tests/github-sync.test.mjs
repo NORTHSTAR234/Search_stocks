@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {archiveInfo,latestArchive} from "../lib/report-archive.mjs";
-import {latestHtmlPaths,validGitHubArchivePath,githubHtml,githubTree} from "../lib/github-archive.mjs";
+import {latestHtmlPaths,validGitHubArchivePath,githubHtml,githubManifest} from "../lib/github-archive.mjs";
 import {onRequestGet as viewReport} from "../functions/view-report.js";
 import {onRequestGet as liveIndex} from "../functions/api/github-reports.js";
 test("GitHub newest HTML scan includes new tickers and excludes unrelated repository files",()=>{
@@ -37,4 +37,24 @@ test("dynamic GitHub report APIs reject unsigned requests",async()=>{
  const env={ACCESS_TEAM_DOMAIN:"team.cloudflareaccess.com",ACCESS_AUD:"aud",OWNER_EMAIL:"owner@example.com"};
  assert.equal((await liveIndex({request:new Request("https://test.example/api/github-reports"),env})).status,403);
  assert.equal((await viewReport({request:new Request("https://test.example/view-report?path=halal%2FNEW%2FNEW_2026-11-09_05-00-00Z.html"),env})).status,403);
+});
+
+test("five-minute GitHub sync reads generated raw manifest, never rate-limited REST directory API",async()=>{
+ const path="halal/FRESH/FRESH_2026-11-09_05-31-00Z.html";
+ const info=archiveInfo(path);
+ const row={ticker:"FRESH",bucket:"halal",timestamp:info.timestamp,
+    sourceFormat:"html",reportPath:"/view-report?path="+encodeURIComponent(path)};
+ const requests=[];
+ const fetcher=async(url,opts)=>{
+   requests.push({url,opts});
+   return new Response(JSON.stringify({schemaVersion:1,
+     sourceRepository:"NORTHSTAR234/Search_stocks",
+     revision:"test-revision",htmlReportCount:1,rows:[row]}),{status:200});
+ };
+ const manifest=await githubManifest(fetcher,1794198500000);
+ assert.equal(manifest.rows[0].ticker,"FRESH");
+ assert.equal(manifest.revision,"test-revision");
+ assert.equal(requests.length,1);
+ assert(requests[0].url.startsWith("https://raw.githubusercontent.com/NORTHSTAR234/Search_stocks/main/Website/live-reports.json?poll="));
+ assert(!requests[0].url.includes("api.github.com"));
 });
