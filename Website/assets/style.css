@@ -97,3 +97,74 @@
     min-width:235px;
   }
 }
+
+
+/* Dashboard 10-column order: ticker, regular, overnight, action, scores,
+   report date, preferred/acceptable, stop/no-chase, Musaffa, earnings.
+   These selectors override legacy positions from the 11-column layout. */
+.table-wrap table{min-width:1940px}
+.table-wrap th:nth-child(1),.table-wrap td:nth-child(1){min-width:150px;max-width:190px}
+.table-wrap th:nth-child(2),.table-wrap td:nth-child(2){min-width:205px;max-width:265px}
+.table-wrap th:nth-child(3),.table-wrap td:nth-child(3){min-width:210px;max-width:265px}
+.table-wrap th:nth-child(4),.table-wrap td:nth-child(4){min-width:230px;max-width:285px}
+.table-wrap th:nth-child(5),.table-wrap td:nth-child(5){min-width:194px;max-width:235px}
+.table-wrap th:nth-child(6),.table-wrap td:nth-child(6){min-width:154px;max-width:190px}
+.table-wrap th:nth-child(7),.table-wrap td:nth-child(7){min-width:260px;max-width:330px}
+.table-wrap th:nth-child(8),.table-wrap td:nth-child(8){min-width:250px;max-width:325px}
+.table-wrap th:nth-child(9),.table-wrap td:nth-child(9){min-width:180px;max-width:240px}
+.table-wrap th:nth-child(10),.table-wrap td:nth-child(10){min-width:180px;max-width:245px}
+
+/* High-contrast, non-animated indication that an actual verified US price
+   is inside the corresponding historical report range. */
+.table-wrap .range-box.zone-hit{
+  position:relative;
+  border-width:2px;
+  border-style:solid;
+}
+.table-wrap .range-box.zone-hit-preferred{
+  color:#edfff7;
+  background:linear-gradient(145deg,#184b3e,#17372e);
+  border-color:#66e5af;
+  box-shadow:0 0 0 1px rgba(102,229,175,.42),0 0 17px rgba(102,229,175,.32),inset 0 0 15px rgba(58,204,143,.12);
+}
+.table-wrap .range-box.zone-hit-acceptable{
+  color:#fff7e8;
+  background:linear-gradient(145deg,#65401e,#43321e);
+  border-color:#ffc377;
+  box-shadow:0 0 0 1px rgba(255,195,119,.38),0 0 17px rgba(255,195,119,.30),inset 0 0 15px rgba(255,195,119,.10);
+}
+.range-live-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px}
+.range-hit-chip{
+  display:inline-flex;
+  border-radius:20px;
+  padding:3px 6px;
+  background:rgba(15,25,35,.58);
+  border:1px solid currentColor;
+  color:inherit;
+  font-size:.65rem;
+  font-weight:800;
+  white-space:nowrap;
+}
+.zone-context{
+  display:block;
+  margin-top:9px;
+  padding:8px 9px;
+  border-left:3px solid #8fbadc;
+  border-radius:3px 7px 7px 3px;
+  background:rgba(111,169,214,.09);
+  font-size:.72rem;
+  line-height:1.55;
+  color:#bed6e7;
+}
+.zone-context-label{
+  display:block;
+  font-size:.65rem;
+  color:#abc3d6;
+  font-weight:800;
+  margin-bottom:4px;
+}
+@media(max-width:680px){
+ .table-wrap table{min-width:1870px}
+ .table-wrap th:nth-child(7),.table-wrap td:nth-child(7),
+ .table-wrap th:nth-child(8),.table-wrap td:nth-child(8){min-width:245px}
+}

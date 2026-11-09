@@ -99,3 +99,11 @@ The US price cell now distinguishes (1) the last **completed consolidated regula
 
 All calculations use live, entitled read-only Alpaca APIs under encrypted Cloudflare Worker secrets, not static prices from archived HTML. The existing five-minute price and GitHub report cycle is unchanged. If there is no eligible new overnight observation, the site shows the last IEX trade and available completed regular close, without inventing an overnight move. US price data remain owner-only and never embedded as static report source values.
 
+
+## Dashboard column placement and verified price-to-zone context
+
+The latest comparison table contains ten columns, in this order: Company/ticker; Regular/latest price; Overnight/versus close; Action/Risk; Investment/Entry; Last report; Preferred/acceptable buy zones; Initial stop/no chase; Musaffa screening; Next earnings. The Report column was removed because the ticker already opens the current report.
+
+The preferred buy zone illuminates green and the acceptable zone amber **only when the corresponding verified same-listing, same-currency Alpaca US regular/latest or validated overnight price is inside its own numerical zone**. The card identifies which feed hit the range, or both. These are comparisons against **historical archived report levels**, not updated recommendations. There is no false highlight when a symbol lacks an active compatible price, a numerical range, or a current investment report. International prices remain paused.
+
+A separate, source-labeled price context beneath Action/Risk summarises the location of regular and overnight quotes relative to those archived ranges: within preferred, within acceptable, below preferred, between the two bands, or **above acceptable**. It never redundantly says a price above the acceptable range is also above the preferred range. When both observations have the same relation, their notes are combined. The actual archived WATCH/BUY/HOLD/SELL verdict is untouched; no advice is inferred from the new highlight.

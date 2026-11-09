@@ -136,7 +136,7 @@ function page(title,body,child=false) {
   body+'<footer>Archived research is historical, not a current investment recommendation. Verify market data, Shariah screening and risk independently.</footer></body></html>';
 }
 function mainPage() {
-  const labels=["Company / ticker","Last report (AEDT/AEST)","Regular / latest price","Overnight / vs close","Action / Risk","Investment / Entry","Musaffa status / grade / screening date","Next earnings / confirmation","Preferred / acceptable buy zone","Initial stop / no_chase","Report"];
+  const labels=["Company / ticker","Regular / latest price","Overnight / vs close","Action / Risk","Investment / Entry","Last report (AEDT/AEST)","Preferred / acceptable buy zone","Initial stop / no_chase","Musaffa status / grade / screening date","Next earnings / confirmation"];
   const head=labels.map(label=>'<th scope="col">'+esc(label)+'</th>').join("");
   const body='<header class="top"><a class="brand" href="/">◈ Stock Research</a><span class="top-note">PRIVATE-READY • HISTORICAL REPORTS</span></header>'+
   '<main><section class="hero"><p class="eyebrow">SEARCH_STOCK · GITHUB ARCHIVE</p><h1>Latest Research Reports</h1><p>One latest archived report per exact ticker, with separate time-stamped market observations when available.</p>'+
@@ -146,7 +146,7 @@ function mainPage() {
   '<label><span>Exchange</span><select id="exchange"><option value="all">All markets</option><option value="US">US</option><option value="ASX">ASX</option><option value="TWSE">Taiwan</option><option value="BURSA">Malaysia</option><option value="OTHER">Other</option></select></label>'+
   '<label><span>Order</span><select id="order"><option value="newest">Newest report</option><option value="ticker">Ticker A–Z</option><option value="entry">Entry score ↓</option><option value="investment">Investment score ↓</option></select></label>'+
   '<button id="refresh" type="button">Refresh data</button></div><div class="notice" id="marketNotice" role="status">Loading archived reports…</div><div class="notice report-sync" id="reportSyncNotice" role="status">Checking GitHub for newer HTML reports…</div>'+
-  '<div class="table-wrap"><table><thead><tr>'+head+'</tr></thead><tbody id="rows"><tr><td colspan="11">Loading…</td></tr></tbody></table></div>'+
+  '<div class="table-wrap"><table><thead><tr>'+head+'</tr></thead><tbody id="rows"><tr><td colspan="10">Loading…</td></tr></tbody></table></div>'+
   '<div class="table-footer"><span id="shown"></span><span>Prices and GitHub HTML archives checked every 5 minutes while open</span></div></section>'+
   '<p class="note">Scores: 70–100 green, 40–69 amber, below 40 red. Score colors show relative report ratings, not trading signals. Storage buckets are administrative, not Shariah determinations. Unverified or stale screening does not mean haram. A 24h percentage is shown only when a comparable observation approximately 24 elapsed hours earlier exists. Non-US quotes require a separate licensed provider.</p></main>'+
   '<script src="/assets/app.js" defer></script>';

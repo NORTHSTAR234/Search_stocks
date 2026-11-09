@@ -130,33 +130,94 @@
       reportRangeCard("No chase",noChase,"warn")+
       '</div>';
   }
-  function zoneCell(r){
+  // Compare only exact-listing USD Alpaca observations with numeric USD zones
+  // from this report. Do not treat archived prices as quotes or silently convert FX.
+  function zonePosition(price,bands){
+    if(typeof price!=="number"||!Number.isFinite(price)||price<=0)return null;
+    const valid=b=>Array.isArray(b)&&b.length===2&&b.every(x=>typeof x==="number"&&Number.isFinite(x)&&x>0&&x<=1e9)&&b[1]>=b[0];
+    const preferred=valid(bands?.[0])?bands[0]:null;
+    const acceptable=valid(bands?.[1])?bands[1]:null;
+    if(!preferred&&!acceptable)return null;
+    const between=(b)=>b&&price>=b[0]&&price<=b[1];
+    if(between(preferred))return {kind:"preferred",text:"inside preferred buy zone",distance:null};
+    if(between(acceptable))return {kind:"acceptable",text:"inside acceptable buy zone",distance:null};
+    const lowest=Math.min(...[preferred,acceptable].filter(Boolean).map(b=>b[0]));
+    const highest=Math.max(...[preferred,acceptable].filter(Boolean).map(b=>b[1]));
+    const ordered=preferred&&acceptable&&preferred[1]<acceptable[0];
+    const labelBelow=ordered?"preferred":preferred&&!acceptable?"preferred":!preferred&&acceptable?"acceptable":"both";
+    const labelAbove=ordered?"acceptable":preferred&&!acceptable?"preferred":!preferred&&acceptable?"acceptable":"both";
+    if(price<lowest)return {kind:"below",text:"below "+labelBelow+" buy zone"+(labelBelow==="both"?"s":""),distance:Math.round((lowest-price)/lowest*1000)/10};
+    if(price>highest)return {kind:"above",text:"above "+labelAbove+" buy zone"+(labelAbove==="both"?"s":""),distance:Math.round((price-highest)/highest*1000)/10};
+    if(ordered&&price>preferred[1]&&price<acceptable[0])
+      return {kind:"between",text:"between preferred and acceptable zones",distance:null};
+    return {kind:"outside",text:"outside the quoted buy ranges",distance:null};
+  }
+  function zoneContext(r){
+    if(r.statusOnly||r.exchange!=="US"||r.nativeCurrency!=="USD"||!Array.isArray(r.zoneBands))return null;
     const q=state.quotes[r.ticker.toUpperCase()];
-    const bands=Array.isArray(r.zoneBands)?r.zoneBands:[];
-    const verified=q&&q.currency==="USD"&&Number.isFinite(Number(q.price))&&r.nativeCurrency==="USD";
-    const within=i=>verified && bands[i]&&Number(q.price)>=bands[i][0]&&Number(q.price)<=bands[i][1];
+    if(!q||q.feed!=="IEX"||q.currency!=="USD")return null;
+    const current=q.regularClose&&typeof q.regularClose.price==="number"&&q.regularClose.price>0?
+      {label:"Regular",price:q.regularClose.price}:
+      typeof q.price==="number"&&q.price>0?{label:"Latest IEX",price:q.price}:null;
+    const overnight=q.regularClose&&q.overnight&&typeof q.overnight.price==="number"&&q.overnight.price>0?
+      {label:"Overnight",price:q.overnight.price}:null;
+    const regular=current?{...current,position:zonePosition(current.price,r.zoneBands)}:null;
+    const night=overnight?{...overnight,position:zonePosition(overnight.price,r.zoneBands)}:null;
+    if(!regular?.position&&!night?.position)return null;
+    return {regular:regular?.position?regular:null,overnight:night?.position?night:null};
+  }
+  function zoneInsight(context){
+    if(!context)return "";
+    const entries=[context.regular,context.overnight].filter(Boolean);
+    if(!entries.length)return "";
+    const phrase=item=>item.position.text+(item.position.distance!==null?
+      " by "+item.position.distance.toFixed(1)+"%":"");
+    let note;
+    if(entries.length===2&&entries[0].position.kind===entries[1].position.kind&&
+       entries[0].position.text===entries[1].position.text){
+      const p=entries[0].position;
+      const distances=p.distance!==null?
+        " ("+entries[0].label.toLowerCase()+" "+entries[0].position.distance.toFixed(1)+"%; "+
+        entries[1].label.toLowerCase()+" "+entries[1].position.distance.toFixed(1)+"%)":"";
+      note="Regular and overnight: "+p.text+distances;
+    }else note=entries.map(item=>item.label+": "+phrase(item)).join("; ");
+    return '<small class="zone-context"><span class="zone-context-label">Price vs report buy zones</span>'+
+      escape(note)+'</small>';
+  }
+  function zoneCell(r,context){
     const [preferred,acceptable]=splitReportPair(r.zones);
+    const hits=kind=>[context?.regular,context?.overnight].filter(x=>x?.position?.kind===kind).map(x=>x.label);
+    function highlightedCard(label,value,tone,kind){
+      const matches=hits(kind);
+      if(!matches.length)return reportRangeCard(label,value,tone);
+      const highlight=kind==="preferred"?"zone-hit-preferred":"zone-hit-acceptable";
+      const badgeText=matches.map(source=>'<span class="range-hit-chip">'+escape(source)+' in range</span>').join("");
+      return '<div class="score-box range-box '+tone+' zone-hit '+highlight+'">'+
+        '<span class="score-label">'+escape(label)+'</span>'+
+        '<strong class="range-value '+tone+'">'+escape(value)+'</strong>'+
+        '<div class="range-live-tags">'+badgeText+'</div>'+
+        '</div>';
+    }
     return '<div class="score-pair range-pair">'+
-      reportRangeCard("Preferred",preferred,"good")+
-      reportRangeCard("Acceptable",acceptable,"warn")+
-      '</div>'+
-      (within(0)?'<small class="gain">IN PREFERRED ZONE</small>':
-       within(1)?'<small class="gain">IN ACCEPTABLE ZONE</small>':"");
+      highlightedCard("Preferred",preferred,"good","preferred")+
+      highlightedCard("Acceptable",acceptable,"warn","acceptable")+
+      '</div>';
   }
   function tr(r){
     const action=cap(r.action,96);
     const screening=r.musaffa||"NOT VERIFIED";
+    const context=zoneContext(r);
     return '<tr><td><a class="ticker" href="'+escape(r.reportPath)+'">'+escape(r.ticker)+'</a><small>'+escape(r.company)+'</small><small>'+escape(r.exchange)+'</small></td>'+
-    '<td>'+escape(fmt(r.timestamp))+(r.conflictingBuckets?'<small class="warning">Both buckets contain this ticker</small>':"")+'</td>'+
     '<td>'+quoteCell(r)+'</td>'+
     '<td>'+overnightCell(r)+'</td>'+
-    '<td>'+badge(action,actionKind(action))+'<small>Risk: '+escape(cap(r.risk,78))+'</small><small>Own: '+escape(cap(r.ownerAction,75))+'</small></td>'+
+    '<td>'+badge(action,actionKind(action))+'<small>Risk: '+escape(cap(r.risk,78))+'</small>'+
+      '<small>Own: '+escape(cap(r.ownerAction,75))+'</small>'+zoneInsight(context)+'</td>'+
     '<td>'+scoreCell(r)+'</td>'+
-    '<td>'+escape(cap(screening,140))+(r.statusOnly?'<small class="warning">Screening only · no current investment rating</small>':"")+'<small>Folder: '+escape(r.bucket)+'</small></td>'+
-    '<td>'+escape(cap(r.earnings,110))+'</td>'+
-    '<td>'+zoneCell(r)+'</td>'+
+    '<td>'+escape(fmt(r.timestamp))+(r.conflictingBuckets?'<small class="warning">Both buckets contain this ticker</small>':"")+'</td>'+
+    '<td>'+zoneCell(r,context)+'</td>'+
     '<td>'+stopsCell(r)+'</td>'+
-    '<td><a href="'+escape(r.reportPath)+'">HTML report</a><small><a href="'+escape(r.reportUrl)+'" target="_blank" rel="noopener noreferrer">Original GitHub</a></small></td></tr>';
+    '<td>'+escape(cap(screening,140))+(r.statusOnly?'<small class="warning">Screening only · no current investment rating</small>':"")+'<small>Folder: '+escape(r.bucket)+'</small></td>'+
+    '<td>'+escape(cap(r.earnings,110))+'</td></tr>';
   }
   function render(){
     const query=norm($("search").value),bucket=$("bucket").value,exchange=$("exchange").value,order=$("order").value;
@@ -167,7 +228,7 @@
       order==="entry"?score(b.entry)-score(a.entry)||b.timestamp.localeCompare(a.timestamp):
       order==="investment"?score(b.investment)-score(a.investment)||b.timestamp.localeCompare(a.timestamp):
       b.timestamp.localeCompare(a.timestamp)||a.ticker.localeCompare(b.ticker));
-    $("rows").innerHTML=filtered.length?filtered.map(tr).join(""):'<tr><td colspan="11">No reports match your filters.</td></tr>';
+    $("rows").innerHTML=filtered.length?filtered.map(tr).join(""):'<tr><td colspan="10">No reports match your filters.</td></tr>';
     $("count").textContent=all.length;
     $("halalCount").textContent=all.filter(r=>r.bucket==="halal").length;
     $("quoteCount").textContent=Object.keys(state.quotes).length;
@@ -275,7 +336,7 @@
       document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkAll();});
     }catch(e){
       $("marketNotice").textContent="Could not load archive: "+e.message;
-      $("rows").innerHTML='<tr><td colspan="11">Archive unavailable.</td></tr>';
+      $("rows").innerHTML='<tr><td colspan="10">Archive unavailable.</td></tr>';
     }
   }
   ["search","bucket","exchange","order"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",render));
