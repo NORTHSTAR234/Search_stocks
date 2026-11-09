@@ -1,12 +1,12 @@
 {
   "asOf": "2026-11-09",
-  "status": "API_VERIFIED_10_OF_11_2026_11_09",
+  "status": "PAUSED_FREE_QUOTA_INSUFFICIENT_2026_11_09",
   "exchangeSuffixes": {
     "ASX": "AU",
     "TWSE": "TW",
     "BURSA": "KLSE"
   },
-  "notes": "User-supplied encrypted EODHD_API_KEY verified via Cloudflare private service-binding batch: 10 of 11 symbols returned valid delayed quotes with 20–22-minute source age on 9 Nov 2026. CBHB/0339.KLSE returned no usable positive price. Owner-only Cloudflare Access and Pages JWT verification enforced. International prices are not rolling 24-hour returns. No quotes exposed to additional viewers.",
+  "notes": "EODHD batch was historically verified (10/11 quotes on 2026-11-09). Automatic EODHD pricing was subsequently PAUSED because the user's free quota is insufficient for five-minute 11-ticker polling. No API requests are made by the website; production Cloudflare Pages EODHD service binding disabled. Historical catalogue/test statuses retained as evidence only.",
   "instruments": [
     {
       "ticker": "ORG",
@@ -16,7 +16,7 @@
       "issuer": "Origin Energy Ltd",
       "catalogueUrl": "https://eodhd.com/financial-summary/ORG.AU",
       "quoteValidation": "VALID_DELAYED_PRICE_2026_11_09",
-      "feedEnabled": true
+      "feedEnabled": false
     },
     {
       "ticker": "APA.AX",
@@ -26,7 +26,7 @@
       "issuer": "APA Group",
       "catalogueUrl": "https://eodhd.com/financial-summary/APA.AU",
       "quoteValidation": "VALID_DELAYED_PRICE_2026_11_09",
-      "feedEnabled": true
+      "feedEnabled": false
     },
     {
       "ticker": "1519.TW",
@@ -36,7 +36,7 @@
       "issuer": "Fortune Electric Co Ltd",
       "catalogueUrl": "https://eodhd.com/financial-summary/1519.TW",
       "quoteValidation": "VALID_DELAYED_PRICE_2026_11_09",
-      "feedEnabled": true
+      "feedEnabled": false
     },
     {
       "ticker": "2330.TW",
@@ -46,7 +46,7 @@
       "issuer": "Taiwan Semiconductor Manufacturing Co Ltd",
       "catalogueUrl": "https://eodhd.com/financial-summary/2330.TW",
       "quoteValidation": "VALID_DELAYED_PRICE_2026_11_09",
-      "feedEnabled": true
+      "feedEnabled": false
     },
     {
       "ticker": "2377.TW",
@@ -56,7 +56,7 @@
       "issuer": "Micro-Star International Co Ltd",
       "catalogueUrl": "https://eodhd.com/financial-summary/2377.TW",
       "quoteValidation": "VALID_DELAYED_PRICE_2026_11_09",
-      "feedEnabled": true
+      "feedEnabled": false
     },
     {
       "ticker": "2379.TW",
@@ -66,7 +66,7 @@
       "issuer": "Realtek Semiconductor Corp",
       "catalogueUrl": "https://eodhd.com/financial-summary/2379.TW",
       "quoteValidation": "VALID_DELAYED_PRICE_2026_11_09",
-      "feedEnabled": true
+      "feedEnabled": false
     },
     {
       "ticker": "2383.TW",
@@ -76,7 +76,7 @@
       "issuer": "Elite Material Co Ltd",
       "catalogueUrl": "https://eodhd.com/financial-summary/2383.TW",
       "quoteValidation": "VALID_DELAYED_PRICE_2026_11_09",
-      "feedEnabled": true
+      "feedEnabled": false
     },
     {
       "ticker": "2449.TW",
@@ -86,7 +86,7 @@
       "issuer": "King Yuan Electronics Co Ltd",
       "catalogueUrl": "https://eodhd.com/financial-summary/2449.TW",
       "quoteValidation": "VALID_DELAYED_PRICE_2026_11_09",
-      "feedEnabled": true
+      "feedEnabled": false
     },
     {
       "ticker": "2454.TW",
@@ -96,7 +96,7 @@
       "issuer": "MediaTek Inc",
       "catalogueUrl": "https://eodhd.com/financial-summary/2454.TW",
       "quoteValidation": "VALID_DELAYED_PRICE_2026_11_09",
-      "feedEnabled": true
+      "feedEnabled": false
     },
     {
       "ticker": "3034.TW",
@@ -106,7 +106,7 @@
       "issuer": "Novatek Microelectronics Corp",
       "catalogueUrl": "https://eodhd.com/financial-summary/3034.TW",
       "quoteValidation": "VALID_DELAYED_PRICE_2026_11_09",
-      "feedEnabled": true
+      "feedEnabled": false
     },
     {
       "ticker": "CBHB",

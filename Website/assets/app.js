@@ -58,7 +58,7 @@
     if(!q){
       const symbol=yahooSymbol(r);
       const link=symbol?'<small><a href="https://finance.yahoo.com/quote/'+encodeURIComponent(symbol)+'/" target="_blank" rel="noopener noreferrer">View on Yahoo Finance (delayed) ↗</a></small>':"";
-      return '<span class="muted">PRICE UNAVAILABLE</span><small>No verified '+(r.exchange==="US"?"Alpaca":"EODHD")+' quote</small>'+link;
+      return '<span class="muted">PRICE UNAVAILABLE</span><small>'+(r.exchange==="US"?"No verified Alpaca":"International auto-feed paused")+' quote</small>'+link;
     }
     const currency=q.currency;
     if(q.feed==="IEX"&&q.regularClose&&Number(q.regularClose.price)>0){
@@ -177,10 +177,6 @@
     if(state.loading||!state.rows.length)return;
     state.loading=true;$("refresh").disabled=true;
     const us=state.rows.filter(r=>r.exchange==="US").map(r=>r.ticker);
-    const eodhdSymbols=new Set(["ORG","APA.AX","1519.TW","2330.TW","2377.TW","2379.TW","2383.TW","2449.TW","2454.TW","3034.TW","CBHB"]);
-    // Newly discovered unsupported international listings must not invalidate the
-    // EODHD batch for the ten already verified stocks.
-    const international=state.rows.filter(r=>["ASX","TWSE","BURSA"].includes(r.exchange)&&eodhdSymbols.has(r.ticker.toUpperCase())).map(r=>r.ticker);
     const failures=[];
     async function retrieve(path,symbols,label){
       const collected={};
@@ -198,17 +194,15 @@
       return collected;
     }
     try{
-      const [usQuotes,internationalQuotes]=await Promise.all([
-        retrieve("/api/prices",us,"Alpaca"),
-        retrieve("/api/international-prices",international,"EODHD")
-      ]);
-      state.quotes={...usQuotes,...internationalQuotes};
-      const usCount=Object.keys(usQuotes).length,intCount=Object.keys(internationalQuotes).length;
-      $("marketNotice").textContent="Quote observations: "+(usCount+intCount)+" tickers ("+usCount+
-        " US IEX · "+intCount+" international EODHD) · Updated "+fmt(new Date().toISOString())+
-        " · Automatic refresh every 5 minutes while this page is visible. Quotes show source observation times; EODHD prices are delayed."+
+      const usQuotes=await retrieve("/api/prices",us,"Alpaca");
+      state.quotes=usQuotes;
+      const usCount=Object.keys(usQuotes).length;
+      $("marketNotice").textContent="Quote observations: "+usCount+
+        " US tickers via Alpaca · Updated "+fmt(new Date().toISOString())+
+        " · US prices and GitHub HTML reports refresh every 5 minutes while this page is visible. "+
+        "International automatic prices paused to preserve free API allowance; open Yahoo Finance links for international quotes."+
         (failures.length?" Provider issues: "+failures.join("; "):"");
-      state.providerReady=true; // One provider outage must not disable the other feed.
+      state.providerReady=true;
     }finally{state.loading=false;$("refresh").disabled=false;render();}
   }
   // A GitHub HTML report is added or replaces the same ticker's older snapshot.
@@ -271,7 +265,7 @@
       const data=await res.json();
       state.rows=Array.isArray(data.rows)?data.rows:[];
       state.generatedAt=data.generatedAt;
-      $("marketNotice").textContent="Archive built "+fmt(data.generatedAt)+". Loading independent prices.";
+      $("marketNotice").textContent="Archive built "+fmt(data.generatedAt)+". Loading Alpaca US prices (international auto-feed paused).";
       render();
       await refresh();
       const addedReports=await syncGithubReports();

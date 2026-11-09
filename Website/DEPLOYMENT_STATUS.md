@@ -63,3 +63,11 @@ Do not add new secrets to this repository or enable external price redistributio
 - Published production Pages deployment `98900c46-ec89-4f9a-8aa8-52a43684efaf`, website commit `12e5e5b2d1a48c9f26d142edacc87cc6dfdceb1c`, **28/28 tests passed**, 28 latest report tickers. Original EODHD international pricing and GitHub five-minute HTML archive sync preserved.
 - Access is owner-JWT-gated, Cloudflare Access applications remain active, fail-open remains false, and the nine original FRED Worker bindings remain inherited. No Alpaca credentials were printed or saved in GitHub.
 - Removed the temporary private test consumer, Queue, Worker and KV namespace after successful acceptance; further browser-facing confirmation can be made by opening the owner-authenticated website.
+
+## 9 November 2026 — EODHD polling stopped to protect free daily quota
+
+- Website no longer calls `/api/international-prices` on opening, manual refresh, visibility change, or recurring five-minute checks. Only Alpaca US prices and GitHub HTML report index are refreshed.
+- International Pages API is changed into an owner-protected HTTP 410 no-upstream-call stub. The production Pages `INTERNATIONAL_PRICE_PROVIDER` service binding is disabled. Original Cloudflare FRED Worker and encrypted EODHD secret remain unchanged and unused.
+- International ticker rows and report ratings remain visible with Yahoo Finance link-outs, but no previously cached international quote is shown as live.
+- `eodhd-candidates.json` reflects `feedEnabled:false` for all 11 and retains historical live validation metadata.
+- Preserve GitHub report indexing, original report folders, and existing Alpaca and FRED Worker services.

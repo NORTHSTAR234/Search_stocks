@@ -1,3 +1,5 @@
+> **CURRENT STATUS: PAUSED — 9 November 2026.** This file records historical tests and the previous deployment. The owner's free EODHD quota does not support five-minute refreshes of 11 international tickers. No EODHD polling or API request is active on the website. See `README.md` for the current state.
+
 # EODHD delayed international quotes — live acceptance
 
 Status: **DEPLOYED FOR 10/11 INTERNATIONAL LISTINGS** · 9 November 2026

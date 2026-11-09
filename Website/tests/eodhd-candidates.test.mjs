@@ -3,16 +3,16 @@ import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 const data=JSON.parse(readFileSync(new URL("../eodhd-candidates.json",import.meta.url),"utf8"));
 test("EODHD candidate catalogue has 11 exact international tickers and no US replacements",()=>{
- assert.equal(data.status,"API_VERIFIED_10_OF_11_2026_11_09");
+ assert.equal(data.status,"PAUSED_FREE_QUOTA_INSUFFICIENT_2026_11_09");
  assert.equal(data.instruments.length,11);
  assert.deepEqual([...new Set(data.instruments.map(x=>x.ticker))].length,11);
  assert.equal(data.instruments.filter(x=>x.exchange==="TWSE").length,8);
  assert.equal(data.instruments.filter(x=>x.exchange==="ASX").length,2);
  assert.equal(data.instruments.filter(x=>x.exchange==="BURSA").length,1);
- assert.equal(data.instruments.filter(x=>x.feedEnabled).length,10);
- assert.equal(data.instruments.filter(x=>!x.feedEnabled).length,1);
+ assert.equal(data.instruments.filter(x=>x.feedEnabled).length,0);
+ assert.equal(data.instruments.filter(x=>!x.feedEnabled).length,11);
  assert.equal(data.instruments.find(x=>x.ticker==="CBHB").quoteValidation,"NO_USABLE_PRICE_2026_11_09");
- assert(data.instruments.filter(x=>x.feedEnabled).every(x=>x.quoteValidation==="VALID_DELAYED_PRICE_2026_11_09"));
+ assert.equal(data.instruments.filter(x=>x.quoteValidation==="VALID_DELAYED_PRICE_2026_11_09").length,10);
  assert(data.instruments.every(x=>/^https:\/\/eodhd\.com\/financial-summary\/[A-Z0-9.-]+$/.test(x.catalogueUrl)));
 });
 test("EODHD local-market symbol remapping never substitutes a US ADR",()=>{

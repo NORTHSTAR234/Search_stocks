@@ -43,18 +43,18 @@ test("Quote scheduler refreshes every five minutes only while page is visible",(
   assert.match(source,/Automatic refresh every 5 minutes/);
 });
 
-test("EODHD and Alpaca both refresh independently every five minutes",()=>{
+test("Alpaca US and GitHub still check every five minutes with international polling disabled",()=>{
  assert(source.includes('retrieve("/api/prices",us,"Alpaca")'));
- assert(source.includes('retrieve("/api/international-prices",international,"EODHD")'));
- assert(source.includes('state.quotes={...usQuotes,...internationalQuotes}'));
- assert(source.includes('state.providerReady=true;'));
- assert(source.includes('previousCloseChangePercent'));
+ assert(!source.includes('retrieve("/api/international-prices"'));
+ assert(!source.includes('eodhdSymbols=new Set('));
+ assert(source.includes('state.quotes=usQuotes;'));
+ assert(source.includes("International automatic prices paused"));
+ assert(source.includes('function yahooSymbol(r)'));
  assert(source.includes("IEX 24h"));
- assert(source.includes("vs previous close"));
  assert.match(source,/setInterval\(\(\)=>\{if\(document\.visibilityState==="visible"\)checkAll\(\);\},300000\)/);
 });
 
-test("GitHub reports and both price providers refresh together every five minutes",()=>{
+test("GitHub reports and Alpaca US prices refresh together every five minutes",()=>{
  assert(source.includes("async function syncGithubReports()"));
  assert(source.includes('fetch(url,{credentials:"same-origin",cache:"no-store"})'));
  assert(source.includes('"/api/github-reports"'));
@@ -65,9 +65,10 @@ test("GitHub reports and both price providers refresh together every five minute
  assert(source.includes('addEventListener("click",checkAll)'));
  assert(source.includes('Next check in 5 minutes'));
 });
-test("unknown international tickers cannot break existing EODHD quote batches",()=>{
- assert(source.includes('eodhdSymbols.has(r.ticker.toUpperCase())'));
- assert(source.includes('eodhdSymbols=new Set(["ORG","APA.AX"'));
+test("international quote links remain available when automated feed is paused",()=>{
+ assert(source.includes('View on Yahoo Finance (delayed)'));
+ assert(source.includes('International auto-feed paused'));
+ assert(!source.includes('retrieve("/api/international-prices"'));
 });
 
 test("regular and overnight have distinct columns and signed price/percentage colors",()=>{
