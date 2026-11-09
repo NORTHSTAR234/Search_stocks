@@ -16,7 +16,7 @@ Cloudflare Pages website for the **latest archived Search_stock report for each 
 
 ## Alpaca price service
 
-The dashboard requests `/api/prices` for US-listed symbols only, on page load, manual refresh, and at most once per 60 seconds while visible. This Pages Function cryptographically checks the owner's Cloudflare Access JWT and exact email before calling a private `PRICE_PROVIDER` service binding.
+The dashboard requests `/api/prices` for US-listed symbols only, on page load, manual refresh, and at most once per 5 minutes while visible. This Pages Function cryptographically checks the owner's Cloudflare Access JWT and exact email before calling a private `PRICE_PROVIDER` service binding.
 
 The `PRICE_PROVIDER` binding connects to named entrypoint `WebsitePrices` of the existing `stockresearch-fred-mcp` Worker. The named entrypoint uses the Worker's **existing encrypted Alpaca API credentials**, calls read-only Alpaca IEX endpoints, and returns timestamped observations. It has no public route, no trading methods, and no use of portfolio/account data. The Worker's original OAuth/MCP default handler and all original secret/KV bindings were preserved. The existing FRED tool was checked successfully after deployment.
 
@@ -70,3 +70,7 @@ Mappings validated against publicly accessible official Yahoo quote pages: ORG (
 Investigation: Taiwan TWSE offers a free official after-market EOD closing-price dataset under the Taiwan Open Government Data License v1.0 (attribution required): https://data.gov.tw/en/datasets/11548 . This is a potential future automated source, but **a live Cloudflare fetch has not been verified**. Evaluate response freshness and attribution before enabling it.
 
 Other licensed API options: EODHD personal paid EOD All-World from US$19.99/month (personal-only display; no sharing with friends), Twelve Data Grow from US$79/month for global EOD and Pro from US$229/month for delayed Australian data (ASX-specific internal-use restrictions). No purchases made.
+
+## Five-minute price refresh (9 November 2026)
+
+The authenticated dashboard requests Alpaca quotes immediately on page open, every **300,000 milliseconds (5 minutes)** while the page remains visible, on manual **Refresh prices**, and when switching back to a visible page. There is no 24/7 background polling when the site is closed. A five-minute *refresh frequency* is not an assurance of a five-minute *quote age*; the UI continues to show the source observation timestamp and IEX feed. The underlying US source remains Alpaca, unmodified. Unsupported international markets still display quote links rather than automatically scraped prices. Archived research fields update only with new GitHub reports and successful Pages builds.
