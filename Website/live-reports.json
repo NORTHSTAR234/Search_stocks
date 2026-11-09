@@ -1,11 +1,43 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-09T05:35:16Z",
-  "htmlReportCount": 4,
-  "uniqueTickers": 3,
-  "revision": "28d031fba59b50986522511f8c81ee22",
+  "latestHtmlReportAt": "2026-11-09T06:35:18Z",
+  "htmlReportCount": 5,
+  "uniqueTickers": 4,
+  "revision": "8cf00583094c7254cc244974398e87c8",
   "rows": [
+    {
+      "company": "Chevron Corporation",
+      "ticker": "CVX",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-09T06:35:18Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "MODERATE-HIGH",
+      "investment": "76/100",
+      "entry": "52/100",
+      "musaffa": "HALAL · A- · 2026-08-19",
+      "earnings": "29 Jan 2027 estimated",
+      "zones": "US$185–195 / US$196–205",
+      "stops": "US$175 / US$220",
+      "nativeCurrency": "USD",
+      "zoneBands": [
+        [
+          185,
+          195
+        ],
+        [
+          196,
+          205
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/CVX/CVX_2026-11-09_06-35-18Z.html",
+      "reportPath": "/view-report?path=halal%2FCVX%2FCVX_2026-11-09_06-35-18Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Mastercard Incorporated",
       "ticker": "MA",
@@ -40,7 +72,7 @@
     },
     {
       "company": "Fortune Electric Co., Ltd.",
-      "ticker": "1519.TW",
+      "ticker": "1519.TWSE",
       "exchange": "TWSE",
       "bucket": "nonhalal",
       "timestamp": "2026-11-09T05:23:30Z",
@@ -56,8 +88,8 @@
       "stops": "NOT RATED",
       "nativeCurrency": "TWD",
       "zoneBands": [],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/1519.TW/1519.TW_2026-11-09_05-23-30Z.html",
-      "reportPath": "/view-report?path=nonhalal%2F1519.TW%2F1519.TW_2026-11-09_05-23-30Z.html",
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/1519.TWSE/1519.TWSE_2026-11-09_05-23-30Z.html",
+      "reportPath": "/view-report?path=nonhalal%2F1519.TWSE%2F1519.TWSE_2026-11-09_05-23-30Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
