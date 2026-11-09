@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "sourceRepository": "NORTHSTAR234/Search_stocks",
+  "latestHtmlReportAt": "2026-11-08T20:58:00Z",
+  "htmlReportCount": 1,
+  "uniqueTickers": 1,
+  "revision": "initial-html-20261108205800",
+  "rows": [
+    {
+      "company": "NVIDIA",
+      "ticker": "NVDA",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-08T20:58:00Z",
+      "statusOnly": false,
+      "action": "◉   WATCH — New buyer",
+      "ownerAction": "⊖   HOLD — Existing holder",
+      "risk": "HIGH risk",
+      "investment": "78/100",
+      "entry": "48/100",
+      "musaffa": "Musaffa HALAL · A · Screened 19 September 2026",
+      "earnings": "confirmed fiscal Q3 2027 earnings on Tuesday, 17 November 2026 , after the US market closes",
+      "zones": "$165–175 / $176–185",
+      "stops": "$154 / $205",
+      "nativeCurrency": "USD",
+      "zoneBands": [
+        [
+          165,
+          175
+        ],
+        [
+          176,
+          185
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/NVDA/NVDA_2026-11-08_20-58-00Z_chat_response.html",
+      "reportPath": "/view-report?path=halal%2FNVDA%2FNVDA_2026-11-08_20-58-00Z_chat_response.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    }
+  ]
+}
