@@ -67,15 +67,18 @@ function snapshotFromHtml(html,expectedTicker){
   if(m[1].length>150000)throw Error("Oversized research snapshot");
   let snap;
   try{snap=JSON.parse(m[1]);}catch{throw Error("Invalid research snapshot JSON");}
-  const embedded=String(snap?.ticker||"").toUpperCase();
-  // The archive naming convention now spells the full exchange as .TWSE,
-  // while older report generators still encode that exact listing as .TW.
-  // Accept only the same four-digit security under a TWSE report. Never
-  // substitute another security or exchange.
-  const twseAlias=/^\d{4}\.TWSE$/.test(expectedTicker)&&
-    embedded===expectedTicker.replace(/\.TWSE$/, ".TW")&&
+  // Both report formats are valid: early generators used `ticker`, while
+  // Aya 3.1 reports may use `canonical_archive_ticker` and omit `ticker`.
+  // Each supplied identity must match the exact archive path. Never accept
+  // an arbitrary stock just because the file is in a ticker folder.
+  const identifiers=[snap?.ticker,snap?.canonical_archive_ticker]
+    .filter(v=>typeof v==="string"&&v.trim())
+    .map(v=>v.trim().toUpperCase());
+  const twseAlias=v=>/^\d{4}\.TWSE$/.test(expectedTicker)&&
+    v===expectedTicker.replace(/\.TWSE$/, ".TW")&&
     String(snap?.exchange||"").toUpperCase()==="TWSE";
-  if(!snap||typeof snap!=="object"||(embedded!==expectedTicker&&!twseAlias))
+  if(!snap||typeof snap!=="object"||!identifiers.length||
+     identifiers.some(v=>v!==expectedTicker&&!twseAlias(v)))
     throw Error("Research snapshot security identity mismatch");
   return snap;
 }
