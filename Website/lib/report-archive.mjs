@@ -1,0 +1,129 @@
+// Pure archive helpers shared by the Pages build and the live GitHub HTML check.
+const PATTERN=/^(halal|nonhalal)\/([A-Za-z0-9.-]+)\/([A-Za-z0-9.-]+)_(\d{4}-\d{2}-\d{2})_(\d{2}-\d{2}-\d{2})Z(?:(_chat_response))?\.(md|html)$/i;
+const GITHUB="https://github.com/NORTHSTAR234/Search_stocks/blob/main/";
+const entityMap={amp:"&",lt:"<",gt:">",quot:'"',apos:"'",nbsp:" ",mdash:"—",ndash:"–",bull:"•",times:"×",hellip:"…"};
+export function archiveInfo(relative) {
+  const m=String(relative||"").match(PATTERN);
+  if(!m||m[2].toUpperCase()!==m[3].toUpperCase())return null;
+  const timestamp=m[4]+"T"+m[5].replaceAll("-",":")+"Z";
+  if(!Number.isFinite(Date.parse(timestamp)))return null;
+  return {bucket:m[1].toLowerCase(),ticker:m[2].toUpperCase(),timestamp,path:relative,
+    format:m[7].toLowerCase(),legacyHtmlSuffix:Boolean(m[6])};
+}
+export function latestArchive(files) {
+  const found=new Map();
+  for(const item of files) {
+    const key=item.ticker.toUpperCase(),old=found.get(key);
+    if(!old||item.timestamp>old.timestamp||
+      item.timestamp===old.timestamp&&(item.format==="html"&&old.format!=="html"||
+      item.format===old.format&&old.legacyHtmlSuffix&&!item.legacyHtmlSuffix||
+      item.format===old.format&&item.legacyHtmlSuffix===old.legacyHtmlSuffix&&item.path<old.path))found.set(key,item);
+  }
+  return [...found.values()].sort((a,b)=>b.timestamp.localeCompare(a.timestamp)||a.ticker.localeCompare(b.ticker));
+}
+function decode(s){return String(s||"").replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi,(full,key)=>{
+  if(key[0]==="#"){const n=key[1].toLowerCase()==="x"?parseInt(key.slice(2),16):parseInt(key.slice(1),10);return n>0&&n<=0x10ffff?String.fromCodePoint(n):"";}
+  return entityMap[key.toLowerCase()]??full;
+});}
+function strip(raw){return decode(String(raw||"").replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi,"")
+  .replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi,"")
+  .replace(/<svg\b[^>]*>[\s\S]*?<\/svg\s*>/gi,"")
+  .replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim());}
+function short(value,max=160){const v=strip(value);return v.length>max?v.slice(0,max-1).trimEnd()+"…":v;}
+function escaped(value){return String(value||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
+function firstTag(raw,tag){const m=raw.match(new RegExp("<"+tag+"\\b[^>]*>([\\s\\S]*?)<\\/"+tag+"\\s*>","i"));return short(m?.[1]||"");}
+function score(raw,name) {
+  const safe=name.replace(/[^a-z]/gi,"");
+  const m=raw.match(new RegExp("<div\\b[^>]*class=[\"'][^\"']*(?:muted|tiny)[^\"']*[\"'][^>]*>\\s*"+safe+"\\s*<\\/div>\\s*<div\\b[^>]*class=[\"'][^\"']*score[^\"']*[\"'][^>]*>([\\s\\S]*?)<\\/div>","i"));
+  const value=short(m?.[1]||"");
+  return /^\d{1,3}\s*\/\s*100$/.test(value)?value.replace(/\s+/g,""):"NOT RATED";
+}
+function actionTexts(raw){
+  const result=[];
+  for(const m of raw.matchAll(/<div\b[^>]*class=["'][^"']*\baction\b[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi)){
+    const v=short(m[1],135);if(v&&/^(?:[^\p{L}]{0,5})?(?:WATCH|WAIT|BUY|STRONG BUY|HOLD|SELL|AVOID|REDUCE|EXIT|SCREENING)/iu.test(v))result.push(v);
+  }
+  return result;
+}
+function tableValues(raw) {
+  const fields=new Map();
+  for(const tr of raw.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr\s*>/gi)){
+    const cells=[...tr[1].matchAll(/<t[dh]\b[^>]*>([\s\S]*?)<\/t[dh]\s*>/gi)].map(m=>short(m[1],210));
+    if(cells.length>=2&&cells[0])fields.set(cells[0].toLowerCase(),cells[1]);
+  }
+  return fields;
+}
+function namedField(fields,regex) {
+  for(const [key,value] of fields)if(regex.test(key))return value;
+  return "";
+}
+function numericBands(raw){
+  return [...String(raw).matchAll(/(?:US\$|USD\s*|\$)\s*([\d,]+(?:\.\d+)?)\s*[–—-]\s*(?:(?:US\$|USD\s*|\$)\s*)?([\d,]+(?:\.\d+)?)/gi)].slice(0,2).map(x=>[+x[1].replaceAll(",",""),+x[2].replaceAll(",","")]);
+}
+export function parseHtmlReport(info,html) {
+  if(info.format!=="html"||typeof html!=="string"||html.length<180||
+     !/<html\b/i.test(html)||!/<body\b/i.test(html))throw Error("Malformed or non-HTML research archive");
+  const first=html.slice(0,25000);
+  const heading=firstTag(first,"h1");
+  const m=heading.match(/^(.+?)\s*\((?:NASDAQ|NYSE|NYSEARCA|ASX|TWSE|Bursa|MYX|KLSE)\s*:\s*[A-Za-z0-9.-]+\)/i);
+  const company=short((m?.[1]||heading.replace(/\s*[—–-]\s*(?:\d{1,2}\s+\w+\s+\d{4}|\w+\s+\d{4}).*$/i,"")||info.ticker),95);
+  const isStatus=/(?:HALAL\s+STATUS(?:\s+ONLY)?|FINANCIAL\s+RESEARCH\s+SKIPPED|RESEARCH\s+SKIPPED)/i.test(first.slice(0,10000))||
+    info.bucket==="nonhalal"&&!/<(?:div|section)\b[^>]*class=["'][^"']*(?:dashboard|scoregrid)/i.test(first);
+  const fields=tableValues(html);
+  const acts=actionTexts(first);
+  const pill=(first.match(/<span\b[^>]*class=["'][^"']*\bpill\b[^"']*["'][^>]*>([\s\S]*?)<\/span>/i)||[])[1]||"";
+  const screeningDate=(first.match(/<span\b[^>]*class=["'][^"']*\bdate\b[^"']*["'][^>]*>([\s\S]*?)<\/span>/i)||[])[1]||"";
+  const risk=(strip(first.slice(0,8500)).match(/\b(VERY HIGH|HIGH|MEDIUM|MODERATE|LOW)\s+risk\b/i)||[])[0]||"NOT RATED";
+  let earnings=namedField(fields,/^(?:confirmed next earnings|next earnings|upcoming earnings)/i);
+  if(!earnings){
+    const visible=strip(first.slice(0,10500));
+    const match=visible.match(/(?:confirmed\s+)?(?:fiscal\s+Q\d\s+\d{4}\s+)?earnings\s+on\s+[^.;]{7,120}/i);
+    earnings=match?short(match[0],115):"NOT VERIFIED";
+  }
+  const preferred=namedField(fields,/^preferred\s+(?:buy\s+)?zone/i);
+  const acceptable=namedField(fields,/^acceptable\s+(?:buy\s+)?zone/i);
+  const zones=preferred&&acceptable?preferred+" / "+acceptable:preferred||acceptable||"NOT RATED";
+  const initial=namedField(fields,/^initial stop/i);
+  const chase=namedField(fields,/^no_?chase/i);
+  const stops=initial&&chase?initial+" / "+chase:initial||chase||"NOT RATED";
+  const ticker=info.ticker.toUpperCase();
+  const upperHead=strip(first.slice(0,5000));
+  const exchange=ticker.endsWith(".TW")?"TWSE":ticker.endsWith(".AX")?"ASX":
+    /\.(?:KL|MY)$/.test(ticker)?"BURSA":/\.(?:US)$/.test(ticker)?"US":
+    /\b(?:ASX\s*:|AUSTRALIAN SECURITIES EXCHANGE)\b/i.test(upperHead)?"ASX":
+    /\b(?:BURSA|MALAYSIA|KLSE|MYX)\b/i.test(upperHead)?"BURSA":
+    /\b(?:TWSE|TAIWAN STOCK EXCHANGE)\b/i.test(upperHead)?"TWSE":
+    /\./.test(ticker)?"OTHER":"US";
+  const currency=exchange==="US"?"USD":exchange==="ASX"?"AUD":exchange==="TWSE"?"TWD":exchange==="BURSA"?"MYR":"UNKNOWN";
+  return {
+    company:company||ticker,ticker,exchange,bucket:info.bucket,timestamp:info.timestamp,
+    statusOnly:isStatus,action:isStatus?"SCREENING ONLY — NO INVESTMENT REPORT":acts[0]||namedField(fields,/^action\s+(?:if i don.t own|new buyer|new investor)/i)||"NOT RATED",
+    ownerAction:isStatus?"RESEARCH SKIPPED":acts[1]||namedField(fields,/^action\s+if i own/i)||"NOT RATED",
+    risk:isStatus?"NOT RATED":risk,
+    investment:isStatus?"NOT RATED":score(first,"Investment"),
+    entry:isStatus?"NOT RATED":score(first,"Entry"),
+    musaffa:short((pill?strip(pill):"NOT VERIFIED")+(screeningDate?" · "+strip(screeningDate):""),140),
+    earnings:isStatus?"NOT RATED":earnings,
+    zones:isStatus?"NOT RATED":zones,
+    stops:isStatus?"NOT RATED":stops,
+    nativeCurrency:currency,
+    zoneBands:exchange==="US"&&!isStatus?numericBands(zones):[],
+    reportUrl:GITHUB+info.path.split("/").map(encodeURIComponent).join("/"),
+    reportPath:"/view-report?path="+encodeURIComponent(info.path),
+    sourceFormat:"html",conflictingBuckets:false
+  };
+}
+export const REPORT_CSP="default-src 'none'; script-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; style-src 'unsafe-inline'; img-src https: data:; font-src https: data:";
+export function safeHtmlDocument(info,html){
+  if(info.format!=="html"||typeof html!=="string"||html.length>2200000||!/<html\b/i.test(html)||!/<body\b/i.test(html))
+    throw Error("Refusing malformed HTML archive");
+  // Preserve the complete styled A–H report, including embedded SVG charts.
+  // Keep scripts inert and disallow navigation tricks; CSP independently forbids all script execution.
+  const stripped=html.replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi,"")
+    .replace(/<base\b[^>]*>/gi,"")
+    .replace(/<meta\b(?=[^>]*http-equiv\s*=\s*["']?refresh\b)[^>]*>/gi,"")
+    .replace(/\s+on[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi,"")
+    .replace(/\s(?:href|src)\s*=\s*(?:"\s*(?:javascript|vbscript|data:text\/html):[^"]*"|'\s*(?:javascript|vbscript|data:text\/html):[^']*')/gi,' href="#"');
+  const nav='<div role="navigation" style="padding:10px 18px;background:#15233a;color:#dbe7f7;font:600 14px system-ui,sans-serif;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><a style="color:#9cc7ff;text-decoration:none" href="/">← All stock reports</a><span>'+escaped(info.ticker)+' · '+escaped(info.timestamp)+'</span><a style="color:#9cc7ff" href="'+escaped(GITHUB+info.path.split("/").map(encodeURIComponent).join("/"))+'" target="_blank" rel="noopener noreferrer">Original GitHub HTML</a></div>';
+  return stripped.replace(/(<body\b[^>]*>)/i,"$1"+nav);
+}
