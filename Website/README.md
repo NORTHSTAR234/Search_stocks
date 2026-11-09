@@ -26,8 +26,8 @@ The `PRICE_PROVIDER` binding connects to named entrypoint `WebsitePrices` of the
 - A 24-hour percentage is calculated **only** when a same-feed, raw-basis IEX minute-bar observation exists within 30 minutes of the exact T minus 24 elapsed hours. Otherwise show `24h N/A` (never substitute the previous session's daily change).
 - Positive verified 24h percentages are green; negative are red; unavailable or zero are neutral.
 - A matching valid quote can independently highlight archived preferred/acceptable buy zones. Buy zones and recommendation scores themselves are not refreshed.
-- Non-US exchanges (ASX, Taiwan, Bursa Malaysia, etc.) are **not supported** by the Alpaca IEX feed. The site displays unavailable, never US proxy quotes.
-- The backend wiring, source-provider observations and build have been checked independently; **the authenticated browser price flow still requires an owner session smoke test**. If unavailable, do not claim live prices are working.
+- Non-US exchanges are **not supported by Alpaca IEX**. A separate EODHD service supplies ten verified delayed ASX/TWSE quote symbols; CBHB remains unavailable. There are no US proxy quotes.
+- The Alpaca owner-browser price flow was confirmed by the owner. The new EODHD backend was independently verified for 10 symbols; the **owner's browser check for the combined dashboard is still pending**.
 - Owner-only live market-data access avoids automatic redistribution to friends. Expanding access requires checking Alpaca licensing and quote redistribution rights.
 
 ## Safe rollout and fallback
@@ -48,29 +48,31 @@ npm test
 PUBLISH_REPORTS=yes npm run build
 ```
 
-Seven website tests cover archive handling, status-only records, WATCH/BUY/SELL/HOLD colors, and price gateway authorization/configuration checks. Cloudflare Pages runs these tests as part of its build command, so a failing test blocks new deployments.
+Website regression tests cover archive handling, exact listing/market identity, recommendation colors, both owner-only quote gateways, 5-minute polling and fail-closed authorization. Cloudflare Pages runs these tests as part of its build command, so a failing test blocks new deployments.
 
 The full build creates `dist/index.html`, `dist/data/reports.json`, and `dist/reports/<ticker>/index.html` from the latest eligible Markdown file per exact listing. It renders Markdown with raw embedded HTML disabled and preserves source reports in their original directory.
 
 ## Operational checks
 
 1. Refresh the website in an owner-authenticated browser; confirm verified IEX quotes display where available, with actual timestamps and correct 24-hour N/A/return formatting.
-2. Confirm unauthenticated browsers cannot access `/`, `/data/reports.json`, `/reports/<ticker>/` or `/api/prices`; production and deployment alias hostname protection must remain active.
-3. Verify FRED/MCP remains operational following any future `stockresearch-fred-mcp` deployments; the GitHub source for that Worker contains the `WebsitePrices` named entrypoint.
+2. Confirm unauthenticated browsers cannot access `/`, `/data/reports.json`, `/reports/<ticker>/` or either `/api/prices` or `/api/international-prices`; production and deployment alias hostname protection must remain active.
+3. Verify FRED/MCP remains operational following any future `stockresearch-fred-mcp` deployments; the GitHub source for that Worker contains both the `WebsitePrices` and `WebsiteInternationalPrices` private named entrypoints.
 4. Confirm the Cloudflare Pages GitHub integration actually triggers an automatic rebuild on a new report commit; initial releases were manually triggered through the Cloudflare API even though Git integration is configured.
 5. Do not add friends to the quote API until market-data licensing permits redistribution. Friends can receive research access through explicit additional Access allowlist policies.
 
 
-## International prices: Yahoo Finance link-out (9 November 2026)
+## International EODHD delayed quote service (9 November 2026)
 
-The website provides **external Yahoo Finance quote links**, not an unofficial Yahoo API integration, for archived listings unsupported by Alpaca. It makes **no HTTP requests to Yahoo** and stores/displays no Yahoo price data. Yahoo publishes delayed ASX (20 min), Taiwan TWSE (20 min), and Bursa Malaysia (15 min) quotations on its own website but prohibits automated extraction and redistribution without permission. The link is a navigational convenience, not a verified real-time feed.
+The owner-installed encrypted `EODHD_API_KEY` is used by a read-only `WebsiteInternationalPrices` named entrypoint in the existing `stockresearch-fred-mcp` Worker. Cloudflare Pages binds to it using `INTERNATIONAL_PRICE_PROVIDER`. An independent `/api/international-prices` endpoint verifies the exact owner's Cloudflare Access JWT before retrieving prices.
 
-Mappings validated against publicly accessible official Yahoo quote pages: ORG (Australian listing) → ORG.AX; APA.AX → APA.AX; Taiwan tickers ending in .TW retain the suffix; CBHB (Malaysia) → 0339.KL. Unrecognized exchanges receive no fabricated symbol. Alpaca US price behavior is unchanged.
+The live backend returned **10/11 valid international market quotes**: 2 ASX in AUD and 8 TWSE in TWD, delayed approximately 20–22 minutes during testing. **CBHB / 0339.KLSE provided no valid price**, and remains unavailable. Backend mapping is strict to the local listing and quote currency.
 
-Investigation: Taiwan TWSE offers a free official after-market EOD closing-price dataset under the Taiwan Open Government Data License v1.0 (attribution required): https://data.gov.tw/en/datasets/11548 . This is a potential future automated source, but **a live Cloudflare fetch has not been verified**. Evaluate response freshness and attribution before enabling it.
+The EODHD quote's **previous-close percentage** is displayed explicitly as **vs prev close**; it is not a rolling 24-hour change. Source timestamps are shown; market holidays and closures may make the last trade older than 20 minutes. The dashboard polls Alpaca and EODHD **independently every 5 minutes when visible**.
 
-Other licensed API options: EODHD personal paid EOD All-World from US$19.99/month (personal-only display; no sharing with friends), Twelve Data Grow from US$79/month for global EOD and Pro from US$229/month for delayed Australian data (ASX-specific internal-use restrictions). No purchases made.
+Under EODHD personal-use terms, these EODHD prices are shown **to the owner only**. No friends or other Access users may receive them without provider licensing. The quote endpoint is separately owner-authenticated even if website Access policies change. The source key stays encrypted in Cloudflare; no data is scraped from Yahoo. Yahoo Finance is retained only as a link for unsupported symbols.
+
+See [EODHD_FEASIBILITY.md](EODHD_FEASIBILITY.md) and [eodhd-candidates.json](eodhd-candidates.json) for live acceptance and mapping.
 
 ## Five-minute price refresh (9 November 2026)
 
-The authenticated dashboard requests Alpaca quotes immediately on page open, every **300,000 milliseconds (5 minutes)** while the page remains visible, on manual **Refresh prices**, and when switching back to a visible page. There is no 24/7 background polling when the site is closed. A five-minute *refresh frequency* is not an assurance of a five-minute *quote age*; the UI continues to show the source observation timestamp and IEX feed. The underlying US source remains Alpaca, unmodified. Unsupported international markets still display quote links rather than automatically scraped prices. Archived research fields update only with new GitHub reports and successful Pages builds.
+The authenticated dashboard requests Alpaca and EODHD quotes immediately on page open, every **300,000 milliseconds (5 minutes)** while the page remains visible, on manual **Refresh prices**, and when switching back to a visible page. There is no 24/7 background polling when the site is closed. A five-minute *refresh frequency* is not an assurance of a five-minute *quote age*; the UI continues to show the source observation timestamp and IEX feed. The US feed remains Alpaca IEX; the international feed is EODHD delayed. CBHB still displays a Yahoo link because EODHD provided no valid quote. Archived research fields update only with new GitHub reports and successful Pages builds.

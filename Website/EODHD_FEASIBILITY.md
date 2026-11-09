@@ -1,49 +1,47 @@
-# EODHD feasibility — international quote coverage
+# EODHD delayed international quotes — live acceptance
 
-Verified date: **9 November 2026**. This is a **catalogue/entitlement feasibility check**, not a verified quote-feed acceptance.
+Status: **DEPLOYED FOR 10/11 INTERNATIONAL LISTINGS** · 9 November 2026
 
-## Findings
+## Verified live API results
 
-- EODHD's official catalogue provides an issuer page for **all 11 international symbols** from the GitHub report archive: 2 Australia, 8 Taiwan, 1 Malaysia.
-- EODHD's `/api/real-time/{SYMBOL}?api_token=...&fmt=json` endpoint advertises **15–20-minute-delayed worldwide equities**. The `timestamp` must be shown as the observation time. The `close` is the latest delayed snapshot; `change_p` is **relative to the previous session close, NOT a rolling 24-hour return**.
-- A single HTTP batch request can include multiple symbols through `s=`, with 15–20 symbols recommended. **API credits are billed per ticker**, even when one HTTP request contains all 11. A dashboard polling 11 symbols every five minutes around the clock would incur **3,168 ticker-call credits/day**; an owner-visible-only tab generally uses less.
-- EODHD's free trial/demo token permits **six demonstration instruments only** (US equities, a fund, forex, crypto) and **cannot test the delayed quotes for these 11 international securities**. The registered free tier offers **20 API calls/day and one year of historical EOD data**, not ongoing 5-minute delayed quotes for the full international watchlist. No EODHD key is presently present in Cloudflare.
-- Advertised paid **All World EOD Historical Data** plan begins at **US$19.99/month** and includes Live (Delayed), with 100,000 ticker-call credits/day. **No plan has been purchased or configured.**
-- EODHD personal-use terms permit personal display to the owner on their own devices, but **not display or distribution of feed prices to friends, even through an otherwise private website**. Obtain express vendor authorisation/commercial licensing before sharing data beyond the owner.
-- Some public EODHD issuer pages expose historical or stale snapshot dates. **A listed instrument page does not prove the quote endpoint currently provides timely or accurate 15–20-minute data**. Live endpoint test is still required with an entitled key.
+The owner installed `EODHD_API_KEY` as an encrypted Cloudflare Worker secret. An authenticated, one-shot read-only EODHD batch request via a private service binding returned **HTTP 200** and **10 valid international quotes** out of **11 exact tickers**:
 
-## Exact instrument mapping
+- **ASX:** ORG → ORG.AU and APA.AX → APA.AU, quote currency **AUD**, approximately 20-minute delayed at the test time.
+- **TWSE:** 1519.TW, 2330.TW, 2377.TW, 2379.TW, 2383.TW, 2449.TW, 2454.TW, 3034.TW, quote currency **TWD**, approximately 20–22-minute delayed at test time.
+- **Bursa Malaysia:** CBHB → 0339.KLSE was included and recognized but returned **no usable positive intraday price**, so it remains `LIVE DATA UNAVAILABLE`, with a Yahoo link-out. Do not fabricate or substitute a US-listed proxy.
 
-| Archive ticker | EODHD ticker | Quote currency | Provider catalogue identity |
-|---|---|---|---|
-| ORG | ORG.AU | AUD | [Origin Energy Ltd](https://eodhd.com/financial-summary/ORG.AU) |
-| APA.AX | APA.AU | AUD | [APA Group](https://eodhd.com/financial-summary/APA.AU) |
-| 1519.TW | 1519.TW | TWD | [Fortune Electric Co Ltd](https://eodhd.com/financial-summary/1519.TW) |
-| 2330.TW | 2330.TW | TWD | [Taiwan Semiconductor Manufacturing Co Ltd](https://eodhd.com/financial-summary/2330.TW) |
-| 2377.TW | 2377.TW | TWD | [Micro-Star International Co Ltd](https://eodhd.com/financial-summary/2377.TW) |
-| 2379.TW | 2379.TW | TWD | [Realtek Semiconductor Corp](https://eodhd.com/financial-summary/2379.TW) |
-| 2383.TW | 2383.TW | TWD | [Elite Material Co Ltd](https://eodhd.com/financial-summary/2383.TW) |
-| 2449.TW | 2449.TW | TWD | [King Yuan Electronics Co Ltd](https://eodhd.com/financial-summary/2449.TW) |
-| 2454.TW | 2454.TW | TWD | [MediaTek Inc](https://eodhd.com/financial-summary/2454.TW) |
-| 3034.TW | 3034.TW | TWD | [Novatek Microelectronics Corp](https://eodhd.com/financial-summary/3034.TW) |
-| CBHB | 0339.KLSE | MYR | [CBH Engineering Holding Berhad](https://eodhd.com/financial-summary/0339.KLSE) |
+A second read-only live test of the *permanent* `WebsiteInternationalPrices` named Worker entrypoint returned **HTTP 200, 10 verified, 1 missing (CBHB)**. The new Pages `INTERNATIONAL_PRICE_PROVIDER` binding is separate from the existing `PRICE_PROVIDER` (Alpaca) binding.
 
-## Release criteria (NOT MET)
+The current website build includes a separately authenticated `/api/international-prices` route. Both routes verify the owner's Cloudflare Access JWT **cryptographically** and exact owner email before invoking backend service bindings. The EODHD API token is **never sent to the browser or committed to GitHub**. Production/preview hostname Access policies remain in place. The new 16/16 website unit/integration build tests passed.
 
-1. Obtain a personal EODHD API key with delayed international quote entitlement. Store only as an encrypted Cloudflare Worker secret; never commit it to GitHub or send it in chat.
-2. Run a **read-only, one-shot API batch** for all 11 symbols and verify exact issuer/exchange mapping, non-zero price, currency and source Unix timestamp against source exchange hours, and per-ticker entitlement errors.
-3. Reject zero/null/stale observations, weirdly large data lags and alternate listing proxies; report missing tickers separately, never synthesize prices. A 15–20-minute vendor delay can coexist with a 5-minute browser refresh.
-4. Display vendor **previous-close change** separately and explicitly (not as a rolling 24-hour change); only calculate rolling 24-hour changes if a comparable historical observation from the same feed/session/adjustment basis is available.
-5. Preserve current Alpaca US quotes, existing named `WebsitePrices` service binding, owner-only Cloudflare Access and original research archive. Do not enable an EODHD feed until entitlement and licensing are established.
-6. Do not show EODHD prices to friends without vendor permission.
+## Price and market-time handling
+
+- EODHD source `timestamp` is Unix seconds, the quote's original observation time in UTC, shown in Melbourne local time on the dashboard.
+- Prices are **delayed** (typically 15–20 min during trading), refreshed by client every **5 minutes** while the page is visible. Delayed data is not guaranteed to be only 5 minutes old.
+- The EODHD `change_p` field means **change versus the previous trading session's closing price**. It is displayed explicitly as **vs prev close** and **not misrepresented as a 24h return**; the rolling 24h figure remains `N/A` for these markets.
+- The gateway verifies exact provider symbol, native currency and exchange, rejects invalid, zero, future, >7-day-old and mismatched observations, and never substitutes report archival prices.
+- **Alpaca US quotes remain independent**; a temporary failure of either provider does not clear the other provider's verified quotes.
+- After closing the page, the browser makes no new requests. Returning to a visible page or pressing **Refresh prices** fetches observations again.
+
+## Pricing, limits and licensing
+
+The currently connected EODHD key's **live delayed quote entitlement is verified for ASX and TWSE**, but no purchase details or subscription amount were inspected or inferred.
+
+The EODHD personal-use licence allows displaying prices to **the account owner on their own devices** only. Friends, family, other Access users, public dashboards, shared spreadsheets or downstream data distribution are **not permitted without an appropriate commercial licence**. The new Pages API additionally rejects any non-owner JWT even if they later receive website Access.
+
+One batch request covers up to 11 exact international symbols; EODHD usage accounting is per **instrument**, even in a batched HTTP request. If a single browser tab stays visible 24 hours, polling 11 symbols every 5 minutes could consume **3,168 ticker-data credits/day**. Only the site owner's active browser requests prices; there is no background Cloudflare cron. Monitor account usage to avoid exceeding subscription limits.
+
+## Cleanup and pending checks
+
+The temporary test Queue, consumer, Worker, KV and unused temporary Worker version have been deleted. No public EODHD probe endpoint remains.
+
+Remaining: owner browser sign-in and one refresh to verify the expected **27 quote observations** (17 Alpaca + 10 EODHD) under current data availability. Actual counts vary if provider responses or exchanges are unavailable. Confirm newer quotes during market hours.
+
+Automatic GitHub-push-to-Pages deployment remains a separate pending issue. EODHD **API quote refreshing does not require a GitHub deployment** for every quote update.
 
 ## Sources
 
 - https://eodhd.com/financial-apis/live-ohlcv-stocks-api
-- https://eodhd.com/financial-apis/exchanges-api-list-of-tickers-and-trading-hours
-- https://eodhd.com/pricing
-- https://eodhd.com/help/plans
 - https://eodhd.com/help/personal-use
-- Each EODHD catalogue listing linked in the table above.
-
-**Current website behavior:** Alpaca US prices continue refreshing every five minutes while the tab is visible. International quotes remain unavailable within the table, with existing Yahoo link-outs; this feasibility file does not enable automatic non-US price fetching.
+- https://eodhd.com/help/plans
+- `Website/eodhd-candidates.json` — precise instrument mappings and observed availability

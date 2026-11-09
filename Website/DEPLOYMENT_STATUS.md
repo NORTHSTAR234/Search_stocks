@@ -28,3 +28,16 @@ Do not add new secrets to this repository or enable external price redistributio
 - Removed the temporary diagnostic Queue, consumer, Worker and KV namespace. No temporary diagnostic resources remain active.
 - **Final browser check still required:** the owner should reload the website or press **Refresh prices**. The previously failing backend is now confirmed working; the authenticated browser UI has not been observed by the assistant after the repair.
 - **Automatic GitHub-push-to-Pages trigger remains unverified**. Pages source is GitHub-connected but verified deployments to date were explicitly triggered through the Cloudflare API.
+
+## 9 November 2026 — International EODHD prices deployed (latest status)
+
+- Encrypted `EODHD_API_KEY` was detected in the FRED Worker's secrets. No credentials were read or exposed.
+- Permanent FRED Worker version `91c4de8c-017d-4319-accb-348eb292a661` exposes **two private named entrypoints**: original `WebsitePrices` for Alpaca and new `WebsiteInternationalPrices` for EODHD. Original OAuth/MCP/default entrypoint preserved; nine secret/KV bindings retained.
+- Live read-only EODHD batch API returned **10/11 valid quotes**; a second test of the permanent named entrypoint returned HTTP 200, 10 valid, 1 missing. 2 ASX (AUD), 8 TWSE (TWD), **CBHB Malaysia unavailable**.
+- New owner-JWT-protected Pages `/api/international-prices` route and `INTERNATIONAL_PRICE_PROVIDER` service binding deployed independently of the original Alpaca API/binding. No EODHD API token reaches the browser.
+- The client retrieves both sources **every five minutes while open**; failure of one does not disable the other. EODHD returns native currencies, original observation timestamps and the **previous-close change** with explicit label; not a rolling 24-hour return.
+- Published production Pages deployment `ef5ea292-8f30-4d34-8264-fbc55c3c3e2f`, built `28` latest ticker reports; **16/16 tests passed**, `PUBLISH_REPORTS=yes`, Access remains owner-only, and fail-open remains false.
+- Temporary EODHD test consumer, queue, Worker, KV namespace and unused probe version were deleted.
+- **Owner browser acceptance pending**: should show approximately 27 quote observations (17 US + 10 international) when all providers return verified data. CBHB stays unavailable.
+- EODHD personal-use rights require owner-only display; do not grant prices to friends or publish their snapshots without an appropriate provider licence.
+- GitHub-push-triggered rebuild remains independently unverified; every-five-minute API price refresh does **not** require rebuilds.
