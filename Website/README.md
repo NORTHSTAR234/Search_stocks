@@ -59,3 +59,14 @@ The full build creates `dist/index.html`, `dist/data/reports.json`, and `dist/re
 3. Verify FRED/MCP remains operational following any future `stockresearch-fred-mcp` deployments; the GitHub source for that Worker contains the `WebsitePrices` named entrypoint.
 4. Confirm the Cloudflare Pages GitHub integration actually triggers an automatic rebuild on a new report commit; initial releases were manually triggered through the Cloudflare API even though Git integration is configured.
 5. Do not add friends to the quote API until market-data licensing permits redistribution. Friends can receive research access through explicit additional Access allowlist policies.
+
+
+## International prices: Yahoo Finance link-out (9 November 2026)
+
+The website provides **external Yahoo Finance quote links**, not an unofficial Yahoo API integration, for archived listings unsupported by Alpaca. It makes **no HTTP requests to Yahoo** and stores/displays no Yahoo price data. Yahoo publishes delayed ASX (20 min), Taiwan TWSE (20 min), and Bursa Malaysia (15 min) quotations on its own website but prohibits automated extraction and redistribution without permission. The link is a navigational convenience, not a verified real-time feed.
+
+Mappings validated against publicly accessible official Yahoo quote pages: ORG (Australian listing) → ORG.AX; APA.AX → APA.AX; Taiwan tickers ending in .TW retain the suffix; CBHB (Malaysia) → 0339.KL. Unrecognized exchanges receive no fabricated symbol. Alpaca US price behavior is unchanged.
+
+Investigation: Taiwan TWSE offers a free official after-market EOD closing-price dataset under the Taiwan Open Government Data License v1.0 (attribution required): https://data.gov.tw/en/datasets/11548 . This is a potential future automated source, but **a live Cloudflare fetch has not been verified**. Evaluate response freshness and attribution before enabling it.
+
+Other licensed API options: EODHD personal paid EOD All-World from US$19.99/month (personal-only display; no sharing with friends), Twelve Data Grow from US$79/month for global EOD and Pro from US$229/month for delayed Australian data (ASX-specific internal-use restrictions). No purchases made.
