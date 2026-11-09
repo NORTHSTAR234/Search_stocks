@@ -16,9 +16,28 @@
     return "neutral";
   };
   const cap=(v,n=95)=>{let s=String(v||"NOT RATED");return s.length>n?s.slice(0,n-1)+"…":s;};
+  // Navigation only: links to Yahoo's own pages, never downloads or republishes Yahoo prices.
+  function yahooSymbol(r) {
+    const ticker=String(r?.ticker||"").toUpperCase();
+    if(r.exchange==="ASX"){
+      const code=ticker.replace(/\.AX$/,"");
+      return /^[A-Z0-9]{2,6}$/.test(code)?code+".AX":null;
+    }
+    if(r.exchange==="TWSE")return /^\d{4}\.TW$/.test(ticker)?ticker:null;
+    if(r.exchange==="BURSA"){
+      if(ticker==="CBHB")return "0339.KL";
+      const match=ticker.match(/^(\d{4})\.(?:KL|MY)$/);
+      return match?match[1]+".KL":null;
+    }
+    return null;
+  }
   function quoteCell(r){
     const q=state.quotes[r.ticker.toUpperCase()];
-    if(!q)return '<span class="muted">LIVE DATA UNAVAILABLE</span><small>Not connected / unsupported</small>';
+    if(!q){
+      const symbol=yahooSymbol(r);
+      const navigation=symbol?'<small><a href="https://finance.yahoo.com/quote/'+encodeURIComponent(symbol)+'/" target="_blank" rel="noopener noreferrer">View on Yahoo Finance (delayed) ↗</a></small>':"";
+      return '<span class="muted">LIVE DATA UNAVAILABLE</span><small>Not supported by Alpaca</small>'+navigation;
+    }
     const p=Number(q.price),currency=q.currency==="USD"?"US$":q.currency==="AUD"?"A$":q.currency+" ";
     const price=Number.isFinite(p)?currency+p.toLocaleString("en-AU",{minimumFractionDigits:2,maximumFractionDigits:3}):"LIVE DATA UNAVAILABLE";
     const change=typeof q.change24hPercent==="number"&&Number.isFinite(q.change24hPercent)?
