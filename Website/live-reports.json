@@ -4,33 +4,42 @@
   "latestHtmlReportAt": "2026-11-09T05:35:16Z",
   "htmlReportCount": 4,
   "uniqueTickers": 3,
-  "revision": "6e929f9574816ac3b60225d629b60a2e",
+  "revision": "28d031fba59b50986522511f8c81ee22",
   "rows": [
     {
-      "company": "Mastercard Incorporated NYSE: MA",
+      "company": "Mastercard Incorporated",
       "ticker": "MA",
       "exchange": "US",
       "bucket": "halal",
       "timestamp": "2026-11-09T05:35:16Z",
       "statusOnly": false,
-      "action": "NOT RATED",
-      "ownerAction": "NOT RATED",
-      "risk": "NOT RATED",
-      "investment": "NOT RATED",
-      "entry": "NOT RATED",
-      "musaffa": "IF I DON'T OWN: WATCH",
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "MODERATE-HIGH",
+      "investment": "83/100",
+      "entry": "45/100",
+      "musaffa": "HALAL · A · 2026-08-03",
       "earnings": "28 Jan 2027 estimated",
-      "zones": "NOT RATED",
-      "stops": "NOT RATED",
+      "zones": "US$535–565 / US$566–600",
+      "stops": "US$510 / US$640",
       "nativeCurrency": "USD",
-      "zoneBands": [],
+      "zoneBands": [
+        [
+          535,
+          565
+        ],
+        [
+          566,
+          600
+        ]
+      ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MA/MA_2026-11-09_05-35-16Z.html",
       "reportPath": "/view-report?path=halal%2FMA%2FMA_2026-11-09_05-35-16Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
     {
-      "company": "Fortune Electric Co., Ltd. TWSE:1519 · 1519.TW",
+      "company": "Fortune Electric Co., Ltd.",
       "ticker": "1519.TW",
       "exchange": "TWSE",
       "bucket": "nonhalal",
@@ -41,7 +50,7 @@
       "risk": "NOT RATED",
       "investment": "NOT RATED",
       "entry": "NOT RATED",
-      "musaffa": "NOT VERIFIED",
+      "musaffa": "HALAL in both available versions · RECENCY UNVERIFIED",
       "earnings": "NOT RATED",
       "zones": "NOT RATED",
       "stops": "NOT RATED",
@@ -53,23 +62,32 @@
       "conflictingBuckets": false
     },
     {
-      "company": "NVIDIA Corporation NASDAQ: NVDA",
+      "company": "NVIDIA Corporation",
       "ticker": "NVDA",
       "exchange": "US",
       "bucket": "halal",
       "timestamp": "2026-11-09T05:18:50Z",
       "statusOnly": false,
-      "action": "NOT RATED",
-      "ownerAction": "NOT RATED",
-      "risk": "NOT RATED",
-      "investment": "NOT RATED",
-      "entry": "NOT RATED",
-      "musaffa": "IF I DO NOT OWN: WATCH",
-      "earnings": "NOT VERIFIED",
-      "zones": "NOT RATED",
-      "stops": "NOT RATED",
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "78/100",
+      "entry": "48/100",
+      "musaffa": "HALAL · A · 2026-09-19",
+      "earnings": "17 Nov 2026 confirmed",
+      "zones": "US$165–175 / US$176–185",
+      "stops": "US$154 / US$205",
       "nativeCurrency": "USD",
-      "zoneBands": [],
+      "zoneBands": [
+        [
+          165,
+          175
+        ],
+        [
+          176,
+          185
+        ]
+      ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/NVDA/NVDA_2026-11-09_05-18-50Z.html",
       "reportPath": "/view-report?path=halal%2FNVDA%2FNVDA_2026-11-09_05-18-50Z.html",
       "sourceFormat": "html",
