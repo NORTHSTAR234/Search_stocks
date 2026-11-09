@@ -14,3 +14,7 @@
 
 /assets/*.css
   Cache-Control: no-cache
+
+/reports/*
+  Content-Security-Policy: default-src 'none'; script-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; style-src 'unsafe-inline'; img-src https: data:; font-src https: data:
+  X-Content-Type-Options: nosniff

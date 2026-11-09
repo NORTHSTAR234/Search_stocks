@@ -2,20 +2,21 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import MarkdownIt from "markdown-it";
+import {parseHtmlReport,safeHtmlDocument} from "./lib/report-archive.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
 const output = path.join(here, "dist");
 const markdown = new MarkdownIt({ html: false, linkify: true, typographer: true, breaks: false });
 const github = "https://github.com/NORTHSTAR234/Search_stocks/blob/main/";
-const archivePattern = /^(halal|nonhalal)\/([^/]+)\/([^/]+)_(\d{4}-\d{2}-\d{2})_(\d{2}-\d{2}-\d{2})Z\.md$/i;
+const archivePattern = /^(halal|nonhalal)\/([A-Za-z0-9.-]+)\/([A-Za-z0-9.-]+)_(\d{4}-\d{2}-\d{2})_(\d{2}-\d{2}-\d{2})Z(?:(_chat_response))?\.(md|html)$/i;
 
 export function archiveInfo(relative) {
   const match = relative.match(archivePattern);
   if (!match || match[2].toUpperCase() !== match[3].toUpperCase()) return null;
   const iso = match[4] + "T" + match[5].replaceAll("-", ":") + "Z";
   if (!Number.isFinite(Date.parse(iso))) return null;
-  return {bucket:match[1].toLowerCase(),ticker:match[2],timestamp:iso,path:relative};
+  return {bucket:match[1].toLowerCase(),ticker:match[2].toUpperCase(),timestamp:iso,path:relative,format:match[7].toLowerCase(),legacyHtmlSuffix:Boolean(match[6])};
 }
 function scan(bucket) {
   const base = path.join(root,bucket);
@@ -37,7 +38,10 @@ export function latestArchive(files) {
   for (const item of files) {
     const key=item.ticker.toUpperCase();
     const older=byTicker.get(key);
-    if (!older || item.timestamp>older.timestamp || (item.timestamp===older.timestamp && item.path<older.path)) byTicker.set(key,item);
+    if (!older || item.timestamp>older.timestamp || item.timestamp===older.timestamp &&
+      (item.format==="html"&&older.format!=="html" ||
+       item.format===older.format&&older.legacyHtmlSuffix&&!item.legacyHtmlSuffix ||
+       item.format===older.format&&item.legacyHtmlSuffix===older.legacyHtmlSuffix&&item.path<older.path)) byTicker.set(key,item);
   }
   return [...byTicker.values()].sort((a,b)=>b.timestamp.localeCompare(a.timestamp)||a.ticker.localeCompare(b.ticker));
 }
@@ -106,7 +110,7 @@ export function parseReport(info,raw) {
     /(?:\bASX\s*:\s*[A-Z]{2,6}\b|\bAustralian Securities Exchange\b|\b[A-Z]{2,6}\.AX\b)/i.test(header.slice(0,800))?"ASX":"US";
   const values={
     company:screeningOnly?short((header.match(/Exact user-confirmed security:\*\*\s*([^,\n]+)/i)||[])[1]||info.ticker,95):companyName(header,info.ticker),ticker:info.ticker,exchange,
-    bucket:info.bucket,timestamp:info.timestamp,statusOnly:screeningOnly,
+    bucket:info.bucket,timestamp:info.timestamp,statusOnly:screeningOnly,sourceFormat:"md",
     action:screeningOnly?"SCREENING ONLY — NO INVESTMENT REPORT":(newAction||"NOT RATED"),
     ownerAction:screeningOnly?"RESEARCH SKIPPED":(holdAction||"NOT RATED"),
     risk:screeningOnly?"NOT RATED":risk,
@@ -141,9 +145,9 @@ function mainPage() {
   '<label><span>Category</span><select id="bucket"><option value="all">All</option><option value="halal">Halal folder</option><option value="nonhalal">Nonhalal / unverified folder</option></select></label>'+
   '<label><span>Exchange</span><select id="exchange"><option value="all">All markets</option><option value="US">US</option><option value="ASX">ASX</option><option value="TWSE">Taiwan</option><option value="BURSA">Malaysia</option><option value="OTHER">Other</option></select></label>'+
   '<label><span>Order</span><select id="order"><option value="newest">Newest report</option><option value="ticker">Ticker A–Z</option><option value="entry">Entry score ↓</option><option value="investment">Investment score ↓</option></select></label>'+
-  '<button id="refresh" type="button">Refresh prices</button></div><div class="notice" id="marketNotice" role="status">Loading archived reports…</div>'+
+  '<button id="refresh" type="button">Refresh data</button></div><div class="notice" id="marketNotice" role="status">Loading archived reports…</div><div class="notice report-sync" id="reportSyncNotice" role="status">Checking GitHub for newer HTML reports…</div>'+
   '<div class="table-wrap"><table><thead><tr>'+head+'</tr></thead><tbody id="rows"><tr><td colspan="10">Loading…</td></tr></tbody></table></div>'+
-  '<div class="table-footer"><span id="shown"></span><span>Price quotes auto-refresh every 5 minutes while open · Reports update on publication</span></div></section>'+
+  '<div class="table-footer"><span id="shown"></span><span>Prices and GitHub HTML archives checked every 5 minutes while open</span></div></section>'+
   '<p class="note">Storage buckets are administrative, not Shariah determinations. Unverified or stale screening does not mean haram. A 24h percentage is shown only when a comparable observation approximately 24 elapsed hours earlier exists. Non-US quotes require a separate licensed provider.</p></main>'+
   '<script src="/assets/app.js" defer></script>';
   return page("Latest Research Reports",body);
@@ -182,12 +186,12 @@ export function build() {
   }
   for(const info of latest) {
     const raw=fs.readFileSync(path.join(root,info.path),"utf8");
-    const row=parseReport(info,raw);
+    const row=info.format==="html"?parseHtmlReport(info,raw):parseReport(info,raw);
     row.conflictingBuckets=bucketsByTicker.get(info.ticker.toUpperCase()).size>1;
     rows.push(row);
     const target=path.join(output,"reports",info.ticker,"index.html");
     fs.mkdirSync(path.dirname(target),{recursive:true});
-    fs.writeFileSync(target,reportPage(row,markdown.render(raw)));
+    fs.writeFileSync(target,info.format==="html"?safeHtmlDocument(info,raw):reportPage(row,markdown.render(raw)));
   }
   const jsonDir=path.join(output,"data");
   fs.mkdirSync(jsonDir,{recursive:true});
@@ -197,6 +201,6 @@ export function build() {
   for (const name of ["app.js","style.css"]) fs.copyFileSync(path.join(here,"assets",name),path.join(output,"assets",name));
   fs.copyFileSync(path.join(here,"_headers"),path.join(output,"_headers"));
   fs.writeFileSync(path.join(output,"robots.txt"),"User-agent: *\nDisallow: /\n");
-  console.log("Built "+rows.length+" current ticker reports from "+archives.length+" archived Markdown files.");
+  console.log("Built "+rows.length+" current ticker reports from "+archives.length+" archived HTML/Markdown files.");
 }
 if(process.argv[1] && path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) build();
