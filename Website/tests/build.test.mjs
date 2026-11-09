@@ -73,3 +73,47 @@ test("dashboard uses independent regular and overnight columns",()=>{
  assert(code.includes('"Regular / latest price","Overnight / vs close","Action / Risk"'));
  assert(code.includes('colspan="11"'));
 });
+
+test("snapshot-based Mastercard HTML extraction yields actual scores, actions, Shariah and bands",async()=>{
+ const {archiveInfo,parseHtmlReport}=await import("../lib/report-archive.mjs");
+ const info=archiveInfo("halal/MA/MA_2026-11-09_05-35-16Z.html");
+ const snapshot={
+  report_type:"full",ticker:"MA",exchange:"NYSE",
+  identity:{company:"Mastercard Incorporated"},
+  musaffa:{classification:"HALAL",grade:"A",screening_date:"2026-08-03"},
+  actions:{new_position:"WATCH",existing_holder:"HOLD"},risk:"MODERATE-HIGH",
+  scores:{investment:83,entry:45},
+  next_earnings:{date:"2027-01-28",confirmed:false},
+  entry:{preferred_low:535,preferred_high:565,acceptable_low:566,acceptable_high:600,no_chase:640},
+  targets:{stop:510}
+ };
+ const html='<!DOCTYPE html><html><head><title>MA</title></head><body><h1>Mastercard Incorporated <small>NYSE: MA</small></h1>'+
+  '<script type="application/json" id="aya-report-snapshot">'+JSON.stringify(snapshot)+'</script>'+
+  '<p>A full finance report, with self-contained score snapshot and chart.</p></body></html>';
+ const v=parseHtmlReport(info,html);
+ assert.equal(v.company,"Mastercard Incorporated");assert.equal(v.statusOnly,false);
+ assert.equal(v.action,"WATCH");assert.equal(v.ownerAction,"HOLD");assert.equal(v.risk,"MODERATE-HIGH");
+ assert.equal(v.investment,"83/100");assert.equal(v.entry,"45/100");
+ assert.equal(v.musaffa,"HALAL · A · 2026-08-03");
+ assert.equal(v.earnings,"28 Jan 2027 estimated");
+ assert.equal(v.zones,"US$535–565 / US$566–600");
+ assert.equal(v.stops,"US$510 / US$640");
+ assert.deepEqual(v.zoneBands,[[535,565],[566,600]]);
+ assert.throws(()=>parseHtmlReport({...info,ticker:"FAKE"},html),/identity mismatch/);
+});
+test("newer screening-only HTML never backfills earlier investment scores",async()=>{
+ const {archiveInfo,parseHtmlReport}=await import("../lib/report-archive.mjs");
+ const info=archiveInfo("nonhalal/1519.TW/1519.TW_2026-11-09_05-23-30Z.html");
+ const data={ticker:"1519.TW",report_type:"screening_only",
+  identity:{name:"Fortune Electric Co., Ltd."},
+  musaffa:{classification:"HALAL in both available versions",screening_date:null,gate:"RECENCY UNVERIFIED"},
+  scores:{investment:88,entry:77},actions:{new_position:"BUY"}};
+ const html='<html><head><title>Screening</title></head><body><h1>Fortune Electric Co., Ltd.</h1>'+
+  '<p>Full investment research skipped: screening recency unverified.</p>'+
+  '<script id="aya-report-snapshot" type="application/json">'+JSON.stringify(data)+'</script></body></html>';
+ const v=parseHtmlReport(info,html);
+ assert.equal(v.statusOnly,true);
+ assert.equal(v.action,"SCREENING ONLY — NO INVESTMENT REPORT");
+ assert.equal(v.investment,"NOT RATED");assert.equal(v.entry,"NOT RATED");
+ assert(v.musaffa.includes("RECENCY UNVERIFIED"));
+});

@@ -85,3 +85,9 @@ test("regular and overnight have distinct columns and signed price/percentage co
  assert(source.includes('colspan="11"'));
 });
 
+
+test("same-timestamp HTML field corrections and screening gates sync without a new filename",()=>{
+ assert(source.includes('r.timestamp===old.timestamp&&(old.sourceFormat!=="html"||JSON.stringify(old)!==JSON.stringify(r))'));
+ assert(source.includes('const screening=r.musaffa||"NOT VERIFIED"'));
+ assert(source.includes('Screening only · no current investment rating'));
+});
