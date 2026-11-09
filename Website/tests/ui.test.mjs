@@ -36,3 +36,9 @@ test("Yahoo fallback never fetches or proxies an unofficial Yahoo endpoint",()=>
   assert(!source.includes("query2.finance.yahoo.com"));
   assert(source.includes('target="_blank" rel="noopener noreferrer"'));
 });
+
+test("Quote scheduler refreshes every five minutes only while page is visible",()=>{
+  assert.match(source,/setInterval\(\(\)=>\{if\(document\.visibilityState==="visible"&&state\.providerReady\)refresh\(\);\},300000\)/);
+  assert.doesNotMatch(source,/setInterval\([^;]+,60000\)/);
+  assert.match(source,/Automatic refresh every 5 minutes/);
+});
