@@ -41,3 +41,12 @@ Do not add new secrets to this repository or enable external price redistributio
 - **Owner browser acceptance pending**: should show approximately 27 quote observations (17 US + 10 international) when all providers return verified data. CBHB stays unavailable.
 - EODHD personal-use rights require owner-only display; do not grant prices to friends or publish their snapshots without an appropriate provider licence.
 - GitHub-push-triggered rebuild remains independently unverified; every-five-minute API price refresh does **not** require rebuilds.
+
+## 9 November 2026 — HTML reports integrated into five-minute checks
+
+- Archive scanner accepts legacy `.md` and current standalone `.html` report filenames, including early `_chat_response.html` suffixes. Newest UTC archive wins by exact ticker across both bucket folders; HTML wins timestamp ties. Full HTML style, inline SVG chart and report sections are preserved, with executable scripts disabled in rendered site output.
+- Verified first GitHub Actions workflow (`Publish HTML stock-report index`) **completed successfully** and committed `Website/live-reports.json` to `main` with 3 HTML files across 2 ticker identities, including newly saved nonhalal status-only `1519.TW`.
+- A read-only Cloudflare Worker verified direct public raw GitHub URLs: the manifest returned **HTTP 200**, and the new report HTML returned **HTTP 200**. The REST tree endpoint returned **HTTP 403 due to anonymous shared-IP rate limits**, hence the permanent site now reads only the generated raw manifest.
+- The existing dashboard checks the manifest and Alpaca/EODHD quotes in one five-minute cycle while open. New ticker rows are added and old report rows replaced from the manifest without rebuilding Cloudflare Pages. A separate owner-JWT-protected `/view-report` route serves newly saved standalone HTML.
+- Security: owner-only Cloudflare Access and exact JWT gates are unchanged. Original repository `halal/` and `nonhalal/` archive files were never edited by development; only new user-plugin HTML files were read. No GitHub API token or Cloudflare deploy hook is needed for the live report index.
+- Still verify a final owner-authenticated browser refresh, particularly the new report's HTML view and GitHub sync status banner. Five-minute check occurs while the browser is open/visible, **not** via a background cron when nobody is viewing the site.

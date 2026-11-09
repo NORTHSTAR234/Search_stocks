@@ -192,9 +192,9 @@
       $("marketNotice").textContent="Archive built "+fmt(data.generatedAt)+". Loading independent prices.";
       render();
       await refresh();
-      await syncGithubReports();
-      // Include any newly discovered US or EODHD-listed ticker immediately.
-      await refresh();
+      const addedReports=await syncGithubReports();
+      // A second quote request is necessary only if GitHub added or updated a ticker.
+      if(addedReports)await refresh();
       setInterval(()=>{if(document.visibilityState==="visible")checkAll();},300000);
       document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkAll();});
     }catch(e){
