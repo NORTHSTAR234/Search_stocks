@@ -60,49 +60,139 @@ function namedField(fields,regex) {
 function numericBands(raw){
   return [...String(raw).matchAll(/(?:US\$|USD\s*|\$)\s*([\d,]+(?:\.\d+)?)\s*[–—-]\s*(?:(?:US\$|USD\s*|\$)\s*)?([\d,]+(?:\.\d+)?)/gi)].slice(0,2).map(x=>[+x[1].replaceAll(",",""),+x[2].replaceAll(",","")]);
 }
+
+function snapshotFromHtml(html,expectedTicker){
+  const m=html.match(/<script\b(?=[^>]*\bid\s*=\s*["']aya-report-snapshot["'])[^>]*>([\s\S]*?)<\/script\s*>/i);
+  if(!m)return null;
+  if(m[1].length>150000)throw Error("Oversized research snapshot");
+  let snap;
+  try{snap=JSON.parse(m[1]);}catch{throw Error("Invalid research snapshot JSON");}
+  if(!snap||typeof snap!=="object"||String(snap.ticker||"").toUpperCase()!==expectedTicker)
+    throw Error("Research snapshot security identity mismatch");
+  return snap;
+}
+function score100(value,fallback){
+  if(Number.isInteger(value)&&value>=0&&value<=100)return value+"/100";
+  return fallback||"NOT RATED";
+}
+function reportMetric(html,label){
+  const wanted=label.toLowerCase();
+  for(const m of html.matchAll(/<(?:article|div)\b[^>]*class=["'][^"']*\bmetric\b[^"']*["'][^>]*>([\s\S]*?)<\/(?:article|div)\s*>/gi)){
+    const tags=[...m[1].matchAll(/<(?:small|strong)\b[^>]*>([\s\S]*?)<\/(?:small|strong)\s*>/gi)].map(x=>short(x[1],120));
+    if(tags.length>=2&&tags[0].toLowerCase().startsWith(wanted))return tags[1];
+  }
+  return "";
+}
+function actionPills(first){
+  const out=[];
+  for(const m of first.matchAll(/<(?:span|div)\b[^>]*class=["'][^"']*\b(?:pill|action)\b[^"']*["'][^>]*>([\s\S]*?)<\/(?:span|div)\s*>/gi)){
+    const text=short(m[1],145);
+    if(text)out.push(text);
+  }
+  return out;
+}
+function reportDate(value){
+  if(typeof value!=="string"||!/^\d{4}-\d{2}-\d{2}$/.test(value)||!Number.isFinite(Date.parse(value+"T12:00:00Z")))return "";
+  return new Intl.DateTimeFormat("en-GB",{timeZone:"UTC",year:"numeric",month:"short",day:"numeric"}).format(new Date(value+"T12:00:00Z"));
+}
+function priceBand(low,high,currency){
+  const a=Number(low),b=Number(high);
+  return Number.isFinite(a)&&Number.isFinite(b)&&a>0&&b>=a
+    ?(currency==="USD"?"US$":currency+" ")+a.toLocaleString("en-US")+"–"+b.toLocaleString("en-US")
+    :"";
+}
+function currencyAmount(value,currency){
+  const n=Number(value);
+  return Number.isFinite(n)&&n>0?(currency==="USD"?"US$":currency+" ")+n.toLocaleString("en-US"):"";
+}
+
 export function parseHtmlReport(info,html) {
   if(info.format!=="html"||typeof html!=="string"||html.length<180||
      !/<html\b/i.test(html)||!/<body\b/i.test(html))throw Error("Malformed or non-HTML research archive");
-  const first=html.slice(0,25000);
+  const first=html.slice(0,35000);
+  const ticker=info.ticker.toUpperCase();
+  const snapshot=snapshotFromHtml(html,ticker);
   const heading=firstTag(first,"h1");
   const m=heading.match(/^(.+?)\s*\((?:NASDAQ|NYSE|NYSEARCA|ASX|TWSE|Bursa|MYX|KLSE)\s*:\s*[A-Za-z0-9.-]+\)/i);
-  const company=short((m?.[1]||heading.replace(/\s*[—–-]\s*(?:\d{1,2}\s+\w+\s+\d{4}|\w+\s+\d{4}).*$/i,"")||info.ticker),95);
-  const isStatus=/(?:HALAL\s+STATUS(?:\s+ONLY)?|FINANCIAL\s+RESEARCH\s+SKIPPED|RESEARCH\s+SKIPPED)/i.test(first.slice(0,10000))||
+  const company=short(snapshot?.identity?.company||snapshot?.identity?.name||
+    m?.[1]||heading.replace(/\s*[—–-]\s*(?:\d{1,2}\s+\w+\s+\d{4}|\w+\s+\d{4}).*$/i,"")||ticker,95)
+    .replace(/\s+(?:NASDAQ|NYSE|NYSEARCA|ASX|TWSE|Bursa|MYX|KLSE)\s*:\s*[A-Z0-9.-]+$/i,"");
+  const statusFromSnapshot=snapshot?.report_type==="screening_only";
+  const isStatus=statusFromSnapshot||
+    /(?:HALAL\s+STATUS(?:\s+ONLY)?|FINANCIAL\s+RESEARCH\s+SKIPPED|RESEARCH\s+SKIPPED|FULL INVESTMENT RESEARCH SKIPPED)/i.test(first.slice(0,10000))||
     info.bucket==="nonhalal"&&!/<(?:div|section)\b[^>]*class=["'][^"']*(?:dashboard|scoregrid)/i.test(first);
   const fields=tableValues(html);
+  const pills=actionPills(first);
   const acts=actionTexts(first);
-  const pill=(first.match(/<span\b[^>]*class=["'][^"']*\bpill\b[^"']*["'][^>]*>([\s\S]*?)<\/span>/i)||[])[1]||"";
-  const screeningDate=(first.match(/<span\b[^>]*class=["'][^"']*\bdate\b[^"']*["'][^>]*>([\s\S]*?)<\/span>/i)||[])[1]||"";
-  const risk=(strip(first.slice(0,8500)).match(/\b(VERY HIGH|HIGH|MEDIUM|MODERATE|LOW)\s+risk\b/i)||[])[0]||"NOT RATED";
-  let earnings=namedField(fields,/^(?:confirmed next earnings|next earnings|upcoming earnings)/i);
-  if(!earnings){
-    const visible=strip(first.slice(0,10500));
-    const match=visible.match(/(?:confirmed\s+)?(?:fiscal\s+Q\d\s+\d{4}\s+)?earnings\s+on\s+[^.;]{7,120}/i);
-    earnings=match?short(match[0],115):"NOT VERIFIED";
-  }
-  const preferred=namedField(fields,/^preferred\s+(?:buy\s+)?zone/i);
-  const acceptable=namedField(fields,/^acceptable\s+(?:buy\s+)?zone/i);
-  const zones=preferred&&acceptable?preferred+" / "+acceptable:preferred||acceptable||"NOT RATED";
-  const initial=namedField(fields,/^initial stop/i);
-  const chase=namedField(fields,/^no_?chase/i);
-  const stops=initial&&chase?initial+" / "+chase:initial||chase||"NOT RATED";
-  const ticker=info.ticker.toUpperCase();
-  const upperHead=strip(first.slice(0,5000));
+  const newPill=pills.find(x=>/IF I DON['’]?T OWN\s*:/i.test(x));
+  const existingPill=pills.find(x=>/IF I OWN\s*:/i.test(x));
+  const pill=(pills.find(x=>/^(?:MUSAFFA|HALAL|HARAM|NOT HALAL|COMPLIANT)/i.test(x))||"");
+  const screenHeader=(first.match(/<header\b[^>]*class=["'][^"']*\bmusaffa-gate\b[^"']*["'][^>]*>([\s\S]*?)<\/header\s*>/i)||[])[1]||"";
+  const screenBadge=short((screenHeader.match(/<span\b[^>]*>([\s\S]*?)<\/span>/i)||[])[1]||"",100);
+  const screeningDate=short((first.match(/<span\b[^>]*class=["'][^"']*\bdate\b[^"']*["'][^>]*>([\s\S]*?)<\/span>/i)||[])[1]||"");
+  const riskPill=pills.find(x=>/^RISK\s*:/i.test(x));
+  const riskMatch=strip(first.slice(0,8500)).match(/\b(VERY HIGH|HIGH|MEDIUM|MODERATE|LOW)(?:[–—-](?:VERY HIGH|HIGH|MEDIUM|MODERATE|LOW))?\s+risk\b/i);
+  const risk=short(snapshot?.risk||(riskPill||"").replace(/^RISK\s*:\s*/i,"")||riskMatch?.[0]||"NOT RATED",80);
+  const exchangeHint=String(snapshot?.exchange||"").toUpperCase();
+  const upperHead=strip(first.slice(0,6000));
   const exchange=ticker.endsWith(".TW")?"TWSE":ticker.endsWith(".AX")?"ASX":
-    /\.(?:KL|MY)$/.test(ticker)?"BURSA":/\.(?:US)$/.test(ticker)?"US":
+    /\.(?:KL|MY)$/.test(ticker)?"BURSA":
+    ["ASX","TWSE","BURSA","KLSE","MYX"].includes(exchangeHint)?(exchangeHint==="ASX"?"ASX":exchangeHint==="TWSE"?"TWSE":"BURSA"):
     /\b(?:ASX\s*:|AUSTRALIAN SECURITIES EXCHANGE)\b/i.test(upperHead)?"ASX":
     /\b(?:BURSA|MALAYSIA|KLSE|MYX)\b/i.test(upperHead)?"BURSA":
     /\b(?:TWSE|TAIWAN STOCK EXCHANGE)\b/i.test(upperHead)?"TWSE":
     /\./.test(ticker)?"OTHER":"US";
   const currency=exchange==="US"?"USD":exchange==="ASX"?"AUD":exchange==="TWSE"?"TWD":exchange==="BURSA"?"MYR":"UNKNOWN";
+  const entrySnapshot=snapshot?.entry||{},targetSnapshot=snapshot?.targets||{};
+  const preferred=priceBand(entrySnapshot.preferred_low,entrySnapshot.preferred_high,currency)||
+    reportMetric(html,"Preferred buy zone")||namedField(fields,/^preferred\s+(?:buy\s+)?zone/i);
+  const acceptable=priceBand(entrySnapshot.acceptable_low,entrySnapshot.acceptable_high,currency)||
+    reportMetric(html,"Acceptable buy zone")||namedField(fields,/^acceptable\s+(?:buy\s+)?zone/i);
+  const zones=preferred&&acceptable?preferred+" / "+acceptable:preferred||acceptable||"NOT RATED";
+  const initial=currencyAmount(targetSnapshot.stop,currency)||reportMetric(html,"Initial stop")||
+    namedField(fields,/^initial stop/i);
+  const chase=currencyAmount(entrySnapshot.no_chase,currency)||reportMetric(html,"No chase")||
+    namedField(fields,/^no[_\s-]?chase/i);
+  const stops=initial&&chase?initial+" / "+chase:initial||chase||"NOT RATED";
+  let earnings="";
+  const next=snapshot?.next_earnings;
+  if(next?.date){
+    const date=reportDate(next.date);
+    if(date)earnings=date+(next.confirmed===true?" confirmed":next.confirmed===false?" estimated":"");
+  }
+  earnings=earnings||namedField(fields,/^(?:confirmed next earnings|next earnings|upcoming earnings)/i)||
+    (reportMetric(html,"Next earnings")||"");
+  if(!earnings){
+    const match=strip(first.slice(0,10500)).match(/(?:confirmed\s+)?(?:fiscal\s+Q\d\s+\d{4}\s+)?earnings\s+on\s+[^.;]{7,120}/i);
+    earnings=match?short(match[0],115):"NOT VERIFIED";
+  }
+  const musaffaSnap=snapshot?.musaffa;
+  let musaffa;
+  if(musaffaSnap&&typeof musaffaSnap.classification==="string"){
+    musaffa=short(musaffaSnap.classification+
+      (typeof musaffaSnap.grade==="string"&&musaffaSnap.grade?" · "+musaffaSnap.grade:"")+
+      (typeof musaffaSnap.screening_date==="string"&&musaffaSnap.screening_date?" · "+musaffaSnap.screening_date:"")+
+      (typeof musaffaSnap.gate==="string"&&musaffaSnap.gate?" · "+musaffaSnap.gate:""),140);
+  }else musaffa=short((screenBadge||pill||"NOT VERIFIED")+(screeningDate?" · "+screeningDate:""),140);
+  const snapshotInvestment=snapshot?.scores?.investment;
+  const snapshotEntry=snapshot?.scores?.entry;
+  const investFallback=reportMetric(html,"Investment quality")||score(first,"Investment");
+  const entryFallback=reportMetric(html,"Entry attractiveness")||score(first,"Entry");
+  const investment=score100(snapshotInvestment,investFallback);
+  const entry=score100(snapshotEntry,entryFallback);
+  const action=short(snapshot?.actions?.new_position||newPill?.replace(/^IF I DON['’]?T OWN\s*:\s*/i,"")||
+    acts[0]||namedField(fields,/^action\s+(?:if i don.t own|new buyer|new investor)/i)||"NOT RATED",140);
+  const ownerAction=short(snapshot?.actions?.existing_holder||existingPill?.replace(/^IF I OWN\s*:\s*/i,"")||
+    acts[1]||namedField(fields,/^action\s+if i own/i)||"NOT RATED",140);
   return {
     company:company||ticker,ticker,exchange,bucket:info.bucket,timestamp:info.timestamp,
-    statusOnly:isStatus,action:isStatus?"SCREENING ONLY — NO INVESTMENT REPORT":acts[0]||namedField(fields,/^action\s+(?:if i don.t own|new buyer|new investor)/i)||"NOT RATED",
-    ownerAction:isStatus?"RESEARCH SKIPPED":acts[1]||namedField(fields,/^action\s+if i own/i)||"NOT RATED",
+    statusOnly:isStatus,
+    action:isStatus?"SCREENING ONLY — NO INVESTMENT REPORT":action,
+    ownerAction:isStatus?"RESEARCH SKIPPED":ownerAction,
     risk:isStatus?"NOT RATED":risk,
-    investment:isStatus?"NOT RATED":score(first,"Investment"),
-    entry:isStatus?"NOT RATED":score(first,"Entry"),
-    musaffa:short((pill?strip(pill):"NOT VERIFIED")+(screeningDate?" · "+strip(screeningDate):""),140),
+    investment:isStatus?"NOT RATED":investment,
+    entry:isStatus?"NOT RATED":entry,
+    musaffa,
     earnings:isStatus?"NOT RATED":earnings,
     zones:isStatus?"NOT RATED":zones,
     stops:isStatus?"NOT RATED":stops,
