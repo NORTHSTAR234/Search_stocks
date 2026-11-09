@@ -1,0 +1,122 @@
+{
+  "asOf": "2026-11-09",
+  "status": "CATALOGUE_MATCHED_API_UNTESTED",
+  "exchangeSuffixes": {
+    "ASX": "AU",
+    "TWSE": "TW",
+    "BURSA": "KLSE"
+  },
+  "notes": "Symbols confirmed via EODHD official issuer pages; no authenticated real-time API request or per-ticker quote freshness test performed. No EODHD API key configured. Do not use for live prices until verified entitlement and licensing.",
+  "instruments": [
+    {
+      "ticker": "ORG",
+      "eodhd": "ORG.AU",
+      "exchange": "ASX",
+      "currency": "AUD",
+      "issuer": "Origin Energy Ltd",
+      "catalogueUrl": "https://eodhd.com/financial-summary/ORG.AU",
+      "quoteValidation": "NOT_TESTED_NO_ENTITLED_KEY",
+      "feedEnabled": false
+    },
+    {
+      "ticker": "APA.AX",
+      "eodhd": "APA.AU",
+      "exchange": "ASX",
+      "currency": "AUD",
+      "issuer": "APA Group",
+      "catalogueUrl": "https://eodhd.com/financial-summary/APA.AU",
+      "quoteValidation": "NOT_TESTED_NO_ENTITLED_KEY",
+      "feedEnabled": false
+    },
+    {
+      "ticker": "1519.TW",
+      "eodhd": "1519.TW",
+      "exchange": "TWSE",
+      "currency": "TWD",
+      "issuer": "Fortune Electric Co Ltd",
+      "catalogueUrl": "https://eodhd.com/financial-summary/1519.TW",
+      "quoteValidation": "NOT_TESTED_NO_ENTITLED_KEY",
+      "feedEnabled": false
+    },
+    {
+      "ticker": "2330.TW",
+      "eodhd": "2330.TW",
+      "exchange": "TWSE",
+      "currency": "TWD",
+      "issuer": "Taiwan Semiconductor Manufacturing Co Ltd",
+      "catalogueUrl": "https://eodhd.com/financial-summary/2330.TW",
+      "quoteValidation": "NOT_TESTED_NO_ENTITLED_KEY",
+      "feedEnabled": false
+    },
+    {
+      "ticker": "2377.TW",
+      "eodhd": "2377.TW",
+      "exchange": "TWSE",
+      "currency": "TWD",
+      "issuer": "Micro-Star International Co Ltd",
+      "catalogueUrl": "https://eodhd.com/financial-summary/2377.TW",
+      "quoteValidation": "NOT_TESTED_NO_ENTITLED_KEY",
+      "feedEnabled": false
+    },
+    {
+      "ticker": "2379.TW",
+      "eodhd": "2379.TW",
+      "exchange": "TWSE",
+      "currency": "TWD",
+      "issuer": "Realtek Semiconductor Corp",
+      "catalogueUrl": "https://eodhd.com/financial-summary/2379.TW",
+      "quoteValidation": "NOT_TESTED_NO_ENTITLED_KEY",
+      "feedEnabled": false
+    },
+    {
+      "ticker": "2383.TW",
+      "eodhd": "2383.TW",
+      "exchange": "TWSE",
+      "currency": "TWD",
+      "issuer": "Elite Material Co Ltd",
+      "catalogueUrl": "https://eodhd.com/financial-summary/2383.TW",
+      "quoteValidation": "NOT_TESTED_NO_ENTITLED_KEY",
+      "feedEnabled": false
+    },
+    {
+      "ticker": "2449.TW",
+      "eodhd": "2449.TW",
+      "exchange": "TWSE",
+      "currency": "TWD",
+      "issuer": "King Yuan Electronics Co Ltd",
+      "catalogueUrl": "https://eodhd.com/financial-summary/2449.TW",
+      "quoteValidation": "NOT_TESTED_NO_ENTITLED_KEY",
+      "feedEnabled": false
+    },
+    {
+      "ticker": "2454.TW",
+      "eodhd": "2454.TW",
+      "exchange": "TWSE",
+      "currency": "TWD",
+      "issuer": "MediaTek Inc",
+      "catalogueUrl": "https://eodhd.com/financial-summary/2454.TW",
+      "quoteValidation": "NOT_TESTED_NO_ENTITLED_KEY",
+      "feedEnabled": false
+    },
+    {
+      "ticker": "3034.TW",
+      "eodhd": "3034.TW",
+      "exchange": "TWSE",
+      "currency": "TWD",
+      "issuer": "Novatek Microelectronics Corp",
+      "catalogueUrl": "https://eodhd.com/financial-summary/3034.TW",
+      "quoteValidation": "NOT_TESTED_NO_ENTITLED_KEY",
+      "feedEnabled": false
+    },
+    {
+      "ticker": "CBHB",
+      "eodhd": "0339.KLSE",
+      "exchange": "BURSA",
+      "currency": "MYR",
+      "issuer": "CBH Engineering Holding Berhad",
+      "catalogueUrl": "https://eodhd.com/financial-summary/0339.KLSE",
+      "quoteValidation": "NOT_TESTED_NO_ENTITLED_KEY",
+      "feedEnabled": false
+    }
+  ]
+}
