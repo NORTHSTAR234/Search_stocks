@@ -31,59 +31,67 @@
     }
     return null;
   }
+
+  function quoteMoney(currency,value){
+    const unit=currency==="USD"?"US$":currency==="AUD"?"A$":currency==="TWD"?"NT$":currency==="MYR"?"RM ":currency+" ";
+    return unit+Number(value).toLocaleString("en-AU",{minimumFractionDigits:2,maximumFractionDigits:3});
+  }
+  const quoteDirection=value=>typeof value!=="number"||!Number.isFinite(value)||value===0?"flat":value>0?"gain":"loss";
+  const signedMoney=(currency,value)=>(value>0?"+":value<0?"−":"")+quoteMoney(currency,Math.abs(value));
+  const signedPercent=value=>(value>0?"+":"")+value.toFixed(2)+"%";
   function quoteCell(r){
     const q=state.quotes[r.ticker.toUpperCase()];
     if(!q){
       const symbol=yahooSymbol(r);
-      const navigation=symbol?'<small><a href="https://finance.yahoo.com/quote/'+encodeURIComponent(symbol)+'/" target="_blank" rel="noopener noreferrer">View on Yahoo Finance (delayed) ↗</a></small>':"";
-      return '<span class="muted">LIVE DATA UNAVAILABLE</span><small>No verified '+(r.exchange==="US"?"Alpaca":"EODHD")+' quote</small>'+navigation;
+      const link=symbol?'<small><a href="https://finance.yahoo.com/quote/'+encodeURIComponent(symbol)+'/" target="_blank" rel="noopener noreferrer">View on Yahoo Finance (delayed) ↗</a></small>':"";
+      return '<span class="muted">PRICE UNAVAILABLE</span><small>No verified '+(r.exchange==="US"?"Alpaca":"EODHD")+' quote</small>'+link;
     }
-    const currency=q.currency==="USD"?"US$":q.currency==="AUD"?"A$":q.currency==="TWD"?"NT$":q.currency==="MYR"?"RM ":q.currency+" ";
-    const money=n=>currency+Number(n).toLocaleString("en-AU",{minimumFractionDigits:2,maximumFractionDigits:3});
-    const p=Number(q.price);
-    const price=Number.isFinite(p)&&p>0?money(p):"LIVE DATA UNAVAILABLE";
-    const close=q.regularClose,night=q.overnight;
-    // Two different observations: completed consolidated US regular close
-    // and a subsequent indicative, 15-minute-delayed overnight price.
-    // Neither is a 24h movement; show the source date on both.
-    if(q.feed==="IEX"&&close&&night&&
-       Number.isFinite(close.price)&&close.price>0&&
-       Number.isFinite(night.price)&&night.price>0&&
-       Number.isFinite(q.overnightChangePercent)){
-      const delta=Number(q.overnightChangeAmount);
-      const pct=Number(q.overnightChangePercent);
-      const movement='<span class="change '+(pct<0?"loss":pct>0?"gain":"flat")+'">'+
-        (delta>0?"+":delta<0?"−":"")+escape(money(Math.abs(delta)))+
-        ' ('+(pct>0?"+":"")+pct.toFixed(2)+'%) vs regular close</span>';
+    const currency=q.currency;
+    if(q.feed==="IEX"&&q.regularClose&&Number(q.regularClose.price)>0){
+      const c=q.regularClose;
+      const valid=typeof c.regularChangePercent==="number"&&Number.isFinite(c.regularChangePercent);
+      const color=quoteDirection(valid?c.regularChangePercent:null);
+      const movement=valid?
+        '<span class="change '+color+'">'+escape(signedMoney(currency,c.regularChangeAmount))+
+        ' ('+escape(signedPercent(c.regularChangePercent))+') vs previous regular close</span>':
+        '<small class="muted">Prior regular close comparison unavailable</small>';
       const iexChange=typeof q.change24hPercent==="number"&&Number.isFinite(q.change24hPercent)?
-        ' · IEX 24h '+(q.change24hPercent>0?"+":"")+q.change24hPercent.toFixed(2)+"%":"";
+        ' · IEX 24h '+escape(signedPercent(q.change24hPercent)):"";
       return '<div class="session-prices">'+
-        '<small class="price-label">Overnight indication · 15-min delayed</small>'+
-        '<strong class="overnight-value">'+escape(money(night.price))+'</strong>'+
-        '<small>'+escape(fmt(night.asOf))+'</small>'+
         '<small class="price-label">Last US regular close · consolidated</small>'+
-        '<strong class="regular-value">'+escape(money(close.price))+'</strong>'+
-        '<small>Session '+escape(close.sessionDate)+' · delayed SIP</small>'+
-        movement+
-        '<small class="muted">Last IEX trade: '+escape(price)+' · '+escape(fmt(q.asOf))+iexChange+'</small>'+
-        '</div>';
+        '<strong class="quote-value '+color+'">'+escape(quoteMoney(currency,c.price))+'</strong>'+
+        '<small>Session '+escape(c.sessionDate)+' · delayed SIP</small>'+movement+
+        '<small>Last IEX trade: '+escape(quoteMoney(currency,q.price))+
+        ' · '+escape(fmt(q.asOf))+iexChange+'</small></div>';
     }
+    const p=Number(q.price);
     const isEodhd=q.feed==="EODHD";
-    const change=isEodhd?
-      (typeof q.previousCloseChangePercent==="number"&&Number.isFinite(q.previousCloseChangePercent)?
-        '<span class="change '+(q.previousCloseChangePercent<0?"loss":q.previousCloseChangePercent>0?"gain":"flat")+'">'+
-        (q.previousCloseChangePercent>0?"+":"")+q.previousCloseChangePercent.toFixed(2)+'% vs prev close</span><small>Rolling 24h: N/A</small>':
-        '<span class="muted">24h N/A · prev-close N/A</span>'):
-      typeof q.change24hPercent==="number"&&Number.isFinite(q.change24hPercent)?
-        '<span class="change '+(q.change24hPercent<0?"loss":q.change24hPercent>0?"gain":"flat")+'">'+
-        (q.change24hPercent>0?"+":"")+q.change24hPercent.toFixed(2)+'% (24h)</span>':
-        '<span class="muted">24h N/A</span>';
-    const completed=close&&Number.isFinite(Number(close.price))&&Number(close.price)>0?
-      '<small>Last regular close: '+escape(money(close.price))+' · '+escape(close.sessionDate)+' (delayed SIP)</small>':"";
-    return '<strong>'+escape(price)+'</strong><small>'+change+' · '+escape(q.session==="latest_trade"?"latest IEX trade":q.session||"status unverified")+
-      '<br>'+escape(q.feed||"feed unspecified")+(isEodhd?" · delayed quote":"")+' · '+escape(fmt(q.asOf))+'</small>'+
-      completed+
-      (q.reference24hAsOf?'<small>24h reference: '+escape(fmt(q.reference24hAsOf))+'</small>':"");
+    const change=isEodhd?q.previousCloseChangePercent:q.change24hPercent;
+    const valid=typeof change==="number"&&Number.isFinite(change);
+    const color=quoteDirection(valid?change:null);
+    return '<div class="session-prices">'+
+      '<strong class="quote-value '+color+'">'+escape(Number.isFinite(p)&&p>0?quoteMoney(currency,p):"PRICE UNAVAILABLE")+'</strong>'+
+      (valid?'<span class="change '+color+'">'+escape(signedPercent(change))+
+        (isEodhd?' vs previous close':' IEX 24h')+'</span>':'<small class="muted">Change unavailable</small>')+
+      '<small>'+escape(q.feed||"Unknown feed")+(isEodhd?" · delayed quote":" · latest trade")+
+      ' · '+escape(fmt(q.asOf))+'</small></div>';
+  }
+  function overnightCell(r){
+    if(r.exchange!=="US")return '<small class="muted">US overnight only</small>';
+    const q=state.quotes[r.ticker.toUpperCase()];
+    if(!q||q.feed!=="IEX")return '<small class="muted">Overnight unavailable</small>';
+    const night=q.overnight,pct=q.overnightChangePercent,amount=q.overnightChangeAmount;
+    if(!q.regularClose||!night||!Number.isFinite(Number(night.price))||Number(night.price)<=0||
+       typeof pct!=="number"||!Number.isFinite(pct)||
+       typeof amount!=="number"||!Number.isFinite(amount))
+      return '<small class="muted">No recent verified overnight indication</small>';
+    const color=quoteDirection(pct);
+    return '<div class="session-prices">'+
+      '<small class="price-label">Indicative · 15-min delayed</small>'+
+      '<strong class="quote-value overnight-value '+color+'">'+escape(quoteMoney(q.currency,night.price))+'</strong>'+
+      '<span class="change '+color+'">'+escape(signedMoney(q.currency,amount))+
+      ' ('+escape(signedPercent(pct))+') vs regular close</span>'+
+      '<small>Observed '+escape(fmt(night.asOf))+'</small></div>';
   }
   function zoneCell(r){
     const q=state.quotes[r.ticker.toUpperCase()];
@@ -99,6 +107,7 @@
     return '<tr><td><a class="ticker" href="'+escape(r.reportPath)+'">'+escape(r.ticker)+'</a><small>'+escape(r.company)+'</small><small>'+escape(r.exchange)+'</small></td>'+
     '<td>'+escape(fmt(r.timestamp))+(r.conflictingBuckets?'<small class="warning">Both buckets contain this ticker</small>':"")+'</td>'+
     '<td>'+quoteCell(r)+'</td>'+
+    '<td>'+overnightCell(r)+'</td>'+
     '<td>'+badge(action,actionKind(action))+'<small>Risk: '+escape(cap(r.risk,78))+'</small><small>Own: '+escape(cap(r.ownerAction,75))+'</small></td>'+
     '<td><strong>'+escape(cap(r.investment,48))+'</strong><small>Entry: '+escape(cap(r.entry,48))+'</small></td>'+
     '<td>'+escape(cap(screening,140))+'<small>Folder: '+escape(r.bucket)+'</small></td>'+
@@ -116,7 +125,7 @@
       order==="entry"?score(b.entry)-score(a.entry)||b.timestamp.localeCompare(a.timestamp):
       order==="investment"?score(b.investment)-score(a.investment)||b.timestamp.localeCompare(a.timestamp):
       b.timestamp.localeCompare(a.timestamp)||a.ticker.localeCompare(b.ticker));
-    $("rows").innerHTML=filtered.length?filtered.map(tr).join(""):'<tr><td colspan="10">No reports match your filters.</td></tr>';
+    $("rows").innerHTML=filtered.length?filtered.map(tr).join(""):'<tr><td colspan="11">No reports match your filters.</td></tr>';
     $("count").textContent=all.length;
     $("halalCount").textContent=all.filter(r=>r.bucket==="halal").length;
     $("quoteCount").textContent=Object.keys(state.quotes).length;
@@ -230,7 +239,7 @@
       document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkAll();});
     }catch(e){
       $("marketNotice").textContent="Could not load archive: "+e.message;
-      $("rows").innerHTML='<tr><td colspan="10">Archive unavailable.</td></tr>';
+      $("rows").innerHTML='<tr><td colspan="11">Archive unavailable.</td></tr>';
     }
   }
   ["search","bucket","exchange","order"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",render));
