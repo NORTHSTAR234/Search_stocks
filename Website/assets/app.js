@@ -105,8 +105,8 @@
         Object.assign(combined,data.quotes);count++;
       }
       state.quotes=combined;
-      $("marketNotice").textContent="Quote observations: "+Object.keys(combined).length+" tickers · Update requested "+fmt(new Date().toISOString())+
-        ". All other fields are archived. Data may be delayed.";
+      $("marketNotice").textContent="Quote observations: "+Object.keys(combined).length+" tickers · Updated "+fmt(new Date().toISOString())+
+        " · Automatic refresh every 5 minutes while this page is visible. Report scores and recommendations remain archived. Market data may be delayed.";
     }catch(error){
       state.quotes={};
       const message=String(error.message||error);
@@ -123,7 +123,7 @@
       state.generatedAt=data.generatedAt;
       $("marketNotice").textContent="Archive built "+fmt(data.generatedAt)+". Live market integration pending.";
       render();await refresh();
-      setInterval(()=>{if(document.visibilityState==="visible"&&state.providerReady)refresh();},60000);
+      setInterval(()=>{if(document.visibilityState==="visible"&&state.providerReady)refresh();},300000);
       document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")refresh();});
     }catch(e){$("marketNotice").textContent="Could not load archive: "+e.message;$("rows").innerHTML='<tr><td colspan="10">Archive unavailable.</td></tr>';}
   }
