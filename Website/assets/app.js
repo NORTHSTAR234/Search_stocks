@@ -103,14 +103,14 @@
   }
   function tr(r){
     const action=cap(r.action,96);
-    const screening=r.statusOnly?"SCREENING ONLY — NO INVESTMENT REPORT":r.musaffa;
+    const screening=r.musaffa||"NOT VERIFIED";
     return '<tr><td><a class="ticker" href="'+escape(r.reportPath)+'">'+escape(r.ticker)+'</a><small>'+escape(r.company)+'</small><small>'+escape(r.exchange)+'</small></td>'+
     '<td>'+escape(fmt(r.timestamp))+(r.conflictingBuckets?'<small class="warning">Both buckets contain this ticker</small>':"")+'</td>'+
     '<td>'+quoteCell(r)+'</td>'+
     '<td>'+overnightCell(r)+'</td>'+
     '<td>'+badge(action,actionKind(action))+'<small>Risk: '+escape(cap(r.risk,78))+'</small><small>Own: '+escape(cap(r.ownerAction,75))+'</small></td>'+
     '<td><strong>'+escape(cap(r.investment,48))+'</strong><small>Entry: '+escape(cap(r.entry,48))+'</small></td>'+
-    '<td>'+escape(cap(screening,140))+'<small>Folder: '+escape(r.bucket)+'</small></td>'+
+    '<td>'+escape(cap(screening,140))+(r.statusOnly?'<small class="warning">Screening only · no current investment rating</small>':"")+'<small>Folder: '+escape(r.bucket)+'</small></td>'+
     '<td>'+escape(cap(r.earnings,110))+'</td>'+
     '<td>'+zoneCell(r)+'</td>'+
     '<td>'+escape(cap(r.stops,110))+'</td>'+
@@ -191,7 +191,7 @@
         if(!r||typeof r.ticker!=="string"||typeof r.timestamp!=="string"||r.sourceFormat!=="html")continue;
         const ticker=r.ticker.toUpperCase(),old=map.get(ticker);
         if(!old||r.timestamp>old.timestamp||
-          r.timestamp===old.timestamp&&(old.sourceFormat!=="html"||old.reportUrl!==r.reportUrl)){
+          r.timestamp===old.timestamp&&(old.sourceFormat!=="html"||JSON.stringify(old)!==JSON.stringify(r))){
           map.set(ticker,r);
           changed++;
         }
