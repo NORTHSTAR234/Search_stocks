@@ -1,11 +1,43 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-09T21:15:52Z",
-  "htmlReportCount": 7,
-  "uniqueTickers": 6,
-  "revision": "2f079fd2017d2dbb579d1f9e20ee428a",
+  "latestHtmlReportAt": "2026-11-09T21:20:49Z",
+  "htmlReportCount": 8,
+  "uniqueTickers": 7,
+  "revision": "41d72949571793fef62b715c5987339d",
   "rows": [
+    {
+      "company": "Visa Inc.",
+      "ticker": "V",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-09T21:20:49Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "MODERATE-HIGH",
+      "investment": "78/100",
+      "entry": "46/100",
+      "musaffa": "HALAL · B+ · 2026-08-11",
+      "earnings": "28 Jan 2027 estimated",
+      "zones": "US$365–385 / US$386–400",
+      "stops": "US$350 / US$420",
+      "nativeCurrency": "USD",
+      "zoneBands": [
+        [
+          365,
+          385
+        ],
+        [
+          386,
+          400
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/V/V_2026-11-09_21-20-49Z.html",
+      "reportPath": "/view-report?path=halal%2FV%2FV_2026-11-09_21-20-49Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Tesla, Inc.",
       "ticker": "TSLA",
