@@ -148,7 +148,7 @@ function mainPage() {
   '<button id="refresh" type="button">Refresh data</button></div><div class="notice" id="marketNotice" role="status">Loading archived reports…</div><div class="notice report-sync" id="reportSyncNotice" role="status">Checking GitHub for newer HTML reports…</div>'+
   '<div class="table-wrap"><table><thead><tr>'+head+'</tr></thead><tbody id="rows"><tr><td colspan="11">Loading…</td></tr></tbody></table></div>'+
   '<div class="table-footer"><span id="shown"></span><span>Prices and GitHub HTML archives checked every 5 minutes while open</span></div></section>'+
-  '<p class="note">Storage buckets are administrative, not Shariah determinations. Unverified or stale screening does not mean haram. A 24h percentage is shown only when a comparable observation approximately 24 elapsed hours earlier exists. Non-US quotes require a separate licensed provider.</p></main>'+
+  '<p class="note">Scores: 70–100 green, 40–69 amber, below 40 red. Score colors show relative report ratings, not trading signals. Storage buckets are administrative, not Shariah determinations. Unverified or stale screening does not mean haram. A 24h percentage is shown only when a comparable observation approximately 24 elapsed hours earlier exists. Non-US quotes require a separate licensed provider.</p></main>'+
   '<script src="/assets/app.js" defer></script>';
   return page("Latest Research Reports",body);
 }

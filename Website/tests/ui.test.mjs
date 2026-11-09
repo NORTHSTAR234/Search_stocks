@@ -91,3 +91,21 @@ test("same-timestamp HTML field corrections and screening gates sync without a n
  assert(source.includes('const screening=r.musaffa||"NOT VERIFIED"'));
  assert(source.includes('Screening only · no current investment rating'));
 });
+
+test("investment quality and entry timing have equal, independent color-coded score boxes",()=>{
+ assert(source.includes("function scoreCell(r)"));
+ assert(source.includes("'<td>'+scoreCell(r)+'</td>'"));
+ assert(source.includes('item("Investment",r.investment)'));
+ assert(source.includes('item("Entry",r.entry)'));
+ const expression=source.match(/const scoreTone=value=>\{([\s\S]*?)\n  \};/);
+ assert(expression,"score tone classifier must exist");
+ const scoreTone=new Function("value","score",expression[1]);
+ const parse=v=>{const m=String(v).match(/(\d{1,3})\s*\/\s*100/);return m?Number(m[1]):-1;};
+ assert.equal(scoreTone("78/100",parse),"good");
+ assert.equal(scoreTone("34/100",parse),"bad");
+ assert.equal(scoreTone("48/100",parse),"warn");
+ assert.equal(scoreTone("83/100",parse),"good");
+ assert.equal(scoreTone("45/100",parse),"warn");
+ assert.equal(scoreTone("NOT RATED",parse),"neutral");
+ assert.equal(scoreTone("108/100",parse),"neutral");
+});

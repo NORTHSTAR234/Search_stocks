@@ -6,6 +6,20 @@
   const fmt=iso=>{try{return new Intl.DateTimeFormat("en-AU",{timeZone:"Australia/Melbourne",day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",timeZoneName:"short"}).format(new Date(iso));}catch{return iso||"Unknown";}};
   const norm=s=>String(s??"").toUpperCase().replace(/[^A-Z0-9 ]/g," ").trim();
   const score=s=>{const m=String(s).match(/(\d{1,3})\s*\/\s*100/);return m?Number(m[1]):-1;};
+  // Visual score bands only, NOT a buy/sell verdict. The two grades stay independent.
+  const scoreTone=value=>{
+    const n=score(value);
+    return n<0||n>100?"neutral":n>=70?"good":n>=40?"warn":"bad";
+  };
+  function scoreCell(r){
+    function item(label,value){
+      const n=score(value),rated=n>=0&&n<=100&&/^\s*\d{1,3}\s*\/\s*100\s*$/.test(String(value));
+      const tone=rated?scoreTone(value):"neutral";
+      return '<div class="score-box '+tone+'"><span class="score-label">'+escape(label)+'</span>'+
+        '<strong class="score-number '+tone+'">'+escape(rated?String(value).trim():"NOT RATED")+'</strong></div>';
+    }
+    return '<div class="score-pair">'+item("Investment",r.investment)+item("Entry",r.entry)+'</div>';
+  }
   const badge=(value,kind)=>'<span class="badge '+kind+'">'+escape(value)+'</span>';
   // Rate the leading verdict only. "WATCH — wait for buy-zone" is WATCH, never BUY.
   const actionKind=v=>{
@@ -109,7 +123,7 @@
     '<td>'+quoteCell(r)+'</td>'+
     '<td>'+overnightCell(r)+'</td>'+
     '<td>'+badge(action,actionKind(action))+'<small>Risk: '+escape(cap(r.risk,78))+'</small><small>Own: '+escape(cap(r.ownerAction,75))+'</small></td>'+
-    '<td><strong>'+escape(cap(r.investment,48))+'</strong><small>Entry: '+escape(cap(r.entry,48))+'</small></td>'+
+    '<td>'+scoreCell(r)+'</td>'+
     '<td>'+escape(cap(screening,140))+(r.statusOnly?'<small class="warning">Screening only · no current investment rating</small>':"")+'<small>Folder: '+escape(r.bucket)+'</small></td>'+
     '<td>'+escape(cap(r.earnings,110))+'</td>'+
     '<td>'+zoneCell(r)+'</td>'+

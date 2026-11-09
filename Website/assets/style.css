@@ -49,3 +49,20 @@
 .table-wrap td .quote-value.flat{color:#e5eef9}
 .table-wrap .session-prices .change{display:block;margin-top:4px;font-size:.78rem}
 @media(max-width:680px){.table-wrap table{min-width:1960px}}
+
+
+/* Report scores: equal visual hierarchy for investment quality and entry timing.
+   Score bands are UI ranges, not buy/sell instructions. */
+.table-wrap th:nth-child(6),.table-wrap td:nth-child(6){min-width:194px;max-width:230px}
+.score-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;width:100%}
+.score-box{display:flex;flex-direction:column;gap:6px;padding:8px 7px;border:1px solid #354860;border-radius:8px;background:#18283e;min-width:0}
+.score-label{font-size:.67rem;color:#b5c8d9;font-weight:650;letter-spacing:.01em}
+.score-number{display:block;font-size:1.03rem;font-variant-numeric:tabular-nums;line-height:1.15;font-weight:800;white-space:nowrap}
+.score-number.good{color:#66dcaa}
+.score-number.warn{color:#ffc377}
+.score-number.bad{color:#ff8a95}
+.score-number.neutral{color:#d2e0ee;font-size:.75rem;white-space:normal}
+.score-box.good{border-color:#315c50}
+.score-box.warn{border-color:#69533a}
+.score-box.bad{border-color:#663d49}
+@media(max-width:680px){.table-wrap th:nth-child(6),.table-wrap td:nth-child(6){min-width:185px}}
