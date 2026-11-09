@@ -7,6 +7,7 @@ on:
       - 'halal/**/*.html'
       - 'nonhalal/**/*.html'
       - 'Website/scripts/build-live-reports.mjs'
+      - 'Website/lib/report-archive.mjs'
       - '.github/workflows/publish-html-reports.yml'
   workflow_dispatch:
 

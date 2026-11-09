@@ -69,13 +69,18 @@ test("unknown international tickers cannot break existing EODHD quote batches",(
  assert(source.includes('eodhdSymbols=new Set(["ORG","APA.AX"'));
 });
 
-test("NVDA shows both consolidated regular close and indicative overnight price separately",()=>{
- assert(source.includes('Overnight indication · 15-min delayed'));
- assert(source.includes('Last US regular close · consolidated'));
- assert(source.includes('vs regular close'));
- assert(source.includes('Last IEX trade:'));
- assert(source.includes('q.overnightChangePercent'));
- assert(source.includes('q.overnightChangeAmount'));
- assert(source.includes('close.sessionDate'));
- assert(!source.includes("Overnight live price"));
+test("regular and overnight have distinct columns and signed price/percentage colors",()=>{
+ assert(source.includes("function quoteCell(r)"));
+ assert(source.includes("function overnightCell(r)"));
+ assert(source.includes("'<td>'+overnightCell(r)+'</td>'"));
+ assert(source.includes("Last US regular close · consolidated"));
+ assert(source.includes("Indicative · 15-min delayed"));
+ assert(source.includes("vs regular close"));
+ assert(source.includes("vs previous regular close"));
+ assert(source.includes("quoteDirection(pct)"));
+ assert(source.includes("quoteDirection(valid?c.regularChangePercent:null)"));
+ assert(source.includes("quote-value overnight-value"));
+ assert(source.includes("No recent verified overnight indication"));
+ assert(source.includes('colspan="11"'));
 });
+

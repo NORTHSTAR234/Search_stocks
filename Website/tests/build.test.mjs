@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { archiveInfo,latestArchive,parseReport } from "../build.mjs";
+import {readFileSync} from "node:fs";
 test("canonical ticker and archive parsing",()=>{
   assert.equal(archiveInfo("halal/AAPL/AAPL_2026-11-06_12-20-11Z.md").ticker,"AAPL");
   assert.equal(archiveInfo("halal/ABC/XYZ_2026-11-06_12-20-11Z.md"),null);
@@ -65,4 +66,10 @@ test("new standalone HTML report extracts fields without borrowing prior Markdow
  const rendered=safeHtmlDocument(info,raw);
  assert(rendered.includes("Complete research report"));
  assert(!rendered.includes("<script>"));assert(rendered.includes("<style>"));
+});
+
+test("dashboard uses independent regular and overnight columns",()=>{
+ const code=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
+ assert(code.includes('"Regular / latest price","Overnight / vs close","Action / Risk"'));
+ assert(code.includes('colspan="11"'));
 });

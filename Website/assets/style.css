@@ -33,3 +33,19 @@
 .session-prices .regular-value{font-weight:710;line-height:1.25}
 .session-prices .change{font-weight:740;margin-top:5px;overflow-wrap:anywhere}
 .session-prices small{overflow-wrap:anywhere}
+
+/* Independently sourced regular-session and overnight price columns. */
+.table-wrap table{min-width:2070px}
+.table-wrap th:nth-child(3),.table-wrap td:nth-child(3){min-width:215px;max-width:260px}
+.table-wrap th:nth-child(4),.table-wrap td:nth-child(4){min-width:210px;max-width:255px}
+.table-wrap th:nth-child(5){min-width:225px}
+.table-wrap th:nth-child(7){min-width:185px}
+.table-wrap th:nth-child(8){min-width:190px}
+.table-wrap th:nth-child(9){min-width:185px}
+.table-wrap th:nth-child(10){min-width:155px}
+.table-wrap td .quote-value{font-size:1rem;line-height:1.3;font-weight:800;display:block}
+.table-wrap td .quote-value.gain{color:#66dcaa}
+.table-wrap td .quote-value.loss{color:#ff8a95}
+.table-wrap td .quote-value.flat{color:#e5eef9}
+.table-wrap .session-prices .change{display:block;margin-top:4px;font-size:.78rem}
+@media(max-width:680px){.table-wrap table{min-width:1960px}}

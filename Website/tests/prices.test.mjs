@@ -62,3 +62,16 @@ test("spoofed stale, reversed and wrong-feed overnight comparisons are rejected"
  assert.equal(validateQuote("NVDA",{...base,overnight:{...base.overnight,price:0}},now).overnight,null);
  assert.equal(validateQuote("NVDA",{...base,regularClose:{...base.regularClose,feed:"IEX"}},now).regularClose,null);
 });
+
+test("regular session change uses actual previous close, never overnight base",async()=>{
+ const {validateQuote}=await import("../functions/api/prices.js");
+ const q=validateQuote("MA",{price:652.87,asOf:"2026-11-06T20:59:59Z",currency:"USD",feed:"IEX",
+   session:"latest_trade",sessionScope:"extended",adjustment:"raw",
+   regularClose:{price:652.70,asOf:"2026-11-06T05:00:00Z",sessionDate:"2026-11-06",
+     feed:"DELAYED_SIP",label:"completed_regular_session_close",previousClose:655.92}
+ },Date.parse("2026-11-09T05:45:00Z"));
+ assert.equal(q.regularClose.price,652.7);
+ assert.equal(q.regularClose.previousClose,655.92);
+ assert.equal(q.regularClose.regularChangeAmount,-3.22);
+ assert(Math.abs(q.regularClose.regularChangePercent+0.491)<0.001);
+});
