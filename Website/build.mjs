@@ -143,7 +143,7 @@ function mainPage() {
   '<label><span>Order</span><select id="order"><option value="newest">Newest report</option><option value="ticker">Ticker A–Z</option><option value="entry">Entry score ↓</option><option value="investment">Investment score ↓</option></select></label>'+
   '<button id="refresh" type="button">Refresh prices</button></div><div class="notice" id="marketNotice" role="status">Loading archived reports…</div>'+
   '<div class="table-wrap"><table><thead><tr>'+head+'</tr></thead><tbody id="rows"><tr><td colspan="10">Loading…</td></tr></tbody></table></div>'+
-  '<div class="table-footer"><span id="shown"></span><span>Research fields: archived only · Prices: independent feed</span></div></section>'+
+  '<div class="table-footer"><span id="shown"></span><span>Price quotes auto-refresh every 5 minutes while open · Reports update on publication</span></div></section>'+
   '<p class="note">Storage buckets are administrative, not Shariah determinations. Unverified or stale screening does not mean haram. A 24h percentage is shown only when a comparable observation approximately 24 elapsed hours earlier exists. Non-US quotes require a separate licensed provider.</p></main>'+
   '<script src="/assets/app.js" defer></script>';
   return page("Latest Research Reports",body);
