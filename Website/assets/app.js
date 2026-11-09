@@ -1,7 +1,7 @@
 (() => {
   "use strict";
   const $ = id => document.getElementById(id);
-  const state={rows:[],quotes:{},loading:false,generatedAt:null,providerReady:true};
+  const state={rows:[],quotes:{},loading:false,generatedAt:null,providerReady:true,githubTreeSha:null,syncing:false,cycleBusy:false};
   const escape=s=>String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
   const fmt=iso=>{try{return new Intl.DateTimeFormat("en-AU",{timeZone:"Australia/Melbourne",day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",timeZoneName:"short"}).format(new Date(iso));}catch{return iso||"Unknown";}};
   const norm=s=>String(s??"").toUpperCase().replace(/[^A-Z0-9 ]/g," ").trim();
@@ -95,7 +95,10 @@
     if(state.loading||!state.rows.length)return;
     state.loading=true;$("refresh").disabled=true;
     const us=state.rows.filter(r=>r.exchange==="US").map(r=>r.ticker);
-    const international=state.rows.filter(r=>["ASX","TWSE","BURSA"].includes(r.exchange)).map(r=>r.ticker);
+    const eodhdSymbols=new Set(["ORG","APA.AX","1519.TW","2330.TW","2377.TW","2379.TW","2383.TW","2449.TW","2454.TW","3034.TW","CBHB"]);
+    // Newly discovered unsupported international listings must not invalidate the
+    // EODHD batch for the ten already verified stocks.
+    const international=state.rows.filter(r=>["ASX","TWSE","BURSA"].includes(r.exchange)&&eodhdSymbols.has(r.ticker.toUpperCase())).map(r=>r.ticker);
     const failures=[];
     async function retrieve(path,symbols,label){
       const collected={};
@@ -126,6 +129,59 @@
       state.providerReady=true; // One provider outage must not disable the other feed.
     }finally{state.loading=false;$("refresh").disabled=false;render();}
   }
+  // A GitHub HTML report is added or replaces the same ticker's older snapshot.
+  // Research history is immutable; no old scores are backfilled into new reports.
+  async function syncGithubReports(){
+    if(state.syncing)return false;
+    state.syncing=true;
+    let changed=0;
+    try{
+      const url="/api/github-reports"+(state.githubTreeSha?"?knownTree="+encodeURIComponent(state.githubTreeSha):"");
+      const res=await fetch(url,{credentials:"same-origin",cache:"no-store"});
+      const data=await res.json().catch(()=>({}));
+      if(!res.ok)throw Error("GitHub HTTP "+res.status+" · "+(data.error||"Unavailable"));
+      const checked=fmt(data.checkedAt||new Date().toISOString());
+      if(data.unchanged){
+        $("reportSyncNotice").textContent="GitHub HTML reports checked "+checked+" · No changes detected. Next check in 5 minutes while this page is visible.";
+        return false;
+      }
+      if(!Array.isArray(data.rows))throw Error("Invalid GitHub report index");
+      const map=new Map(state.rows.map(r=>[r.ticker.toUpperCase(),r]));
+      for(const r of data.rows){
+        if(!r||typeof r.ticker!=="string"||typeof r.timestamp!=="string"||r.sourceFormat!=="html")continue;
+        const ticker=r.ticker.toUpperCase(),old=map.get(ticker);
+        if(!old||r.timestamp>old.timestamp||
+          r.timestamp===old.timestamp&&(old.sourceFormat!=="html"||old.reportUrl!==r.reportUrl)){
+          map.set(ticker,r);
+          changed++;
+        }
+      }
+      if(changed){
+        state.rows=[...map.values()];
+        render();
+      }
+      // A temporary GitHub blob error is retried next check, not frozen forever.
+      const errors=Array.isArray(data.errors)?data.errors:[];
+      if(!errors.length&&typeof data.treeSha==="string")state.githubTreeSha=data.treeSha;
+      $("reportSyncNotice").textContent="GitHub HTML reports checked "+checked+" · "+
+        (changed?changed+" ticker report(s) added or updated automatically.":"No newer ticker reports.")+
+        " · "+(data.htmlReportCount||0)+" HTML archive(s) found."+
+        (errors.length?" "+errors.length+" archive(s) unavailable; retrying next check.":" Next check in 5 minutes while this page is visible.");
+      return changed>0;
+    }catch(e){
+      $("reportSyncNotice").textContent="GitHub HTML sync temporarily unavailable: "+String(e?.message||e)+
+        ". Existing reports and market prices are preserved; retry in 5 minutes.";
+      return false;
+    }finally{state.syncing=false;}
+  }
+  async function checkAll(){
+    if(state.cycleBusy)return;
+    state.cycleBusy=true;
+    try{
+      await syncGithubReports();
+      await refresh();
+    }finally{state.cycleBusy=false;}
+  }
   async function init(){
     try{
       const res=await fetch("/data/reports.json",{cache:"no-store"});
@@ -133,13 +189,20 @@
       const data=await res.json();
       state.rows=Array.isArray(data.rows)?data.rows:[];
       state.generatedAt=data.generatedAt;
-      $("marketNotice").textContent="Archive built "+fmt(data.generatedAt)+". Live market integration pending.";
-      render();await refresh();
-      setInterval(()=>{if(document.visibilityState==="visible"&&state.providerReady)refresh();},300000);
-      document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")refresh();});
-    }catch(e){$("marketNotice").textContent="Could not load archive: "+e.message;$("rows").innerHTML='<tr><td colspan="10">Archive unavailable.</td></tr>';}
+      $("marketNotice").textContent="Archive built "+fmt(data.generatedAt)+". Loading independent prices.";
+      render();
+      await refresh();
+      await syncGithubReports();
+      // Include any newly discovered US or EODHD-listed ticker immediately.
+      await refresh();
+      setInterval(()=>{if(document.visibilityState==="visible")checkAll();},300000);
+      document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkAll();});
+    }catch(e){
+      $("marketNotice").textContent="Could not load archive: "+e.message;
+      $("rows").innerHTML='<tr><td colspan="10">Archive unavailable.</td></tr>';
+    }
   }
   ["search","bucket","exchange","order"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",render));
-  $("refresh").addEventListener("click",refresh);
+  $("refresh").addEventListener("click",checkAll);
   init();
 })();

@@ -38,7 +38,7 @@ test("Yahoo fallback never fetches or proxies an unofficial Yahoo endpoint",()=>
 });
 
 test("Quote scheduler refreshes every five minutes only while page is visible",()=>{
-  assert.match(source,/setInterval\(\(\)=>\{if\(document\.visibilityState==="visible"&&state\.providerReady\)refresh\(\);\},300000\)/);
+  assert.match(source,/setInterval\(\(\)=>\{if\(document\.visibilityState==="visible"\)checkAll\(\);\},300000\)/);
   assert.doesNotMatch(source,/setInterval\([^;]+,60000\)/);
   assert.match(source,/Automatic refresh every 5 minutes/);
 });
@@ -50,5 +50,21 @@ test("EODHD and Alpaca both refresh independently every five minutes",()=>{
  assert(source.includes('state.providerReady=true;'));
  assert(source.includes('previousCloseChangePercent'));
  assert(source.includes("Rolling 24h: N/A"));
- assert.match(source,/setInterval\(\(\)=>\{if\(document\.visibilityState==="visible"&&state\.providerReady\)refresh\(\);\},300000\)/);
+ assert.match(source,/setInterval\(\(\)=>\{if\(document\.visibilityState==="visible"\)checkAll\(\);\},300000\)/);
+});
+
+test("GitHub reports and both price providers refresh together every five minutes",()=>{
+ assert(source.includes("async function syncGithubReports()"));
+ assert(source.includes('fetch(url,{credentials:"same-origin",cache:"no-store"})'));
+ assert(source.includes('"/api/github-reports"'));
+ assert(source.includes('if(!old||r.timestamp>old.timestamp'));
+ assert(source.includes('state.rows=[...map.values()]'));
+ assert(source.includes('await syncGithubReports();'));
+ assert(source.includes('await refresh();'));
+ assert(source.includes('addEventListener("click",checkAll)'));
+ assert(source.includes('Next check in 5 minutes'));
+});
+test("unknown international tickers cannot break existing EODHD quote batches",()=>{
+ assert(source.includes('eodhdSymbols.has(r.ticker.toUpperCase())'));
+ assert(source.includes('eodhdSymbols=new Set(["ORG","APA.AX"'));
 });

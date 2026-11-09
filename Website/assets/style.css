@@ -22,3 +22,6 @@
  .table-wrap td{padding:12px 10px}
  .table-wrap th{padding:12px 10px}
 }
+
+/* GitHub archive sync status is independent of quote-provider status. */
+.report-sync{border-top:1px solid #334761;background:#15263b;color:#9dc9e8;font-size:12px;line-height:1.55}
