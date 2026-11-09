@@ -67,7 +67,15 @@ function snapshotFromHtml(html,expectedTicker){
   if(m[1].length>150000)throw Error("Oversized research snapshot");
   let snap;
   try{snap=JSON.parse(m[1]);}catch{throw Error("Invalid research snapshot JSON");}
-  if(!snap||typeof snap!=="object"||String(snap.ticker||"").toUpperCase()!==expectedTicker)
+  const embedded=String(snap?.ticker||"").toUpperCase();
+  // The archive naming convention now spells the full exchange as .TWSE,
+  // while older report generators still encode that exact listing as .TW.
+  // Accept only the same four-digit security under a TWSE report. Never
+  // substitute another security or exchange.
+  const twseAlias=/^\d{4}\.TWSE$/.test(expectedTicker)&&
+    embedded===expectedTicker.replace(/\.TWSE$/, ".TW")&&
+    String(snap?.exchange||"").toUpperCase()==="TWSE";
+  if(!snap||typeof snap!=="object"||(embedded!==expectedTicker&&!twseAlias))
     throw Error("Research snapshot security identity mismatch");
   return snap;
 }

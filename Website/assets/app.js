@@ -37,7 +37,7 @@
       const code=ticker.replace(/\.AX$/,"");
       return /^[A-Z0-9]{2,6}$/.test(code)?code+".AX":null;
     }
-    if(r.exchange==="TWSE")return /^\d{4}\.TW$/.test(ticker)?ticker:null;
+    if(r.exchange==="TWSE")return /^\d{4}\.(?:TW|TWSE)$/.test(ticker)?ticker.replace(/\.TWSE$/,".TW"):null;
     if(r.exchange==="BURSA"){
       if(ticker==="CBHB")return "0339.KL";
       const match=ticker.match(/^(\d{4})\.(?:KL|MY)$/);

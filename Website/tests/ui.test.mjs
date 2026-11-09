@@ -26,6 +26,7 @@ test("Yahoo fallback maps only verified ASX, Taiwan and Malaysian listings",()=>
   assert.equal(yahooSymbol({ticker:"APA.AX",exchange:"ASX"}),"APA.AX");
   assert.equal(yahooSymbol({ticker:"2330.TW",exchange:"TWSE"}),"2330.TW");
   assert.equal(yahooSymbol({ticker:"1519.TW",exchange:"TWSE"}),"1519.TW");
+  assert.equal(yahooSymbol({ticker:"1519.TWSE",exchange:"TWSE"}),"1519.TW");
   assert.equal(yahooSymbol({ticker:"CBHB",exchange:"BURSA"}),"0339.KL");
   assert.equal(yahooSymbol({ticker:"0339.KL",exchange:"BURSA"}),"0339.KL");
   assert.equal(yahooSymbol({ticker:"AAPL",exchange:"US"}),null);

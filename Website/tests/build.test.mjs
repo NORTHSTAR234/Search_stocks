@@ -101,6 +101,23 @@ test("snapshot-based Mastercard HTML extraction yields actual scores, actions, S
  assert.deepEqual(v.zoneBands,[[535,565],[566,600]]);
  assert.throws(()=>parseHtmlReport({...info,ticker:"FAKE"},html),/identity mismatch/);
 });
+test("full TWSE archive suffix accepts only the exact TW exchange alias",async()=>{
+ const {parseHtmlReport,archiveInfo}=await import("../lib/report-archive.mjs");
+ const info=archiveInfo("nonhalal/1519.TWSE/1519.TWSE_2026-11-09_05-23-30Z.html");
+ assert.equal(info.ticker,"1519.TWSE");
+ const rawData={ticker:"1519.TW",exchange:"TWSE",report_type:"screening_only",
+   identity:{company:"Fortune Electric"}};
+ const generate=(data)=>'<!DOCTYPE html><html><head><title>status</title></head><body><h1>Fortune Electric</h1>'+
+   '<p>HALAL STATUS ONLY. Full investment research skipped due to stale screening.</p>'+
+   '<script id="aya-report-snapshot" type="application/json">'+JSON.stringify(data)+'</script></body></html>';
+ const row=parseHtmlReport(info,generate(rawData));
+ assert.equal(row.ticker,"1519.TWSE");
+ assert.equal(row.exchange,"TWSE");
+ assert.equal(row.statusOnly,true);
+ assert.throws(()=>parseHtmlReport(info,generate({...rawData,ticker:"2330.TW"})),/identity mismatch/);
+ assert.throws(()=>parseHtmlReport(info,generate({...rawData,exchange:"ASX"})),/identity mismatch/);
+});
+
 test("newer screening-only HTML never backfills earlier investment scores",async()=>{
  const {archiveInfo,parseHtmlReport}=await import("../lib/report-archive.mjs");
  const info=archiveInfo("nonhalal/1519.TW/1519.TW_2026-11-09_05-23-30Z.html");
