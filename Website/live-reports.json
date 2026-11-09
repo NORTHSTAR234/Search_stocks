@@ -1,11 +1,43 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-09T06:35:18Z",
-  "htmlReportCount": 5,
-  "uniqueTickers": 4,
-  "revision": "8cf00583094c7254cc244974398e87c8",
+  "latestHtmlReportAt": "2026-11-09T09:08:12Z",
+  "htmlReportCount": 6,
+  "uniqueTickers": 5,
+  "revision": "96c6f2979de0ef3728b735fc8e41c71a",
   "rows": [
+    {
+      "company": "Cisco Systems, Inc.",
+      "ticker": "CSCO",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-09T09:08:12Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "68/100",
+      "entry": "39/100",
+      "musaffa": "HALAL · C+ · 2026-10-07",
+      "earnings": "12 Nov 2026 confirmed",
+      "zones": "US$84–89 / US$90–94",
+      "stops": "US$79 / US$100",
+      "nativeCurrency": "USD",
+      "zoneBands": [
+        [
+          84,
+          89
+        ],
+        [
+          90,
+          94
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/CSCO/CSCO_2026-11-09_09-08-12Z.html",
+      "reportPath": "/view-report?path=halal%2FCSCO%2FCSCO_2026-11-09_09-08-12Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Chevron Corporation",
       "ticker": "CVX",
