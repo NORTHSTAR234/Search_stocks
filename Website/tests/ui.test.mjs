@@ -42,3 +42,13 @@ test("Quote scheduler refreshes every five minutes only while page is visible",(
   assert.doesNotMatch(source,/setInterval\([^;]+,60000\)/);
   assert.match(source,/Automatic refresh every 5 minutes/);
 });
+
+test("EODHD and Alpaca both refresh independently every five minutes",()=>{
+ assert(source.includes('retrieve("/api/prices",us,"Alpaca")'));
+ assert(source.includes('retrieve("/api/international-prices",international,"EODHD")'));
+ assert(source.includes('state.quotes={...usQuotes,...internationalQuotes}'));
+ assert(source.includes('state.providerReady=true;'));
+ assert(source.includes('previousCloseChangePercent'));
+ assert(source.includes("Rolling 24h: N/A"));
+ assert.match(source,/setInterval\(\(\)=>\{if\(document\.visibilityState==="visible"&&state\.providerReady\)refresh\(\);\},300000\)/);
+});

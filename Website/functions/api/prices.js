@@ -4,7 +4,7 @@
 const reply=(payload,status=200)=>new Response(JSON.stringify(payload),{status,headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"private, no-store","X-Content-Type-Options":"nosniff"}});
 const b64url=value=>Uint8Array.from(atob(value.replace(/-/g,"+").replace(/_/g,"/").padEnd(Math.ceil(value.length/4)*4,"=")),c=>c.charCodeAt(0));
 const json64=value=>JSON.parse(new TextDecoder().decode(b64url(value)));
-async function authenticatedOwner(request,env) {
+export async function authenticatedOwner(request,env) {
   if(!env.ACCESS_TEAM_DOMAIN||!env.ACCESS_AUD||!env.OWNER_EMAIL) return false;
   const team=String(env.ACCESS_TEAM_DOMAIN).toLowerCase().replace(/^https?:\/\//,"").replace(/\/.*$/,"");
   if(!/^[a-z0-9-]+\.cloudflareaccess\.com$/.test(team))return false;

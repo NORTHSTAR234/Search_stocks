@@ -36,16 +36,22 @@
     if(!q){
       const symbol=yahooSymbol(r);
       const navigation=symbol?'<small><a href="https://finance.yahoo.com/quote/'+encodeURIComponent(symbol)+'/" target="_blank" rel="noopener noreferrer">View on Yahoo Finance (delayed) ↗</a></small>':"";
-      return '<span class="muted">LIVE DATA UNAVAILABLE</span><small>Not supported by Alpaca</small>'+navigation;
+      return '<span class="muted">LIVE DATA UNAVAILABLE</span><small>No verified '+(r.exchange==="US"?"Alpaca":"EODHD")+' quote</small>'+navigation;
     }
-    const p=Number(q.price),currency=q.currency==="USD"?"US$":q.currency==="AUD"?"A$":q.currency+" ";
+    const p=Number(q.price),currency=q.currency==="USD"?"US$":q.currency==="AUD"?"A$":q.currency==="TWD"?"NT$":q.currency==="MYR"?"RM ":q.currency+" ";
     const price=Number.isFinite(p)?currency+p.toLocaleString("en-AU",{minimumFractionDigits:2,maximumFractionDigits:3}):"LIVE DATA UNAVAILABLE";
-    const change=typeof q.change24hPercent==="number"&&Number.isFinite(q.change24hPercent)?
-      '<span class="change '+(q.change24hPercent<0?"loss":q.change24hPercent>0?"gain":"flat")+'">'+
-      (q.change24hPercent>0?"+":"")+q.change24hPercent.toFixed(2)+'%</span>':
-      '<span class="muted">24h N/A</span>';
+    const isEodhd=q.feed==="EODHD";
+    const change=isEodhd?
+      (typeof q.previousCloseChangePercent==="number"&&Number.isFinite(q.previousCloseChangePercent)?
+        '<span class="change '+(q.previousCloseChangePercent<0?"loss":q.previousCloseChangePercent>0?"gain":"flat")+'">'+
+        (q.previousCloseChangePercent>0?"+":"")+q.previousCloseChangePercent.toFixed(2)+'% vs prev close</span><small>Rolling 24h: N/A</small>':
+        '<span class="muted">24h N/A · prev-close N/A</span>'):
+      typeof q.change24hPercent==="number"&&Number.isFinite(q.change24hPercent)?
+        '<span class="change '+(q.change24hPercent<0?"loss":q.change24hPercent>0?"gain":"flat")+'">'+
+        (q.change24hPercent>0?"+":"")+q.change24hPercent.toFixed(2)+'% (24h)</span>':
+        '<span class="muted">24h N/A</span>';
     return '<strong>'+escape(price)+'</strong><small>'+change+' · '+escape(q.session==="latest_trade"?"latest IEX trade":q.session||"status unverified")+
-      '<br>'+escape(q.feed||"feed unspecified")+' · '+escape(fmt(q.asOf))+'</small>'+
+      '<br>'+escape(q.feed||"feed unspecified")+(isEodhd?" · delayed quote":"")+' · '+escape(fmt(q.asOf))+'</small>'+
       (q.reference24hAsOf?'<small>24h reference: '+escape(fmt(q.reference24hAsOf))+'</small>':"");
   }
   function zoneCell(r){
@@ -88,30 +94,36 @@
   async function refresh(){
     if(state.loading||!state.rows.length)return;
     state.loading=true;$("refresh").disabled=true;
-    const symbols=state.rows.filter(r=>r.exchange==="US").map(r=>r.ticker);
-    try{
-      if(!symbols.length)throw Error("No supported US tickers");
-      let combined={};let count=0;
+    const us=state.rows.filter(r=>r.exchange==="US").map(r=>r.ticker);
+    const international=state.rows.filter(r=>["ASX","TWSE","BURSA"].includes(r.exchange)).map(r=>r.ticker);
+    const failures=[];
+    async function retrieve(path,symbols,label){
+      const collected={};
       for(let i=0;i<symbols.length;i+=40){
-        const res=await fetch("/api/prices?symbols="+encodeURIComponent(symbols.slice(i,i+40).join(",")),{credentials:"same-origin",cache:"no-store"});
-        const data=await res.json().catch(()=>({}));
-        if(!res.ok){
-          const code=typeof data.error==="string"?data.error:"UNKNOWN";
-          const upstream=typeof data.upstreamError==="string"?"/"+data.upstreamError:"";
-          const providerStatus=Number.isInteger(data.upstreamStatus)?" (upstream "+data.upstreamStatus+")":"";
-          throw Error("HTTP "+res.status+" · "+code+upstream+providerStatus);
-        }
-        if(!data||typeof data.quotes!=="object")throw Error("Invalid provider response");
-        Object.assign(combined,data.quotes);count++;
+        const part=symbols.slice(i,i+40);
+        if(!part.length)continue;
+        try{
+          const res=await fetch(path+"?symbols="+encodeURIComponent(part.join(",")),{credentials:"same-origin",cache:"no-store"});
+          const data=await res.json().catch(()=>({}));
+          if(!res.ok)throw Error("HTTP "+res.status+(data.error?" · "+String(data.error):""));
+          if(!data.quotes||typeof data.quotes!=="object")throw Error("Invalid provider response");
+          Object.assign(collected,data.quotes);
+        }catch(e){failures.push(label+": "+String(e?.message||e));}
       }
-      state.quotes=combined;
-      $("marketNotice").textContent="Quote observations: "+Object.keys(combined).length+" tickers · Updated "+fmt(new Date().toISOString())+
-        " · Automatic refresh every 5 minutes while this page is visible. Report scores and recommendations remain archived. Market data may be delayed.";
-    }catch(error){
-      state.quotes={};
-      const message=String(error.message||error);
-      state.providerReady=!/503/.test(message);
-      $("marketNotice").textContent="Live IEX quotes unavailable: "+message+". This report dashboard remains usable; no old report prices are substituted.";
+      return collected;
+    }
+    try{
+      const [usQuotes,internationalQuotes]=await Promise.all([
+        retrieve("/api/prices",us,"Alpaca"),
+        retrieve("/api/international-prices",international,"EODHD")
+      ]);
+      state.quotes={...usQuotes,...internationalQuotes};
+      const usCount=Object.keys(usQuotes).length,intCount=Object.keys(internationalQuotes).length;
+      $("marketNotice").textContent="Quote observations: "+(usCount+intCount)+" tickers ("+usCount+
+        " US IEX · "+intCount+" international EODHD) · Updated "+fmt(new Date().toISOString())+
+        " · Automatic refresh every 5 minutes while this page is visible. Quotes show source observation times; EODHD prices are delayed."+
+        (failures.length?" Provider issues: "+failures.join("; "):"");
+      state.providerReady=true; // One provider outage must not disable the other feed.
     }finally{state.loading=false;$("refresh").disabled=false;render();}
   }
   async function init(){
