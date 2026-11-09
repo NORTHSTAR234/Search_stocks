@@ -18,3 +18,13 @@ As of 9 November 2026:
 - The original GitHub repository is public; Cloudflare Access protects the website, **not the public GitHub Markdown URLs**
 
 Do not add new secrets to this repository or enable external price redistribution without the required provider permission.
+
+## 9 November 2026 — Quote gateway repair and verification
+
+- Root cause of the HTTP 503 price outage: the Cloudflare Workers runtime rejects `fetch(...,{redirect:"error"})`. The isolated named entrypoint used that unsupported option for Alpaca latest trades and historical minute bars. Fixed both to `redirect:"manual"`, preserving explicit rejection of non-2xx/redirect responses and preventing credentials from following redirects.
+- Production FRED Worker named entrypoint `WebsitePrices` version `b359e452-473d-4bb9-8561-22100edbc7be` deployed. Existing OAuth/MCP default handler, encrypted secrets, KV and unrelated research integrations preserved.
+- Independently verified the private service-binding request with a temporary, no-price-output internal diagnostic: `HTTP 200`, **17 of 17 US ticker quotes**, **16 exact-24h eligible reference bars**, zero missing tickers. FRED `DGS10` source smoke test also returned VERIFIED.
+- `ORG` was recognized as Origin Energy on ASX despite its unsuffixed archive ticker; this is now excluded from the Alpaca US feed, with a website regression test. The Pages deployment succeeded with 8/8 tests. No changes to `halal/` or `nonhalal/` archives.
+- Removed the temporary diagnostic Queue, consumer, Worker and KV namespace. No temporary diagnostic resources remain active.
+- **Final browser check still required:** the owner should reload the website or press **Refresh prices**. The previously failing backend is now confirmed working; the authenticated browser UI has not been observed by the assistant after the repair.
+- **Automatic GitHub-push-to-Pages trigger remains unverified**. Pages source is GitHub-connected but verified deployments to date were explicitly triggered through the Cloudflare API.
