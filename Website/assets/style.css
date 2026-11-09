@@ -66,3 +66,34 @@
 .score-box.warn{border-color:#69533a}
 .score-box.bad{border-color:#663d49}
 @media(max-width:680px){.table-wrap th:nth-child(6),.table-wrap td:nth-child(6){min-width:185px}}
+
+
+/* Match the Investment / Entry two-card design in the two right-hand
+   recommendation columns. Preserve all original values and wrapping. */
+.table-wrap th:nth-child(9),.table-wrap td:nth-child(9),
+.table-wrap th:nth-child(10),.table-wrap td:nth-child(10){
+  min-width:250px;
+  max-width:320px;
+}
+.range-pair{gap:7px;align-items:stretch}
+.range-box{gap:7px;min-height:65px;justify-content:flex-start}
+.range-value{
+  display:block;
+  font-size:.93rem;
+  line-height:1.32;
+  font-weight:800;
+  font-variant-numeric:tabular-nums;
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+.range-value.good{color:#66dcaa}
+.range-value.warn{color:#ffc377}
+.range-value.bad{color:#ff8a95}
+.range-value.neutral{color:#d2e0ee;font-size:.75rem}
+.table-wrap td:nth-child(9) .gain{font-weight:750}
+@media(max-width:680px){
+  .table-wrap th:nth-child(9),.table-wrap td:nth-child(9),
+  .table-wrap th:nth-child(10),.table-wrap td:nth-child(10){
+    min-width:235px;
+  }
+}

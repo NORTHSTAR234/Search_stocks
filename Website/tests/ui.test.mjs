@@ -109,3 +109,42 @@ test("investment quality and entry timing have equal, independent color-coded sc
  assert.equal(scoreTone("NOT RATED",parse),"neutral");
  assert.equal(scoreTone("108/100",parse),"neutral");
 });
+
+
+test("Preferred / Acceptable and Initial stop / No chase match the existing Investment / Entry cards",()=>{
+ assert(source.includes('function splitReportPair(value)'));
+ assert(source.includes('function reportRangeCard(label,value,tone)'));
+ assert(source.includes('function stopsCell(r)'));
+ assert(source.includes('function zoneCell(r)'));
+ assert(source.includes('score-pair range-pair'));
+ assert(source.includes('score-box range-box'));
+ assert(source.includes('reportRangeCard("Preferred",preferred,"good")'));
+ assert(source.includes('reportRangeCard("Acceptable",acceptable,"warn")'));
+ assert(source.includes('reportRangeCard("Initial stop",initial,"bad")'));
+ assert(source.includes('reportRangeCard("No chase",noChase,"warn")'));
+ assert(source.includes("'<td>'+zoneCell(r)+'</td>'"));
+ assert(source.includes("'<td>'+stopsCell(r)+'</td>'"));
+ assert(source.includes('IN PREFERRED ZONE'));
+ assert(source.includes('IN ACCEPTABLE ZONE'));
+});
+test("pair rendering keeps exact report values, including unrated and unavailable fields",()=>{
+ const pairBody=source.match(/function splitReportPair\(value\)\{([\s\S]*?)\n  \}/);
+ assert(pairBody,"Pair splitter must exist");
+ const split=new Function("value",pairBody[1]);
+ assert.deepEqual(split("US$535–565 / US$566–600"),["US$535–565","US$566–600"]);
+ assert.deepEqual(split("US$510 / US$640"),["US$510","US$640"]);
+ assert.deepEqual(split("US$165–175 / US$176–185"),["US$165–175","US$176–185"]);
+ assert.deepEqual(split("NOT RATED"),["NOT RATED","NOT RATED"]);
+ assert.deepEqual(split("US$154"),["US$154","NOT RATED"]);
+ assert.deepEqual(split("US$176–185, historical conditional bands retained / NOT RATED"),
+   ["US$176–185, historical conditional bands retained","NOT RATED"]);
+});
+test("matching range cards use distinct semantic colors without inventing recommendations",()=>{
+ const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+ assert.match(css,/\.range-value\.good\{color:#66dcaa\}/);
+ assert.match(css,/\.range-value\.warn\{color:#ffc377\}/);
+ assert.match(css,/\.range-value\.bad\{color:#ff8a95\}/);
+ assert.match(css,/\.range-value\.neutral\{color:#d2e0ee/);
+ assert(css.includes(".score-pair"));
+ assert(css.includes(".score-box"));
+});

@@ -107,13 +107,41 @@
       ' ('+escape(signedPercent(pct))+') vs regular close</span>'+
       '<small>Observed '+escape(fmt(night.asOf))+'</small></div>';
   }
+  // Show the same two-card visual treatment as Investment / Entry, retaining
+  // the exact archived values. Colors distinguish field purpose, not a live signal.
+  function splitReportPair(value){
+    const raw=String(value??"").trim();
+    if(!raw||raw==="NOT RATED")return ["NOT RATED","NOT RATED"];
+    const pair=raw.match(/^([\s\S]*?)\s+\/\s+([\s\S]*)$/);
+    return pair?[pair[1].trim()||"NOT RATED",pair[2].trim()||"NOT RATED"]:[raw,"NOT RATED"];
+  }
+  function reportRangeCard(label,value,tone){
+    const missing=/^(?:NOT RATED|NOT VERIFIED|N\/A|UNAVAILABLE|UNKNOWN|NOT SET|NOT PROVIDED)$/i.test(String(value).trim());
+    const color=missing?"neutral":tone;
+    return '<div class="score-box range-box '+color+'">'+
+      '<span class="score-label">'+escape(label)+'</span>'+
+      '<strong class="range-value '+color+'">'+escape(value)+'</strong>'+
+      '</div>';
+  }
+  function stopsCell(r){
+    const [initial,noChase]=splitReportPair(r.stops);
+    return '<div class="score-pair range-pair">'+
+      reportRangeCard("Initial stop",initial,"bad")+
+      reportRangeCard("No chase",noChase,"warn")+
+      '</div>';
+  }
   function zoneCell(r){
     const q=state.quotes[r.ticker.toUpperCase()];
     const bands=Array.isArray(r.zoneBands)?r.zoneBands:[];
     const verified=q&&q.currency==="USD"&&Number.isFinite(Number(q.price))&&r.nativeCurrency==="USD";
     const within=i=>verified && bands[i]&&Number(q.price)>=bands[i][0]&&Number(q.price)<=bands[i][1];
-    return '<span class="'+(within(0)?"zone-good":within(1)?"zone-okay":"")+'">'+escape(cap(r.zones,105))+'</span>'+
-      (within(0)?'<small class="gain">IN PREFERRED ZONE</small>':within(1)?'<small class="gain">IN ACCEPTABLE ZONE</small>':"");
+    const [preferred,acceptable]=splitReportPair(r.zones);
+    return '<div class="score-pair range-pair">'+
+      reportRangeCard("Preferred",preferred,"good")+
+      reportRangeCard("Acceptable",acceptable,"warn")+
+      '</div>'+
+      (within(0)?'<small class="gain">IN PREFERRED ZONE</small>':
+       within(1)?'<small class="gain">IN ACCEPTABLE ZONE</small>':"");
   }
   function tr(r){
     const action=cap(r.action,96);
@@ -127,7 +155,7 @@
     '<td>'+escape(cap(screening,140))+(r.statusOnly?'<small class="warning">Screening only · no current investment rating</small>':"")+'<small>Folder: '+escape(r.bucket)+'</small></td>'+
     '<td>'+escape(cap(r.earnings,110))+'</td>'+
     '<td>'+zoneCell(r)+'</td>'+
-    '<td>'+escape(cap(r.stops,110))+'</td>'+
+    '<td>'+stopsCell(r)+'</td>'+
     '<td><a href="'+escape(r.reportPath)+'">HTML report</a><small><a href="'+escape(r.reportUrl)+'" target="_blank" rel="noopener noreferrer">Original GitHub</a></small></td></tr>';
   }
   function render(){
