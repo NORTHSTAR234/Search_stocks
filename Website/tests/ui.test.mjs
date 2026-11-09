@@ -117,7 +117,7 @@ test("Preferred / Acceptable and Initial stop / No chase match the existing Inve
  assert(source.includes('function splitReportPair(value)'));
  assert(source.includes('function reportRangeCard(label,value,tone)'));
  assert(source.includes('function stopsCell(r)'));
- assert(source.includes('function zoneCell(r)'));
+ assert(source.includes('function zoneCell(r,context)'));
  assert(source.includes('score-pair range-pair'));
  assert(source.includes('score-box range-box'));
  assert(source.includes('highlightedCard("Preferred",preferred,"good","preferred")'));
