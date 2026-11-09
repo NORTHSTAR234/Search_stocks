@@ -49,7 +49,8 @@ test("EODHD and Alpaca both refresh independently every five minutes",()=>{
  assert(source.includes('state.quotes={...usQuotes,...internationalQuotes}'));
  assert(source.includes('state.providerReady=true;'));
  assert(source.includes('previousCloseChangePercent'));
- assert(source.includes("Rolling 24h: N/A"));
+ assert(source.includes("IEX 24h"));
+ assert(source.includes("vs previous close"));
  assert.match(source,/setInterval\(\(\)=>\{if\(document\.visibilityState==="visible"\)checkAll\(\);\},300000\)/);
 });
 
