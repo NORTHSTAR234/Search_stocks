@@ -1,11 +1,66 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-10T08:31:33Z",
-  "htmlReportCount": 19,
-  "uniqueTickers": 17,
-  "revision": "9f2787c1d003d6e54a72d7f0f0eca810",
+  "latestHtmlReportAt": "2026-11-10T09:04:16Z",
+  "htmlReportCount": 20,
+  "uniqueTickers": 18,
+  "revision": "8976574c4a63518d576da4db98fb0f8e",
   "rows": [
+    {
+      "company": "Origin Energy Limited",
+      "ticker": "ORG.ASX",
+      "exchange": "ASX",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T09:04:16Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "MODERATE-HIGH",
+      "investment": "69/100",
+      "entry": "53/100",
+      "musaffa": "HALAL · PASS",
+      "earnings": "NOT VERIFIED",
+      "zones": "AUD 11.4–11.7 / AUD 11.7–11.95",
+      "stops": "AUD 11.1 / AUD 12.45",
+      "nativeCurrency": "AUD",
+      "marketSchedule": {
+        "exchange": "ASX",
+        "mic": "XASX",
+        "market_time_zone": "Australia/Sydney",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "10:00",
+            "end": "16:00"
+          }
+        ],
+        "yahoo_ticker": "ORG.AX",
+        "hours_source": "https://www.asx.com.au/markets/market-resources/trading-hours-calendar/cash-market-trading-hours",
+        "hours_checked_utc": "2026-11-10T09:04:16.755Z"
+      },
+      "sourceMarketTicker": "ORG.AX",
+      "zoneBands": [
+        [
+          11.4,
+          11.7
+        ],
+        [
+          11.7,
+          11.95
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ORG.ASX/ORG.ASX_2026-11-10_09-04-16Z.html",
+      "reportPath": "/view-report?path=halal%2FORG.ASX%2FORG.ASX_2026-11-10_09-04-16Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "ASM International N.V.",
       "ticker": "ASM.XAMS",
