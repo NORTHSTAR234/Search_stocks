@@ -1,7 +1,7 @@
 (() => {
   "use strict";
   const $ = id => document.getElementById(id);
-  const state={rows:[],quotes:{},loading:false,generatedAt:null,providerReady:true,githubTreeSha:null,syncing:false,cycleBusy:false};
+  const state={rows:[],quotes:{},markets:{},loading:false,generatedAt:null,providerReady:true,githubTreeSha:null,syncing:false,cycleBusy:false};
   const escape=s=>String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
   const fmt=iso=>{try{return new Intl.DateTimeFormat("en-AU",{timeZone:"Australia/Melbourne",day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",timeZoneName:"short"}).format(new Date(iso));}catch{return iso||"Unknown";}};
   const norm=s=>String(s??"").toUpperCase().replace(/[^A-Z0-9 ]/g," ").trim();
@@ -30,22 +30,78 @@
     return "neutral";
   };
   const cap=(v,n=95)=>{let s=String(v||"NOT RATED");return s.length>n?s.slice(0,n-1)+"…":s;};
-  // Navigation only: links to Yahoo's own pages, never downloads or republishes Yahoo prices.
-  function yahooSymbol(r) {
-    const ticker=String(r?.ticker||"").toUpperCase();
-    if(r.exchange==="ASX"){
-      const code=ticker.replace(/\.AX$/,"");
-      return /^[A-Z0-9]{2,6}$/.test(code)?code+".AX":null;
+  // Exchange-local weekday trading times; Sydney conversion is recalculated
+  // for today's date, so both Australian and overseas daylight saving apply.
+  // Public holidays are intentionally ignored at the owner's request.
+  function marketParts(date,zone){
+    const parts=new Intl.DateTimeFormat("en-GB",{
+      timeZone:zone,year:"numeric",month:"2-digit",day:"2-digit",
+      hour:"2-digit",minute:"2-digit",hourCycle:"h23"
+    }).formatToParts(date);
+    const o={};
+    for(const p of parts)if(p.type!=="literal")o[p.type]=Number(p.value);
+    return o;
+  }
+  function zonedSessionTime(local,hhmm,zone){
+    const [hour,minute]=hhmm.split(":").map(Number);
+    const target=Date.UTC(local.year,local.month-1,local.day,hour,minute);
+    let guess=target;
+    for(let i=0;i<4;i++){
+      const p=marketParts(new Date(guess),zone);
+      const actual=Date.UTC(p.year,p.month-1,p.day,p.hour,p.minute);
+      const diff=target-actual;
+      guess+=diff;
+      if(diff===0)break;
     }
-    if(r.exchange==="TWSE")return /^\d{4}\.(?:TW|TWSE)$/.test(ticker)?ticker.replace(/\.TWSE$/,".TW"):null;
-    if(r.exchange==="BURSA"){
-      if(ticker==="CBHB")return "0339.KL";
-      const match=ticker.match(/^(\d{4})\.(?:KL|MY)$/);
-      return match?match[1]+".KL":null;
-    }
-    return null;
+    return new Date(guess);
+  }
+  function marketStatus(r,now=new Date()){
+    try{
+      const name=String(r.exchange||"").toUpperCase();
+      const registry=state.markets||{};
+      const key=(registry.aliases||{})[name]||name;
+      const fallback=registry.markets?.[key];
+      const ms=r.marketSchedule;
+      const m=ms&&ms.market_time_zone&&Array.isArray(ms.sessions)&&Array.isArray(ms.weekdays)?
+        {timeZone:ms.market_time_zone,sessions:ms.sessions,weekdays:ms.weekdays}:fallback;
+      if(!m||!m.timeZone||!m.sessions?.length||!m.weekdays?.length)return null;
+      const local=marketParts(now,m.timeZone);
+      const weekday=new Date(Date.UTC(local.year,local.month-1,local.day)).getUTCDay()||7;
+      const minutes=local.hour*60+local.minute;
+      const open=m.weekdays.includes(weekday)&&m.sessions.some(v=>{
+        const [sh,sm]=v.start.split(":").map(Number),[eh,em]=v.end.split(":").map(Number);
+        return sh*60+sm<=minutes&&minutes<eh*60+em;
+      });
+      const sydney=new Intl.DateTimeFormat("en-AU",{timeZone:"Australia/Sydney",
+        hour:"2-digit",minute:"2-digit",hour12:false,timeZoneName:"short"});
+      const hours=m.sessions.map(v=>{
+        const a=zonedSessionTime(local,v.start,m.timeZone),b=zonedSessionTime(local,v.end,m.timeZone);
+        return sydney.format(a)+"–"+sydney.format(b);
+      }).join(" / ");
+      return {open,hours,market:key};
+    }catch{return null;}
   }
 
+  // Yahoo external navigation is a fallback only; pricing comes from owner-only KV.
+  function yahooSymbol(r) {
+    const ticker=String(r?.ticker||"").toUpperCase();
+    const override=state.markets?.sourceSymbolOverrides?.[ticker];
+    if(override)return override;
+    const market=r.marketSchedule?.yahoo_ticker;
+    if(typeof market==="string"&&/^[A-Z0-9.^-]{1,25}$/i.test(market))return market;
+    if(r.exchange==="ASX"){
+      const code=ticker.replace(/\.(?:ASX|AX)$/,"");
+      return /^[A-Z0-9]{2,8}$/.test(code)?code+".AX":null;
+    }
+    if(r.exchange==="TWSE")return /^\d{4}\.(?:TW|TWSE)$/.test(ticker)?ticker.replace(/\.TWSE$/,".TW"):null;
+    if(r.exchange==="BURSA"||r.exchange==="MYX"){
+      const base=ticker.replace(/\.(?:MYX|KL)$/,"");
+      return /^\d{4}$/.test(base)?base+".KL":null;
+    }
+    const key=state.markets?.aliases?.[r.exchange]||r.exchange;
+    const suffix=state.markets?.markets?.[key]?.yahooSuffix;
+    return suffix&&ticker.endsWith("."+key)?ticker.slice(0,-key.length-1)+suffix:null;
+  }
   function quoteMoney(currency,value){
     const unit=currency==="USD"?"US$":currency==="AUD"?"A$":currency==="TWD"?"NT$":currency==="MYR"?"RM ":currency+" ";
     return unit+Number(value).toLocaleString("en-AU",{minimumFractionDigits:2,maximumFractionDigits:3});
@@ -58,7 +114,7 @@
     if(!q){
       const symbol=yahooSymbol(r);
       const link=symbol?'<small><a href="https://finance.yahoo.com/quote/'+encodeURIComponent(symbol)+'/" target="_blank" rel="noopener noreferrer">View on Yahoo Finance (delayed) ↗</a></small>':"";
-      return '<span class="muted">PRICE UNAVAILABLE</span><small>'+(r.exchange==="US"?"No verified Alpaca":"International auto-feed paused")+' quote</small>'+link;
+      return '<span class="muted">PRICE UNAVAILABLE</span><small>'+(r.exchange==="US"?"No verified Alpaca":"No cached international quote")+' quote</small>'+link;
     }
     const currency=q.currency;
     if(q.feed==="IEX"&&q.regularClose&&Number(q.regularClose.price)>0){
@@ -79,7 +135,7 @@
         ' · '+escape(fmt(q.asOf))+iexChange+'</small></div>';
     }
     const p=Number(q.price);
-    const isEodhd=q.feed==="EODHD";
+    const isEodhd=q.feed==="EODHD"||q.feed==="YFINANCE_YAHOO_5M_BAR_DELAYED";
     const change=isEodhd?q.previousCloseChangePercent:q.change24hPercent;
     const valid=typeof change==="number"&&Number.isFinite(change);
     const color=quoteDirection(valid?change:null);
@@ -87,7 +143,7 @@
       '<strong class="quote-value '+color+'">'+escape(Number.isFinite(p)&&p>0?quoteMoney(currency,p):"PRICE UNAVAILABLE")+'</strong>'+
       (valid?'<span class="change '+color+'">'+escape(signedPercent(change))+
         (isEodhd?' vs previous close':' IEX 24h')+'</span>':'<small class="muted">Change unavailable</small>')+
-      '<small>'+escape(q.feed||"Unknown feed")+(isEodhd?" · delayed quote":" · latest trade")+
+      '<small>'+escape(q.feed==="YFINANCE_YAHOO_5M_BAR_DELAYED"?"Yahoo Finance · 5-min bar (delayed)":(q.feed||"Unknown feed"))+(isEodhd?" · delayed observation":" · latest trade")+
       ' · '+escape(fmt(q.asOf))+'</small></div>';
   }
   function overnightCell(r){
@@ -207,7 +263,15 @@
     const action=cap(r.action,96);
     const screening=r.musaffa||"NOT VERIFIED";
     const context=zoneContext(r);
-    return '<tr><td><a class="ticker" href="'+escape(r.reportPath)+'">'+escape(r.ticker)+'</a><small>'+escape(r.company)+'</small><small>'+escape(r.exchange)+'</small></td>'+
+    const market=marketStatus(r);
+    const active=market?.open?" market-open":"";
+    const status=market?'<small class="market-session">'+escape(market.market)+
+      ' · Sydney '+escape(market.hours)+
+      ' · '+(market.open?'<span class="market-open-label">Trading session</span>':'Outside session')+'</small>':
+      '<small class="market-session muted">Market hours not configured</small>';
+    return '<tr><td><a class="ticker'+active+'" href="'+escape(r.reportPath)+'"'+
+      (market?.open?' title="Market in regular weekday session"':'')+'>'+escape(r.ticker)+'</a>'+
+      '<small>'+escape(r.company)+'</small>'+status+'</td>'+
     '<td>'+quoteCell(r)+'</td>'+
     '<td>'+overnightCell(r)+'</td>'+
     '<td>'+badge(action,actionKind(action))+'<small>Risk: '+escape(cap(r.risk,78))+'</small>'+
@@ -256,12 +320,15 @@
     }
     try{
       const usQuotes=await retrieve("/api/prices",us,"Alpaca");
-      state.quotes=usQuotes;
-      const usCount=Object.keys(usQuotes).length;
+      const international=state.rows.filter(r=>r.exchange!=="US").map(r=>r.ticker);
+      const intlQuotes=await retrieve("/api/international-prices",international,"Personal Yahoo cache");
+      state.quotes={...usQuotes,...intlQuotes};
+      const usCount=Object.keys(usQuotes).length,intlCount=Object.keys(intlQuotes).length;
       $("marketNotice").textContent="Quote observations: "+usCount+
-        " US tickers via Alpaca · Updated "+fmt(new Date().toISOString())+
-        " · US prices and GitHub HTML reports refresh every 5 minutes while this page is visible. "+
-        "International automatic prices paused to preserve free API allowance; open Yahoo Finance links for international quotes."+
+        " US tickers via Alpaca · "+intlCount+" non-US delayed Yahoo quotes (private cache) · Updated "+
+        fmt(new Date().toISOString())+
+        " · US prices and GitHub HTML reports checked every 5 minutes while visible. "+
+        "Non-US quotes are collected on GitHub Actions every 20 minutes during regular market hours, subject to data-feed and scheduler delays."+
         (failures.length?" Provider issues: "+failures.join("; "):"");
       state.providerReady=true;
     }finally{state.loading=false;$("refresh").disabled=false;render();}
@@ -326,13 +393,19 @@
       const data=await res.json();
       state.rows=Array.isArray(data.rows)?data.rows:[];
       state.generatedAt=data.generatedAt;
-      $("marketNotice").textContent="Archive built "+fmt(data.generatedAt)+". Loading Alpaca US prices (international auto-feed paused).";
+      try{
+        const marketRes=await fetch("/data/market-exchanges.json",{cache:"no-store"});
+        if(marketRes.ok)state.markets=await marketRes.json();
+      }catch{}
+      $("marketNotice").textContent="Archive built "+fmt(data.generatedAt)+". Loading Alpaca US prices and cached delayed international prices.";
       render();
       await refresh();
       const addedReports=await syncGithubReports();
       // A second quote request is necessary only if GitHub added or updated a ticker.
       if(addedReports)await refresh();
       setInterval(()=>{if(document.visibilityState==="visible")checkAll();},300000);
+      // Market-open glow changes at the minute boundary without fetching quotes.
+      setInterval(()=>{if(document.visibilityState==="visible")render();},60000);
       document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkAll();});
     }catch(e){
       $("marketNotice").textContent="Could not load archive: "+e.message;
