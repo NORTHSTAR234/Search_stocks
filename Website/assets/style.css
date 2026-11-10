@@ -168,3 +168,21 @@
  .table-wrap th:nth-child(7),.table-wrap td:nth-child(7),
  .table-wrap th:nth-child(8),.table-wrap td:nth-child(8){min-width:245px}
 }
+
+/* Soft amber glow means scheduled regular weekday market hours only.
+   This is NOT a buy signal, quote-freshness claim, or holiday verification. */
+.table-wrap .ticker.market-open{
+  display:inline-block;
+  color:#ffd77c!important;
+  border-radius:7px;
+  padding:3px 7px;
+  margin:-3px -7px;
+  background:rgba(177,108,13,.18);
+  border:1px solid rgba(255,188,66,.65);
+  box-shadow:0 0 10px rgba(255,172,32,.35),0 0 19px rgba(255,172,32,.18);
+  text-shadow:0 0 6px rgba(255,188,66,.54);
+  transition:box-shadow .3s ease;
+}
+.table-wrap .market-open-label{color:#ffd77c;font-weight:850}
+.table-wrap .market-session{color:#b5cce1;font-size:.70rem;line-height:1.42}
+@media (prefers-reduced-motion:reduce){.table-wrap .ticker.market-open{transition:none}}
