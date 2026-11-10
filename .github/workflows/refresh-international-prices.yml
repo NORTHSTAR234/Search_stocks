@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: '*/20 * * * *'
   workflow_dispatch:
+    inputs:
+      bootstrap:
+        description: 'One-time manual initialization of last available non-US quotes (no trading-hours changes)'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -29,10 +35,24 @@ jobs:
           python-version: '3.12'
       - name: Check market weekdays and regular sessions
         id: market
-        run: python Website/scripts/collect-international-quotes.py --check-open
+        env:
+          BOOTSTRAP_MARKETS: ${{ (github.event_name == 'workflow_dispatch' && inputs.bootstrap == true) || github.event_name == 'push' }}
+        run: |
+          if [ "$BOOTSTRAP_MARKETS" = "true" ]; then
+            python Website/scripts/collect-international-quotes.py --bootstrap --check-open
+          else
+            python Website/scripts/collect-international-quotes.py --check-open
+          fi
       - name: Install yfinance only while a relevant exchange is trading
         if: steps.market.outputs.open == 'true'
         run: python -m pip install --disable-pip-version-check 'yfinance>=0.2.65,<1'
       - name: Collect delayed Yahoo observations and publish privately using GitHub OIDC
         if: steps.market.outputs.open == 'true'
-        run: python Website/scripts/collect-international-quotes.py
+        env:
+          BOOTSTRAP_MARKETS: ${{ (github.event_name == 'workflow_dispatch' && inputs.bootstrap == true) || github.event_name == 'push' }}
+        run: |
+          if [ "$BOOTSTRAP_MARKETS" = "true" ]; then
+            python Website/scripts/collect-international-quotes.py --bootstrap
+          else
+            python Website/scripts/collect-international-quotes.py
+          fi
