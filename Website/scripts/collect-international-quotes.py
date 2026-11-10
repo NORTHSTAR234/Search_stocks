@@ -85,7 +85,7 @@ def report_markets(registry):
             if not isinstance(sessions,list) or not (1<=len(sessions)<=4):continue
             valid=True
             for item in sessions:
-                if not isinstance(item,dict) or any(not isinstance(item.get(k),str) or not re.fullmatch(r"(?:[01]\\d|2[0-3]):[0-5]\\d",item[k]) for k in ("start","end")):
+                if not isinstance(item,dict) or any(not isinstance(item.get(k),str) or not re.fullmatch(r"(?:[01]\d|2[0-3]):[0-5]\d",item[k]) for k in ("start","end")):
                     valid=False
                     break
                 if item["start"]>=item["end"]:
