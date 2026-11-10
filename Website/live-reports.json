@@ -1,11 +1,61 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-10T11:30:03Z",
-  "htmlReportCount": 22,
-  "uniqueTickers": 20,
-  "revision": "a544d6ee9a2fc351cbab09ce40fbcfe7",
+  "latestHtmlReportAt": "2026-11-10T21:40:00Z",
+  "htmlReportCount": 23,
+  "uniqueTickers": 21,
+  "revision": "1b31529dd94b99d94bc9cc1ec2335463",
   "rows": [
+    {
+      "company": "CBH Engineering Holding Berhad",
+      "ticker": "CBHB.MYX",
+      "exchange": "BURSA",
+      "bucket": "nonhalal",
+      "timestamp": "2026-11-10T21:40:00Z",
+      "statusOnly": true,
+      "action": "SCREENING ONLY — NO INVESTMENT REPORT",
+      "ownerAction": "RESEARCH SKIPPED",
+      "risk": "NOT RATED",
+      "investment": "NOT RATED",
+      "entry": "NOT RATED",
+      "musaffa": "RECENCY UNVERIFIED — SCREENING ONLY",
+      "earnings": "NOT RATED",
+      "zones": "NOT RATED",
+      "stops": "NOT RATED",
+      "nativeCurrency": "MYR",
+      "marketSchedule": {
+        "exchange": "MYX",
+        "mic": "XKLS",
+        "market_time_zone": "Asia/Kuala_Lumpur",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "12:30"
+          },
+          {
+            "start": "14:30",
+            "end": "16:45"
+          }
+        ],
+        "yahoo_ticker": "0339.KL",
+        "hours_source": "https://www.bursamalaysia.com/sites/5bb54be15f36ca0af339077a/assets/5bb55acf5f36ca0c3028d8fb/rules_bms_cir_rr10_121108.pdf",
+        "hours_checked_utc": "2026-11-10T21:40:00Z"
+      },
+      "sourceMarketTicker": "0339.KL",
+      "zoneBands": [],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/CBHB.MYX/CBHB.MYX_2026-11-10_21-40-00Z.html",
+      "reportPath": "/view-report?path=nonhalal%2FCBHB.MYX%2FCBHB.MYX_2026-11-10_21-40-00Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Schneider Electric SE",
       "ticker": "SU.SIX",
