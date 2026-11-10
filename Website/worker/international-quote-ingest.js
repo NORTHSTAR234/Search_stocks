@@ -30,7 +30,7 @@ async function verifyGithubOIDC(token) {
     claims.repository!==REPOSITORY||String(claims.repository_id)!==REPOSITORY_ID||
     claims.ref!==REF||claims.sub!=="repo:"+REPOSITORY+":ref:"+REF||
     claims.workflow_ref!==WORKFLOW_REF||
-    !["schedule","workflow_dispatch"].includes(claims.event_name)||
+    !["schedule","workflow_dispatch","push"].includes(claims.event_name)||
     !Number.isInteger(claims.exp)||claims.exp<=now||
     !Number.isInteger(claims.iat)||claims.iat>now+60||now-claims.iat>900||
     typeof claims.nbf==="number"&&claims.nbf>now+60)return false;
