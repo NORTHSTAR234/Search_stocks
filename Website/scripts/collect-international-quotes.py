@@ -15,6 +15,7 @@ import os
 from pathlib import Path
 import re
 import sys
+import subprocess
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -163,24 +164,31 @@ def publish(quotes):
     body=json.dumps({"schemaVersion":1,"source":"yfinance",
                      "collectedAt":now_utc().isoformat().replace("+00:00","Z"),
                      "quotes":quotes},separators=(",",":")).encode()
-    request=urllib.request.Request(INGEST,data=body,method="POST",
-       headers={"Authorization":"Bearer "+token,"Content-Type":"application/json"})
-    try:
-        with urllib.request.urlopen(request,timeout=25) as response:
-            return json.load(response)
-    except urllib.error.HTTPError as e:
-        # Public workflow logs must NEVER contain the JWT. These fields only
-        # describe the public repository/workflow identity for troubleshooting.
-        print("Private ingest rejected:",e.code,e.read(300).decode("utf-8","replace"),file=sys.stderr)
-        if e.code==403:
+    # Use libcurl transport instead of Python-urllib's Browser Integrity
+    # fingerprint, which Cloudflare may block before the Worker runs.
+    result=subprocess.run([
+      "curl","--http1.1","--silent","--show-error","--fail-with-body",
+      "--max-time","30","--request","POST",
+      "--header","Authorization: Bearer "+token,
+      "--header","Content-Type: application/json",
+      "--header","Accept: application/json",
+      "--header","User-Agent: GitHub-Actions-Stock-Research/1.0",
+      "--data-binary","@-",INGEST
+    ],input=body,stdout=subprocess.PIPE,stderr=subprocess.PIPE,check=False)
+    if result.returncode!=0:
+        print("Private ingest failed (curl code):",result.returncode,
+              result.stdout.decode("utf-8","replace")[:200],
+              result.stderr.decode("utf-8","replace")[:200],file=sys.stderr)
+        if result.returncode==22:
             try:
                 blob=token.split(".")[1]
                 claims=json.loads(base64.urlsafe_b64decode(blob+"="*((-len(blob))%4)))
-                fields=["iss","aud","sub","repository","repository_id","ref","workflow_ref","event_name"]
-                print("OIDC identity:",json.dumps({k:claims.get(k) for k in fields}),file=sys.stderr)
+                keys=["iss","aud","sub","repository","repository_id","ref","workflow_ref","event_name"]
+                print("OIDC identity:",json.dumps({k:claims.get(k) for k in keys}),file=sys.stderr)
             except (ValueError,IndexError):
                 pass
-        raise
+        raise RuntimeError("Private OIDC quote ingest failed; no data was published")
+    return json.loads(result.stdout)
 
 def main():
     parser=argparse.ArgumentParser()
