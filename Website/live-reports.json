@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-10T23:30:40Z",
-  "htmlReportCount": 49,
+  "latestHtmlReportAt": "2026-11-10T23:32:38Z",
+  "htmlReportCount": 50,
   "uniqueTickers": 24,
-  "revision": "88b6c53390bf84f9986ba3757e895ec1",
+  "revision": "827413e49a00dcd9d0f438aa65046177",
   "rows": [
     {
       "company": "ASM International N.V.",
       "ticker": "ASM.XAMS",
       "exchange": "XAMS",
       "bucket": "halal",
-      "timestamp": "2026-11-10T23:30:40Z",
+      "timestamp": "2026-11-10T23:32:38Z",
       "statusOnly": false,
       "action": "WATCH",
       "ownerAction": "HOLD",
@@ -43,7 +43,7 @@
         ],
         "yahoo_ticker": "ASM.AS",
         "hours_source": "https://www.euronext.com/en/trading/trading-hours-holidays",
-        "hours_checked_utc": "2026-11-10T23:30:40Z"
+        "hours_checked_utc": "2026-11-10T23:32:38Z"
       },
       "sourceMarketTicker": "ASM.AS",
       "zoneBands": [
@@ -56,8 +56,8 @@
           670
         ]
       ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ASM.XAMS/ASM.XAMS_2026-11-10_23-30-40Z.html",
-      "reportPath": "/view-report?path=halal%2FASM.XAMS%2FASM.XAMS_2026-11-10_23-30-40Z.html",
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ASM.XAMS/ASM.XAMS_2026-11-10_23-32-38Z.html",
+      "reportPath": "/view-report?path=halal%2FASM.XAMS%2FASM.XAMS_2026-11-10_23-32-38Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
