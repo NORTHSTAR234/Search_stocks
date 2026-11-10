@@ -4,7 +4,7 @@
   "latestHtmlReportAt": "2026-11-10T08:31:33Z",
   "htmlReportCount": 19,
   "uniqueTickers": 17,
-  "revision": "472e81c099d897f7222ad806664359c2",
+  "revision": "9f2787c1d003d6e54a72d7f0f0eca810",
   "rows": [
     {
       "company": "ASM International N.V.",
@@ -20,9 +20,9 @@
       "entry": "42/100",
       "musaffa": "HALAL · A · 2026-11-04 · PASS",
       "earnings": "23 Feb 2027 confirmed",
-      "zones": "UNKNOWN 610–640 / UNKNOWN 640–670",
-      "stops": "UNKNOWN 575 / UNKNOWN 740",
-      "nativeCurrency": "UNKNOWN",
+      "zones": "EUR 610–640 / EUR 640–670",
+      "stops": "EUR 575 / EUR 740",
+      "nativeCurrency": "EUR",
       "marketSchedule": {
         "exchange": "XAMS",
         "mic": "XAMS",
