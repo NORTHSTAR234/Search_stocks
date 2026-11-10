@@ -1,11 +1,57 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-10T21:43:30Z",
-  "htmlReportCount": 30,
+  "latestHtmlReportAt": "2026-11-10T21:44:12Z",
+  "htmlReportCount": 31,
   "uniqueTickers": 23,
-  "revision": "4c9f2e27cf9fe4453547751c6724f288",
+  "revision": "68102f4d7f89525c2fe94f7218335471",
   "rows": [
+    {
+      "company": "Schneider Electric SE",
+      "ticker": "SU.SIX",
+      "exchange": "SIX",
+      "bucket": "nonhalal",
+      "timestamp": "2026-11-10T21:44:12Z",
+      "statusOnly": true,
+      "action": "SCREENING ONLY — NO INVESTMENT REPORT",
+      "ownerAction": "RESEARCH SKIPPED",
+      "risk": "NOT RATED",
+      "investment": "NOT RATED",
+      "entry": "NOT RATED",
+      "musaffa": "MUSAFFA GATE · UNVERIFIED",
+      "earnings": "NOT RATED",
+      "zones": "NOT RATED",
+      "stops": "NOT RATED",
+      "nativeCurrency": "CHF",
+      "marketSchedule": {
+        "exchange": "SIX",
+        "mic": "XSWX",
+        "market_time_zone": "Europe/Zurich",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "17:20"
+          }
+        ],
+        "yahoo_ticker": "SU.SW",
+        "hours_source": "https://www.six-group.com/en/products-services/the-swiss-stock-exchange/trading/trading-provisions/trading-hours.html",
+        "hours_checked_utc": "2026-11-10T21:44:12Z"
+      },
+      "sourceMarketTicker": "SU.SW",
+      "zoneBands": [],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/SU.SIX/SU.SIX_2026-11-10_21-44-12Z.html",
+      "reportPath": "/view-report?path=nonhalal%2FSU.SIX%2FSU.SIX_2026-11-10_21-44-12Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Cisco Systems, Inc.",
       "ticker": "CSCO",
@@ -282,52 +328,6 @@
       "zoneBands": [],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/CBHB.MYX/CBHB.MYX_2026-11-10_21-40-00Z.html",
       "reportPath": "/view-report?path=nonhalal%2FCBHB.MYX%2FCBHB.MYX_2026-11-10_21-40-00Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "Schneider Electric SE",
-      "ticker": "SU.SIX",
-      "exchange": "SIX",
-      "bucket": "nonhalal",
-      "timestamp": "2026-11-10T11:30:03Z",
-      "statusOnly": true,
-      "action": "SCREENING ONLY — NO INVESTMENT REPORT",
-      "ownerAction": "RESEARCH SKIPPED",
-      "risk": "NOT RATED",
-      "investment": "NOT RATED",
-      "entry": "NOT RATED",
-      "musaffa": "NOT VERIFIED",
-      "earnings": "NOT RATED",
-      "zones": "NOT RATED",
-      "stops": "NOT RATED",
-      "nativeCurrency": "CHF",
-      "marketSchedule": {
-        "exchange": "SIX",
-        "mic": "XSWX",
-        "market_time_zone": "Europe/Zurich",
-        "sydney_time_zone": "Australia/Sydney",
-        "weekdays": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "sessions": [
-          {
-            "start": "09:00",
-            "end": "17:20"
-          }
-        ],
-        "yahoo_ticker": "SU.SW",
-        "hours_source": "https://www.six-group.com/en/products-services/the-swiss-stock-exchange/trading/trading-provisions/trading-hours.html",
-        "hours_checked_utc": "2026-11-10T11:30:03Z"
-      },
-      "sourceMarketTicker": "SU.SW",
-      "zoneBands": [],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/SU.SIX/SU.SIX_2026-11-10_11-30-03Z.html",
-      "reportPath": "/view-report?path=nonhalal%2FSU.SIX%2FSU.SIX_2026-11-10_11-30-03Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
