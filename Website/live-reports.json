@@ -1,11 +1,147 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-10T21:41:55Z",
-  "htmlReportCount": 25,
-  "uniqueTickers": 22,
-  "revision": "ad7033745ce8d3a4f378afbb7505dec6",
+  "latestHtmlReportAt": "2026-11-10T21:43:08Z",
+  "htmlReportCount": 29,
+  "uniqueTickers": 23,
+  "revision": "1b7ad6c320df2c984c51cc38687edd3d",
   "rows": [
+    {
+      "company": "Mastercard Incorporated",
+      "ticker": "MA",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:43:08Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "MODERATE-HIGH",
+      "investment": "83/100",
+      "entry": "40/100",
+      "musaffa": "HALAL · A · 2026-08-03 · PASS",
+      "earnings": "28 Jan 2027 estimated",
+      "zones": "US$535–565 / US$566–600",
+      "stops": "US$510 / US$640",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "MA",
+      "zoneBands": [
+        [
+          535,
+          565
+        ],
+        [
+          566,
+          600
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MA/MA_2026-11-10_21-43-08Z.html",
+      "reportPath": "/view-report?path=halal%2FMA%2FMA_2026-11-10_21-43-08Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
+    {
+      "company": "Chevron Corporation",
+      "ticker": "CVX",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:43:03Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "MODERATE–HIGH",
+      "investment": "76/100",
+      "entry": "52/100",
+      "musaffa": "HALAL · A- · 2026-08-19 · PASS",
+      "earnings": "29 Jan 2027 estimated",
+      "zones": "US$185–195 / US$196–205",
+      "stops": "US$175 / US$220",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "CVX",
+      "zoneBands": [
+        [
+          185,
+          195
+        ],
+        [
+          196,
+          205
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/CVX/CVX_2026-11-10_21-43-03Z.html",
+      "reportPath": "/view-report?path=halal%2FCVX%2FCVX_2026-11-10_21-43-03Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
+    {
+      "company": "NVIDIA Corporation",
+      "ticker": "NVDA",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:42:52Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "78/100",
+      "entry": "55/100",
+      "musaffa": "HALAL · A · 2026-09-19 · PASS",
+      "earnings": "17 Nov 2026 confirmed",
+      "zones": "US$155–165 / US$166–175",
+      "stops": "US$144 / US$185",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "NVDA",
+      "zoneBands": [
+        [
+          155,
+          165
+        ],
+        [
+          166,
+          175
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/NVDA/NVDA_2026-11-10_21-42-52Z.html",
+      "reportPath": "/view-report?path=halal%2FNVDA%2FNVDA_2026-11-10_21-42-52Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
+    {
+      "company": "Applied Materials, Inc.",
+      "ticker": "AMAT",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:42:44Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "76/100",
+      "entry": "27/100",
+      "musaffa": "HALAL · A- · 2026-09-14 · PASS",
+      "earnings": "12 Nov 2026 confirmed",
+      "zones": "US$275–305 / US$306–325",
+      "stops": "US$250 / US$365",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "AMAT",
+      "zoneBands": [
+        [
+          275,
+          305
+        ],
+        [
+          306,
+          325
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/AMAT/AMAT_2026-11-10_21-42-44Z.html",
+      "reportPath": "/view-report?path=halal%2FAMAT%2FAMAT_2026-11-10_21-42-44Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Tesla, Inc.",
       "ticker": "TSLA",
@@ -701,74 +837,6 @@
       "conflictingBuckets": false
     },
     {
-      "company": "Chevron Corporation",
-      "ticker": "CVX",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-09T06:35:18Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "MODERATE-HIGH",
-      "investment": "76/100",
-      "entry": "52/100",
-      "musaffa": "HALAL · A- · 2026-08-19",
-      "earnings": "29 Jan 2027 estimated",
-      "zones": "US$185–195 / US$196–205",
-      "stops": "US$175 / US$220",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": null,
-      "zoneBands": [
-        [
-          185,
-          195
-        ],
-        [
-          196,
-          205
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/CVX/CVX_2026-11-09_06-35-18Z.html",
-      "reportPath": "/view-report?path=halal%2FCVX%2FCVX_2026-11-09_06-35-18Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "Mastercard Incorporated",
-      "ticker": "MA",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-09T05:35:16Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "MODERATE-HIGH",
-      "investment": "83/100",
-      "entry": "45/100",
-      "musaffa": "HALAL · A · 2026-08-03",
-      "earnings": "28 Jan 2027 estimated",
-      "zones": "US$535–565 / US$566–600",
-      "stops": "US$510 / US$640",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": null,
-      "zoneBands": [
-        [
-          535,
-          565
-        ],
-        [
-          566,
-          600
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MA/MA_2026-11-09_05-35-16Z.html",
-      "reportPath": "/view-report?path=halal%2FMA%2FMA_2026-11-09_05-35-16Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
       "company": "Fortune Electric Co., Ltd.",
       "ticker": "1519.TWSE",
       "exchange": "TWSE",
@@ -790,40 +858,6 @@
       "zoneBands": [],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/1519.TWSE/1519.TWSE_2026-11-09_05-23-30Z.html",
       "reportPath": "/view-report?path=nonhalal%2F1519.TWSE%2F1519.TWSE_2026-11-09_05-23-30Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "NVIDIA Corporation",
-      "ticker": "NVDA",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-09T05:18:50Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "78/100",
-      "entry": "48/100",
-      "musaffa": "HALAL · A · 2026-09-19",
-      "earnings": "17 Nov 2026 confirmed",
-      "zones": "US$165–175 / US$176–185",
-      "stops": "US$154 / US$205",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": null,
-      "zoneBands": [
-        [
-          165,
-          175
-        ],
-        [
-          176,
-          185
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/NVDA/NVDA_2026-11-09_05-18-50Z.html",
-      "reportPath": "/view-report?path=halal%2FNVDA%2FNVDA_2026-11-09_05-18-50Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     }
