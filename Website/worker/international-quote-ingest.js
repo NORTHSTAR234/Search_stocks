@@ -28,7 +28,7 @@ async function verifyGithubOIDC(token) {
   if(header.alg!=="RS256"||!header.kid||typeof header.kid!=="string"||
     claims.iss!==ISSUER||claims.aud!==AUDIENCE||
     claims.repository!==REPOSITORY||String(claims.repository_id)!==REPOSITORY_ID||
-    claims.ref!==REF||claims.sub!=="repo:"+REPOSITORY+":ref:"+REF||
+    claims.ref!==REF||claims.sub!=="repo:NORTHSTAR234@349787488/Search_stocks@1446841331:ref:"+REF||
     claims.workflow_ref!==WORKFLOW_REF||
     !["schedule","workflow_dispatch","push"].includes(claims.event_name)||
     !Number.isInteger(claims.exp)||claims.exp<=now||
