@@ -202,6 +202,7 @@ export function parseHtmlReport(info,html) {
     /\b(?:ASX\s*:|AUSTRALIAN SECURITIES EXCHANGE)\b/i.test(upperHead)?"ASX":
     /\b(?:BURSA|MALAYSIA|KLSE|MYX)\b/i.test(upperHead)?"BURSA":
     /\b(?:TWSE|TAIWAN STOCK EXCHANGE)\b/i.test(upperHead)?"TWSE":
+    /^[A-Z]{2,10}$/.test(exchangeHint)?exchangeHint:
     /\./.test(ticker)?"OTHER":"US";
   const currency=exchange==="US"?"USD":exchange==="ASX"?"AUD":exchange==="TWSE"?"TWD":exchange==="BURSA"?"MYR":"UNKNOWN";
   // Legacy report snapshots differ in shape; read only observed source fields.
@@ -282,7 +283,15 @@ export function parseHtmlReport(info,html) {
     zones:isStatus?"NOT RATED":zones,
     stops:isStatus?"NOT RATED":stops,
     nativeCurrency:currency,
-    zoneBands:exchange==="US"&&!isStatus?numericBands(zones):[],
+    // Optional per-report market metadata; never replaces the required v2 keys.
+    marketSchedule:snapshot?.market_schedule&&typeof snapshot.market_schedule==="object"?
+      snapshot.market_schedule:null,
+    sourceMarketTicker:typeof snapshot?.source_market_ticker==="string"?snapshot.source_market_ticker:null,
+    zoneBands:!isStatus&&snapshot?.schema_version===2?
+      [[snapshot.entry?.preferred_low,snapshot.entry?.preferred_high],
+       [snapshot.entry?.acceptable_low,snapshot.entry?.acceptable_high]]
+       .filter(p=>p.every(n=>typeof n==="number"&&Number.isFinite(n)&&n>0)&&p[0]<=p[1]):
+      exchange==="US"&&!isStatus?numericBands(zones):[],
     reportUrl:GITHUB+info.path.split("/").map(encodeURIComponent).join("/"),
     reportPath:"/view-report?path="+encodeURIComponent(info.path),
     sourceFormat:"html",conflictingBuckets:false
