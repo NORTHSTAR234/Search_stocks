@@ -84,6 +84,16 @@ class MarketSelfDiscovery(unittest.TestCase):
         different["market_schedule"]["sessions"]=[{"start":"08:00","end":"17:30"}]
         self.add("BESI.XAMS",different)
         self.assertNotIn("XAMS",module.report_markets(self.registry))
+    def test_symbol_exchange_code_can_differ_from_official_mic(self):
+        row=snapshot(ticker="VOD.LSE",source_market_ticker="VOD.L",exchange="LSE",currency="GBP")
+        row["market_schedule"]={**row["market_schedule"],
+            "exchange":"LSE","mic":"XLON","market_time_zone":"Europe/London",
+            "yahoo_ticker":"VOD.L","hours_source":"https://www.londonstockexchange.com/"}
+        self.add("VOD.LSE",row)
+        markets=module.report_markets(self.registry)
+        self.assertEqual(markets["LSE"]["mic"],"XLON")
+        self.assertEqual(markets["LSE"]["yahooSuffix"],".L")
+        self.assertEqual(markets["LSE"]["currency"],"GBP")
     def test_us_alpaca_not_selected_by_international_collector(self):
         self.assertEqual(module.report_markets(self.registry)["US"]["priceSource"],"alpaca")
         self.assertEqual(module.open_markets(self.registry,dt.datetime(2026,11,10,14,30,tzinfo=dt.timezone.utc)),{})
