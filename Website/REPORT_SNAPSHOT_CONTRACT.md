@@ -120,3 +120,15 @@ Do not include prices, valuation, technical indicators, scenarios, dividends or 
 
 The website parser accepts canonical **v2** reports and supports old `schema_version`-absent report variations for archive backward compatibility. Future Search_stock reports **must always use v2**, not alternate legacy property names. The parser's automated tests check the canonical contract and the original PG, JNJ, AAPL and XOM formats so that a field-name change cannot silently turn rated stocks into `NOT RATED` again.
 
+
+## Optional market-schedule metadata (mandatory for new non-US HTML reports)
+
+The v2 required snapshot fields above do **not** change. For new international HTML reports, add a top-level `market_schedule` object with **exact keys**:
+
+```json
+{"exchange":"ASX","mic":"XASX","market_time_zone":"Australia/Sydney","sydney_time_zone":"Australia/Sydney","weekdays":[1,2,3,4,5],"sessions":[{"start":"10:00","end":"16:00"}],"yahoo_ticker":"ORG.AX","hours_source":"https://www.asx.com.au/markets/market-resources/trading-hours-calendar/cash-market-trading-hours","hours_checked_utc":"2026-11-10T00:00:00Z"}
+```
+
+The above is a schedule-shape example, not a quote. `sessions` must contain the **EXCHANGE-LOCAL** opening/closing hours (not static Sydney conversions). The website converts on each display date with IANA timezone `Australia/Sydney` so AEDT/AEST daylight saving changes automatically. The visible report must also print Sydney-local regular hours. Use documented source times, normal trading weekdays, and session breaks. The owner intentionally chose NOT to consult holiday calendars, so session indicators are scheduled-hours estimates, not proof of an exchange being open. The `yahoo_ticker` is the actual Yahoo symbol and may differ from canonical storage ticker. Screening-only reports may include this administrative information but no prices or financial analysis.
+
+If an exchange is new, register its source hours and ticker suffix in `Website/market-exchanges.json`; the GitHub Actions quote collector discovers new canonical folders and markets without per-ticker jobs. Failure to verify hours or write registry must be reported and must not result in invented live status. Keep US Alpaca feeds unchanged. International yfinance quotes stay in owner-protected Cloudflare KV, never in public GitHub archive files.
