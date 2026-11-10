@@ -8,6 +8,7 @@ on:
       - 'nonhalal/**/*.html'
       - 'Website/scripts/build-live-reports.mjs'
       - 'Website/lib/report-archive.mjs'
+      - 'Website/tests/snapshot-contract.test.mjs'
       - '.github/workflows/publish-html-reports.yml'
   workflow_dispatch:
 
@@ -34,6 +35,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Verify HTML report snapshot contract
+        run: node --test Website/tests/snapshot-contract.test.mjs
       - name: Rebuild read-only HTML archive index
         run: node Website/scripts/build-live-reports.mjs
       - name: Commit index only if reports changed
