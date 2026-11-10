@@ -135,6 +135,93 @@ test("Aya 3.1 canonical-only snapshots index without weakening exact ticker iden
   assert.throws(()=>parseHtmlReport(info,make({exchange:"NYSE"})),/identity mismatch/);
 });
 
+
+test("Legacy PG/JNJ/AAPL/XOM snapshot names never become NOT RATED",async()=>{
+ const {archiveInfo,parseHtmlReport}=await import("../lib/report-archive.mjs");
+ const examples=[
+  ["PG",{canonical_archive_ticker:"PG",exchange:"NYSE",company:"The Procter & Gamble Company",report_type:"full",
+    musaffa:{status:"HALAL",grade:"A-",screening_date:"2026-08-10"},
+    investment_score:73,entry_score:35,new_buyer_action:"WATCH",existing_holder_action:"HOLD",
+    risk:"MODERATE",earnings:"20 January 2027 estimated/unconfirmed; other calendars 21 January",
+    preferred_buy_zone:[147,154],acceptable_buy_zone:[155,161],no_chase:168,stop:139},
+   {invest:"73/100",entry:"35/100",musaffa:"HALAL · A- · 2026-08-10",
+    zones:"US$147–154 / US$155–161",stops:"US$139 / US$168"}],
+  ["JNJ",{canonical_archive_ticker:"JNJ",company:"Johnson & Johnson",exchange:"NYSE",report_type:"full",
+    musaffa:{status:"HALAL",grade:"B−",screen_date:"2026-08-04"},
+    new_buyer_action:"WATCH",existing_holder_action:"HOLD",investment_score:73,entry_score:29,
+    next_earnings:"26 Jan 2027 (estimated; unconfirmed)",
+    entry_preferred:[230,245],entry_acceptable:[246,255],stop:218,no_chase:270},
+   {invest:"73/100",entry:"29/100",musaffa:"HALAL · B− · 2026-08-04",
+    zones:"US$230–245 / US$246–255",stops:"US$218 / US$270"}],
+  ["AAPL",{ticker:"AAPL",company:"Apple Inc.",exchange:"NASDAQ",report_type:"full",
+    musaffa:{classification:"HALAL",grade:"C",date:"2026-08-20"},
+    new_buyer_action:"WATCH",holder_action:"HOLD",investment_score:75,entry_score:35,
+    earnings:{next_date:"2027-02-04",date_status:"estimated unconfirmed"},
+    buy:{preferred:[315,325],acceptable:[326,336],stop:299,no_chase:344}},
+   {invest:"75/100",entry:"35/100",musaffa:"HALAL · C · 2026-08-20",
+    zones:"US$315–325 / US$326–336",stops:"US$299 / US$344"}],
+  ["XOM",{canonical_archive_ticker:"XOM",company:"ExxonMobil Holdings Corporation",exchange:"NYSE",report_type:"full",
+    screening:{status:"HALAL",grade:"A",screened_date:"2026-08-04"},
+    actions:{new_buyer:"WATCH",holder:"HOLD"},scores:{investment:76,entry:62},
+    earnings:{next_date_estimated:"2027-01-29"},
+    entry:{preferred:[150,158],acceptable:[159,164],no_chase:173,initial_stop:142}},
+   {invest:"76/100",entry:"62/100",musaffa:"HALAL · A · 2026-08-04",
+    zones:"US$150–158 / US$159–164",stops:"US$142 / US$173"}]
+ ];
+ for(const [ticker,snapshot,expected] of examples){
+   const info=archiveInfo("halal/"+ticker+"/"+ticker+"_2026-11-09_21-27-38Z.html");
+   const html='<!DOCTYPE html><html><head><title>'+ticker+'</title></head><body>'+
+     '<h1>'+ticker+' Research</h1><script id="aya-report-snapshot" type="application/json">'+
+     JSON.stringify(snapshot)+'</script><p>Full investment research</p></body></html>';
+   const row=parseHtmlReport(info,html);
+   assert.equal(row.investment,expected.invest,ticker+" investment");
+   assert.equal(row.entry,expected.entry,ticker+" entry");
+   assert.equal(row.action,"WATCH",ticker+" new buyer");
+   assert.equal(row.ownerAction,"HOLD",ticker+" holder");
+   assert.equal(row.musaffa,expected.musaffa,ticker+" Musaffa");
+   assert.equal(row.zones,expected.zones,ticker+" zones");
+   assert.equal(row.stops,expected.stops,ticker+" stop/no chase");
+   assert.notEqual(row.earnings,"NOT VERIFIED",ticker+" earnings");
+ }
+});
+test("Exact Aya HTML snapshot v2 keys are accepted and mismatches rejected",async()=>{
+ const {archiveInfo,parseHtmlReport}=await import("../lib/report-archive.mjs");
+ const info=archiveInfo("halal/PG/PG_2026-11-09_21-27-38Z.html");
+ const sample={
+   schema_version:2,ticker:"PG",canonical_archive_ticker:"PG",source_market_ticker:"PG",
+   exchange:"NYSE",company:"The Procter & Gamble Company",currency:"USD",
+   report_utc:"2026-11-09T21:27:38Z",report_type:"full",
+   musaffa:{classification:"HALAL",grade:"A-",screening_date:"2026-08-10",gate:"PASS"},
+   actions:{new_position:"WATCH",existing_holder:"HOLD"},risk:"MODERATE",
+   scores:{investment:73,entry:35},next_earnings:{date:"2027-01-20",confirmed:false},
+   entry:{preferred_low:147,preferred_high:154,acceptable_low:155,acceptable_high:161,no_chase:168},
+   targets:{stop:139,tp1:172,tp2:182}
+ };
+ const html=value=>'<!doctype html><html><head><title>PG</title></head><body><h1>The Procter & Gamble Company</h1>'+
+    '<script id="aya-report-snapshot" type="application/json">'+JSON.stringify(value)+'</script></body></html>';
+ const row=parseHtmlReport(info,html(sample));
+ assert.equal(row.action,"WATCH");assert.equal(row.ownerAction,"HOLD");
+ assert.equal(row.investment,"73/100");assert.equal(row.entry,"35/100");
+ assert.equal(row.musaffa,"HALAL · A- · 2026-08-10");
+ assert.equal(row.earnings,"20 Jan 2027 estimated");
+ assert.equal(row.zones,"US$147–154 / US$155–161");
+ assert.equal(row.stops,"US$139 / US$168");
+ assert.equal(row.company,"The Procter & Gamble Company");
+ assert.throws(()=>parseHtmlReport(info,html({...sample,scores:{investment:73}})),/Incomplete Aya v2 nested report fields/);
+ assert.throws(()=>parseHtmlReport(info,html({...sample,ticker:"JNJ"})),/identity mismatch/);
+ assert.throws(()=>parseHtmlReport(info,html({...sample,canonical_archive_ticker:"JNJ"})),/identity mismatch/);
+ const status={...sample,report_type:"screening_only",musaffa:{classification:"HALAL",grade:null,screening_date:null,gate:"UNVERIFIED"},
+  actions:{new_position:null,existing_holder:null},risk:"NOT RATED",
+  scores:{investment:null,entry:null},next_earnings:{date:null,confirmed:null},
+  entry:{preferred_low:null,preferred_high:null,acceptable_low:null,acceptable_high:null,no_chase:null},
+  targets:{stop:null,tp1:null,tp2:null}};
+ const statusInfo=archiveInfo("nonhalal/PG/PG_2026-11-09_21-27-38Z.html");
+ const screened=parseHtmlReport(statusInfo,html(status));
+ assert.equal(screened.action,"SCREENING ONLY — NO INVESTMENT REPORT");
+ assert.equal(screened.investment,"NOT RATED");
+ assert.throws(()=>parseHtmlReport(statusInfo,html({...status,scores:{investment:73,entry:null}})),/Screening-only report/);
+});
+
 test("newer screening-only HTML never backfills earlier investment scores",async()=>{
  const {archiveInfo,parseHtmlReport}=await import("../lib/report-archive.mjs");
  const info=archiveInfo("nonhalal/1519.TW/1519.TW_2026-11-09_05-23-30Z.html");
