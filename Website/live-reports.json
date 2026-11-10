@@ -1,11 +1,45 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-10T21:47:51Z",
-  "htmlReportCount": 47,
+  "latestHtmlReportAt": "2026-11-10T22:44:22Z",
+  "htmlReportCount": 48,
   "uniqueTickers": 24,
-  "revision": "8f99d9ccfd1b8387b671e3b3173fa2d3",
+  "revision": "6a6db1d682875a578c558e2744635e97",
   "rows": [
+    {
+      "company": "NVIDIA Corporation",
+      "ticker": "NVDA",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T22:44:22Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "78/100",
+      "entry": "55/100",
+      "musaffa": "HALAL · A · 2026-09-19 · PASS",
+      "earnings": "17 Nov 2026 confirmed",
+      "zones": "US$155–165 / US$166–175",
+      "stops": "US$144 / US$185",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "NVDA",
+      "zoneBands": [
+        [
+          155,
+          165
+        ],
+        [
+          166,
+          175
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/NVDA/NVDA_2026-11-10_22-44-22Z.html",
+      "reportPath": "/view-report?path=halal%2FNVDA%2FNVDA_2026-11-10_22-44-22Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "ASM International N.V.",
       "ticker": "ASM.XAMS",
@@ -711,40 +745,6 @@
       ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/CVX/CVX_2026-11-10_21-43-03Z.html",
       "reportPath": "/view-report?path=halal%2FCVX%2FCVX_2026-11-10_21-43-03Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "NVIDIA Corporation",
-      "ticker": "NVDA",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-10T21:42:52Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "78/100",
-      "entry": "55/100",
-      "musaffa": "HALAL · A · 2026-09-19 · PASS",
-      "earnings": "17 Nov 2026 confirmed",
-      "zones": "US$155–165 / US$166–175",
-      "stops": "US$144 / US$185",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "NVDA",
-      "zoneBands": [
-        [
-          155,
-          165
-        ],
-        [
-          166,
-          175
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/NVDA/NVDA_2026-11-10_21-42-52Z.html",
-      "reportPath": "/view-report?path=halal%2FNVDA%2FNVDA_2026-11-10_21-42-52Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
