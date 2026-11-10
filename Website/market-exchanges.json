@@ -22,7 +22,8 @@
       ],
       "source": "https://www.asx.com.au/markets/market-resources/trading-hours-calendar/cash-market-trading-hours",
       "priceSource": "yfinance",
-      "yahooSuffix": ".AX"
+      "yahooSuffix": ".AX",
+      "currency": "AUD"
     },
     "TWSE": {
       "name": "Taiwan Stock Exchange",
@@ -43,7 +44,8 @@
       ],
       "source": "https://www.twse.com.tw/en/products/system/trading.html",
       "priceSource": "yfinance",
-      "yahooSuffix": ".TW"
+      "yahooSuffix": ".TW",
+      "currency": "TWD"
     },
     "MYX": {
       "name": "Bursa Malaysia",
@@ -68,7 +70,8 @@
       ],
       "source": "https://www.utrade.com.my/public/faq_local",
       "priceSource": "yfinance",
-      "yahooSuffix": ".KL"
+      "yahooSuffix": ".KL",
+      "currency": "MYR"
     },
     "US": {
       "name": "US NYSE/NASDAQ regular session",
@@ -88,7 +91,8 @@
         }
       ],
       "priceSource": "alpaca",
-      "source": "https://www.nyse.com/markets/hours-calendars"
+      "source": "https://www.nyse.com/markets/hours-calendars",
+      "currency": "USD"
     }
   },
   "aliases": {
