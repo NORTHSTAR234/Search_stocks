@@ -202,7 +202,7 @@ export function parseHtmlReport(info,html) {
     /\b(?:ASX\s*:|AUSTRALIAN SECURITIES EXCHANGE)\b/i.test(upperHead)?"ASX":
     /\b(?:BURSA|MALAYSIA|KLSE|MYX)\b/i.test(upperHead)?"BURSA":
     /\b(?:TWSE|TAIWAN STOCK EXCHANGE)\b/i.test(upperHead)?"TWSE":
-    /^[A-Z]{2,10}$/.test(exchangeHint)?exchangeHint:
+    /\./.test(ticker)&&/^[A-Z]{2,10}$/.test(exchangeHint)?exchangeHint:
     /\./.test(ticker)?"OTHER":"US";
   const currency=exchange==="US"?"USD":exchange==="ASX"?"AUD":exchange==="TWSE"?"TWD":exchange==="BURSA"?"MYR":"UNKNOWN";
   // Legacy report snapshots differ in shape; read only observed source fields.
