@@ -4,49 +4,67 @@
   "latestHtmlReportAt": "2026-11-09T21:28:35Z",
   "htmlReportCount": 18,
   "uniqueTickers": 16,
-  "revision": "96b73068c771e0721252a1887122d714",
+  "revision": "fe3aefb9bbf261b3e037e94948e9bcd7",
   "rows": [
     {
-      "company": "Johnson & Johnson (JNJ)",
+      "company": "Johnson & Johnson",
       "ticker": "JNJ",
       "exchange": "US",
       "bucket": "halal",
       "timestamp": "2026-11-09T21:28:35Z",
       "statusOnly": false,
-      "action": "NOT RATED",
-      "ownerAction": "NOT RATED",
+      "action": "WATCH",
+      "ownerAction": "HOLD",
       "risk": "MODERATE–HIGH",
-      "investment": "NOT RATED",
-      "entry": "NOT RATED",
-      "musaffa": "NOT VERIFIED",
-      "earnings": "NOT VERIFIED",
-      "zones": "NOT RATED",
-      "stops": "$270.00 / $218.00",
+      "investment": "73/100",
+      "entry": "29/100",
+      "musaffa": "HALAL · B− · 2026-08-04",
+      "earnings": "26 Jan 2027 (estimated; unconfirmed)",
+      "zones": "US$230–245 / US$246–255",
+      "stops": "US$218 / US$270",
       "nativeCurrency": "USD",
-      "zoneBands": [],
+      "zoneBands": [
+        [
+          230,
+          245
+        ],
+        [
+          246,
+          255
+        ]
+      ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/JNJ/JNJ_2026-11-09_21-28-35Z.html",
       "reportPath": "/view-report?path=halal%2FJNJ%2FJNJ_2026-11-09_21-28-35Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
     {
-      "company": "The Procter & Gamble Company (PG)",
+      "company": "The Procter & Gamble Company",
       "ticker": "PG",
       "exchange": "US",
       "bucket": "halal",
       "timestamp": "2026-11-09T21:27:38Z",
       "statusOnly": false,
-      "action": "NOT RATED",
-      "ownerAction": "NOT RATED",
+      "action": "WATCH",
+      "ownerAction": "HOLD",
       "risk": "MODERATE",
-      "investment": "NOT RATED",
-      "entry": "NOT RATED",
-      "musaffa": "NOT VERIFIED",
-      "earnings": "NOT VERIFIED",
-      "zones": "NOT RATED",
-      "stops": "NOT RATED",
+      "investment": "73/100",
+      "entry": "35/100",
+      "musaffa": "HALAL · A- · 2026-08-10",
+      "earnings": "20 January 2027 estimated/unconfirmed; other calendars 21 January",
+      "zones": "US$147–154 / US$155–161",
+      "stops": "US$139 / US$168",
       "nativeCurrency": "USD",
-      "zoneBands": [],
+      "zoneBands": [
+        [
+          147,
+          154
+        ],
+        [
+          155,
+          161
+        ]
+      ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/PG/PG_2026-11-09_21-27-38Z.html",
       "reportPath": "/view-report?path=halal%2FPG%2FPG_2026-11-09_21-27-38Z.html",
       "sourceFormat": "html",
@@ -59,17 +77,26 @@
       "bucket": "halal",
       "timestamp": "2026-11-09T21:24:35Z",
       "statusOnly": false,
-      "action": "NOT RATED",
-      "ownerAction": "NOT RATED",
+      "action": "WATCH",
+      "ownerAction": "HOLD",
       "risk": "MODERATE-HIGH",
-      "investment": "NOT RATED",
-      "entry": "NOT RATED",
-      "musaffa": "HALAL · C",
-      "earnings": "NOT VERIFIED",
-      "zones": "NOT RATED",
-      "stops": "NOT RATED",
+      "investment": "75/100",
+      "entry": "35/100",
+      "musaffa": "HALAL · C · 2026-08-20",
+      "earnings": "4 Feb 2027 estimated",
+      "zones": "US$315–325 / US$326–336",
+      "stops": "US$299 / US$344",
       "nativeCurrency": "USD",
-      "zoneBands": [],
+      "zoneBands": [
+        [
+          315,
+          325
+        ],
+        [
+          326,
+          336
+        ]
+      ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/AAPL/AAPL_2026-11-09_21-24-35Z.html",
       "reportPath": "/view-report?path=halal%2FAAPL%2FAAPL_2026-11-09_21-24-35Z.html",
       "sourceFormat": "html",
@@ -210,17 +237,26 @@
       "bucket": "halal",
       "timestamp": "2026-11-09T21:21:54Z",
       "statusOnly": false,
-      "action": "NOT RATED",
-      "ownerAction": "NOT RATED",
+      "action": "WATCH",
+      "ownerAction": "HOLD",
       "risk": "MODERATE-HIGH",
       "investment": "76/100",
       "entry": "62/100",
-      "musaffa": "NOT VERIFIED",
-      "earnings": "NOT VERIFIED",
-      "zones": "NOT RATED",
-      "stops": "$142 / US$173",
+      "musaffa": "HALAL · A · 2026-08-04",
+      "earnings": "29 Jan 2027 estimated",
+      "zones": "US$150–158 / US$159–164",
+      "stops": "US$142 / US$173",
       "nativeCurrency": "USD",
-      "zoneBands": [],
+      "zoneBands": [
+        [
+          150,
+          158
+        ],
+        [
+          159,
+          164
+        ]
+      ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/XOM/XOM_2026-11-09_21-21-54Z.html",
       "reportPath": "/view-report?path=halal%2FXOM%2FXOM_2026-11-09_21-21-54Z.html",
       "sourceFormat": "html",
