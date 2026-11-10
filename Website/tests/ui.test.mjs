@@ -230,3 +230,15 @@ test("market-open glow follows Sydney-rendered exchange weekdays without market 
   assert(source.includes("class=\"ticker'+active+'\" href="));
   assert(source.includes("setInterval(()=>{if(document.visibilityState===\"visible\")render();},60000)"));
 });
+
+test("older international ticker suffixes are normalized before quote lookup and market-hours display",()=>{
+  const block=source.match(/function normalizeListing\(row\)\s*\{([\s\S]*?)\n  \}/);
+  assert(block,"Expected listing normalization function");
+  const normalizeListing=new Function("row",block[1]);
+  for(const [ticker,expected] of [["2330.TWSE","TWSE"],["2379.TWSE","TWSE"],
+    ["ORG.ASX","ASX"],["APA.ASX","ASX"],["CBHB.MYX","BURSA"]])
+    assert.equal(normalizeListing({ticker,exchange:"OTHER"}).exchange,expected,ticker);
+  assert.equal(normalizeListing({ticker:"AAPL",exchange:"US"}).exchange,"US");
+  assert(source.includes('data.rows.map(normalizeListing)'));
+  assert(source.includes('map.set(ticker,normalizeListing(r))'));
+});
