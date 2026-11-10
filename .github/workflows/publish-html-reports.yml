@@ -9,6 +9,12 @@ on:
       - 'Website/scripts/build-live-reports.mjs'
       - 'Website/lib/report-archive.mjs'
       - 'Website/tests/snapshot-contract.test.mjs'
+      - 'Website/market-exchanges.json'
+      - 'Website/scripts/collect-international-quotes.py'
+      - 'Website/assets/app.js'
+      - 'Website/functions/api/international-prices.js'
+      - 'Website/tests/ui.test.mjs'
+      - 'Website/tests/prices.test.mjs'
       - '.github/workflows/publish-html-reports.yml'
   workflow_dispatch:
 
@@ -35,8 +41,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify HTML report snapshot contract
-        run: node --test Website/tests/snapshot-contract.test.mjs
+      - name: Verify new and legacy dashboard regressions
+        run: node --test Website/tests/*.test.mjs
+      - name: Verify international price collector syntax and exchange session configuration
+        run: |
+          python3 -m py_compile Website/scripts/collect-international-quotes.py
+          python3 Website/scripts/collect-international-quotes.py --check-open
       - name: Rebuild read-only HTML archive index
         run: node Website/scripts/build-live-reports.mjs
       - name: Commit index only if reports changed
