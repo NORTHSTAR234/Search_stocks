@@ -193,15 +193,17 @@ def publish(quotes):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--check-open",action="store_true")
+    parser.add_argument("--bootstrap",action="store_true",help="One-off manual initialization: retrieve last available market bars outside session hours")
     args=parser.parse_args()
     registry=json.loads(CONFIG.read_text())
-    open_now=open_markets(registry,now_utc())
+    open_now=({name:spec for name,spec in registry["markets"].items() if spec.get("priceSource")=="yfinance"}
+              if args.bootstrap else open_markets(registry,now_utc()))
     if args.check_open:
         output="open="+("true" if open_now else "false")+"\n"
         destination=os.environ.get("GITHUB_OUTPUT")
         if destination:
             with open(destination,"a") as file:file.write(output)
-        print("Trading exchanges:",",".join(sorted(open_now)) or "none")
+        print("Markets selected"+(" (one-time bootstrap)" if args.bootstrap else " (regular sessions)")+":",",".join(sorted(open_now)) or "none")
         return
     if not open_now:
         print("No supported international market is within normal weekday trading hours.")
@@ -211,7 +213,7 @@ def main():
         print("No tracked international tickers in currently trading markets.")
         return
     quotes=fetch_prices(symbols)
-    print("Requested",len(symbols),"tickers across",len(open_now),"exchanges; verified",len(quotes),"Yahoo 5-minute bars")
+    print("Requested",len(symbols),"tickers across",len(open_now),"exchanges; verified",len(quotes),"Yahoo 5-minute bars",("(bootstrap)" if args.bootstrap else ""))
     if not quotes:
         raise RuntimeError("No verifiable international quote: no cache overwrite attempted")
     result=publish(quotes)
