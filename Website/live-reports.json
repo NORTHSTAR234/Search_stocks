@@ -1,11 +1,159 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-10T21:44:12Z",
-  "htmlReportCount": 31,
+  "latestHtmlReportAt": "2026-11-10T21:44:46Z",
+  "htmlReportCount": 35,
   "uniqueTickers": 23,
-  "revision": "68102f4d7f89525c2fe94f7218335471",
+  "revision": "7a5c5c675f0ca646d2398cb2d280dfe4",
   "rows": [
+    {
+      "company": "The Home Depot, Inc.",
+      "ticker": "HD",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:44:46Z",
+      "statusOnly": true,
+      "action": "SCREENING ONLY — NO INVESTMENT REPORT",
+      "ownerAction": "RESEARCH SKIPPED",
+      "risk": "NOT RATED",
+      "investment": "NOT RATED",
+      "entry": "NOT RATED",
+      "musaffa": "HALAL · A- · 2026-09-14 · PASS",
+      "earnings": "NOT RATED",
+      "zones": "NOT RATED",
+      "stops": "NOT RATED",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "HD",
+      "zoneBands": [],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/HD/HD_2026-11-10_21-44-46Z.html",
+      "reportPath": "/view-report?path=halal%2FHD%2FHD_2026-11-10_21-44-46Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
+    {
+      "company": "Origin Energy Limited",
+      "ticker": "ORG.ASX",
+      "exchange": "ASX",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:44:40Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "MODERATE-HIGH",
+      "investment": "69/100",
+      "entry": "53/100",
+      "musaffa": "HALAL · PASS",
+      "earnings": "NOT VERIFIED",
+      "zones": "AUD 11.4–11.7 / AUD 11.7–11.95",
+      "stops": "AUD 11.1 / AUD 12.45",
+      "nativeCurrency": "AUD",
+      "marketSchedule": {
+        "exchange": "ASX",
+        "mic": "XASX",
+        "market_time_zone": "Australia/Sydney",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "10:00",
+            "end": "16:00"
+          }
+        ],
+        "yahoo_ticker": "ORG.AX",
+        "hours_source": "https://www.asx.com.au/markets/market-resources/trading-hours-calendar/cash-market-trading-hours",
+        "hours_checked_utc": "2026-11-10T21:44:40Z"
+      },
+      "sourceMarketTicker": "ORG.AX",
+      "zoneBands": [
+        [
+          11.4,
+          11.7
+        ],
+        [
+          11.7,
+          11.95
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ORG.ASX/ORG.ASX_2026-11-10_21-44-40Z.html",
+      "reportPath": "/view-report?path=halal%2FORG.ASX%2FORG.ASX_2026-11-10_21-44-40Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
+    {
+      "company": "Micron Technology, Inc.",
+      "ticker": "MU",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:44:30Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "75/100",
+      "entry": "44/100",
+      "musaffa": "HALAL · C+ · 2026-10-03 · PASS",
+      "earnings": "23 Dec 2026 estimated",
+      "zones": "US$580–640 / US$641–680",
+      "stops": "US$520 / US$750",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "MU",
+      "zoneBands": [
+        [
+          580,
+          640
+        ],
+        [
+          641,
+          680
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MU/MU_2026-11-10_21-44-30Z.html",
+      "reportPath": "/view-report?path=halal%2FMU%2FMU_2026-11-10_21-44-30Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
+    {
+      "company": "The Coca-Cola Company",
+      "ticker": "KO",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:44:29Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "MODERATE",
+      "investment": "72/100",
+      "entry": "35/100",
+      "musaffa": "HALAL · C+ · 2026-08-03 · PASS",
+      "earnings": "16 Feb 2027 estimated",
+      "zones": "US$80–86 / US$87–91",
+      "stops": "US$76 / US$94",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "KO",
+      "zoneBands": [
+        [
+          80,
+          86
+        ],
+        [
+          87,
+          91
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/KO/KO_2026-11-10_21-44-29Z.html",
+      "reportPath": "/view-report?path=halal%2FKO%2FKO_2026-11-10_21-44-29Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Schneider Electric SE",
       "ticker": "SU.SIX",
@@ -387,61 +535,6 @@
       "conflictingBuckets": false
     },
     {
-      "company": "Origin Energy Limited",
-      "ticker": "ORG.ASX",
-      "exchange": "ASX",
-      "bucket": "halal",
-      "timestamp": "2026-11-10T09:04:16Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "MODERATE-HIGH",
-      "investment": "69/100",
-      "entry": "53/100",
-      "musaffa": "HALAL · PASS",
-      "earnings": "NOT VERIFIED",
-      "zones": "AUD 11.4–11.7 / AUD 11.7–11.95",
-      "stops": "AUD 11.1 / AUD 12.45",
-      "nativeCurrency": "AUD",
-      "marketSchedule": {
-        "exchange": "ASX",
-        "mic": "XASX",
-        "market_time_zone": "Australia/Sydney",
-        "sydney_time_zone": "Australia/Sydney",
-        "weekdays": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "sessions": [
-          {
-            "start": "10:00",
-            "end": "16:00"
-          }
-        ],
-        "yahoo_ticker": "ORG.AX",
-        "hours_source": "https://www.asx.com.au/markets/market-resources/trading-hours-calendar/cash-market-trading-hours",
-        "hours_checked_utc": "2026-11-10T09:04:16.755Z"
-      },
-      "sourceMarketTicker": "ORG.AX",
-      "zoneBands": [
-        [
-          11.4,
-          11.7
-        ],
-        [
-          11.7,
-          11.95
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ORG.ASX/ORG.ASX_2026-11-10_09-04-16Z.html",
-      "reportPath": "/view-report?path=halal%2FORG.ASX%2FORG.ASX_2026-11-10_09-04-16Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
       "company": "ASM International N.V.",
       "ticker": "ASM.XAMS",
       "exchange": "XAMS",
@@ -599,74 +692,6 @@
       "conflictingBuckets": false
     },
     {
-      "company": "The Home Depot, Inc.",
-      "ticker": "HD",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-09T21:24:18Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "MODERATE–HIGH",
-      "investment": "70/100",
-      "entry": "39/100",
-      "musaffa": "HALAL · A- · 2026-09-14",
-      "earnings": "17 Nov 2026 confirmed",
-      "zones": "US$290–315 / US$316–330",
-      "stops": "US$275 / US$350",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "HD",
-      "zoneBands": [
-        [
-          290,
-          315
-        ],
-        [
-          316,
-          330
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/HD/HD_2026-11-09_21-24-18Z.html",
-      "reportPath": "/view-report?path=halal%2FHD%2FHD_2026-11-09_21-24-18Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "Micron Technology, Inc.",
-      "ticker": "MU",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-09T21:24:01Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "75/100",
-      "entry": "47/100",
-      "musaffa": "HALAL · C+ · 2026-10-03",
-      "earnings": "23 Dec 2026 estimated",
-      "zones": "US$580–640 / US$641–680",
-      "stops": "US$520 / US$750",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "MU",
-      "zoneBands": [
-        [
-          580,
-          640
-        ],
-        [
-          641,
-          680
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MU/MU_2026-11-09_21-24-01Z.html",
-      "reportPath": "/view-report?path=halal%2FMU%2FMU_2026-11-09_21-24-01Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
       "company": "Advanced Micro Devices (AMD)",
       "ticker": "AMD",
       "exchange": "US",
@@ -697,40 +722,6 @@
       ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/AMD/AMD_2026-11-09_21-23-19Z.html",
       "reportPath": "/view-report?path=halal%2FAMD%2FAMD_2026-11-09_21-23-19Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "The Coca-Cola Company",
-      "ticker": "KO",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-09T21:22:09Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "MODERATE",
-      "investment": "72/100",
-      "entry": "40/100",
-      "musaffa": "HALAL · C+ · 2026-08-03 · PASSED",
-      "earnings": "16 Feb 2027 estimated",
-      "zones": "US$79–85 / US$86–90",
-      "stops": "US$75 / US$94",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "KO",
-      "zoneBands": [
-        [
-          79,
-          85
-        ],
-        [
-          86,
-          90
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/KO/KO_2026-11-09_21-22-09Z.html",
-      "reportPath": "/view-report?path=halal%2FKO%2FKO_2026-11-09_21-22-09Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
