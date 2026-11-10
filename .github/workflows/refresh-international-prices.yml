@@ -1,0 +1,38 @@
+name: Refresh non-US market prices (private owner cache)
+
+on:
+  schedule:
+    - cron: '*/20 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: international-price-cache
+  cancel-in-progress: true
+
+jobs:
+  update-international-quotes:
+    if: github.repository == 'NORTHSTAR234/Search_stocks' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Read tracked stock report folders
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Use Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check market weekdays and regular sessions
+        id: market
+        run: python Website/scripts/collect-international-quotes.py --check-open
+      - name: Install yfinance only while a relevant exchange is trading
+        if: steps.market.outputs.open == 'true'
+        run: python -m pip install --disable-pip-version-check 'yfinance>=0.2.65,<1'
+      - name: Collect delayed Yahoo observations and publish privately using GitHub OIDC
+        if: steps.market.outputs.open == 'true'
+        run: python Website/scripts/collect-international-quotes.py
