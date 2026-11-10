@@ -11,6 +11,7 @@ on:
       - 'Website/tests/snapshot-contract.test.mjs'
       - 'Website/market-exchanges.json'
       - 'Website/scripts/collect-international-quotes.py'
+      - 'Website/scripts/tests/**'
       - 'Website/assets/app.js'
       - 'Website/functions/api/international-prices.js'
       - 'Website/tests/ui.test.mjs'
@@ -50,6 +51,7 @@ jobs:
       - name: Verify international price collector syntax and exchange session configuration
         run: |
           python3 -m py_compile Website/scripts/collect-international-quotes.py
+          python3 -m unittest discover -s Website/scripts/tests -p 'test_*.py' -v
           python3 Website/scripts/collect-international-quotes.py --check-open
       - name: Rebuild read-only HTML archive index
         run: node Website/scripts/build-live-reports.mjs
