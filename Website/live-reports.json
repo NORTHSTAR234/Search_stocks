@@ -1,11 +1,45 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-10T21:46:14Z",
-  "htmlReportCount": 45,
+  "latestHtmlReportAt": "2026-11-10T21:46:26Z",
+  "htmlReportCount": 46,
   "uniqueTickers": 24,
-  "revision": "0c43ffab04b29eefd68b471314bc2ca1",
+  "revision": "ae43e52558d1100994c16126ecefee74",
   "rows": [
+    {
+      "company": "Eli Lilly and Company",
+      "ticker": "LLY",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:46:26Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "75/100",
+      "entry": "35/100",
+      "musaffa": "HALAL · A · 2026-08-07 · PASS",
+      "earnings": "10 Feb 2027 estimated",
+      "zones": "US$1,150–1,230 / US$1,231–1,300",
+      "stops": "US$1,080 / US$1,400",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "LLY",
+      "zoneBands": [
+        [
+          1150,
+          1230
+        ],
+        [
+          1231,
+          1300
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/LLY/LLY_2026-11-10_21-46-26Z.html",
+      "reportPath": "/view-report?path=halal%2FLLY%2FLLY_2026-11-10_21-46-26Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "ABB Ltd",
       "ticker": "ABBN.SIX",
@@ -854,40 +888,6 @@
       ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ASM.XAMS/ASM.XAMS_2026-11-10_08-31-33Z.html",
       "reportPath": "/view-report?path=halal%2FASM.XAMS%2FASM.XAMS_2026-11-10_08-31-33Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "Eli Lilly and Company",
-      "ticker": "LLY",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-09T21:21:04Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "75/100",
-      "entry": "39/100",
-      "musaffa": "HALAL · A · 2026-08-07",
-      "earnings": "10 Feb 2027 estimated",
-      "zones": "US$1,150–1,230 / US$1,231–1,300",
-      "stops": "US$1,080 / US$1,400",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "LLY",
-      "zoneBands": [
-        [
-          1150,
-          1230
-        ],
-        [
-          1231,
-          1300
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/LLY/LLY_2026-11-09_21-21-04Z.html",
-      "reportPath": "/view-report?path=halal%2FLLY%2FLLY_2026-11-09_21-21-04Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
