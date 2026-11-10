@@ -2,12 +2,16 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import MarkdownIt from "markdown-it";
+import { createHash } from "node:crypto";
 import {parseHtmlReport,safeHtmlDocument} from "./lib/report-archive.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
 const output = path.join(here, "dist");
 const markdown = new MarkdownIt({ html: false, linkify: true, typographer: true, breaks: false });
+const versionOf = name=>createHash("sha256").update(fs.readFileSync(path.join(here,"assets",name))).digest("hex").slice(0,12);
+const styleVersion=versionOf("style.css"),scriptVersion=versionOf("app.js");
+
 const github = "https://github.com/NORTHSTAR234/Search_stocks/blob/main/";
 const archivePattern = /^(halal|nonhalal)\/([A-Za-z0-9.-]+)\/([A-Za-z0-9.-]+)_(\d{4}-\d{2}-\d{2})_(\d{2}-\d{2}-\d{2})Z(?:(_chat_response))?\.(md|html)$/i;
 
@@ -104,8 +108,9 @@ export function parseReport(info,raw) {
   const zones=first(rs,/^(Preferred\s*\/\s*acceptable|Preferred\s*\/\s*acceptable\s*zone|Preferred\s*\/\s*acceptable\s*entry|Preferred \/ acceptable zone)/i)||"NOT RATED";
   const stops=first(rs,/^Initial stop\s*\/\s*no_?chase/i)||"NOT RATED";
   const risk=first(rs,/^Risk(?:\s*\/.*)?$/i)||short((first(rs,/^Action\s*\/\s*risk$/i).match(/\s\/\s((?:VERY )?(?:LOW|MODERATE|MEDIUM|HIGH)[^/]*)$/i)||[])[1])||"NOT RATED";
-  const exchange=info.ticker.toUpperCase().endsWith(".AX")?"ASX":info.ticker.toUpperCase().endsWith(".TW")?"TWSE":
-    /\.(KL|MY)$/.test(info.ticker.toUpperCase())?"BURSA":/\./.test(info.ticker)?"OTHER":
+  const archiveTicker=info.ticker.toUpperCase();
+  const exchange=/\.(?:AX|ASX)$/.test(archiveTicker)?"ASX":/\.(?:TW|TWSE)$/.test(archiveTicker)?"TWSE":
+    /\.(?:KL|MY|MYX)$/.test(archiveTicker)?"BURSA":/\./.test(archiveTicker)?"OTHER":
     /(?:Bursa|Malaysia|ACE Market)/i.test(header.slice(0,800))?"BURSA":
     /(?:\bASX\s*:\s*[A-Z]{2,6}\b|\bAustralian Securities Exchange\b|\b[A-Z]{2,6}\.AX\b)/i.test(header.slice(0,800))?"ASX":"US";
   const values={
@@ -132,7 +137,7 @@ function page(title,body,child=false) {
   const prefix=child?"/":"";
   return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'+
   '<meta name="robots" content="noindex,nofollow"><meta name="color-scheme" content="dark light">'+
-  '<title>'+esc(title)+' · Stock Research</title><link rel="stylesheet" href="'+prefix+'/assets/style.css"></head><body>'+
+  '<title>'+esc(title)+' · Stock Research</title><link rel="stylesheet" href="'+prefix+'/assets/style.css?v='+styleVersion+'"></head><body>'+
   body+'<footer>Archived research is historical, not a current investment recommendation. Verify market data, Shariah screening and risk independently.</footer></body></html>';
 }
 function mainPage() {
@@ -149,7 +154,7 @@ function mainPage() {
   '<div class="table-wrap"><table><thead><tr>'+head+'</tr></thead><tbody id="rows"><tr><td colspan="10">Loading…</td></tr></tbody></table></div>'+
   '<div class="table-footer"><span id="shown"></span><span>Prices and GitHub HTML archives checked every 5 minutes while open</span></div></section>'+
   '<p class="note">Scores: 70–100 green, 40–69 amber, below 40 red. Score colors show relative report ratings, not trading signals. Storage buckets are administrative, not Shariah determinations. Unverified or stale screening does not mean haram. A 24h percentage is shown only when a comparable observation approximately 24 elapsed hours earlier exists. Non-US prices come from a private personal-use delayed Yahoo cache, subject to source terms.</p></main>'+
-  '<script src="/assets/app.js" defer></script>';
+  '<script src="/assets/app.js?v='+scriptVersion+'" defer></script>';
   return page("Latest Research Reports",body);
 }
 function reportPage(r,body) {
