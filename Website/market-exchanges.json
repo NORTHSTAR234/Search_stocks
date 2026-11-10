@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "description": "Simple standard equity trading hours, Monday-Friday; public holidays and exceptional closures deliberately ignored. Source of truth for historical report fallback. All dashboard hours are converted to Australia/Sydney dynamically.",
+  "description": "Standard exchange weekdays, trading hours and local IANA time zones. Holidays ignored intentionally. Display all sessions in Australia/Sydney. US market is for the glowing indicator only; existing Alpaca polling is unchanged. New market adds a verified entry here.",
   "displayTimeZone": "Australia/Sydney",
   "markets": {
     "ASX": {
@@ -20,7 +20,9 @@
           "end": "16:00"
         }
       ],
-      "source": "https://www.asx.com.au/markets/market-resources/trading-hours-calendar/cash-market-trading-hours"
+      "source": "https://www.asx.com.au/markets/market-resources/trading-hours-calendar/cash-market-trading-hours",
+      "priceSource": "yfinance",
+      "yahooSuffix": ".AX"
     },
     "TWSE": {
       "name": "Taiwan Stock Exchange",
@@ -39,7 +41,9 @@
           "end": "13:30"
         }
       ],
-      "source": "https://www.twse.com.tw/en/products/system/trading.html"
+      "source": "https://www.twse.com.tw/en/products/system/trading.html",
+      "priceSource": "yfinance",
+      "yahooSuffix": ".TW"
     },
     "MYX": {
       "name": "Bursa Malaysia",
@@ -62,10 +66,35 @@
           "end": "16:45"
         }
       ],
-      "source": "https://www.utrade.com.my/public/faq_local"
+      "source": "https://www.utrade.com.my/public/faq_local",
+      "priceSource": "yfinance",
+      "yahooSuffix": ".KL"
+    },
+    "US": {
+      "name": "US NYSE/NASDAQ regular session",
+      "mic": "XNYS",
+      "timeZone": "America/New_York",
+      "weekdays": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sessions": [
+        {
+          "start": "09:30",
+          "end": "16:00"
+        }
+      ],
+      "priceSource": "alpaca",
+      "source": "https://www.nyse.com/markets/hours-calendars"
     }
   },
   "aliases": {
     "BURSA": "MYX"
+  },
+  "sourceSymbolOverrides": {
+    "CBHB.MYX": "0339.KL"
   }
 }
