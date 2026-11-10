@@ -2,12 +2,14 @@ name: Refresh non-US market prices (private owner cache)
 
 on:
   # A new stock report gets a ONE-TIME last-observed quote immediately,
-  # even if the exchange is closed. Normal recurring quotes stay session-only.
+  # even if the exchange is closed. Only exchange-suffixed non-US report folders
+  # trigger initial quotes; unsuffixed US report pushes leave Alpaca untouched.
+  # Normal recurring quotes stay session-only.
   push:
     branches: [main]
     paths:
-      - 'halal/**/*.html'
-      - 'nonhalal/**/*.html'
+      - 'halal/*.*/*.html'
+      - 'nonhalal/*.*/*.html'
       - 'Website/market-exchanges.json'
       - 'Website/scripts/collect-international-quotes.py'
       - '.github/workflows/refresh-international-prices.yml'
