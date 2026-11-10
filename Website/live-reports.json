@@ -1,11 +1,45 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-10T21:43:08Z",
-  "htmlReportCount": 29,
+  "latestHtmlReportAt": "2026-11-10T21:43:30Z",
+  "htmlReportCount": 30,
   "uniqueTickers": 23,
-  "revision": "1b7ad6c320df2c984c51cc38687edd3d",
+  "revision": "4c9f2e27cf9fe4453547751c6724f288",
   "rows": [
+    {
+      "company": "Cisco Systems, Inc.",
+      "ticker": "CSCO",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:43:30Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "68/100",
+      "entry": "32/100",
+      "musaffa": "HALAL · C+ · 2026-10-07 · PASS",
+      "earnings": "12 Nov 2026 confirmed",
+      "zones": "US$84–89 / US$90–94",
+      "stops": "US$79 / US$100",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "CSCO",
+      "zoneBands": [
+        [
+          84,
+          89
+        ],
+        [
+          90,
+          94
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/CSCO/CSCO_2026-11-10_21-43-30Z.html",
+      "reportPath": "/view-report?path=halal%2FCSCO%2FCSCO_2026-11-10_21-43-30Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Mastercard Incorporated",
       "ticker": "MA",
@@ -799,40 +833,6 @@
       ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/V/V_2026-11-09_21-20-49Z.html",
       "reportPath": "/view-report?path=halal%2FV%2FV_2026-11-09_21-20-49Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "Cisco Systems, Inc.",
-      "ticker": "CSCO",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-09T09:08:12Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "68/100",
-      "entry": "39/100",
-      "musaffa": "HALAL · C+ · 2026-10-07",
-      "earnings": "12 Nov 2026 confirmed",
-      "zones": "US$84–89 / US$90–94",
-      "stops": "US$79 / US$100",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "CSCO",
-      "zoneBands": [
-        [
-          84,
-          89
-        ],
-        [
-          90,
-          94
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/CSCO/CSCO_2026-11-09_09-08-12Z.html",
-      "reportPath": "/view-report?path=halal%2FCSCO%2FCSCO_2026-11-09_09-08-12Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
