@@ -70,7 +70,10 @@ def report_markets(registry):
             if snap.get("ticker")!=ticker or snap.get("canonical_archive_ticker")!=ticker:continue
             if snap.get("exchange")!=suffix or schedule.get("exchange")!=suffix:continue
             if schedule.get("sydney_time_zone")!="Australia/Sydney":continue
-            if schedule.get("mic")!=suffix:continue
+            # Canonical ticker exchange code can differ from the actual ISO MIC
+            # (for example LSE vs XLON); both must be independently recorded.
+            mic=schedule.get("mic")
+            if not isinstance(mic,str) or not re.fullmatch(r"[A-Z0-9]{4}",mic):continue
             src=schedule.get("hours_source")
             if not isinstance(src,str) or not src.startswith("https://") or len(src)>400:continue
             time_zone=schedule.get("market_time_zone")
@@ -97,7 +100,7 @@ def report_markets(registry):
             symbol_suffix="."+yahoo.rsplit(".",1)[-1].upper()
             currency=snap.get("currency")
             if not isinstance(currency,str) or not re.fullmatch(r"[A-Z]{3}",currency):continue
-            entry={"name":suffix,"mic":suffix,"timeZone":time_zone,
+            entry={"name":suffix,"mic":mic,"timeZone":time_zone,
                    "weekdays":weekdays,"sessions":sessions,"priceSource":"yfinance",
                    "yahooSuffix":symbol_suffix,"currency":currency,"source":src}
             prior=candidates.get(suffix)
