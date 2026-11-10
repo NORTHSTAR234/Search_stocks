@@ -1,5 +1,8 @@
 # Cloudflare website deployment status
 
+**Current note (10 November 2026):** The previous EODHD international price service remains paused; a NEW owner-only yfinance/Cloudflare KV delayed-price path is configured. Refer to the latest International personal delayed quote cache section at the bottom. Its first actual scheduled quote ingestion is not yet verified. Older 9 November statements about all international automatic quotes being paused describe the previous architecture.
+
+
 As of 9 November 2026:
 
 - Production site: https://search-stocks-research.pages.dev
