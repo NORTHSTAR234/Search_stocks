@@ -1,5 +1,8 @@
 # Stock Research Website
 
+**Current note (10 November 2026):** The previous EODHD international price service remains paused; a NEW owner-only yfinance/Cloudflare KV delayed-price path is configured. Refer to the latest International personal delayed quote cache section at the bottom. Its first actual scheduled quote ingestion is not yet verified. Older 9 November statements about all international automatic quotes being paused describe the previous architecture.
+
+
 Cloudflare Pages website for the **latest archived Search_stock report for each exact ticker**. Website source files live in `Website/`; `halal/` and `nonhalal/` are read-only build inputs and must never be rewritten by the site.
 
 ## Production status (9 November 2026)
