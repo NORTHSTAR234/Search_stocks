@@ -112,7 +112,7 @@
     return suffix&&ticker.endsWith("."+key)?ticker.slice(0,-key.length-1)+suffix:null;
   }
   function quoteMoney(currency,value){
-    const unit=currency==="USD"?"US$":currency==="AUD"?"A$":currency==="TWD"?"NT$":currency==="MYR"?"RM ":currency+" ";
+    const unit=currency==="USD"?"US$":currency==="AUD"?"A$":currency==="TWD"?"NT$":currency==="MYR"?"RM ":currency==="EUR"?"€":currency==="GBP"?"£":currency==="JPY"?"¥":currency==="HKD"?"HK$":currency+" ";
     return unit+Number(value).toLocaleString("en-AU",{minimumFractionDigits:2,maximumFractionDigits:3});
   }
   const quoteDirection=value=>typeof value!=="number"||!Number.isFinite(value)||value===0?"flat":value>0?"gain":"loss";
@@ -292,7 +292,24 @@
     '<td>'+escape(cap(screening,140))+(r.statusOnly?'<small class="warning">Screening only · no current investment rating</small>':"")+'<small>Folder: '+escape(r.bucket)+'</small></td>'+
     '<td>'+escape(cap(r.earnings,110))+'</td></tr>';
   }
+  function syncExchangeFilters(){
+    // Automatically expose every exchange from the latest report index.
+    // Adding a new market must not require a new UI code deployment.
+    const select=$("exchange");
+    const existing=new Set([...select.options].map(option=>option.value));
+    const exchanges=[...new Set(state.rows.map(r=>String(r.exchange||"").toUpperCase()))]
+      .filter(exchange=>/^[A-Z0-9]{2,12}$/.test(exchange)&&exchange!=="US").sort();
+    for(const exchange of exchanges){
+      if(existing.has(exchange))continue;
+      const option=document.createElement("option");
+      option.value=exchange;
+      option.textContent=exchange;
+      select.add(option);
+      existing.add(exchange);
+    }
+  }
   function render(){
+    syncExchangeFilters();
     const query=norm($("search").value),bucket=$("bucket").value,exchange=$("exchange").value,order=$("order").value;
     const all=state.rows;
     const filtered=all.filter(r=>(bucket==="all"||r.bucket===bucket)&&(exchange==="all"||r.exchange===exchange)&&
