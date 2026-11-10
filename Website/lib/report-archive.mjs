@@ -204,7 +204,9 @@ export function parseHtmlReport(info,html) {
     /\b(?:TWSE|TAIWAN STOCK EXCHANGE)\b/i.test(upperHead)?"TWSE":
     /\./.test(ticker)&&/^[A-Z]{2,10}$/.test(exchangeHint)?exchangeHint:
     /\./.test(ticker)?"OTHER":"US";
-  const currency=exchange==="US"?"USD":exchange==="ASX"?"AUD":exchange==="TWSE"?"TWD":exchange==="BURSA"?"MYR":"UNKNOWN";
+  // V2 snapshots declare the actual native currency; legacy reports keep exchange fallbacks.
+  const currency=typeof snapshot?.currency==="string"&&/^[A-Z]{3}$/.test(snapshot.currency)?snapshot.currency:
+    exchange==="US"?"USD":exchange==="ASX"?"AUD":exchange==="TWSE"?"TWD":exchange==="BURSA"?"MYR":"UNKNOWN";
   // Legacy report snapshots differ in shape; read only observed source fields.
   // New v2 snapshots use the exact canonical fields listed above.
   const entrySnapshot=snapshot?.entry||{},targetSnapshot=snapshot?.targets||{},buy=snapshot?.buy||{};
