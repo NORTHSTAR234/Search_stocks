@@ -202,7 +202,7 @@ test("Exact Aya HTML snapshot v2 keys are accepted and mismatches rejected",asyn
  const row=parseHtmlReport(info,html(sample));
  assert.equal(row.action,"WATCH");assert.equal(row.ownerAction,"HOLD");
  assert.equal(row.investment,"73/100");assert.equal(row.entry,"35/100");
- assert.equal(row.musaffa,"HALAL · A- · 2026-08-10");
+ assert.equal(row.musaffa,"HALAL · A- · 2026-08-10 · PASS");
  assert.equal(row.earnings,"20 Jan 2027 estimated");
  assert.equal(row.zones,"US$147–154 / US$155–161");
  assert.equal(row.stops,"US$139 / US$168");
