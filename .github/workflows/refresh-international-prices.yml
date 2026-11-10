@@ -1,6 +1,16 @@
 name: Refresh non-US market prices (private owner cache)
 
 on:
+  # A new stock report gets a ONE-TIME last-observed quote immediately,
+  # even if the exchange is closed. Normal recurring quotes stay session-only.
+  push:
+    branches: [main]
+    paths:
+      - 'halal/**/*.html'
+      - 'nonhalal/**/*.html'
+      - 'Website/market-exchanges.json'
+      - 'Website/scripts/collect-international-quotes.py'
+      - '.github/workflows/refresh-international-prices.yml'
   schedule:
     - cron: '*/20 * * * *'
   workflow_dispatch:
@@ -36,7 +46,7 @@ jobs:
       - name: Check market weekdays and regular sessions
         id: market
         env:
-          BOOTSTRAP_MARKETS: ${{ (github.event_name == 'workflow_dispatch' && inputs.bootstrap == true) }}
+          BOOTSTRAP_MARKETS: ${{ (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.bootstrap == true)) }}
         run: |
           if [ "$BOOTSTRAP_MARKETS" = "true" ]; then
             python Website/scripts/collect-international-quotes.py --bootstrap --check-open
@@ -49,7 +59,7 @@ jobs:
       - name: Collect delayed Yahoo observations and publish privately using GitHub OIDC
         if: steps.market.outputs.open == 'true'
         env:
-          BOOTSTRAP_MARKETS: ${{ (github.event_name == 'workflow_dispatch' && inputs.bootstrap == true) }}
+          BOOTSTRAP_MARKETS: ${{ (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.bootstrap == true)) }}
         run: |
           if [ "$BOOTSTRAP_MARKETS" = "true" ]; then
             python Website/scripts/collect-international-quotes.py --bootstrap
