@@ -81,33 +81,52 @@ function snapshotFromHtml(html,expectedTicker){
      identifiers.some(v=>v!==expectedTicker&&!twseAlias(v)))
     throw Error("Research snapshot security identity mismatch");
   if(snap.schema_version===2){
-    // Aya HTML Snapshot Contract v2 is strict for newly generated reports.
-    // Legacy reports without schema_version remain readable via adapters below.
+    // One exact, mandatory snapshot contract for all NEW HTML reports;
+    // older schemas remain backward-compatible.
     const required=["ticker","canonical_archive_ticker","source_market_ticker",
       "exchange","company","currency","report_utc","report_type",
       "musaffa","actions","risk","scores","next_earnings","entry","targets"];
-    if(required.some(key=>!Object.prototype.hasOwnProperty.call(snap,key)))
+    const has=(object,key)=>object&&Object.prototype.hasOwnProperty.call(object,key);
+    if(required.some(key=>!has(snap,key)))
       throw Error("Incomplete Aya v2 research snapshot contract");
-    if(!["full","screening_only"].includes(snap.report_type)||
-       !snap.musaffa||typeof snap.musaffa!=="object"||
-       !snap.actions||typeof snap.actions!=="object"||
-       !snap.scores||typeof snap.scores!=="object"||
-       !snap.entry||typeof snap.entry!=="object"||
-       !snap.targets||typeof snap.targets!=="object")
-      throw Error("Invalid Aya v2 research snapshot contract");
-    if(snap.report_type==="full"){
-      const check=["classification","grade","screening_date","gate"];
-      if(check.some(key=>!Object.prototype.hasOwnProperty.call(snap.musaffa,key))||
-         !Object.prototype.hasOwnProperty.call(snap.actions,"new_position")||
-         !Object.prototype.hasOwnProperty.call(snap.actions,"existing_holder")||
-         !Object.prototype.hasOwnProperty.call(snap.scores,"investment")||
-         !Object.prototype.hasOwnProperty.call(snap.scores,"entry")||
-         !Object.prototype.hasOwnProperty.call(snap.next_earnings||{},"date")||
-         !Object.prototype.hasOwnProperty.call(snap.next_earnings||{},"confirmed")||
-         ["preferred_low","preferred_high","acceptable_low","acceptable_high","no_chase"].some(key=>!Object.prototype.hasOwnProperty.call(snap.entry,key))||
-         ["stop","tp1","tp2"].some(key=>!Object.prototype.hasOwnProperty.call(snap.targets,key)))
-         throw Error("Incomplete Aya v2 full-report fields");
-    }
+    const ids=[snap.ticker,snap.canonical_archive_ticker];
+    if(ids.some(value=>typeof value!=="string"||value.toUpperCase()!==expectedTicker)||
+       typeof snap.source_market_ticker!=="string"||!snap.source_market_ticker||
+       typeof snap.company!=="string"||!snap.company||
+       typeof snap.exchange!=="string"||!snap.exchange||
+       typeof snap.currency!=="string"||!snap.currency||
+       typeof snap.report_utc!=="string"||!/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d+)?Z$/.test(snap.report_utc)||
+       !["full","screening_only"].includes(snap.report_type))
+      throw Error("Invalid Aya v2 research snapshot metadata");
+    const exchangeMap={ASX:"ASX",TWSE:"TWSE",MYX:"MYX"};
+    const suffix=expectedTicker.split(".").at(-1);
+    if(exchangeMap[suffix]&&snap.exchange.toUpperCase()!==exchangeMap[suffix])
+      throw Error("Aya v2 exchange identity mismatch");
+    const shapes=[
+      [snap.musaffa,["classification","grade","screening_date","gate"]],
+      [snap.actions,["new_position","existing_holder"]],
+      [snap.scores,["investment","entry"]],
+      [snap.next_earnings,["date","confirmed"]],
+      [snap.entry,["preferred_low","preferred_high","acceptable_low","acceptable_high","no_chase"]],
+      [snap.targets,["stop","tp1","tp2"]]
+    ];
+    if(shapes.some(([object,keys])=>!object||typeof object!=="object"||
+       Array.isArray(object)||keys.some(key=>!has(object,key))))
+      throw Error("Incomplete Aya v2 nested report fields");
+    const validScore=value=>value===null||(Number.isInteger(value)&&value>=0&&value<=100);
+    const validPrice=value=>value===null||(typeof value==="number"&&Number.isFinite(value)&&value>0);
+    if(!validScore(snap.scores.investment)||!validScore(snap.scores.entry)||
+       ![snap.entry.preferred_low,snap.entry.preferred_high,snap.entry.acceptable_low,
+         snap.entry.acceptable_high,snap.entry.no_chase,snap.targets.stop,
+         snap.targets.tp1,snap.targets.tp2].every(validPrice))
+      throw Error("Invalid Aya v2 rating or price field");
+    if(snap.report_type==="screening_only"&&(
+       snap.scores.investment!==null||snap.scores.entry!==null||
+       snap.actions.new_position!==null||snap.actions.existing_holder!==null||
+       [snap.entry.preferred_low,snap.entry.preferred_high,snap.entry.acceptable_low,
+        snap.entry.acceptable_high,snap.entry.no_chase,snap.targets.stop,
+        snap.targets.tp1,snap.targets.tp2].some(value=>value!==null)))
+      throw Error("Screening-only report must not include financial research");
   }
   return snap;
 }
