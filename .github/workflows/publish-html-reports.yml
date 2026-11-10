@@ -41,6 +41,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Install dashboard test dependencies
+        run: npm --prefix Website install --no-audit --no-fund
       - name: Verify new and legacy dashboard regressions
         run: node --test Website/tests/*.test.mjs
       - name: Verify international price collector syntax and exchange session configuration
