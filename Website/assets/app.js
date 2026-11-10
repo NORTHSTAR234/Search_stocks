@@ -3,7 +3,7 @@
   const $ = id => document.getElementById(id);
   const state={rows:[],quotes:{},markets:{},loading:false,generatedAt:null,providerReady:true,githubTreeSha:null,syncing:false,cycleBusy:false};
   const escape=s=>String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
-  const fmt=iso=>{try{return new Intl.DateTimeFormat("en-AU",{timeZone:"Australia/Melbourne",day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",timeZoneName:"short"}).format(new Date(iso));}catch{return iso||"Unknown";}};
+  const fmt=iso=>{try{return new Intl.DateTimeFormat("en-AU",{timeZone:"Australia/Sydney",day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",timeZoneName:"short"}).format(new Date(iso));}catch{return iso||"Unknown";}};
   const norm=s=>String(s??"").toUpperCase().replace(/[^A-Z0-9 ]/g," ").trim();
   const score=s=>{const m=String(s).match(/(\d{1,3})\s*\/\s*100/);return m?Number(m[1]):-1;};
   // Visual score bands only, NOT a buy/sell verdict. The two grades stay independent.
@@ -85,7 +85,8 @@
   // Yahoo external navigation is a fallback only; pricing comes from owner-only KV.
   function yahooSymbol(r) {
     const ticker=String(r?.ticker||"").toUpperCase();
-    const override=state.markets?.sourceSymbolOverrides?.[ticker];
+    const registry=typeof state==="undefined"?{}:state.markets;
+    const override=registry?.sourceSymbolOverrides?.[ticker];
     if(override)return override;
     const market=r.marketSchedule?.yahoo_ticker;
     if(typeof market==="string"&&/^[A-Z0-9.^-]{1,25}$/i.test(market))return market;
@@ -98,8 +99,8 @@
       const base=ticker.replace(/\.(?:MYX|KL)$/,"");
       return /^\d{4}$/.test(base)?base+".KL":null;
     }
-    const key=state.markets?.aliases?.[r.exchange]||r.exchange;
-    const suffix=state.markets?.markets?.[key]?.yahooSuffix;
+    const key=registry?.aliases?.[r.exchange]||r.exchange;
+    const suffix=registry?.markets?.[key]?.yahooSuffix;
     return suffix&&ticker.endsWith("."+key)?ticker.slice(0,-key.length-1)+suffix:null;
   }
   function quoteMoney(currency,value){
