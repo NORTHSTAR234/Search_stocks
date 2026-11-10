@@ -44,8 +44,75 @@ def minute_in_session(now, config):
             return True
     return False
 
+def report_markets(registry):
+    """Recognize new exchanges directly from validated Search_stock HTML metadata.
+
+    The master prompt records market_schedule on every new international report.
+    Older listings keep the explicit market-exchanges.json registry fallback.
+    A new EXCHANGE does not require an individual script edit or new workflow.
+    """
+    known=dict(registry["markets"])
+    candidates={}
+    conflicts=set()
+    for bucket in ("halal","nonhalal"):
+        base=ROOT/bucket
+        if not base.is_dir():continue
+        for folder in base.iterdir():
+            if not folder.is_dir() or "." not in folder.name:continue
+            ticker=folder.name.upper()
+            suffix=ticker.rsplit(".",1)[-1]
+            if suffix in known or suffix in conflicts:continue
+            snap=latest_snapshot(folder)
+            if not isinstance(snap,dict):continue
+            schedule=snap.get("market_schedule")
+            if not isinstance(schedule,dict):continue
+            # A report must describe the very same canonical archive security.
+            if snap.get("ticker")!=ticker or snap.get("canonical_archive_ticker")!=ticker:continue
+            if snap.get("exchange")!=suffix or schedule.get("exchange")!=suffix:continue
+            if schedule.get("sydney_time_zone")!="Australia/Sydney":continue
+            if schedule.get("mic")!=suffix:continue
+            src=schedule.get("hours_source")
+            if not isinstance(src,str) or not src.startswith("https://") or len(src)>400:continue
+            time_zone=schedule.get("market_time_zone")
+            try:
+                if not isinstance(time_zone,str):continue
+                ZoneInfo(time_zone)
+            except (KeyError,ValueError):continue
+            weekdays=schedule.get("weekdays")
+            sessions=schedule.get("sessions")
+            if not isinstance(weekdays,list) or not (1<=len(weekdays)<=7) or not all(type(d)==int and 1<=d<=7 for d in weekdays):continue
+            if len(weekdays)!=len(set(weekdays)):continue
+            if not isinstance(sessions,list) or not (1<=len(sessions)<=4):continue
+            valid=True
+            for item in sessions:
+                if not isinstance(item,dict) or any(not isinstance(item.get(k),str) or not re.fullmatch(r"(?:[01]\\d|2[0-3]):[0-5]\\d",item[k]) for k in ("start","end")):
+                    valid=False
+                    break
+                if item["start"]>=item["end"]:
+                    valid=False
+                    break
+            if not valid:continue
+            yahoo=schedule.get("yahoo_ticker")
+            if not isinstance(yahoo,str) or not re.fullmatch(r"[A-Za-z0-9^.-]{1,25}",yahoo) or "." not in yahoo:continue
+            symbol_suffix="."+yahoo.rsplit(".",1)[-1].upper()
+            currency=snap.get("currency")
+            if not isinstance(currency,str) or not re.fullmatch(r"[A-Z]{3}",currency):continue
+            entry={"name":suffix,"mic":suffix,"timeZone":time_zone,
+                   "weekdays":weekdays,"sessions":sessions,"priceSource":"yfinance",
+                   "yahooSuffix":symbol_suffix,"currency":currency,"source":src}
+            prior=candidates.get(suffix)
+            if prior and any(prior[k]!=entry[k] for k in ("timeZone","weekdays","sessions","currency","yahooSuffix")):
+                conflicts.add(suffix)
+                candidates.pop(suffix,None)
+            else:
+                candidates[suffix]=entry
+    for symbol in conflicts:
+        print("Unverified conflicting exchange metadata:",symbol,file=sys.stderr)
+    known.update(candidates)
+    return known
+
 def open_markets(registry,now):
-    return {name:spec for name,spec in registry["markets"].items()
+    return {name:spec for name,spec in report_markets(registry).items()
             if spec.get("priceSource")=="yfinance" and
             minute_in_session(now,spec)}
 
@@ -196,7 +263,7 @@ def main():
     parser.add_argument("--bootstrap",action="store_true",help="One-off manual initialization: retrieve last available market bars outside session hours")
     args=parser.parse_args()
     registry=json.loads(CONFIG.read_text())
-    open_now=({name:spec for name,spec in registry["markets"].items() if spec.get("priceSource")=="yfinance"}
+    open_now=({name:spec for name,spec in report_markets(registry).items() if spec.get("priceSource")=="yfinance"}
               if args.bootstrap else open_markets(registry,now_utc()))
     if args.check_open:
         output="open="+("true" if open_now else "false")+"\n"
