@@ -1,11 +1,270 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-10T21:44:46Z",
-  "htmlReportCount": 35,
-  "uniqueTickers": 23,
-  "revision": "7a5c5c675f0ca646d2398cb2d280dfe4",
+  "latestHtmlReportAt": "2026-11-10T21:45:27Z",
+  "htmlReportCount": 42,
+  "uniqueTickers": 24,
+  "revision": "5f7a4510c18d251a8f878f7a2ade43cf",
   "rows": [
+    {
+      "company": "Johnson & Johnson",
+      "ticker": "JNJ",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:45:27Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "MODERATE–HIGH",
+      "investment": "73/100",
+      "entry": "30/100",
+      "musaffa": "HALAL · B- · 2026-08-04 · PASS",
+      "earnings": "26 Jan 2027 confirmed",
+      "zones": "US$230–245 / US$246–255",
+      "stops": "US$218 / US$270",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "JNJ",
+      "zoneBands": [
+        [
+          230,
+          245
+        ],
+        [
+          246,
+          255
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/JNJ/JNJ_2026-11-10_21-45-27Z.html",
+      "reportPath": "/view-report?path=halal%2FJNJ%2FJNJ_2026-11-10_21-45-27Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
+    {
+      "company": "Micron Technology, Inc.",
+      "ticker": "MU",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:45:21Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "75/100",
+      "entry": "44/100",
+      "musaffa": "HALAL · C+ · 2026-10-03 · PASS",
+      "earnings": "23 Dec 2026 estimated",
+      "zones": "US$580–640 / US$641–680",
+      "stops": "US$520 / US$750",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "MU",
+      "zoneBands": [
+        [
+          580,
+          640
+        ],
+        [
+          641,
+          680
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MU/MU_2026-11-10_21-45-21Z.html",
+      "reportPath": "/view-report?path=halal%2FMU%2FMU_2026-11-10_21-45-21Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
+    {
+      "company": "The Procter & Gamble Company",
+      "ticker": "PG",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:45:15Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "MODERATE",
+      "investment": "74/100",
+      "entry": "30/100",
+      "musaffa": "HALAL · A- · 2026-08-10 · PASS",
+      "earnings": "20 Jan 2027 estimated",
+      "zones": "US$149–155 / US$156–162",
+      "stops": "US$140 / US$168",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "PG",
+      "zoneBands": [
+        [
+          149,
+          155
+        ],
+        [
+          156,
+          162
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/PG/PG_2026-11-10_21-45-15Z.html",
+      "reportPath": "/view-report?path=halal%2FPG%2FPG_2026-11-10_21-45-15Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
+    {
+      "company": "Advanced Micro Devices, Inc.",
+      "ticker": "AMD",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:45:04Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "77/100",
+      "entry": "32/100",
+      "musaffa": "HALAL · B- · 2026-08-07 · PASS",
+      "earnings": "2 Feb 2027 estimated",
+      "zones": "US$390–425 / US$426–460",
+      "stops": "US$350 / US$480",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "AMD",
+      "zoneBands": [
+        [
+          390,
+          425
+        ],
+        [
+          426,
+          460
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/AMD/AMD_2026-11-10_21-45-04Z.html",
+      "reportPath": "/view-report?path=halal%2FAMD%2FAMD_2026-11-10_21-45-04Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
+    {
+      "company": "Apple Inc.",
+      "ticker": "AAPL",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:45:01Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "MODERATE-HIGH",
+      "investment": "75/100",
+      "entry": "35/100",
+      "musaffa": "HALAL · C · 2026-08-20 · PASS",
+      "earnings": "4 Feb 2027 estimated",
+      "zones": "US$315–325 / US$326–336",
+      "stops": "US$299 / US$344",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "AAPL",
+      "zoneBands": [
+        [
+          315,
+          325
+        ],
+        [
+          326,
+          336
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/AAPL/AAPL_2026-11-10_21-45-01Z.html",
+      "reportPath": "/view-report?path=halal%2FAAPL%2FAAPL_2026-11-10_21-45-01Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
+    {
+      "company": "ExxonMobil Holdings Corporation",
+      "ticker": "XOM",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:44:59Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "MODERATE-HIGH",
+      "investment": "76/100",
+      "entry": "62/100",
+      "musaffa": "HALAL · A · 2026-08-04 · PASS",
+      "earnings": "29 Jan 2027 estimated",
+      "zones": "US$150–158 / US$159–164",
+      "stops": "US$142 / US$173",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "XOM",
+      "zoneBands": [
+        [
+          150,
+          158
+        ],
+        [
+          159,
+          164
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/XOM/XOM_2026-11-10_21-44-59Z.html",
+      "reportPath": "/view-report?path=halal%2FXOM%2FXOM_2026-11-10_21-44-59Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
+    {
+      "company": "Novatek Microelectronics Corporation",
+      "ticker": "3034.TWSE",
+      "exchange": "TWSE",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:44:58Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "68/100",
+      "entry": "34/100",
+      "musaffa": "HALAL · PASS",
+      "earnings": "NOT VERIFIED",
+      "zones": "TWD 415–440 / TWD 441–460",
+      "stops": "TWD 385 / TWD 505",
+      "nativeCurrency": "TWD",
+      "marketSchedule": {
+        "exchange": "TWSE",
+        "mic": "XTAI",
+        "market_time_zone": "Asia/Taipei",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "13:30"
+          }
+        ],
+        "yahoo_ticker": "3034.TW",
+        "hours_source": "https://www.twse.com.tw/en/products/system/trading.html",
+        "hours_checked_utc": "2026-11-10T21:44:58Z"
+      },
+      "sourceMarketTicker": "3034.TW",
+      "zoneBands": [
+        [
+          415,
+          440
+        ],
+        [
+          441,
+          460
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/3034.TWSE/3034.TWSE_2026-11-10_21-44-58Z.html",
+      "reportPath": "/view-report?path=halal%2F3034.TWSE%2F3034.TWSE_2026-11-10_21-44-58Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "The Home Depot, Inc.",
       "ticker": "HD",
@@ -83,40 +342,6 @@
       ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ORG.ASX/ORG.ASX_2026-11-10_21-44-40Z.html",
       "reportPath": "/view-report?path=halal%2FORG.ASX%2FORG.ASX_2026-11-10_21-44-40Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "Micron Technology, Inc.",
-      "ticker": "MU",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-10T21:44:30Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "75/100",
-      "entry": "44/100",
-      "musaffa": "HALAL · C+ · 2026-10-03 · PASS",
-      "earnings": "23 Dec 2026 estimated",
-      "zones": "US$580–640 / US$641–680",
-      "stops": "US$520 / US$750",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "MU",
-      "zoneBands": [
-        [
-          580,
-          640
-        ],
-        [
-          641,
-          680
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MU/MU_2026-11-10_21-44-30Z.html",
-      "reportPath": "/view-report?path=halal%2FMU%2FMU_2026-11-10_21-44-30Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
@@ -586,176 +811,6 @@
       ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ASM.XAMS/ASM.XAMS_2026-11-10_08-31-33Z.html",
       "reportPath": "/view-report?path=halal%2FASM.XAMS%2FASM.XAMS_2026-11-10_08-31-33Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "Johnson & Johnson",
-      "ticker": "JNJ",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-09T21:28:35Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "MODERATE–HIGH",
-      "investment": "73/100",
-      "entry": "29/100",
-      "musaffa": "HALAL · B− · 2026-08-04",
-      "earnings": "26 Jan 2027 (estimated; unconfirmed)",
-      "zones": "US$230–245 / US$246–255",
-      "stops": "US$218 / US$270",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "JNJ",
-      "zoneBands": [
-        [
-          230,
-          245
-        ],
-        [
-          246,
-          255
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/JNJ/JNJ_2026-11-09_21-28-35Z.html",
-      "reportPath": "/view-report?path=halal%2FJNJ%2FJNJ_2026-11-09_21-28-35Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "The Procter & Gamble Company",
-      "ticker": "PG",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-09T21:27:38Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "MODERATE",
-      "investment": "73/100",
-      "entry": "35/100",
-      "musaffa": "HALAL · A- · 2026-08-10",
-      "earnings": "20 January 2027 estimated/unconfirmed; other calendars 21 January",
-      "zones": "US$147–154 / US$155–161",
-      "stops": "US$139 / US$168",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "PG",
-      "zoneBands": [
-        [
-          147,
-          154
-        ],
-        [
-          155,
-          161
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/PG/PG_2026-11-09_21-27-38Z.html",
-      "reportPath": "/view-report?path=halal%2FPG%2FPG_2026-11-09_21-27-38Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "Apple Inc.",
-      "ticker": "AAPL",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-09T21:24:35Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "MODERATE-HIGH",
-      "investment": "75/100",
-      "entry": "35/100",
-      "musaffa": "HALAL · C · 2026-08-20",
-      "earnings": "4 Feb 2027 estimated",
-      "zones": "US$315–325 / US$326–336",
-      "stops": "US$299 / US$344",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "AAPL",
-      "zoneBands": [
-        [
-          315,
-          325
-        ],
-        [
-          326,
-          336
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/AAPL/AAPL_2026-11-09_21-24-35Z.html",
-      "reportPath": "/view-report?path=halal%2FAAPL%2FAAPL_2026-11-09_21-24-35Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "Advanced Micro Devices (AMD)",
-      "ticker": "AMD",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-09T21:23:19Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "77/100",
-      "entry": "34/100",
-      "musaffa": "HALAL · B- · 2026-08-07",
-      "earnings": "2 Feb 2027 estimated",
-      "zones": "US$390–425 / US$426–460",
-      "stops": "US$350 / US$480",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "AMD",
-      "zoneBands": [
-        [
-          390,
-          425
-        ],
-        [
-          426,
-          460
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/AMD/AMD_2026-11-09_21-23-19Z.html",
-      "reportPath": "/view-report?path=halal%2FAMD%2FAMD_2026-11-09_21-23-19Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "ExxonMobil Holdings Corporation",
-      "ticker": "XOM",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-09T21:21:54Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "MODERATE-HIGH",
-      "investment": "76/100",
-      "entry": "62/100",
-      "musaffa": "HALAL · A · 2026-08-04",
-      "earnings": "29 Jan 2027 estimated",
-      "zones": "US$150–158 / US$159–164",
-      "stops": "US$142 / US$173",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "XOM",
-      "zoneBands": [
-        [
-          150,
-          158
-        ],
-        [
-          159,
-          164
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/XOM/XOM_2026-11-09_21-21-54Z.html",
-      "reportPath": "/view-report?path=halal%2FXOM%2FXOM_2026-11-09_21-21-54Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
