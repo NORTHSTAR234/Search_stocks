@@ -168,7 +168,7 @@ test("dashboard columns match specified new order and remove duplicate report co
  assert(source.includes("'<td>'+zoneCell(r,context)+'</td>'"));
  assert(source.includes("'<td>'+stopsCell(r)+'</td>'"));
  assert(source.includes('colspan="10"'));
- assert(source.includes('class="ticker'+active+'" href='));
+ assert(source.includes("class=\"ticker'+active+'\" href="));
 });
 test("a preferred or acceptable match lights only its own buy-zone card",()=>{
  assert(source.includes('function zonePosition(price,bands)'));
@@ -227,6 +227,6 @@ test("market-open glow follows Sydney-rendered exchange weekdays without market 
   assert(source.includes("function marketStatus(r,now=new Date())"));
   assert(source.includes('timeZone:"Australia/Sydney"'));
   assert(source.includes("zonedSessionTime(local,v.start,m.timeZone)"));
-  assert(source.includes('class="ticker'+active+'" href='));
+  assert(source.includes("class=\"ticker'+active+'\" href="));
   assert(source.includes("setInterval(()=>{if(document.visibilityState===\"visible\")render();},60000)"));
 });
