@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "description": "Exchange session calendar registry. Only markets with official published hours and a vetted calendar ID should be added. Unknown markets must fail closed.",
+  "sydneyTimeZone": "Australia/Sydney",
+  "exchanges": {
+    "ASX": {
+      "mic": "XASX",
+      "calendar": "XASX",
+      "timeZone": "Australia/Sydney",
+      "name": "Australian Securities Exchange",
+      "officialHours": "https://www.asx.com.au/markets/market-resources/trading-hours-calendar",
+      "calendarCheckedUTC": "2026-11-10T00:00:00Z",
+      "holidayOverrides": {},
+      "sessionMode": "calendar"
+    },
+    "TWSE": {
+      "mic": "XTAI",
+      "calendar": "XTAI",
+      "timeZone": "Asia/Taipei",
+      "name": "Taiwan Stock Exchange",
+      "officialHours": "https://www.twse.com.tw/en/trading/holiday.html",
+      "calendarCheckedUTC": "2026-11-10T00:00:00Z",
+      "holidayOverrides": {},
+      "sessionMode": "calendar"
+    },
+    "BURSA": {
+      "mic": "XKLS",
+      "calendar": "XKLS",
+      "timeZone": "Asia/Kuala_Lumpur",
+      "name": "Bursa Malaysia",
+      "officialHours": "https://www.bursamalaysia.com/",
+      "holidayVerification": "https://www.poems.com.sg/markets/malaysia-bursa/",
+      "calendarCheckedUTC": "2026-11-10T00:00:00Z",
+      "holidayOverrides": {
+        "2026-11-09": "Deepavali replacement holiday — confirmed Bursa closure"
+      },
+      "sessionMode": "bursa-continuous"
+    }
+  }
+}
