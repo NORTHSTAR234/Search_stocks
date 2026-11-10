@@ -73,6 +73,28 @@
       "yahooSuffix": ".KL",
       "currency": "MYR"
     },
+    "XAMS": {
+      "name": "Euronext Amsterdam",
+      "mic": "XAMS",
+      "timeZone": "Europe/Amsterdam",
+      "weekdays": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sessions": [
+        {
+          "start": "09:00",
+          "end": "17:30"
+        }
+      ],
+      "source": "https://www.euronext.com/en/trading/trading-hours-holidays",
+      "priceSource": "yfinance",
+      "yahooSuffix": ".AS",
+      "currency": "EUR"
+    },
     "US": {
       "name": "US NYSE/NASDAQ regular session",
       "mic": "XNYS",
