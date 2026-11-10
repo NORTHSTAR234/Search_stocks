@@ -247,3 +247,18 @@ test("main dashboard has exactly ten headings, with reports opened by ticker",()
  assert(!JSON.parse(labels[1]).includes("Report"));
  assert(src.includes('colspan="10"'));
 });
+
+test("legacy exchange-suffixed Markdown reports map to actual markets, not OTHER",()=>{
+  for(const [ticker,expected] of [["2330.TWSE","TWSE"],["2379.TWSE","TWSE"],
+    ["ORG.ASX","ASX"],["APA.ASX","ASX"],["CBHB.MYX","BURSA"]]){
+    const info=archiveInfo("halal/"+ticker+"/"+ticker+"_2026-11-10_01-00-00Z.md");
+    const row=parseReport(info,"# "+ticker+" archived research\\n| Field | Value |\\n|---|---|");
+    assert.equal(row.exchange,expected,ticker);
+  }
+});
+test("website builds fingerprinted JS and CSS URLs to avoid stale dashboard code",()=>{
+  const source=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
+  assert(source.includes('const styleVersion=versionOf("style.css"),scriptVersion=versionOf("app.js")'));
+  assert(source.includes("'/assets/app.js?v='+scriptVersion"));
+  assert(source.includes("'/assets/style.css?v='+styleVersion"));
+});
