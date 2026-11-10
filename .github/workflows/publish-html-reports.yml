@@ -14,6 +14,8 @@ on:
       - 'Website/assets/app.js'
       - 'Website/functions/api/international-prices.js'
       - 'Website/tests/ui.test.mjs'
+      - 'Website/tests/build.test.mjs'
+      - 'Website/build.mjs'
       - 'Website/tests/prices.test.mjs'
       - '.github/workflows/publish-html-reports.yml'
   workflow_dispatch:
