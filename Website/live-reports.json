@@ -4,7 +4,7 @@
   "latestHtmlReportAt": "2026-11-09T21:28:35Z",
   "htmlReportCount": 18,
   "uniqueTickers": 16,
-  "revision": "fe3aefb9bbf261b3e037e94948e9bcd7",
+  "revision": "7f16deb6959a1b5ebf8572094ce90423",
   "rows": [
     {
       "company": "Johnson & Johnson",
@@ -23,6 +23,8 @@
       "zones": "US$230–245 / US$246–255",
       "stops": "US$218 / US$270",
       "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "JNJ",
       "zoneBands": [
         [
           230,
@@ -55,6 +57,8 @@
       "zones": "US$147–154 / US$155–161",
       "stops": "US$139 / US$168",
       "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "PG",
       "zoneBands": [
         [
           147,
@@ -87,6 +91,8 @@
       "zones": "US$315–325 / US$326–336",
       "stops": "US$299 / US$344",
       "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "AAPL",
       "zoneBands": [
         [
           315,
@@ -119,6 +125,8 @@
       "zones": "US$290–315 / US$316–330",
       "stops": "US$275 / US$350",
       "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "HD",
       "zoneBands": [
         [
           290,
@@ -151,6 +159,8 @@
       "zones": "US$580–640 / US$641–680",
       "stops": "US$520 / US$750",
       "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "MU",
       "zoneBands": [
         [
           580,
@@ -183,6 +193,8 @@
       "zones": "US$390–425 / US$426–460",
       "stops": "US$350 / US$480",
       "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "AMD",
       "zoneBands": [
         [
           390,
@@ -215,6 +227,8 @@
       "zones": "US$79–85 / US$86–90",
       "stops": "US$75 / US$94",
       "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "KO",
       "zoneBands": [
         [
           79,
@@ -247,6 +261,8 @@
       "zones": "US$150–158 / US$159–164",
       "stops": "US$142 / US$173",
       "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "XOM",
       "zoneBands": [
         [
           150,
@@ -279,6 +295,8 @@
       "zones": "US$1,150–1,230 / US$1,231–1,300",
       "stops": "US$1,080 / US$1,400",
       "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "LLY",
       "zoneBands": [
         [
           1150,
@@ -311,6 +329,8 @@
       "zones": "US$365–385 / US$386–400",
       "stops": "US$350 / US$420",
       "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "V",
       "zoneBands": [
         [
           365,
@@ -343,6 +363,8 @@
       "zones": "NOT RATED",
       "stops": "NOT RATED",
       "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "TSLA",
       "zoneBands": [],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/TSLA/TSLA_2026-11-09_21-15-52Z.html",
       "reportPath": "/view-report?path=nonhalal%2FTSLA%2FTSLA_2026-11-09_21-15-52Z.html",
@@ -366,6 +388,8 @@
       "zones": "US$84–89 / US$90–94",
       "stops": "US$79 / US$100",
       "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "CSCO",
       "zoneBands": [
         [
           84,
@@ -398,6 +422,8 @@
       "zones": "US$185–195 / US$196–205",
       "stops": "US$175 / US$220",
       "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": null,
       "zoneBands": [
         [
           185,
@@ -430,6 +456,8 @@
       "zones": "US$535–565 / US$566–600",
       "stops": "US$510 / US$640",
       "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": null,
       "zoneBands": [
         [
           535,
@@ -462,6 +490,8 @@
       "zones": "NOT RATED",
       "stops": "NOT RATED",
       "nativeCurrency": "TWD",
+      "marketSchedule": null,
+      "sourceMarketTicker": null,
       "zoneBands": [],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/1519.TWSE/1519.TWSE_2026-11-09_05-23-30Z.html",
       "reportPath": "/view-report?path=nonhalal%2F1519.TWSE%2F1519.TWSE_2026-11-09_05-23-30Z.html",
@@ -485,6 +515,8 @@
       "zones": "US$165–175 / US$176–185",
       "stops": "US$154 / US$205",
       "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": null,
       "zoneBands": [
         [
           165,
