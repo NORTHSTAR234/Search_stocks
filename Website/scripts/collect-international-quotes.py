@@ -7,6 +7,7 @@ Quotes are POSTed to a private Cloudflare KV cache using signed GitHub OIDC.
 No quote, OAuth token, or API key is committed to the public repository.
 """
 import argparse
+import base64
 import datetime as dt
 import json
 import math
@@ -14,6 +15,7 @@ import os
 from pathlib import Path
 import re
 import sys
+import urllib.error
 import urllib.parse
 import urllib.request
 from zoneinfo import ZoneInfo
@@ -163,8 +165,22 @@ def publish(quotes):
                      "quotes":quotes},separators=(",",":")).encode()
     request=urllib.request.Request(INGEST,data=body,method="POST",
        headers={"Authorization":"Bearer "+token,"Content-Type":"application/json"})
-    with urllib.request.urlopen(request,timeout=25) as response:
-        return json.load(response)
+    try:
+        with urllib.request.urlopen(request,timeout=25) as response:
+            return json.load(response)
+    except urllib.error.HTTPError as e:
+        # Public workflow logs must NEVER contain the JWT. These fields only
+        # describe the public repository/workflow identity for troubleshooting.
+        print("Private ingest rejected:",e.code,e.read(300).decode("utf-8","replace"),file=sys.stderr)
+        if e.code==403:
+            try:
+                blob=token.split(".")[1]
+                claims=json.loads(base64.urlsafe_b64decode(blob+"="*((-len(blob))%4)))
+                fields=["iss","aud","sub","repository","repository_id","ref","workflow_ref","event_name"]
+                print("OIDC identity:",json.dumps({k:claims.get(k) for k in fields}),file=sys.stderr)
+            except (ValueError,IndexError):
+                pass
+        raise
 
 def main():
     parser=argparse.ArgumentParser()
