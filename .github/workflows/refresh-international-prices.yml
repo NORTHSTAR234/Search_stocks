@@ -1,6 +1,10 @@
 name: Refresh non-US market prices (private owner cache)
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-international-prices.yml'
   schedule:
     - cron: '*/20 * * * *'
   workflow_dispatch:
