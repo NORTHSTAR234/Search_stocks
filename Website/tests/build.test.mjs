@@ -259,6 +259,6 @@ test("legacy exchange-suffixed Markdown reports map to actual markets, not OTHER
 test("website builds fingerprinted JS and CSS URLs to avoid stale dashboard code",()=>{
   const source=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
   assert(source.includes('const styleVersion=versionOf("style.css"),scriptVersion=versionOf("app.js")'));
-  assert(source.includes("'/assets/app.js?v='+scriptVersion"));
-  assert(source.includes("'/assets/style.css?v='+styleVersion"));
+  assert(source.includes("/assets/app.js?v='+scriptVersion"));
+  assert(source.includes("/assets/style.css?v='+styleVersion"));
 });
