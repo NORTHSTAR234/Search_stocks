@@ -1,11 +1,66 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-10T21:46:26Z",
-  "htmlReportCount": 46,
+  "latestHtmlReportAt": "2026-11-10T21:47:51Z",
+  "htmlReportCount": 47,
   "uniqueTickers": 24,
-  "revision": "ae43e52558d1100994c16126ecefee74",
+  "revision": "8f99d9ccfd1b8387b671e3b3173fa2d3",
   "rows": [
+    {
+      "company": "ASM International N.V.",
+      "ticker": "ASM.XAMS",
+      "exchange": "XAMS",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:47:51Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "78/100",
+      "entry": "44/100",
+      "musaffa": "HALAL · A · 2026-11-04 · PASS",
+      "earnings": "23 Feb 2027 confirmed",
+      "zones": "EUR 610–640 / EUR 640–670",
+      "stops": "EUR 575 / EUR 740",
+      "nativeCurrency": "EUR",
+      "marketSchedule": {
+        "exchange": "XAMS",
+        "mic": "XAMS",
+        "market_time_zone": "Europe/Amsterdam",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "17:30"
+          }
+        ],
+        "yahoo_ticker": "ASM.AS",
+        "hours_source": "https://www.euronext.com/en/trading/trading-hours-holidays",
+        "hours_checked_utc": "2026-11-10T21:47:51Z"
+      },
+      "sourceMarketTicker": "ASM.AS",
+      "zoneBands": [
+        [
+          610,
+          640
+        ],
+        [
+          640,
+          670
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ASM.XAMS/ASM.XAMS_2026-11-10_21-47-51Z.html",
+      "reportPath": "/view-report?path=halal%2FASM.XAMS%2FASM.XAMS_2026-11-10_21-47-51Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Eli Lilly and Company",
       "ticker": "LLY",
@@ -833,61 +888,6 @@
       "zoneBands": [],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/CBHB.MYX/CBHB.MYX_2026-11-10_21-40-00Z.html",
       "reportPath": "/view-report?path=nonhalal%2FCBHB.MYX%2FCBHB.MYX_2026-11-10_21-40-00Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "ASM International N.V.",
-      "ticker": "ASM.XAMS",
-      "exchange": "XAMS",
-      "bucket": "halal",
-      "timestamp": "2026-11-10T08:31:33Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "78/100",
-      "entry": "42/100",
-      "musaffa": "HALAL · A · 2026-11-04 · PASS",
-      "earnings": "23 Feb 2027 confirmed",
-      "zones": "EUR 610–640 / EUR 640–670",
-      "stops": "EUR 575 / EUR 740",
-      "nativeCurrency": "EUR",
-      "marketSchedule": {
-        "exchange": "XAMS",
-        "mic": "XAMS",
-        "market_time_zone": "Europe/Amsterdam",
-        "sydney_time_zone": "Australia/Sydney",
-        "weekdays": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "sessions": [
-          {
-            "start": "09:00",
-            "end": "17:30"
-          }
-        ],
-        "yahoo_ticker": "ASM.AS",
-        "hours_source": "https://www.euronext.com/en/trading/trading-hours-holidays",
-        "hours_checked_utc": "2026-11-10T08:31:33Z"
-      },
-      "sourceMarketTicker": "ASM.AS",
-      "zoneBands": [
-        [
-          610,
-          640
-        ],
-        [
-          640,
-          670
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ASM.XAMS/ASM.XAMS_2026-11-10_08-31-33Z.html",
-      "reportPath": "/view-report?path=halal%2FASM.XAMS%2FASM.XAMS_2026-11-10_08-31-33Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
