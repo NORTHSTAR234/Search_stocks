@@ -1,11 +1,100 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-10T21:45:49Z",
-  "htmlReportCount": 43,
+  "latestHtmlReportAt": "2026-11-10T21:46:14Z",
+  "htmlReportCount": 45,
   "uniqueTickers": 24,
-  "revision": "6ee8828bfab507fa9816909ff584752d",
+  "revision": "0c43ffab04b29eefd68b471314bc2ca1",
   "rows": [
+    {
+      "company": "ABB Ltd",
+      "ticker": "ABBN.SIX",
+      "exchange": "SIX",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:46:14Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "76/100",
+      "entry": "52/100",
+      "musaffa": "HALAL · PASS",
+      "earnings": "28 Jan 2027 confirmed",
+      "zones": "CHF 65–67 / CHF 67–70",
+      "stops": "CHF 61 / CHF 74.5",
+      "nativeCurrency": "CHF",
+      "marketSchedule": {
+        "exchange": "SIX",
+        "mic": "XSWX",
+        "market_time_zone": "Europe/Zurich",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "17:20"
+          }
+        ],
+        "yahoo_ticker": "ABBN.SW",
+        "hours_source": "https://www.six-group.com/en/products-services/the-swiss-stock-exchange/trading/trading-provisions/trading-hours.html",
+        "hours_checked_utc": "2026-11-10T21:46:14Z"
+      },
+      "sourceMarketTicker": "ABBN.SW",
+      "zoneBands": [
+        [
+          65,
+          67
+        ],
+        [
+          67,
+          70
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ABBN.SIX/ABBN.SIX_2026-11-10_21-46-14Z.html",
+      "reportPath": "/view-report?path=halal%2FABBN.SIX%2FABBN.SIX_2026-11-10_21-46-14Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
+    {
+      "company": "The Home Depot, Inc.",
+      "ticker": "HD",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T21:46:10Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "MODERATE–HIGH",
+      "investment": "70/100",
+      "entry": "37/100",
+      "musaffa": "HALAL · A- · 2026-09-14 · PASS",
+      "earnings": "17 Nov 2026 confirmed",
+      "zones": "US$290–315 / US$316–330",
+      "stops": "US$275 / US$350",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "HD",
+      "zoneBands": [
+        [
+          290,
+          315
+        ],
+        [
+          316,
+          330
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/HD/HD_2026-11-10_21-46-10Z.html",
+      "reportPath": "/view-report?path=halal%2FHD%2FHD_2026-11-10_21-46-10Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Visa Inc.",
       "ticker": "V",
@@ -296,31 +385,6 @@
       ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/3034.TWSE/3034.TWSE_2026-11-10_21-44-58Z.html",
       "reportPath": "/view-report?path=halal%2F3034.TWSE%2F3034.TWSE_2026-11-10_21-44-58Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "The Home Depot, Inc.",
-      "ticker": "HD",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-10T21:44:46Z",
-      "statusOnly": true,
-      "action": "SCREENING ONLY — NO INVESTMENT REPORT",
-      "ownerAction": "RESEARCH SKIPPED",
-      "risk": "NOT RATED",
-      "investment": "NOT RATED",
-      "entry": "NOT RATED",
-      "musaffa": "HALAL · A- · 2026-09-14 · PASS",
-      "earnings": "NOT RATED",
-      "zones": "NOT RATED",
-      "stops": "NOT RATED",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "HD",
-      "zoneBands": [],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/HD/HD_2026-11-10_21-44-46Z.html",
-      "reportPath": "/view-report?path=halal%2FHD%2FHD_2026-11-10_21-44-46Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
@@ -735,61 +799,6 @@
       "zoneBands": [],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/CBHB.MYX/CBHB.MYX_2026-11-10_21-40-00Z.html",
       "reportPath": "/view-report?path=nonhalal%2FCBHB.MYX%2FCBHB.MYX_2026-11-10_21-40-00Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "ABB Ltd",
-      "ticker": "ABBN.SIX",
-      "exchange": "SIX",
-      "bucket": "halal",
-      "timestamp": "2026-11-10T11:07:46Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "76/100",
-      "entry": "48/100",
-      "musaffa": "HALAL · PASS",
-      "earnings": "28 Jan 2027 confirmed",
-      "zones": "CHF 65–67 / CHF 67–70",
-      "stops": "CHF 61 / CHF 74.5",
-      "nativeCurrency": "CHF",
-      "marketSchedule": {
-        "exchange": "SIX",
-        "mic": "XSWX",
-        "market_time_zone": "Europe/Zurich",
-        "sydney_time_zone": "Australia/Sydney",
-        "weekdays": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "sessions": [
-          {
-            "start": "09:00",
-            "end": "17:20"
-          }
-        ],
-        "yahoo_ticker": "ABBN.SW",
-        "hours_source": "https://www.six-group.com/en/products-services/the-swiss-stock-exchange/trading/trading-provisions/trading-hours.html",
-        "hours_checked_utc": "2026-11-10T11:07:46Z"
-      },
-      "sourceMarketTicker": "ABBN.SW",
-      "zoneBands": [
-        [
-          65,
-          67
-        ],
-        [
-          67,
-          70
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ABBN.SIX/ABBN.SIX_2026-11-10_11-07-46Z.html",
-      "reportPath": "/view-report?path=halal%2FABBN.SIX%2FABBN.SIX_2026-11-10_11-07-46Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
