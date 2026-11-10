@@ -41,15 +41,15 @@ test("Yahoo fallback never fetches or proxies an unofficial Yahoo endpoint",()=>
 
 test("Quote scheduler refreshes every five minutes only while page is visible",()=>{
   assert.match(source,/setInterval\(\(\)=>\{if\(document\.visibilityState==="visible"\)checkAll\(\);\},300000\)/);
-  assert.doesNotMatch(source,/setInterval\([^;]+,60000\)/);
-  assert.match(source,/refresh every 5 minutes while this page is visible/);
+  assert.match(source,/setInterval\(\(\)=>\{if\(document\.visibilityState==="visible"\)render\(\);\},60000\)/);
+  assert.match(source,/checked every 5 minutes while visible/);
 });
 
 test("US Alpaca refresh remains five minutes; owner-only delayed non-US cache is separate",()=>{
  assert(source.includes('retrieve("/api/prices",us,"Alpaca")'));
  assert(source.includes('retrieve("/api/international-prices",international,"Personal Yahoo cache")'));
  assert(!source.includes('eodhdSymbols=new Set('));
- assert(source.includes('state.quotes=usQuotes;'));
+ assert(source.includes('state.quotes={...usQuotes,...intlQuotes};'));
  assert(source.includes("Non-US quotes are collected on GitHub Actions every 20 minutes"));
  assert(source.includes('function yahooSymbol(r)'));
  assert(source.includes("IEX 24h"));
