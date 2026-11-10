@@ -1,11 +1,57 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-10T11:07:46Z",
-  "htmlReportCount": 21,
-  "uniqueTickers": 19,
-  "revision": "9f3984582a58bf07ed6e40c3c5d8e15f",
+  "latestHtmlReportAt": "2026-11-10T11:30:03Z",
+  "htmlReportCount": 22,
+  "uniqueTickers": 20,
+  "revision": "a544d6ee9a2fc351cbab09ce40fbcfe7",
   "rows": [
+    {
+      "company": "Schneider Electric SE",
+      "ticker": "SU.SIX",
+      "exchange": "SIX",
+      "bucket": "nonhalal",
+      "timestamp": "2026-11-10T11:30:03Z",
+      "statusOnly": true,
+      "action": "SCREENING ONLY — NO INVESTMENT REPORT",
+      "ownerAction": "RESEARCH SKIPPED",
+      "risk": "NOT RATED",
+      "investment": "NOT RATED",
+      "entry": "NOT RATED",
+      "musaffa": "NOT VERIFIED",
+      "earnings": "NOT RATED",
+      "zones": "NOT RATED",
+      "stops": "NOT RATED",
+      "nativeCurrency": "CHF",
+      "marketSchedule": {
+        "exchange": "SIX",
+        "mic": "XSWX",
+        "market_time_zone": "Europe/Zurich",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "17:20"
+          }
+        ],
+        "yahoo_ticker": "SU.SW",
+        "hours_source": "https://www.six-group.com/en/products-services/the-swiss-stock-exchange/trading/trading-provisions/trading-hours.html",
+        "hours_checked_utc": "2026-11-10T11:30:03Z"
+      },
+      "sourceMarketTicker": "SU.SW",
+      "zoneBands": [],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/SU.SIX/SU.SIX_2026-11-10_11-30-03Z.html",
+      "reportPath": "/view-report?path=nonhalal%2FSU.SIX%2FSU.SIX_2026-11-10_11-30-03Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "ABB Ltd",
       "ticker": "ABBN.SIX",
