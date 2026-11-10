@@ -1,4 +1,5 @@
 name: Refresh non-US market prices (private owner cache)
+# Bounded OIDC transport regression test
 
 on:
   push:
