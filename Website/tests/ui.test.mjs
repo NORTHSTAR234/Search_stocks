@@ -242,3 +242,11 @@ test("older international ticker suffixes are normalized before quote lookup and
   assert(source.includes('data.rows.map(normalizeListing)'));
   assert(source.includes('map.set(ticker,normalizeListing(r))'));
 });
+
+test("new international exchanges appear as filter options without a site code change",()=>{
+  assert(source.includes("function syncExchangeFilters()"));
+  assert(source.includes("state.rows.map(r=>String(r.exchange"));
+  assert(source.includes("option.textContent=exchange"));
+  assert(source.includes("syncExchangeFilters();"));
+  assert(source.includes('currency==="EUR"?"€"'));
+});
