@@ -1,11 +1,66 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-10T09:04:16Z",
-  "htmlReportCount": 20,
-  "uniqueTickers": 18,
-  "revision": "8976574c4a63518d576da4db98fb0f8e",
+  "latestHtmlReportAt": "2026-11-10T11:07:46Z",
+  "htmlReportCount": 21,
+  "uniqueTickers": 19,
+  "revision": "9f3984582a58bf07ed6e40c3c5d8e15f",
   "rows": [
+    {
+      "company": "ABB Ltd",
+      "ticker": "ABBN.SIX",
+      "exchange": "SIX",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T11:07:46Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "76/100",
+      "entry": "48/100",
+      "musaffa": "HALAL · PASS",
+      "earnings": "28 Jan 2027 confirmed",
+      "zones": "CHF 65–67 / CHF 67–70",
+      "stops": "CHF 61 / CHF 74.5",
+      "nativeCurrency": "CHF",
+      "marketSchedule": {
+        "exchange": "SIX",
+        "mic": "XSWX",
+        "market_time_zone": "Europe/Zurich",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "17:20"
+          }
+        ],
+        "yahoo_ticker": "ABBN.SW",
+        "hours_source": "https://www.six-group.com/en/products-services/the-swiss-stock-exchange/trading/trading-provisions/trading-hours.html",
+        "hours_checked_utc": "2026-11-10T11:07:46Z"
+      },
+      "sourceMarketTicker": "ABBN.SW",
+      "zoneBands": [
+        [
+          65,
+          67
+        ],
+        [
+          67,
+          70
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ABBN.SIX/ABBN.SIX_2026-11-10_11-07-46Z.html",
+      "reportPath": "/view-report?path=halal%2FABBN.SIX%2FABBN.SIX_2026-11-10_11-07-46Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Origin Energy Limited",
       "ticker": "ORG.ASX",
