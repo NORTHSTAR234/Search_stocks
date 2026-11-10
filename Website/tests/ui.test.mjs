@@ -23,11 +23,12 @@ assert(yahooSource,"Yahoo navigation symbol mapping must exist");
 const yahooSymbol=new Function("r",yahooSource[1]);
 test("Yahoo fallback maps only verified ASX, Taiwan and Malaysian listings",()=>{
   assert.equal(yahooSymbol({ticker:"ORG",exchange:"ASX"}),"ORG.AX");
+  assert.equal(yahooSymbol({ticker:"ORG.ASX",exchange:"ASX"}),"ORG.AX");
   assert.equal(yahooSymbol({ticker:"APA.AX",exchange:"ASX"}),"APA.AX");
   assert.equal(yahooSymbol({ticker:"2330.TW",exchange:"TWSE"}),"2330.TW");
   assert.equal(yahooSymbol({ticker:"1519.TW",exchange:"TWSE"}),"1519.TW");
   assert.equal(yahooSymbol({ticker:"1519.TWSE",exchange:"TWSE"}),"1519.TW");
-  assert.equal(yahooSymbol({ticker:"CBHB",exchange:"BURSA"}),"0339.KL");
+  assert.equal(yahooSymbol({ticker:"CBHB",exchange:"BURSA"}),null);
   assert.equal(yahooSymbol({ticker:"0339.KL",exchange:"BURSA"}),"0339.KL");
   assert.equal(yahooSymbol({ticker:"AAPL",exchange:"US"}),null);
   assert.equal(yahooSymbol({ticker:"UNKNOWN",exchange:"OTHER"}),null);
@@ -44,12 +45,12 @@ test("Quote scheduler refreshes every five minutes only while page is visible",(
   assert.match(source,/refresh every 5 minutes while this page is visible/);
 });
 
-test("Alpaca US and GitHub still check every five minutes with international polling disabled",()=>{
+test("US Alpaca refresh remains five minutes; owner-only delayed non-US cache is separate",()=>{
  assert(source.includes('retrieve("/api/prices",us,"Alpaca")'));
- assert(!source.includes('retrieve("/api/international-prices"'));
+ assert(source.includes('retrieve("/api/international-prices",international,"Personal Yahoo cache")'));
  assert(!source.includes('eodhdSymbols=new Set('));
  assert(source.includes('state.quotes=usQuotes;'));
- assert(source.includes("International automatic prices paused"));
+ assert(source.includes("Non-US quotes are collected on GitHub Actions every 20 minutes"));
  assert(source.includes('function yahooSymbol(r)'));
  assert(source.includes("IEX 24h"));
  assert.match(source,/setInterval\(\(\)=>\{if\(document\.visibilityState==="visible"\)checkAll\(\);\},300000\)/);
@@ -66,10 +67,10 @@ test("GitHub reports and Alpaca US prices refresh together every five minutes",(
  assert(source.includes('addEventListener("click",checkAll)'));
  assert(source.includes('Next check in 5 minutes'));
 });
-test("international quote links remain available when automated feed is paused",()=>{
+test("international quote links remain when the owner cache has no quote",()=>{
  assert(source.includes('View on Yahoo Finance (delayed)'));
- assert(source.includes('International auto-feed paused'));
- assert(!source.includes('retrieve("/api/international-prices"'));
+ assert(source.includes('No cached international quote'));
+ assert(source.includes('retrieve("/api/international-prices",international,"Personal Yahoo cache")'));
 });
 
 test("regular and overnight have distinct columns and signed price/percentage colors",()=>{
@@ -167,7 +168,7 @@ test("dashboard columns match specified new order and remove duplicate report co
  assert(source.includes("'<td>'+zoneCell(r,context)+'</td>'"));
  assert(source.includes("'<td>'+stopsCell(r)+'</td>'"));
  assert(source.includes('colspan="10"'));
- assert(source.includes('class="ticker" href='));
+ assert(source.includes('class="ticker'+active+'" href='));
 });
 test("a preferred or acceptable match lights only its own buy-zone card",()=>{
  assert(source.includes('function zonePosition(price,bands)'));
@@ -220,4 +221,12 @@ test("entry context describes only the correct relation for regular and overnigh
  assert(mixed.includes("Regular: inside preferred buy zone"));
  assert(mixed.includes("Overnight: inside acceptable buy zone"));
  assert.equal(insight(null,esc),"");
+});
+
+test("market-open glow follows Sydney-rendered exchange weekdays without market price inference",()=>{
+  assert(source.includes("function marketStatus(r,now=new Date())"));
+  assert(source.includes('timeZone:"Australia/Sydney"'));
+  assert(source.includes("zonedSessionTime(local,v.start,m.timeZone)"));
+  assert(source.includes('class="ticker'+active+'" href='));
+  assert(source.includes("setInterval(()=>{if(document.visibilityState===\"visible\")render();},60000)"));
 });
