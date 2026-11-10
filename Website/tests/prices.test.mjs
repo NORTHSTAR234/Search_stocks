@@ -13,7 +13,7 @@ test("price gateway denies nonauthenticated callers despite service binding",asy
   assert.equal(response.status,403);
 });
 
-test("retired international gateway does not call upstream or consume quota",async()=>{
+test("international private-cache gateway fails closed for unauthenticated visitors",async()=>{
  const {onRequestGet}=await import("../functions/api/international-prices.js");
  const unauth=new Request("https://owner.example/api/international-prices?symbols=ORG");
  const env={INTERNATIONAL_PRICE_PROVIDER:{fetch:()=>{throw Error("EODHD must never be called")}},
@@ -23,7 +23,9 @@ test("retired international gateway does not call upstream or consume quota",asy
  const code=await import("node:fs/promises").then(fs=>fs.readFile(new URL("../functions/api/international-prices.js",import.meta.url),"utf8"));
  assert(!code.includes("INTERNATIONAL_PRICE_PROVIDER.fetch"));
  assert(!code.includes("eodhd.com"));
- assert(code.includes('status:410'));
+ assert(code.includes("INTERNATIONAL_QUOTES.get"));
+ assert(code.includes("authenticatedOwner(request,env)"));
+ assert(code.includes("Cache-Control"));
 });
 
 test("US price gateway validates independent consolidated close and overnight feed",async()=>{
