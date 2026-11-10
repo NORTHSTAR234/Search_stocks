@@ -1,11 +1,66 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-09T21:28:35Z",
-  "htmlReportCount": 18,
-  "uniqueTickers": 16,
-  "revision": "7f16deb6959a1b5ebf8572094ce90423",
+  "latestHtmlReportAt": "2026-11-10T08:31:33Z",
+  "htmlReportCount": 19,
+  "uniqueTickers": 17,
+  "revision": "472e81c099d897f7222ad806664359c2",
   "rows": [
+    {
+      "company": "ASM International N.V.",
+      "ticker": "ASM.XAMS",
+      "exchange": "XAMS",
+      "bucket": "halal",
+      "timestamp": "2026-11-10T08:31:33Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "78/100",
+      "entry": "42/100",
+      "musaffa": "HALAL · A · 2026-11-04 · PASS",
+      "earnings": "23 Feb 2027 confirmed",
+      "zones": "UNKNOWN 610–640 / UNKNOWN 640–670",
+      "stops": "UNKNOWN 575 / UNKNOWN 740",
+      "nativeCurrency": "UNKNOWN",
+      "marketSchedule": {
+        "exchange": "XAMS",
+        "mic": "XAMS",
+        "market_time_zone": "Europe/Amsterdam",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "17:30"
+          }
+        ],
+        "yahoo_ticker": "ASM.AS",
+        "hours_source": "https://www.euronext.com/en/trading/trading-hours-holidays",
+        "hours_checked_utc": "2026-11-10T08:31:33Z"
+      },
+      "sourceMarketTicker": "ASM.AS",
+      "zoneBands": [
+        [
+          610,
+          640
+        ],
+        [
+          640,
+          670
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ASM.XAMS/ASM.XAMS_2026-11-10_08-31-33Z.html",
+      "reportPath": "/view-report?path=halal%2FASM.XAMS%2FASM.XAMS_2026-11-10_08-31-33Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Johnson & Johnson",
       "ticker": "JNJ",
