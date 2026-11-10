@@ -6,6 +6,14 @@
   const fmt=iso=>{try{return new Intl.DateTimeFormat("en-AU",{timeZone:"Australia/Sydney",day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",timeZoneName:"short"}).format(new Date(iso));}catch{return iso||"Unknown";}};
   const norm=s=>String(s??"").toUpperCase().replace(/[^A-Z0-9 ]/g," ").trim();
   const score=s=>{const m=String(s).match(/(\d{1,3})\s*\/\s*100/);return m?Number(m[1]):-1;};
+  function normalizeListing(row){
+    const ticker=String(row?.ticker||"").toUpperCase();
+    const suffix=ticker.includes(".")?ticker.split(".").at(-1):"";
+    const bySuffix={TWSE:"TWSE",TW:"TWSE",ASX:"ASX",AX:"ASX",MYX:"BURSA",KL:"BURSA",MY:"BURSA"};
+    const exchange=bySuffix[suffix];
+    return exchange&&row.exchange!==exchange?{...row,exchange}:row;
+  }
+
   // Visual score bands only, NOT a buy/sell verdict. The two grades stay independent.
   const scoreTone=value=>{
     const n=score(value);
@@ -115,7 +123,7 @@
     if(!q){
       const symbol=yahooSymbol(r);
       const link=symbol?'<small><a href="https://finance.yahoo.com/quote/'+encodeURIComponent(symbol)+'/" target="_blank" rel="noopener noreferrer">View on Yahoo Finance (delayed) ↗</a></small>':"";
-      return '<span class="muted">PRICE UNAVAILABLE</span><small>'+(r.exchange==="US"?"No verified Alpaca":"No cached international quote")+' quote</small>'+link;
+      return '<span class="muted">PRICE UNAVAILABLE</span><small>'+(r.exchange==="US"?"No verified Alpaca quote":"No cached international quote yet")+'</small>'+link;
     }
     const currency=q.currency;
     if(q.feed==="IEX"&&q.regularClose&&Number(q.regularClose.price)>0){
@@ -357,7 +365,7 @@
         const ticker=r.ticker.toUpperCase(),old=map.get(ticker);
         if(!old||r.timestamp>old.timestamp||
           r.timestamp===old.timestamp&&(old.sourceFormat!=="html"||JSON.stringify(old)!==JSON.stringify(r))){
-          map.set(ticker,r);
+          map.set(ticker,normalizeListing(r));
           changed++;
         }
       }
@@ -392,7 +400,7 @@
       const res=await fetch("/data/reports.json",{cache:"no-store"});
       if(!res.ok)throw Error("Archive index HTTP "+res.status);
       const data=await res.json();
-      state.rows=Array.isArray(data.rows)?data.rows:[];
+      state.rows=Array.isArray(data.rows)?data.rows.map(normalizeListing):[];
       state.generatedAt=data.generatedAt;
       try{
         const marketRes=await fetch("/data/market-exchanges.json",{cache:"no-store"});
