@@ -18,6 +18,10 @@ on:
       - 'Website/tests/build.test.mjs'
       - 'Website/build.mjs'
       - 'Website/tests/prices.test.mjs'
+      - 'Website/tests/github-sync.test.mjs'
+      - 'Website/lib/github-archive.mjs'
+      - 'Website/functions/api/github-reports.js'
+      - 'Website/functions/view-report.js'
       - '.github/workflows/publish-html-reports.yml'
   workflow_dispatch:
 
