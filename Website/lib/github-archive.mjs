@@ -59,7 +59,7 @@ export function latestHtmlPaths(tree,parseArchiveInfo,chooseLatest){
 }
 export async function githubTree(fetcher=fetch,now=Date.now(),credential=null){
  const token=privateToken(credential),mode=scope(token),cached=trees.get(mode);
- if(cached&&now-cached.checkedAt<240000)return cached.value;
+ if(!token&&cached&&now-cached.checkedAt<240000)return cached.value;
  const response=await fetcher(TREE,{method:"GET",headers:headers(token),
     redirect:"manual",signal:AbortSignal.timeout(12000)});
  if(!response.ok)throw Error("GitHub tree HTTP "+response.status);
@@ -68,7 +68,7 @@ export async function githubTree(fetcher=fetch,now=Date.now(),credential=null){
     typeof json.sha!=="string"||!safeSha(json.sha))
    throw Error("GitHub tree incomplete");
  const value={treeSha:json.sha,files:json.tree};
- trees.set(mode,{value,checkedAt:now});
+ if(!token)trees.set(mode,{value,checkedAt:now});
  return value;
 }
 export async function githubHtml(path,sha="",fetcher=fetch,credential=null){
@@ -82,12 +82,14 @@ export async function githubHtml(path,sha="",fetcher=fetch,credential=null){
    // archived reports must not be fetched using an obsolete blob ref.
    if(sha&&sha!==item.sha)throw Error("Private archived report ref mismatch");
    const cacheKey=mode+":"+item.sha;
-   if(blobCache.has(cacheKey))return blobCache.get(cacheKey);
+   // Never share auth-mode private blobs between credentials or requests.
+   // Private reads remain lightweight and fail closed on token revocation.
    const raw=await gitBlob(item.sha,token,fetcher,2200000);
    if(!/<html\b/i.test(raw)||!/<body\b/i.test(raw))
       throw Error("Invalid GitHub HTML archive");
    if(blobCache.size>220)blobCache.clear();
-   blobCache.set(cacheKey,raw);
+   // No cross-credential private cache.
+
    return raw;
  }
  const key=mode+":"+(safeSha(sha)?sha:path);
@@ -109,7 +111,7 @@ export async function githubHtml(path,sha="",fetcher=fetch,credential=null){
 export async function githubManifest(fetcher=fetch,now=Date.now(),credential=null){
  const token=privateToken(credential),mode=scope(token);
  const cached=manifests.get(mode);
- if(cached&&now-cached.checkedAt<210000)return cached.data;
+ if(!token&&cached&&now-cached.checkedAt<210000)return cached.data;
  let data;
  if(token){
    const tree=await githubTree(fetcher,now,token);
@@ -145,6 +147,6 @@ export async function githubManifest(fetcher=fetch,now=Date.now(),credential=nul
  }
  const next={revision:data.revision,rows:verified,htmlReportCount:data.htmlReportCount,
    latestHtmlReportAt:data.latestHtmlReportAt||null};
- manifests.set(mode,{data:next,checkedAt:now});
+ if(!token)manifests.set(mode,{data:next,checkedAt:now});
  return next;
 }
