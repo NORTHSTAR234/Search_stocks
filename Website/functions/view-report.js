@@ -8,7 +8,8 @@ export async function onRequestGet({request,env}){
  const info=archiveInfo(path);
  if(!info||info.format!=="html")return new Response("Invalid report identity",{status:400});
  try{
-  const raw=await githubHtml(path);
+  // GitHub's fine-grained read-only token is server-side only, for private cutover.
+  const raw=await githubHtml(path,"",fetch,env.GITHUB_READ_TOKEN||null);
   const safe=safeHtmlDocument(info,raw);
   return new Response(safe,{status:200,headers:{
    "Content-Type":"text/html; charset=utf-8","Cache-Control":"private, no-store",
