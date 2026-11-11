@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-11T00:02:54Z",
-  "htmlReportCount": 51,
+  "latestHtmlReportAt": "2026-11-11T01:07:33Z",
+  "htmlReportCount": 52,
   "uniqueTickers": 24,
-  "revision": "27e63de8c863ba02d17d83802f1756ff",
+  "revision": "22a56f97d20ad478749175437b629f5b",
   "rows": [
     {
       "company": "Schneider Electric SE",
       "ticker": "SU.SIX",
       "exchange": "SIX",
       "bucket": "halal",
-      "timestamp": "2026-11-11T00:02:54Z",
+      "timestamp": "2026-11-11T01:07:33Z",
       "statusOnly": false,
       "action": "WATCH",
       "ownerAction": "HOLD",
@@ -43,12 +43,12 @@
         ],
         "yahoo_ticker": "SU.SW",
         "hours_source": "https://www.six-group.com/en/products-services/the-swiss-stock-exchange/trading/trading-provisions/trading-hours.html",
-        "hours_checked_utc": "2026-11-11T00:02:54Z"
+        "hours_checked_utc": "2026-11-11T01:07:33Z"
       },
       "sourceMarketTicker": "SU.SW",
       "zoneBands": [],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/SU.SIX/SU.SIX_2026-11-11_00-02-54Z.html",
-      "reportPath": "/view-report?path=halal%2FSU.SIX%2FSU.SIX_2026-11-11_00-02-54Z.html",
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/SU.SIX/SU.SIX_2026-11-11_01-07-33Z.html",
+      "reportPath": "/view-report?path=halal%2FSU.SIX%2FSU.SIX_2026-11-11_01-07-33Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
