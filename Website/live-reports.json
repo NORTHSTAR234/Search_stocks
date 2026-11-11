@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
   "latestHtmlReportAt": "2026-11-11T04:02:22Z",
-  "htmlReportCount": 53,
-  "uniqueTickers": 25,
-  "revision": "3a9b4e506d4c270847d175f7f00a6896",
+  "htmlReportCount": 49,
+  "uniqueTickers": 24,
+  "revision": "1f435047422c67438ce980fb599b5138",
   "rows": [
     {
       "company": "Schneider Electric SE",
@@ -58,52 +58,6 @@
       ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/SU.PA/SU.PA_2026-11-11_04-02-22Z.html",
       "reportPath": "/view-report?path=halal%2FSU.PA%2FSU.PA_2026-11-11_04-02-22Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "Schneider Electric SE",
-      "ticker": "SU.SIX",
-      "exchange": "SIX",
-      "bucket": "halal",
-      "timestamp": "2026-11-11T01:07:33Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH — Swiss listing liquidity",
-      "investment": "73/100",
-      "entry": "NOT RATED",
-      "musaffa": "OWNER-ATTESTED TEMPORARY EXCEPTION",
-      "earnings": "18 Feb 2027 estimated",
-      "zones": "NOT RATED",
-      "stops": "NOT RATED",
-      "nativeCurrency": "CHF",
-      "marketSchedule": {
-        "exchange": "SIX",
-        "mic": "XSWX",
-        "market_time_zone": "Europe/Zurich",
-        "sydney_time_zone": "Australia/Sydney",
-        "weekdays": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "sessions": [
-          {
-            "start": "09:00",
-            "end": "17:20"
-          }
-        ],
-        "yahoo_ticker": "SU.SW",
-        "hours_source": "https://www.six-group.com/en/products-services/the-swiss-stock-exchange/trading/trading-provisions/trading-hours.html",
-        "hours_checked_utc": "2026-11-11T01:07:33Z"
-      },
-      "sourceMarketTicker": "SU.SW",
-      "zoneBands": [],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/SU.SIX/SU.SIX_2026-11-11_01-07-33Z.html",
-      "reportPath": "/view-report?path=halal%2FSU.SIX%2FSU.SIX_2026-11-11_01-07-33Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
