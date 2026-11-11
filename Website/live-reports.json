@@ -1,11 +1,135 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-11T13:05:07Z",
-  "htmlReportCount": 54,
-  "uniqueTickers": 26,
-  "revision": "09d83bbfd921e5bf0d018786cb93d72f",
+  "latestHtmlReportAt": "2026-11-11T13:06:04Z",
+  "htmlReportCount": 56,
+  "uniqueTickers": 28,
+  "revision": "244a5aed078242b8ccffa120d5299dd1",
   "rows": [
+    {
+      "company": "Micro-Star International Co., Ltd.",
+      "ticker": "2377.TWSE",
+      "exchange": "TWSE",
+      "bucket": "nonhalal",
+      "timestamp": "2026-11-11T13:06:04Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "61/100",
+      "entry": "43/100",
+      "musaffa": "HALAL · B · 2026-02-12 · STALE",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "STALE",
+      "musaffaScreeningDate": "2026-02-12",
+      "musaffaScreeningPeriod": null,
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "INCONCLUSIVE",
+      "musaffaReason": "Detailed page carries February 12 2026 screening grade B; newer official indexed listing states HALAL as of November 2026 without verifiable detailed grading/screening record; fre…",
+      "earnings": "NOT VERIFIED",
+      "zones": "TWD 126–133 / TWD 134–141",
+      "stops": "TWD 119 / TWD 154",
+      "nativeCurrency": "TWD",
+      "marketSchedule": {
+        "exchange": "TWSE",
+        "mic": "XTAI",
+        "market_time_zone": "Asia/Taipei",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "13:30"
+          }
+        ],
+        "yahoo_ticker": "2377.TW",
+        "hours_source": "https://www.twse.com.tw/en/products/system/trading.html",
+        "hours_checked_utc": "2026-11-11T13:06:04Z"
+      },
+      "sourceMarketTicker": "2377.TW",
+      "zoneBands": [
+        [
+          126,
+          133
+        ],
+        [
+          134,
+          141
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/2377.TWSE/2377.TWSE_2026-11-11_13-06-04Z.html",
+      "reportPath": "/view-report?path=nonhalal%2F2377.TWSE%2F2377.TWSE_2026-11-11_13-06-04Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
+    {
+      "company": "MediaTek Inc.",
+      "ticker": "2454.TWSE",
+      "exchange": "TWSE",
+      "bucket": "halal",
+      "timestamp": "2026-11-11T13:05:57Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "67/100",
+      "entry": "32/100",
+      "musaffa": "HALAL · 2026-10 (month) · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": "2026-10",
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "VERIFIED_HALAL",
+      "musaffaReason": "Official exact-listing Musaffa indexed page says HALAL as of October 2026, AAOIFI; screen day unspecified; the entire month is within the four-calendar-month cutoff. A separately…",
+      "earnings": "28 Jan 2027 estimated",
+      "zones": "TWD 3,450–3,650 / TWD 3,660–3,800",
+      "stops": "TWD 3,250 / TWD 4,150",
+      "nativeCurrency": "TWD",
+      "marketSchedule": {
+        "exchange": "TWSE",
+        "mic": "XTAI",
+        "market_time_zone": "Asia/Taipei",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "13:30"
+          }
+        ],
+        "yahoo_ticker": "2454.TW",
+        "hours_source": "https://www.twse.com.tw/en/products/system/trading.html",
+        "hours_checked_utc": "2026-11-11T13:05:57Z"
+      },
+      "sourceMarketTicker": "2454.TW",
+      "zoneBands": [
+        [
+          3450,
+          3650
+        ],
+        [
+          3660,
+          3800
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/2454.TWSE/2454.TWSE_2026-11-11_13-05-57Z.html",
+      "reportPath": "/view-report?path=halal%2F2454.TWSE%2F2454.TWSE_2026-11-11_13-05-57Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "King Yuan Electronics Co., Ltd.",
       "ticker": "2449.TWSE",
