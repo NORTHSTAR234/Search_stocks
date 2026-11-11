@@ -1,11 +1,114 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-11T04:02:22Z",
-  "htmlReportCount": 49,
+  "latestHtmlReportAt": "2026-11-11T13:01:25Z",
+  "htmlReportCount": 51,
   "uniqueTickers": 24,
-  "revision": "55f483fc61b92cbb65add257d0847359",
+  "revision": "68d0edea19d2821b68dfcd758b2a9eb9",
   "rows": [
+    {
+      "company": "ASM International N.V.",
+      "ticker": "ASM.XAMS",
+      "exchange": "XAMS",
+      "bucket": "halal",
+      "timestamp": "2026-11-11T13:01:25Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "78/100",
+      "entry": "35/100",
+      "musaffa": "HALAL · A · 2026-11-04 · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
+      "musaffaScreeningDate": "2026-11-04",
+      "musaffaScreeningPeriod": null,
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "VERIFIED_HALAL",
+      "musaffaReason": null,
+      "earnings": "23 Feb 2027 confirmed",
+      "zones": "EUR 610–640 / EUR 640–670",
+      "stops": "EUR 575 / EUR 740",
+      "nativeCurrency": "EUR",
+      "marketSchedule": {
+        "exchange": "XAMS",
+        "mic": "XAMS",
+        "market_time_zone": "Europe/Amsterdam",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "17:30"
+          }
+        ],
+        "yahoo_ticker": "ASM.AS",
+        "hours_source": "https://www.euronext.com/en/trading/trading-hours-holidays",
+        "hours_checked_utc": "2026-11-11T13:01:25Z"
+      },
+      "sourceMarketTicker": "ASM.AS",
+      "zoneBands": [
+        [
+          610,
+          640
+        ],
+        [
+          640,
+          670
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ASM.XAMS/ASM.XAMS_2026-11-11_13-01-25Z.html",
+      "reportPath": "/view-report?path=halal%2FASM.XAMS%2FASM.XAMS_2026-11-11_13-01-25Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
+    {
+      "company": "NVIDIA Corporation",
+      "ticker": "NVDA",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-11T13:01:09Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "78/100",
+      "entry": "55/100",
+      "musaffa": "HALAL · A · 2026-09-19 · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
+      "musaffaScreeningDate": "2026-09-19",
+      "musaffaScreeningPeriod": null,
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "VERIFIED_HALAL",
+      "musaffaReason": "Official exact NVDA listing HALAL A, screening dated 19 Sep 2026, within UTC 4-month cutoff 11 Jul 2026",
+      "earnings": "17 Nov 2026 confirmed",
+      "zones": "US$155–165 / US$166–175",
+      "stops": "US$144 / US$185",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "NVDA",
+      "zoneBands": [
+        [
+          155,
+          165
+        ],
+        [
+          166,
+          175
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/NVDA/NVDA_2026-11-11_13-01-09Z.html",
+      "reportPath": "/view-report?path=halal%2FNVDA%2FNVDA_2026-11-11_13-01-09Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Schneider Electric SE",
       "ticker": "SU.PA",
@@ -65,109 +168,6 @@
       ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/SU.PA/SU.PA_2026-11-11_04-02-22Z.html",
       "reportPath": "/view-report?path=halal%2FSU.PA%2FSU.PA_2026-11-11_04-02-22Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "ASM International N.V.",
-      "ticker": "ASM.XAMS",
-      "exchange": "XAMS",
-      "bucket": "halal",
-      "timestamp": "2026-11-10T23:32:38Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "78/100",
-      "entry": "44/100",
-      "musaffa": "HALAL · A · 2026-11-04 · PASS",
-      "musaffaClassification": "HALAL",
-      "musaffaGate": "PASS",
-      "musaffaScreeningDate": "2026-11-04",
-      "musaffaScreeningPeriod": null,
-      "musaffaScreeningMonthConflict": false,
-      "musaffaAssessment": null,
-      "musaffaReason": null,
-      "earnings": "23 Feb 2027 confirmed",
-      "zones": "EUR 610–640 / EUR 640–670",
-      "stops": "EUR 575 / EUR 740",
-      "nativeCurrency": "EUR",
-      "marketSchedule": {
-        "exchange": "XAMS",
-        "mic": "XAMS",
-        "market_time_zone": "Europe/Amsterdam",
-        "sydney_time_zone": "Australia/Sydney",
-        "weekdays": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "sessions": [
-          {
-            "start": "09:00",
-            "end": "17:30"
-          }
-        ],
-        "yahoo_ticker": "ASM.AS",
-        "hours_source": "https://www.euronext.com/en/trading/trading-hours-holidays",
-        "hours_checked_utc": "2026-11-10T23:32:38Z"
-      },
-      "sourceMarketTicker": "ASM.AS",
-      "zoneBands": [
-        [
-          610,
-          640
-        ],
-        [
-          640,
-          670
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ASM.XAMS/ASM.XAMS_2026-11-10_23-32-38Z.html",
-      "reportPath": "/view-report?path=halal%2FASM.XAMS%2FASM.XAMS_2026-11-10_23-32-38Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "NVIDIA Corporation",
-      "ticker": "NVDA",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-10T22:44:22Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "78/100",
-      "entry": "55/100",
-      "musaffa": "HALAL · A · 2026-09-19 · PASS",
-      "musaffaClassification": "HALAL",
-      "musaffaGate": "PASS",
-      "musaffaScreeningDate": "2026-09-19",
-      "musaffaScreeningPeriod": null,
-      "musaffaScreeningMonthConflict": false,
-      "musaffaAssessment": null,
-      "musaffaReason": null,
-      "earnings": "17 Nov 2026 confirmed",
-      "zones": "US$155–165 / US$166–175",
-      "stops": "US$144 / US$185",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "NVDA",
-      "zoneBands": [
-        [
-          155,
-          165
-        ],
-        [
-          166,
-          175
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/NVDA/NVDA_2026-11-10_22-44-22Z.html",
-      "reportPath": "/view-report?path=halal%2FNVDA%2FNVDA_2026-11-10_22-44-22Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
