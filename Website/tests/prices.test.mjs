@@ -70,3 +70,17 @@ test("regular session change uses actual previous close, never overnight base",a
  assert.equal(q.regularClose.regularChangeAmount,-3.22);
  assert(Math.abs(q.regularClose.regularChangePercent+0.491)<0.001);
 });
+
+test("private Yahoo quote receiver accepts exact Yahoo ticker when archive suffix differs from MIC",async()=>{
+ const {readFileSync}=await import("node:fs");
+ const text=readFileSync(new URL("../worker/international-quote-ingest.js",import.meta.url),"utf8");
+ const functionText=text.slice(text.indexOf("function cleanQuote("),text.indexOf("\nexport default"));
+ const cleanQuote=new Function(functionText+"; return cleanQuote;")();
+ const now=Date.parse("2026-11-11T04:35:00Z");
+ const sample={price:244.12,currency:"EUR",asOf:"2026-11-11T04:15:00Z",
+   exchange:"XPAR",sourceSymbol:"SU.PA",feed:"YFINANCE_YAHOO_5M_BAR_DELAYED",previousClose:241.8};
+ assert.equal(cleanQuote("SU.PA",sample,now)?.currency,"EUR");
+ assert.equal(cleanQuote("SU.PA",{...sample,sourceSymbol:"OTHER.PA"},now),null);
+ assert.equal(cleanQuote("ORG.ASX",{...sample,exchange:"ASX",sourceSymbol:"ORG.AX",currency:"AUD"},now)?.exchange,"ASX");
+ assert.equal(cleanQuote("SU.PA",{...sample,asOf:"2026-09-01T00:00:00Z"},now),null);
+});
