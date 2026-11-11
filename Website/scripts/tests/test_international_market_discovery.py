@@ -94,6 +94,34 @@ class MarketSelfDiscovery(unittest.TestCase):
         self.assertEqual(markets["LSE"]["mic"],"XLON")
         self.assertEqual(markets["LSE"]["yahooSuffix"],".L")
         self.assertEqual(markets["LSE"]["currency"],"GBP")
+    def test_paris_archive_suffix_is_not_exchange_identifier(self):
+        row=snapshot(ticker="SU.PA",source_market_ticker="SU.PA",
+                     exchange="XPAR",currency="EUR")
+        row["market_schedule"]={**row["market_schedule"],
+            "exchange":"XPAR","mic":"XPAR",
+            "market_time_zone":"Europe/Paris",
+            "yahoo_ticker":"SU.PA",
+            "hours_source":"https://www.euronext.com/en/trading/trading-hours-holidays"}
+        self.add("SU.PA",row)
+        available=module.report_markets(self.registry)
+        self.assertIn("XPAR",available)
+        self.assertNotIn("PA",available)
+        local_session=dt.datetime(2026,11,11,12,10,tzinfo=dt.timezone.utc)
+        opened=module.open_markets(self.registry,local_session)
+        self.assertIn("XPAR",opened)
+        result=module.discover(self.registry,opened)
+        self.assertEqual(result["SU.PA"]["yahoo"],"SU.PA")
+        self.assertEqual(result["SU.PA"]["exchange"],"XPAR")
+        self.assertEqual(result["SU.PA"]["currency"],"EUR")
+
+    def test_mismatching_provider_identity_is_rejected_for_suffix_mismatch(self):
+        row=snapshot(ticker="SU.PA",source_market_ticker="BAD.PA",exchange="XPAR")
+        row["market_schedule"]={**row["market_schedule"],
+            "exchange":"XPAR","mic":"XPAR","market_time_zone":"Europe/Paris",
+            "yahoo_ticker":"SU.PA"}
+        self.add("SU.PA",row)
+        self.assertNotIn("XPAR",module.report_markets(self.registry))
+
     def test_us_alpaca_not_selected_by_international_collector(self):
         self.assertEqual(module.report_markets(self.registry)["US"]["priceSource"],"alpaca")
         self.assertEqual(module.open_markets(self.registry,dt.datetime(2026,11,10,14,30,tzinfo=dt.timezone.utc)),{})
