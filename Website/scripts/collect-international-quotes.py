@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Scheduled owner-personal international prices via yfinance/Yahoo.
 
+Market identity is obtained from the verified HTML market_schedule, never from
+a Yahoo ticker suffix alone (e.g. canonical SU.PA is MIC XPAR).
 Runs only when one or more configured exchanges are in a normal weekday session.
 Discovers any number of international tickers by their canonical archive folders.
 Quotes are POSTed to a private Cloudflare KV cache using signed GitHub OIDC.
