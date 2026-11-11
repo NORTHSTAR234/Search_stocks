@@ -1,11 +1,73 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-11T13:06:04Z",
-  "htmlReportCount": 56,
-  "uniqueTickers": 28,
-  "revision": "244a5aed078242b8ccffa120d5299dd1",
+  "latestHtmlReportAt": "2026-11-11T13:14:44Z",
+  "htmlReportCount": 57,
+  "uniqueTickers": 29,
+  "revision": "fc72377678d1b86fc3c7974ec1f8aa0d",
   "rows": [
+    {
+      "company": "Elite Material Co., Ltd.",
+      "ticker": "2383.TWSE",
+      "exchange": "TWSE",
+      "bucket": "halal",
+      "timestamp": "2026-11-11T13:14:44Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "74/100",
+      "entry": "30/100",
+      "musaffa": "HALAL · 2026-10 (month) · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": "2026-10",
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "VERIFIED_HALAL",
+      "musaffaReason": "Exact official listing 2383.TW shows HALAL as of October 2026. October 1 is more recent than the four-month cutoff; exact day and grade not published.",
+      "earnings": "NOT VERIFIED",
+      "zones": "TWD 4,000–4,200 / TWD 4,250–4,350",
+      "stops": "TWD 3,500 / TWD 4,700",
+      "nativeCurrency": "TWD",
+      "marketSchedule": {
+        "exchange": "TWSE",
+        "mic": "XTAI",
+        "market_time_zone": "Asia/Taipei",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "13:30"
+          }
+        ],
+        "yahoo_ticker": "2383.TW",
+        "hours_source": "https://twse-regulation.twse.com.tw/ENG/EN/law/DOC01.aspx?FLCODE=fl007304&FLNO=3",
+        "hours_checked_utc": "2026-11-11T13:14:44Z"
+      },
+      "sourceMarketTicker": "2383.TW",
+      "zoneBands": [
+        [
+          4000,
+          4200
+        ],
+        [
+          4250,
+          4350
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/2383.TWSE/2383.TWSE_2026-11-11_13-14-44Z.html",
+      "reportPath": "/view-report?path=halal%2F2383.TWSE%2F2383.TWSE_2026-11-11_13-14-44Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Micro-Star International Co., Ltd.",
       "ticker": "2377.TWSE",
