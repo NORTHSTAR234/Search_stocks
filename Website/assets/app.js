@@ -377,6 +377,20 @@
       }
       if(!Array.isArray(data.rows))throw Error("Invalid GitHub report index");
       const map=new Map(state.rows.map(r=>[r.ticker.toUpperCase(),r]));
+      const incomingHtml=new Set(data.rows.filter(r=>r&&r.sourceFormat==="html"&&typeof r.ticker==="string")
+        .map(r=>r.ticker.toUpperCase()));
+      // GitHub HTML index is authoritative for archived HTML reports. A deleted
+      // ticker must disappear even from an already-open tab; older Markdown
+      // reports remain available through the static build.
+      if(!Array.isArray(data.errors)||!data.errors.length){
+        for(const [ticker,row] of map){
+          if(row.sourceFormat==="html"&&!incomingHtml.has(ticker)){
+            map.delete(ticker);
+            delete state.quotes[ticker];
+            changed++;
+          }
+        }
+      }
       for(const r of data.rows){
         if(!r||typeof r.ticker!=="string"||typeof r.timestamp!=="string"||r.sourceFormat!=="html")continue;
         const ticker=r.ticker.toUpperCase(),old=map.get(ticker);
