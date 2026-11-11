@@ -13,8 +13,15 @@ on:
       - 'Website/market-exchanges.json'
       - 'Website/scripts/collect-international-quotes.py'
       - '.github/workflows/refresh-international-prices.yml'
+  # UTC covered by the currently tracked ASX/TWSE/MYX/XAMS/XPAR/SIX
+  # regular sessions across Sydney and European daylight-saving changes.
+  # The collector still checks exact exchange-local weekdays and hours.
+  # If an exchange outside this coverage is later added, review this window.
+  # 23:00 UTC Sun-Thu covers 10:00 AEDT Mon-Fri ASX opening.
+  # 00:00-16:59 UTC Mon-Fri covers Asian through European closes.
   schedule:
-    - cron: '*/20 * * * *'
+    - cron: '*/20 23 * * 0-4'
+    - cron: '*/20 0-16 * * 1-5'
   workflow_dispatch:
     inputs:
       bootstrap:
