@@ -1,11 +1,73 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-11T13:01:25Z",
-  "htmlReportCount": 52,
+  "latestHtmlReportAt": "2026-11-11T13:04:43Z",
+  "htmlReportCount": 53,
   "uniqueTickers": 25,
-  "revision": "ad83a0bd8a6fd983fd09edcfcf95723c",
+  "revision": "e6eccdc30ddf1313d206e11c2cd252a3",
   "rows": [
+    {
+      "company": "Schneider Electric SE",
+      "ticker": "SU.PA",
+      "exchange": "XPAR",
+      "bucket": "halal",
+      "timestamp": "2026-11-11T13:04:43Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "72/100",
+      "entry": "50/100",
+      "musaffa": "HALAL · 2026-10 (month) · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": "2026-10",
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "VERIFIED_HALAL",
+      "musaffaReason": "Musaffa exact SU.PA HALAL as of October 2026, grade/day not independently available; older cached August also eligible",
+      "earnings": "18 Feb 2027 confirmed",
+      "zones": "EUR 220–228 / EUR 229–236",
+      "stops": "EUR 210 / EUR 248",
+      "nativeCurrency": "EUR",
+      "marketSchedule": {
+        "exchange": "XPAR",
+        "mic": "XPAR",
+        "market_time_zone": "Europe/Paris",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "17:30"
+          }
+        ],
+        "yahoo_ticker": "SU.PA",
+        "hours_source": "https://www.euronext.com/sites/default/files/2025-05/ENX_AVD_Two-pager_060525%20%281%29.pdf",
+        "hours_checked_utc": "2026-11-11T13:04:43Z"
+      },
+      "sourceMarketTicker": "SU.PA",
+      "zoneBands": [
+        [
+          220,
+          228
+        ],
+        [
+          229,
+          236
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/SU.PA/SU.PA_2026-11-11_13-04-43Z.html",
+      "reportPath": "/view-report?path=halal%2FSU.PA%2FSU.PA_2026-11-11_13-04-43Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "ASM International N.V.",
       "ticker": "ASM.XAMS",
@@ -168,68 +230,6 @@
       ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/APA.ASX/APA.ASX_2026-11-11_13-00-04Z.html",
       "reportPath": "/view-report?path=nonhalal%2FAPA.ASX%2FAPA.ASX_2026-11-11_13-00-04Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "Schneider Electric SE",
-      "ticker": "SU.PA",
-      "exchange": "XPAR",
-      "bucket": "halal",
-      "timestamp": "2026-11-11T04:02:22Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "72/100",
-      "entry": "55/100",
-      "musaffa": "HALAL · 2026-10 (month) · PASS",
-      "musaffaClassification": "HALAL",
-      "musaffaGate": "PASS",
-      "musaffaScreeningDate": null,
-      "musaffaScreeningPeriod": "2026-10",
-      "musaffaScreeningMonthConflict": false,
-      "musaffaAssessment": null,
-      "musaffaReason": null,
-      "earnings": "18 Feb 2027 confirmed",
-      "zones": "EUR 220–228 / EUR 229–236",
-      "stops": "EUR 210 / EUR 248",
-      "nativeCurrency": "EUR",
-      "marketSchedule": {
-        "exchange": "XPAR",
-        "mic": "XPAR",
-        "market_time_zone": "Europe/Paris",
-        "sydney_time_zone": "Australia/Sydney",
-        "weekdays": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "sessions": [
-          {
-            "start": "09:00",
-            "end": "17:30"
-          }
-        ],
-        "yahoo_ticker": "SU.PA",
-        "hours_source": "https://www.euronext.com/sites/default/files/2025-05/ENX_AVD_Two-pager_060525%20%281%29.pdf",
-        "hours_checked_utc": "2026-11-11T04:02:22Z"
-      },
-      "sourceMarketTicker": "SU.PA",
-      "zoneBands": [
-        [
-          220,
-          228
-        ],
-        [
-          229,
-          236
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/SU.PA/SU.PA_2026-11-11_04-02-22Z.html",
-      "reportPath": "/view-report?path=halal%2FSU.PA%2FSU.PA_2026-11-11_04-02-22Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
