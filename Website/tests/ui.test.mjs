@@ -299,3 +299,43 @@ test("SU.PA month-only Musaffa screen is green when recent, amber when stale or 
   assert.deepEqual(classify({...screen,musaffaScreeningPeriod:null},new Date("2026-11-11T12:00:00Z")),
     {tone:"warn",label:"INCONCLUSIVE"});
 });
+
+
+test("US regular session promotes fresh IEX observed trade ahead of old SIP close",()=>{
+ const match=source.match(/function usSessionQuote\(r,q,now=new Date\(\)\)\{([\s\S]*?)\n  \}/);
+ assert(match,"US quote presentation helper must be independently testable");
+ const classify=new Function("r","q","now","marketStatus","marketParts",match[1]);
+ const parts=(date,zone)=>{
+   const p=new Intl.DateTimeFormat("en-GB",{timeZone:zone,year:"numeric",month:"2-digit",
+     day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(date);
+   return Object.fromEntries(p.filter(x=>x.type!=="literal").map(x=>[x.type,Number(x.value)]));
+ };
+ const marketStatus=()=>({open:true});
+ const now=new Date("2026-11-11T19:42:00Z"); // 12 Nov 06:42 AEDT / NY 14:42
+ const q={feed:"IEX",price:175.41,asOf:"2026-11-11T19:40:00Z",
+   regularClose:{price:168.89,sessionDate:"2026-11-10"}};
+ const active=classify({ticker:"NVDA",exchange:"US"},q,now,marketStatus,parts);
+ assert.equal(active.open,true);
+ assert.equal(active.fresh,true);
+ assert.equal(active.ageMinutes,2);
+ assert.equal(active.comparison.amount,6.52);
+ assert(Math.abs(active.comparison.percent-3.861)<0.01);
+ const stale=classify({ticker:"NVDA",exchange:"US"},
+   {...q,asOf:"2026-11-10T20:45:00Z"},now,marketStatus,parts);
+ assert.equal(stale.fresh,false);
+ const oldClose=classify({ticker:"NVDA",exchange:"US"},
+   {...q,regularClose:{price:160.1,sessionDate:"2026-10-15"}},now,marketStatus,parts);
+ assert.equal(oldClose.comparison,null);
+ const post=classify({ticker:"NVDA",exchange:"US"},q,now,()=>({open:false}),parts);
+ assert.equal(post.open,false);
+});
+test("active-session columns show IEX first and hide old pre-market indications",()=>{
+ assert(source.includes("Latest observed IEX trade · current US session"));
+ assert(source.includes("Last IEX observation · not recent"));
+ assert(source.includes("Previous regular close (delayed SIP): "));
+ assert(source.includes("Current IEX vs previous regular close"));
+ assert(source.includes("Current-session IEX comparison unavailable"));
+ assert(source.includes("90*60000"));
+ assert(source.includes("session.fresh?{label:\"Latest IEX\",price:Number(q.price)}"));
+ assert(source.includes("US Alpaca IEX latest trades checked every 5 minutes while visible"));
+});
