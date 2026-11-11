@@ -137,6 +137,7 @@
     const previous=q.regularClose;
     const closeIsPrevious=previous&&typeof previous.sessionDate==="string"&&
       /^\d{4}-\d{2}-\d{2}$/.test(previous.sessionDate)&&previous.sessionDate<today&&
+      Date.parse(today+"T00:00:00Z")-Date.parse(previous.sessionDate+"T00:00:00Z")<=5*86400000&&
       Number.isFinite(Number(previous.price))&&Number(previous.price)>0;
     const comparison=closeIsPrevious?{
       amount:Math.round((Number(q.price)-Number(previous.price))*100)/100,
