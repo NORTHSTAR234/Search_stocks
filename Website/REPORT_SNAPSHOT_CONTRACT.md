@@ -1,6 +1,6 @@
 # Search_stock HTML Snapshot Contract v2 (canonical keys)
 
-The **single canonical, machine-readable field contract** for every **new** Search_stock HTML archive. GitHub Actions reads it through `Website/lib/report-archive.mjs` and produces `Website/live-reports.json`. This document is shared by the website parser, the GitHub `Aya_Prompt.md` and the private `Search_stock` skill.
+The **single canonical, machine-readable field contract** for every **new** Search_stock HTML archive. **From Aya v3.5 onward, Musaffa screening is informational, not a research gate:** all properly identified tickers receive full financial research, and screening status is independently displayed with GREEN/YELLOW/RED colours. GitHub Actions reads it through `Website/lib/report-archive.mjs` and produces `Website/live-reports.json`. This document is shared by the website parser, the GitHub `Aya_Prompt.md` and the private `Search_stock` skill.
 
 ## Exact placement
 
@@ -16,7 +16,7 @@ Produce the same report values visibly in the main HTML cards/tables. JSON keys 
 
 ## Required exact keys for new full investment reports
 
-All the following fields are required. If a financial value cannot legitimately be established, use JSON `null` instead of inventing a number; still include the key and show `NOT RATED` / `NOT VERIFIED` as appropriate in the visible HTML and dashboard. No business research at all may occur if the Musaffa gate fails.
+All the following fields are required. If a financial value cannot legitimately be established, use JSON `null` instead of inventing a number; still include the key and show `NOT RATED` / `NOT VERIFIED` as appropriate in the visible HTML and dashboard. A missing, stale, doubtful or non-compliant Musaffa classification must NEVER suppress otherwise supportable business research; use normal financial values or null for genuinely missing market data.
 
 ```json
 {
@@ -77,11 +77,11 @@ All the following fields are required. If a financial value cannot legitimately 
 | `company` | string | Verified company or ETF legal/display name |
 | `currency` | string | Native trading currency ISO 4217, such as USD, AUD, TWD, MYR |
 | `report_utc` | string | Timestamp in valid ISO 8601 UTC, consistent with filename |
-| `report_type` | string | Exactly `full` for a Musaffa-passed report, or `screening_only` when gate fails |
+| `report_type` | string | **`full` for EVERY newly researched ticker**, in either `halal/` or `nonhalal/`, regardless of Musaffa result; `screening_only` is only for immutable legacy screening records |
 | `musaffa.classification` | string or null | First-party Musaffa status, **not inferred** |
 | `musaffa.grade` | string or null | Exact grade when verified; else null |
 | `musaffa.screening_date` | `YYYY-MM-DD` string or null | Official attributable screening date (not quote/crawl date) |
-| `musaffa.gate` | string | `PASS`, `STALE`, `UNVERIFIED`, `FAIL` or descriptive gate status |
+| `musaffa.gate` | string | Historical-compatible *screening assessment* `PASS`, `STALE`, `UNVERIFIED` or `FAIL`, **not permission to do financial research** |
 | `actions.new_position` | string or null | New-buyer rating `BUY`, `BUY GRADUALLY`, `WATCH`, `AVOID` or `INSUFFICIENT DATA` |
 | `actions.existing_holder` | string or null | Holder rating `ADD`, `HOLD`, `REDUCE`, `SELL` or `INSUFFICIENT DATA` |
 | `risk` | string | Assessed risk level, `NOT RATED` if no financial research |
@@ -95,22 +95,28 @@ All the following fields are required. If a financial value cannot legitimately 
 | `targets.stop` | number or null | Initial stop-loss **reference**, not a guaranteed execution price |
 | `targets.tp1` / `targets.tp2` | numbers or null | Target profit-taking levels |
 
+Recommended optional `musaffa` detail fields for clarity: `assessment` = `VERIFIED_HALAL`, `VERIFIED_NONCOMPLIANT` or `INCONCLUSIVE`, `screening_period` = `YYYY-MM` when only the official month is known, `source_url` = verified Musaffa page, `cutoff_utc` = four-month UTC cutoff, `reason` = concise evidence explanation. Keep the four required `musaffa` keys and never fabricate a day for month-only evidence. **Colour mapping:** GREEN verified recent halal, RED verified recent explicit noncompliant, YELLOW every other status (including stale, doubtful, inaccessible, undated or conflicting). Website derives colour from classification/date and must not treat a `nonhalal/` bucket as a screening-only report. The investment-action badge and screening badge are independent.
+
 Optional additional evidence can be included in clearly named supplemental objects such as `quote`, `technical`, `dividend`, `chart_observations`, `sources`, and `historical`. Do not substitute these optional objects or alias names for the required fields.
 
 **Do not use alternate new-report keys** such as top-level `investment_score`, `entry_score`, `new_buyer_action`, `holder_action`, `existing_holder_action`, `entry_preferred`, `preferred_buy_zone`, `screening.status`, `musaffa.screen_date`, `musaffa.date`, or a free-text `earnings` field **in place of** canonical keys. The website parser still reads those variants for **existing archived legacy reports only**.
 
-## Status-only HTML reports (failed/uncertain Musaffa gate)
+## Full HTML reports in BOTH screening buckets — mandatory from Aya v3.5
 
-Use **the same top-level canonical keys**, including `schema_version: 2`, exact instrument identifiers, `report_type: "screening_only"`, and verified `musaffa` status/date/gate. Include `actions`, `scores`, `next_earnings`, `entry`, and `targets` objects **with null financial values**. For example, `scores: {"investment":null,"entry":null}`, `actions: {"new_position":null,"existing_holder":null}`, `next_earnings: {"date":null,"confirmed":null}`, `entry: {"preferred_low":null,"preferred_high":null,"acceptable_low":null,"acceptable_high":null,"no_chase":null}`, `targets: {"stop":null,"tp1":null,"tp2":null}`, and `risk: "NOT RATED"`. The website must render **SCREENING ONLY — NO INVESTMENT REPORT**, not a Buy/Sell signal.
+**Do not create new `screening_only` reports merely because the Musaffa status is not recently verified halal.** Always produce a full A–H report using `report_type: "full"`, the normal independently derived `actions`, `scores`, `next_earnings`, `entry` and `targets` fields and the required snapshot, under:
+- `halal/<TICKER>/<TICKER>_YYYY-MM-DD_HH-mm-ssZ.html` when Musaffa provides a recent explicit HALAL classification (GREEN).
+- `nonhalal/<TICKER>/<TICKER>_YYYY-MM-DD_HH-mm-ssZ.html` for INCONCLUSIVE (YELLOW) or verified explicit NOT HALAL (RED) screenings.
 
-Do not include prices, valuation, technical indicators, scenarios, dividends or financial analysis in the status-only report.
+A full report in `nonhalal/` is NOT automatically a screening-only record. It has market price, scores and research wherever independently sourced. Shariah status never automatically determines the investment action. Show financial recommendations separately from Shariah eligibility; do not recommend a verified non-compliant instrument *as a halal holding*.
+
+**Historic `screening_only` HTML:** immutable archives created under the former hard-gate policy remain parseable. Their canonical keys should contain null financial data and the website must continue showing SCREENING ONLY for those historical files, until a newer full report is saved. Do not alter or backfill archived research.
 
 ## Pre-save and post-save acceptance checks
 
 1. Retrieve the exact latest `Aya_Prompt.md`, this contract, and current Search_stock skill rules before writing.
 2. Verify the canonical ticker in **both** filename and JSON keys; confirm exchange/listing and source ticker separately.
 3. Verify `schema_version: 2` and all required exact field names, types, nested structures, valid JSON and user-visible figures. No contradictory scores/actions or invented values.
-4. Enforce Musaffa four-calendar-month gate and `screening_only` safeguards. Reject any report where the displayed/embedded classifications disagree.
+4. Evaluate the official Musaffa four-calendar-month recency without stopping research; verify the RED/YELLOW/GREEN status agrees between the visible HTML and JSON. Reject contradictions. New nonhalal reports MUST be `full` when researched; old `screening_only` remains read-only.
 5. Confirm all applicable entry and stop/target fields reflect the actual report; use nulls for unavailable financial metrics, never silent `0` or guessed values.
 6. Before GitHub save, re-read the JSON and perform equivalent validation to `snapshotFromHtml` in `Website/lib/report-archive.mjs`. **If invalid, do not archive it**; correct before saving.
 7. Save the full original HTML `halal|nonhalal/<TICKER>/<TICKER>_YYYY-MM-DD_HH-mm-ssZ.html` on `main`. Never overwrite historical reports.
@@ -129,6 +135,6 @@ The v2 required snapshot fields above do **not** change. For new international H
 {"exchange":"ASX","mic":"XASX","market_time_zone":"Australia/Sydney","sydney_time_zone":"Australia/Sydney","weekdays":[1,2,3,4,5],"sessions":[{"start":"10:00","end":"16:00"}],"yahoo_ticker":"ORG.AX","hours_source":"https://www.asx.com.au/markets/market-resources/trading-hours-calendar/cash-market-trading-hours","hours_checked_utc":"2026-11-10T00:00:00Z"}
 ```
 
-The above is a schedule-shape example, not a quote. `sessions` must contain the **EXCHANGE-LOCAL** opening/closing hours (not static Sydney conversions). The website converts on each display date with IANA timezone `Australia/Sydney` so AEDT/AEST daylight saving changes automatically. The visible report must also print Sydney-local regular hours. Use documented source times, normal trading weekdays, and session breaks. The owner intentionally chose NOT to consult holiday calendars, so session indicators are scheduled-hours estimates, not proof of an exchange being open. The `yahoo_ticker` is the actual Yahoo symbol and may differ from canonical storage ticker. Screening-only reports may include this administrative information but no prices or financial analysis.
+The above is a schedule-shape example, not a quote. `sessions` must contain the **EXCHANGE-LOCAL** opening/closing hours (not static Sydney conversions). The website converts on each display date with IANA timezone `Australia/Sydney` so AEDT/AEST daylight saving changes automatically. The visible report must also print Sydney-local regular hours. Use documented source times, normal trading weekdays, and session breaks. The owner intentionally chose NOT to consult holiday calendars, so session indicators are scheduled-hours estimates, not proof of an exchange being open. The `yahoo_ticker` is the actual Yahoo symbol and may differ from canonical storage ticker. Legacy screening-only records may include administrative metadata without prices; from v3.5 new red/yellow reports are FULL financial HTML and include verified financials regardless of Shariah status.
 
 For **new international exchanges**, the verified `market_schedule` object in the HTML v2 snapshot is sufficient to auto-register the exchange in the price collector, without manually editing a registry or workflow. The exchange-local timezone, weekday sessions, true source market/Yahoo ticker and native currency MUST be verified and exact. `Website/market-exchanges.json` remains a historical/fallback registry, not a blocker for new exchanges. An HTML report push automatically triggers a ONE-TIME delayed latest-available price bootstrap into owner-protected Cloudflare KV, including outside market hours. Subsequent routine price collection is 20-minute cron gated to regular market weekdays and hours. If identity/hours/symbol cannot be verified, do not guess or claim the feed is active. Preserve the US Alpaca feed and all existing HTML indexing behavior.
