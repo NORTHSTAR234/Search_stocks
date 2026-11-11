@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
   "latestHtmlReportAt": "2026-11-11T13:01:25Z",
-  "htmlReportCount": 51,
-  "uniqueTickers": 24,
-  "revision": "68d0edea19d2821b68dfcd758b2a9eb9",
+  "htmlReportCount": 52,
+  "uniqueTickers": 25,
+  "revision": "ad83a0bd8a6fd983fd09edcfcf95723c",
   "rows": [
     {
       "company": "ASM International N.V.",
@@ -106,6 +106,68 @@
       ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/NVDA/NVDA_2026-11-11_13-01-09Z.html",
       "reportPath": "/view-report?path=halal%2FNVDA%2FNVDA_2026-11-11_13-01-09Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
+    {
+      "company": "APA Group",
+      "ticker": "APA.ASX",
+      "exchange": "ASX",
+      "bucket": "nonhalal",
+      "timestamp": "2026-11-11T13:00:04Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "MODERATE-HIGH",
+      "investment": "62/100",
+      "entry": "28/100",
+      "musaffa": "NOT VERIFIED",
+      "musaffaClassification": null,
+      "musaffaGate": "UNVERIFIED",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": null,
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "INCONCLUSIVE",
+      "musaffaReason": "Exact APA.AX listing has no independently verifiable attributable Musaffa screen. Separate PJZ.SG listing is NOT HALAL (October 2026), not transplanted.",
+      "earnings": "25 Feb 2027 estimated",
+      "zones": "AUD 9.6–9.95 / AUD 9.96–10.3",
+      "stops": "AUD 9.2 / AUD 10.8",
+      "nativeCurrency": "AUD",
+      "marketSchedule": {
+        "exchange": "ASX",
+        "mic": "XASX",
+        "market_time_zone": "Australia/Sydney",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "10:00",
+            "end": "16:00"
+          }
+        ],
+        "yahoo_ticker": "APA.AX",
+        "hours_source": "https://www.asx.com.au/markets/market-resources/trading-hours-calendar/cash-market-trading-hours",
+        "hours_checked_utc": "2026-11-11T13:00:04Z"
+      },
+      "sourceMarketTicker": "APA.AX",
+      "zoneBands": [
+        [
+          9.6,
+          9.95
+        ],
+        [
+          9.96,
+          10.3
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/APA.ASX/APA.ASX_2026-11-11_13-00-04Z.html",
+      "reportPath": "/view-report?path=nonhalal%2FAPA.ASX%2FAPA.ASX_2026-11-11_13-00-04Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
