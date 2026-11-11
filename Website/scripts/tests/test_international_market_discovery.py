@@ -125,5 +125,36 @@ class MarketSelfDiscovery(unittest.TestCase):
     def test_us_alpaca_not_selected_by_international_collector(self):
         self.assertEqual(module.report_markets(self.registry)["US"]["priceSource"],"alpaca")
         self.assertEqual(module.open_markets(self.registry,dt.datetime(2026,11,10,14,30,tzinfo=dt.timezone.utc)),{})
+
+class PrivateActionsBudgetCoverage(unittest.TestCase):
+    """The paid-minutes reduction must not lose any existing-market 20m slots."""
+    def test_current_international_markets_fit_reduced_utc_cron(self):
+        registry=json.loads((COLLECTOR.parents[1]/"market-exchanges.json").read_text())
+        markets={name:record for name,record in registry["markets"].items()
+                 if record.get("priceSource")=="yfinance"}
+        self.assertTrue(all(x in markets for x in ("ASX","TWSE","MYX","XAMS")))
+        def cron_tick(utc):
+            # Sunday=0, Monday=1; this is GitHub's UTC cron format.
+            day=(utc.weekday()+1)%7
+            return utc.minute%20==0 and (
+                (utc.hour==23 and day in (0,1,2,3,4)) or
+                (0<=utc.hour<=16 and day in (1,2,3,4,5)))
+        for period in (dt.datetime(2026,11,9,tzinfo=dt.timezone.utc),
+                       dt.datetime(2027,1,11,tzinfo=dt.timezone.utc),
+                       dt.datetime(2027,6,14,tzinfo=dt.timezone.utc),
+                       dt.datetime(2027,9,13,tzinfo=dt.timezone.utc)):
+            for n in range(7*24*3):
+                utc=period+dt.timedelta(minutes=n*20)
+                for exchange,record in markets.items():
+                    if module.minute_in_session(utc,record):
+                        self.assertTrue(cron_tick(utc),
+                            f"Uncovered twenty-minute market slot: {exchange} {utc.isoformat()}")
+    def test_cron_estimated_baseline_within_private_free_minutes(self):
+        # 3 slots/hour * (1+17) UTC hours/day * 23 high-side weekdays.
+        baseline=3*18*23
+        self.assertEqual(baseline,1242)
+        self.assertLess(baseline,2000)
+        # Not a guarantee: jobs taking >=61s bill at least 2m.
+
 if __name__=="__main__":
     unittest.main()
