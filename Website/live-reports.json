@@ -1,11 +1,73 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-11T13:04:43Z",
-  "htmlReportCount": 53,
-  "uniqueTickers": 25,
-  "revision": "e6eccdc30ddf1313d206e11c2cd252a3",
+  "latestHtmlReportAt": "2026-11-11T13:05:07Z",
+  "htmlReportCount": 54,
+  "uniqueTickers": 26,
+  "revision": "09d83bbfd921e5bf0d018786cb93d72f",
   "rows": [
+    {
+      "company": "King Yuan Electronics Co., Ltd.",
+      "ticker": "2449.TWSE",
+      "exchange": "TWSE",
+      "bucket": "nonhalal",
+      "timestamp": "2026-11-11T13:05:07Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "63/100",
+      "entry": "32/100",
+      "musaffa": "HALAL · 2026-09 (month) · UNVERIFIED",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "UNVERIFIED",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": "2026-09",
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "INCONCLUSIVE",
+      "musaffaReason": "Indexed Musaffa search shows HALAL as of September 2026, while a separately retrieved detailed page shows HALAL C+ dated 2025-04-02; recent screening date and grade conflict.",
+      "earnings": "4 Mar 2027 estimated",
+      "zones": "TWD 207–217 / TWD 218–228",
+      "stops": "TWD 194 / TWD 248",
+      "nativeCurrency": "TWD",
+      "marketSchedule": {
+        "exchange": "TWSE",
+        "mic": "XTAI",
+        "market_time_zone": "Asia/Taipei",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "13:30"
+          }
+        ],
+        "yahoo_ticker": "2449.TW",
+        "hours_source": "https://www.twse.com.tw/en/products/system/trading.html",
+        "hours_checked_utc": "2026-11-11T13:05:07Z"
+      },
+      "sourceMarketTicker": "2449.TW",
+      "zoneBands": [
+        [
+          207,
+          217
+        ],
+        [
+          218,
+          228
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/2449.TWSE/2449.TWSE_2026-11-11_13-05-07Z.html",
+      "reportPath": "/view-report?path=nonhalal%2F2449.TWSE%2F2449.TWSE_2026-11-11_13-05-07Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Schneider Electric SE",
       "ticker": "SU.PA",
