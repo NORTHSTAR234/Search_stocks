@@ -58,3 +58,50 @@ test("five-minute GitHub sync reads generated raw manifest, never rate-limited R
  assert(requests[0].url.startsWith("https://raw.githubusercontent.com/NORTHSTAR234/Search_stocks/main/Website/live-reports.json?poll="));
  assert(!requests[0].url.includes("api.github.com"));
 });
+
+test("private read-only GitHub API retrieves manifest and HTML without raw.github access",async()=>{
+  // Simulate an entirely private repo; these authenticated REST responses are
+  // intentionally unavailable to anonymous visitors.
+  const token="github_pat_"+"A".repeat(40);
+  const manifestPath="Website/live-reports.json";
+  const reportPath="halal/PRIVATE/PRIVATE_2026-11-11_03-00-00Z.html";
+  const indexSha="c".repeat(40),reportSha="d".repeat(40),treeSha="e".repeat(40);
+  const info=archiveInfo(reportPath);
+  const row={ticker:info.ticker,bucket:info.bucket,timestamp:info.timestamp,
+     sourceFormat:"html",reportPath:"/view-report?path="+encodeURIComponent(reportPath)};
+  const index={schemaVersion:1,sourceRepository:"NORTHSTAR234/Search_stocks",
+    revision:"private-manifest",htmlReportCount:1,rows:[row]};
+  const report="<!DOCTYPE html><html><head></head><body>Private repo report</body></html>";
+  const calls=[];
+  const fetcher=async(url,opts)=>{
+    calls.push({url,opts});
+    assert(url.startsWith("https://api.github.com/repos/NORTHSTAR234/Search_stocks/"));
+    assert.equal(opts.headers.Authorization,"Bearer "+token);
+    assert.equal(opts.redirect,"manual");
+    if(url.includes("/git/trees/main"))return Response.json({sha:treeSha,truncated:false,
+      tree:[{path:manifestPath,type:"blob",sha:indexSha},
+            {path:reportPath,type:"blob",sha:reportSha}]});
+    const data=url.endsWith(indexSha)?JSON.stringify(index):url.endsWith(reportSha)?report:null;
+    if(!data)return Response.json({error:"Not Found"},{status:404});
+    return Response.json({encoding:"base64",size:Buffer.byteLength(data),
+      content:Buffer.from(data).toString("base64")});
+  };
+  const result=await githubManifest(fetcher,Date.now(),token);
+  assert.equal(result.rows[0].ticker,"PRIVATE");
+  const html=await githubHtml(reportPath,"",fetcher,token);
+  assert(html.includes("Private repo report"));
+  assert.equal(calls.filter(x=>x.url.includes("/git/blobs/")).length,2);
+  assert(calls.every(x=>!x.url.includes("raw.githubusercontent.com")));
+});
+test("private reports fail closed on 404 and never retry through public GitHub",async()=>{
+  const token="github_pat_"+"B".repeat(40),calls=[];
+  const fake=async(url,opts)=>{calls.push({url,opts});return Response.json({message:"Not Found"},{status:404});};
+  await assert.rejects(()=>githubManifest(fake,Date.now(),token),/GitHub tree HTTP 404/);
+  assert.equal(calls.length,1);
+  assert(calls[0].url.startsWith("https://api.github.com/"));
+  assert.equal(calls[0].opts.headers.Authorization,"Bearer "+token);
+});
+test("invalid server-side token is rejected rather than downgraded to public",async()=>{
+  const fake=async()=>{throw Error("No network permitted")};
+  await assert.rejects(()=>githubManifest(fake,Date.now(),"invalid"),/credential configuration/);
+});
