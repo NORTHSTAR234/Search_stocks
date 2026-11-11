@@ -1,11 +1,66 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-11T01:07:33Z",
-  "htmlReportCount": 52,
-  "uniqueTickers": 24,
-  "revision": "22a56f97d20ad478749175437b629f5b",
+  "latestHtmlReportAt": "2026-11-11T04:02:22Z",
+  "htmlReportCount": 53,
+  "uniqueTickers": 25,
+  "revision": "3a9b4e506d4c270847d175f7f00a6896",
   "rows": [
+    {
+      "company": "Schneider Electric SE",
+      "ticker": "SU.PA",
+      "exchange": "XPAR",
+      "bucket": "halal",
+      "timestamp": "2026-11-11T04:02:22Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "72/100",
+      "entry": "55/100",
+      "musaffa": "HALAL · PASS",
+      "earnings": "18 Feb 2027 confirmed",
+      "zones": "EUR 220–228 / EUR 229–236",
+      "stops": "EUR 210 / EUR 248",
+      "nativeCurrency": "EUR",
+      "marketSchedule": {
+        "exchange": "XPAR",
+        "mic": "XPAR",
+        "market_time_zone": "Europe/Paris",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "17:30"
+          }
+        ],
+        "yahoo_ticker": "SU.PA",
+        "hours_source": "https://www.euronext.com/sites/default/files/2025-05/ENX_AVD_Two-pager_060525%20%281%29.pdf",
+        "hours_checked_utc": "2026-11-11T04:02:22Z"
+      },
+      "sourceMarketTicker": "SU.PA",
+      "zoneBands": [
+        [
+          220,
+          228
+        ],
+        [
+          229,
+          236
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/SU.PA/SU.PA_2026-11-11_04-02-22Z.html",
+      "reportPath": "/view-report?path=halal%2FSU.PA%2FSU.PA_2026-11-11_04-02-22Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Schneider Electric SE",
       "ticker": "SU.SIX",
