@@ -287,11 +287,23 @@
       return new Date(ts).toISOString().slice(0,10)===value?ts:null;
     };
     let checked=parseDay(exact);
-    if(checked===null&&/^\d{4}-\d{2}$/.test(period))checked=parseDay(period+"-01");
+    // For a verified month-only screen, its first calendar day is the
+    // conservative freshness reference (never manufacture an exact day).
+    if(checked===null&&/^\d{4}-(?:0[1-9]|1[0-2])$/.test(period))
+      checked=parseDay(period+"-01");
+    // Read older YYYY-MM values that were stored in screening_date itself.
+    if(checked===null&&/^\d{4}-(?:0[1-9]|1[0-2])$/.test(exact))
+      checked=parseDay(exact+"-01");
     const recent=checked!==null&&checked>=cutoff&&checked<=now.getTime();
     const negative=/(?:NOT\s+HALAL|NON[\s-]?COMPLIANT|NON[\s-]?HALAL|HARAM)/.test(status);
     const positive=/(?:^|\W)(?:HALAL|COMPLIANT)(?:\W|$)/.test(status)&&!negative;
-    const ambiguous=/(?:STALE|UNVERIFIED|UNKNOWN|INCONCLUSIVE|DOUBTFUL|AMBIGUOUS|CONFLICT|UNCERTAIN)/.test(status+" "+gate);
+    const declared=String(r.musaffaAssessment||"").toUpperCase();
+    const contradictory=declared==="INCONCLUSIVE"||
+      (declared==="VERIFIED_HALAL"&&!positive)||
+      (declared==="VERIFIED_NONCOMPLIANT"&&!negative)||
+      (gate==="PASS"&&negative);
+    const ambiguous=Boolean(r.musaffaScreeningMonthConflict)||contradictory||
+      /(?:STALE|UNVERIFIED|UNKNOWN|INCONCLUSIVE|DOUBTFUL|AMBIGUOUS|CONFLICT|UNCERTAIN)/.test(status+" "+gate);
     if(recent&&!ambiguous&&negative)return {tone:"bad",label:"VERIFIED NON-COMPLIANT"};
     if(recent&&!ambiguous&&positive&&gate!=="FAIL")return {tone:"good",label:"VERIFIED HALAL"};
     return {tone:"warn",label:"INCONCLUSIVE"};

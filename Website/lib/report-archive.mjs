@@ -251,15 +251,23 @@ export function parseHtmlReport(info,html) {
     earnings=match?short(match[0],115):"NOT VERIFIED";
   }
   const musaffaSnap=snapshot?.musaffa||snapshot?.screening;
+  // The canonical month-only field is screening_period. Historical reports
+  // (including SU.PA) can instead use screening_month: preserve its precision.
+  const screeningPeriods=[musaffaSnap?.screening_period,musaffaSnap?.screening_month]
+    .filter(value=>typeof value==="string"&&value.trim())
+    .map(value=>value.trim());
+  const screeningPeriod=screeningPeriods[0]||"";
+  const conflictingScreeningMonths=new Set(screeningPeriods).size>1;
   let musaffa;
   const status=typeof musaffaSnap?.classification==="string"?musaffaSnap.classification:
     typeof musaffaSnap?.status==="string"?musaffaSnap.status:"";
   if(status){
     const date=musaffaSnap.screening_date||musaffaSnap.screen_date||
-      musaffaSnap.screened_date||musaffaSnap.date||"";
+      musaffaSnap.screened_date||musaffaSnap.date||screeningPeriod||"";
+    const monthOnly=typeof date==="string"&&/^\d{4}-\d{2}$/.test(date);
     musaffa=short(status+
       (typeof musaffaSnap.grade==="string"&&musaffaSnap.grade?" · "+musaffaSnap.grade:"")+
-      (typeof date==="string"&&date?" · "+date:"")+
+      (typeof date==="string"&&date?" · "+date+(monthOnly?" (month)":""):"")+
       (typeof musaffaSnap.gate==="string"&&musaffaSnap.gate?" · "+musaffaSnap.gate:""),140);
   }else musaffa=short((screenBadge||pill||"NOT VERIFIED")+(screeningDate?" · "+screeningDate:""),140);
   const snapshotInvestment=snapshot?.scores?.investment??snapshot?.investment_score;
@@ -287,7 +295,8 @@ export function parseHtmlReport(info,html) {
     musaffaGate:typeof musaffaSnap?.gate==="string"?musaffaSnap.gate:null,
     musaffaScreeningDate:typeof (musaffaSnap?.screening_date||musaffaSnap?.screen_date||musaffaSnap?.screened_date||musaffaSnap?.date)==="string"?
       (musaffaSnap.screening_date||musaffaSnap.screen_date||musaffaSnap.screened_date||musaffaSnap.date):null,
-    musaffaScreeningPeriod:typeof musaffaSnap?.screening_period==="string"?musaffaSnap.screening_period:null,
+    musaffaScreeningPeriod:screeningPeriod||null,
+    musaffaScreeningMonthConflict:conflictingScreeningMonths,
     musaffaAssessment:typeof musaffaSnap?.assessment==="string"?musaffaSnap.assessment:null,
     musaffaReason:typeof musaffaSnap?.reason==="string"?short(musaffaSnap.reason,180):null,
     earnings:isStatus?"NOT RATED":earnings,

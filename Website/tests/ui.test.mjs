@@ -278,3 +278,24 @@ test("Musaffa badges use verified date + exact classification, not archive folde
     {tone:"warn",label:"INCONCLUSIVE"});
   assert.match(source,/screeningCell\(r\)/);
 });
+
+test("SU.PA month-only Musaffa screen is green when recent, amber when stale or conflicting",()=>{
+  const found=source.match(/function musaffaVisual\(r,now=new Date\(\)\)\{([\s\S]*?)\n  \}/);
+  assert(found,"independent Musaffa classifier must remain present");
+  const classify=new Function("r","now",found[1]);
+  const screen={ticker:"SU.PA",bucket:"halal",musaffaClassification:"HALAL",
+    musaffaGate:"PASS",musaffaScreeningDate:null,musaffaScreeningPeriod:"2026-10",
+    musaffaScreeningMonthConflict:false};
+  assert.deepEqual(classify(screen,new Date("2026-11-11T12:00:00Z")),
+    {tone:"good",label:"VERIFIED HALAL"});
+  assert.deepEqual(classify(screen,new Date("2027-03-11T12:00:00Z")),
+    {tone:"warn",label:"INCONCLUSIVE"});
+  assert.deepEqual(classify({...screen,musaffaScreeningPeriod:"2026-07"},new Date("2026-11-11T12:00:00Z")),
+    {tone:"warn",label:"INCONCLUSIVE"});
+  assert.deepEqual(classify({...screen,musaffaScreeningMonthConflict:true},new Date("2026-11-11T12:00:00Z")),
+    {tone:"warn",label:"INCONCLUSIVE"});
+  assert.deepEqual(classify({...screen,musaffaAssessment:"INCONCLUSIVE"},new Date("2026-11-11T12:00:00Z")),
+    {tone:"warn",label:"INCONCLUSIVE"});
+  assert.deepEqual(classify({...screen,musaffaScreeningPeriod:null},new Date("2026-11-11T12:00:00Z")),
+    {tone:"warn",label:"INCONCLUSIVE"});
+});

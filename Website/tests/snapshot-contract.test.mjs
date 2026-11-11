@@ -113,3 +113,30 @@ test("new nonhalal full report preserves financial research and separate Musaffa
   assert.match(parsed.musaffaReason,/older than four/);
   assert.deepEqual(parsed.zoneBands,[[147,154],[155,161]]);
 });
+
+test("SU.PA October 2026 month-only Musaffa screen survives HTML snapshot parsing",()=>{
+  const su={...canonical,ticker:"SU.PA",canonical_archive_ticker:"SU.PA",
+    source_market_ticker:"SU.PA",exchange:"XPAR",currency:"EUR",
+    company:"Schneider Electric SE",musaffa:{
+      classification:"HALAL",grade:null,screening_date:null,gate:"PASS",
+      screening_month:"2026-10",date_precision:"month"
+    }};
+  const suInfo=archiveInfo("halal/SU.PA/SU.PA_2026-11-11_04-02-22Z.html");
+  const row=parseHtmlReport(suInfo,html(su));
+  assert.equal(row.musaffaScreeningPeriod,"2026-10");
+  assert.equal(row.musaffaScreeningMonthConflict,false);
+  assert.equal(row.musaffaScreeningDate,null);
+  assert.equal(row.musaffa,"HALAL · 2026-10 (month) · PASS");
+  assert.equal(row.action,"WATCH");
+  assert.equal(row.investment,"73/100");
+  const canonicalPeriod=parseHtmlReport(suInfo,html({...su,musaffa:{
+    classification:"HALAL",grade:null,screening_date:null,gate:"PASS",
+    screening_period:"2026-10"
+  }}));
+  assert.equal(canonicalPeriod.musaffaScreeningPeriod,"2026-10");
+  const conflicting=parseHtmlReport(suInfo,html({...su,musaffa:{
+    classification:"HALAL",grade:null,screening_date:null,gate:"PASS",
+    screening_period:"2026-08",screening_month:"2026-10"
+  }}));
+  assert.equal(conflicting.musaffaScreeningMonthConflict,true);
+});
