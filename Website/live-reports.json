@@ -4,7 +4,7 @@
   "latestHtmlReportAt": "2026-11-11T00:02:54Z",
   "htmlReportCount": 51,
   "uniqueTickers": 24,
-  "revision": "658ccd952bc1db47408027474ac12a86",
+  "revision": "27e63de8c863ba02d17d83802f1756ff",
   "rows": [
     {
       "company": "Schneider Electric SE",
@@ -50,7 +50,7 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/SU.SIX/SU.SIX_2026-11-11_00-02-54Z.html",
       "reportPath": "/view-report?path=halal%2FSU.SIX%2FSU.SIX_2026-11-11_00-02-54Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": true
+      "conflictingBuckets": false
     },
     {
       "company": "ASM International N.V.",
