@@ -61,14 +61,18 @@ def report_markets(registry):
             if not folder.is_dir() or "." not in folder.name:continue
             ticker=folder.name.upper()
             suffix=ticker.rsplit(".",1)[-1]
-            if suffix in known or suffix in conflicts:continue
             snap=latest_snapshot(folder)
             if not isinstance(snap,dict):continue
             schedule=snap.get("market_schedule")
             if not isinstance(schedule,dict):continue
-            # A report must describe the very same canonical archive security.
+            # Exact archive security identity is mandatory. Yahoo suffix (PA, AS,
+            # SW, L, etc.) and an exchange code (XPAR, XAMS, SIX, LSE) are
+            # DIFFERENT identifiers and cannot be equated.
             if snap.get("ticker")!=ticker or snap.get("canonical_archive_ticker")!=ticker:continue
-            if snap.get("exchange")!=suffix or schedule.get("exchange")!=suffix:continue
+            exchange=snap.get("exchange")
+            if not isinstance(exchange,str) or not re.fullmatch(r"[A-Z0-9]{2,12}",exchange):continue
+            if schedule.get("exchange")!=exchange:continue
+            if exchange in known or exchange in conflicts:continue
             if schedule.get("sydney_time_zone")!="Australia/Sydney":continue
             # Canonical ticker exchange code can differ from the actual ISO MIC
             # (for example LSE vs XLON); both must be independently recorded.
@@ -97,18 +101,26 @@ def report_markets(registry):
             if not valid:continue
             yahoo=schedule.get("yahoo_ticker")
             if not isinstance(yahoo,str) or not re.fullmatch(r"[A-Za-z0-9^.-]{1,25}",yahoo) or "." not in yahoo:continue
-            symbol_suffix="."+yahoo.rsplit(".",1)[-1].upper()
+            yahoo=yahoo.upper()
+            # The provider ticker is independently recorded in both fields.
+            # A different archive suffix is only trusted if the full symbol is
+            # verified explicitly and its base symbol matches the archive base.
+            if suffix!=exchange and (
+                snap.get("source_market_ticker")!=yahoo or
+                yahoo.split(".",1)[0]!=ticker.rsplit(".",1)[0]
+            ):continue
+            symbol_suffix="."+yahoo.rsplit(".",1)[-1]
             currency=snap.get("currency")
             if not isinstance(currency,str) or not re.fullmatch(r"[A-Z]{3}",currency):continue
-            entry={"name":suffix,"mic":mic,"timeZone":time_zone,
+            entry={"name":exchange,"mic":mic,"timeZone":time_zone,
                    "weekdays":weekdays,"sessions":sessions,"priceSource":"yfinance",
                    "yahooSuffix":symbol_suffix,"currency":currency,"source":src}
-            prior=candidates.get(suffix)
+            prior=candidates.get(exchange)
             if prior and any(prior[k]!=entry[k] for k in ("timeZone","weekdays","sessions","currency","yahooSuffix")):
-                conflicts.add(suffix)
-                candidates.pop(suffix,None)
-            else:
-                candidates[suffix]=entry
+                conflicts.add(exchange)
+                candidates.pop(exchange,None)
+            elif exchange not in conflicts:
+                candidates[exchange]=entry
     for symbol in conflicts:
         print("Unverified conflicting exchange metadata:",symbol,file=sys.stderr)
     known.update(candidates)
@@ -146,9 +158,18 @@ def discover(registry,opened):
             if "." not in ticker:continue
             suffix=ticker.rsplit(".",1)[-1]
             alias=registry.get("aliases",{}).get(suffix,suffix)
-            market=opened.get(alias)
-            if not market:continue
             snap=latest_snapshot(item)
+            # Prefer a verified exact archive snapshot for exchange identity.
+            # E.g. canonical SU.PA -> XPAR exchange -> Yahoo SU.PA.
+            snapshot_exchange=None
+            if (isinstance(snap,dict) and snap.get("ticker")==ticker and
+                snap.get("canonical_archive_ticker")==ticker and
+                isinstance(snap.get("market_schedule"),dict) and
+                snap["market_schedule"].get("exchange")==snap.get("exchange")):
+                snapshot_exchange=snap.get("exchange")
+            exchange=alias if alias in opened else snapshot_exchange
+            market=opened.get(exchange)
+            if not market:continue
             prefix=ticker.rsplit(".",1)[0]
             expected=market.get("yahooSuffix")
             if not expected:continue
@@ -160,7 +181,7 @@ def discover(registry,opened):
             if not ysymbol:
                 ysymbol=prefix+expected
             if not re.fullmatch(r"[A-Za-z0-9^.-]{1,25}",ysymbol):continue
-            symbols[ticker]={"yahoo":ysymbol.upper(),"exchange":alias,
+            symbols[ticker]={"yahoo":ysymbol.upper(),"exchange":exchange,
                              "timeZone":market["timeZone"],
                              "currency":market.get("currency")}
     return symbols
