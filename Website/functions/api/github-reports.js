@@ -6,7 +6,8 @@ export async function onRequestGet({request,env}){
  if(!await authenticatedOwner(request,env))return reply({error:"NOT_AUTHORIZED"},403);
  const known=new URL(request.url).searchParams.get("knownTree")||"";
  try{
-  const data=await githubManifest();
+  // Credential is a Cloudflare Pages environment secret, never returned to the client.
+  const data=await githubManifest(fetch,Date.now(),env.GITHUB_READ_TOKEN||null);
   if(known===data.revision)return reply({unchanged:true,treeSha:data.revision,checkedAt:new Date().toISOString(),source:"GitHub HTML manifest"});
   return reply({unchanged:false,treeSha:data.revision,checkedAt:new Date().toISOString(),
     source:"GitHub HTML manifest",htmlReportCount:data.htmlReportCount,rows:data.rows,errors:[]});
