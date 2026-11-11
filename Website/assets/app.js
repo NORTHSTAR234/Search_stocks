@@ -118,6 +118,34 @@
   const quoteDirection=value=>typeof value!=="number"||!Number.isFinite(value)||value===0?"flat":value>0?"gain":"loss";
   const signedMoney=(currency,value)=>(value>0?"+":value<0?"−":"")+quoteMoney(currency,Math.abs(value));
   const signedPercent=value=>(value>0?"+":"")+value.toFixed(2)+"%";
+  // During NYSE/Nasdaq regular session, IEX's last observed trade is the
+  // actionable *observation* to display, never yesterday's SIP closing bar.
+  // Its exchange-limited IEX feed is NOT a consolidated real-time last.
+  // Freshness is independently checked against the exact New York session date.
+  function usSessionQuote(r,q,now=new Date()){
+    if(r.exchange!=="US"||q?.feed!=="IEX"||!Number.isFinite(Number(q.price))||
+        Number(q.price)<=0)return null;
+    const market=marketStatus(r,now);
+    const observed=Date.parse(q.asOf);
+    if(!Number.isFinite(observed))return null;
+    const ageMs=now.getTime()-observed;
+    const current=marketParts(now,"America/New_York");
+    const traded=marketParts(new Date(observed),"America/New_York");
+    const dateOf=p=>[p.year,String(p.month).padStart(2,"0"),String(p.day).padStart(2,"0")].join("-");
+    const today=dateOf(current),tradeDay=dateOf(traded);
+    const fresh=tradeDay===today&&ageMs>=-120000&&ageMs<=15*60000;
+    const previous=q.regularClose;
+    const closeIsPrevious=previous&&typeof previous.sessionDate==="string"&&
+      /^\d{4}-\d{2}-\d{2}$/.test(previous.sessionDate)&&previous.sessionDate<today&&
+      Number.isFinite(Number(previous.price))&&Number(previous.price)>0;
+    const comparison=closeIsPrevious?{
+      amount:Math.round((Number(q.price)-Number(previous.price))*100)/100,
+      percent:Math.round((Number(q.price)/Number(previous.price)-1)*100000)/1000,
+      price:Number(previous.price),sessionDate:previous.sessionDate
+    }:null;
+    return {open:Boolean(market?.open),fresh,today,tradeDay,
+      ageMinutes:Math.max(0,Math.floor(ageMs/60000)),comparison};
+  }
   function quoteCell(r){
     const q=state.quotes[r.ticker.toUpperCase()];
     if(!q){
@@ -127,6 +155,28 @@
     }
     const currency=q.currency;
     if(q.feed==="IEX"&&q.regularClose&&Number(q.regularClose.price)>0){
+      const session=usSessionQuote(r,q);
+      // The IEX latest trade is the PRIMARY number while the exchange trades.
+      // The completed SIP closing bar is reference-only until the next close.
+      if(session?.open){
+        const c=session.comparison;
+        const direction=quoteDirection(session.fresh?c?.percent:null);
+        const freshness=session.fresh?"Latest observed IEX trade · current US session":
+          "Last IEX observation · not recent";
+        const age=session.ageMinutes+" min old";
+        const delta=session.fresh&&c?
+          '<span class="change '+direction+'">'+escape(signedMoney(currency,c.amount))+
+            ' ('+escape(signedPercent(c.percent))+') vs previous regular close</span>':
+          '<small class="muted">Current-session comparison unavailable</small>';
+        return '<div class="session-prices">'+
+          '<small class="price-label">'+freshness+'</small>'+
+          '<strong class="quote-value '+direction+'">'+escape(quoteMoney(currency,q.price))+'</strong>'+
+          '<small>Observed '+escape(fmt(q.asOf))+' · '+escape(age)+
+            ' · IEX feed, not consolidated</small>'+delta+
+          '<small>Previous regular close (delayed SIP): '+
+            escape(quoteMoney(currency,q.regularClose.price))+
+            ' · Session '+escape(q.regularClose.sessionDate)+'</small></div>';
+      }
       const c=q.regularClose;
       const valid=typeof c.regularChangePercent==="number"&&Number.isFinite(c.regularChangePercent);
       const color=quoteDirection(valid?c.regularChangePercent:null);
@@ -159,10 +209,28 @@
     if(r.exchange!=="US")return '<small class="muted">US overnight only</small>';
     const q=state.quotes[r.ticker.toUpperCase()];
     if(!q||q.feed!=="IEX")return '<small class="muted">Overnight unavailable</small>';
+    const session=usSessionQuote(r,q);
+    if(session?.open){
+      const c=session.comparison;
+      if(!session.fresh||!c)
+        return '<small class="muted">Current-session IEX comparison unavailable</small>';
+      const direction=quoteDirection(c.percent);
+      return '<div class="session-prices">'+
+        '<small class="price-label">Current IEX vs previous regular close</small>'+
+        '<strong class="quote-value overnight-value '+direction+'">'+
+          escape(signedMoney(q.currency,c.amount))+'</strong>'+
+        '<span class="change '+direction+'">'+escape(signedPercent(c.percent))+
+        ' vs previous regular close</span>'+
+        '<small>Last IEX trade '+escape(fmt(q.asOf))+
+        ' · not an overnight indication</small></div>';
+    }
     const night=q.overnight,pct=q.overnightChangePercent,amount=q.overnightChangeAmount;
     if(!q.regularClose||!night||!Number.isFinite(Number(night.price))||Number(night.price)<=0||
        typeof pct!=="number"||!Number.isFinite(pct)||
-       typeof amount!=="number"||!Number.isFinite(amount))
+       typeof amount!=="number"||!Number.isFinite(amount)||
+       !Number.isFinite(Date.parse(night.asOf))||
+       Date.now()-Date.parse(night.asOf)>90*60000||
+       Date.now()-Date.parse(night.asOf)<-120000)
       return '<small class="muted">No recent verified overnight indication</small>';
     const color=quoteDirection(pct);
     return '<div class="session-prices">'+
@@ -221,10 +289,16 @@
     if(r.statusOnly||r.exchange!=="US"||r.nativeCurrency!=="USD"||!Array.isArray(r.zoneBands))return null;
     const q=state.quotes[r.ticker.toUpperCase()];
     if(!q||q.feed!=="IEX"||q.currency!=="USD")return null;
-    const current=q.regularClose&&typeof q.regularClose.price==="number"&&q.regularClose.price>0?
-      {label:"Regular",price:q.regularClose.price}:
-      typeof q.price==="number"&&q.price>0?{label:"Latest IEX",price:q.price}:null;
-    const overnight=q.regularClose&&q.overnight&&typeof q.overnight.price==="number"&&q.overnight.price>0?
+    const session=usSessionQuote(r,q);
+    const current=session?.open?
+      session.fresh?{label:"Latest IEX",price:Number(q.price)}:null:
+      q.regularClose&&typeof q.regularClose.price==="number"&&q.regularClose.price>0?
+        {label:"Regular",price:q.regularClose.price}:
+        typeof q.price==="number"&&q.price>0?{label:"Latest IEX",price:q.price}:null;
+    const overnight=!session?.open&&q.regularClose&&q.overnight&&
+      typeof q.overnight.price==="number"&&q.overnight.price>0&&
+      Number.isFinite(Date.parse(q.overnight.asOf))&&
+      Date.now()-Date.parse(q.overnight.asOf)<=90*60000?
       {label:"Overnight",price:q.overnight.price}:null;
     const regular=current?{...current,position:zonePosition(current.price,r.zoneBands)}:null;
     const night=overnight?{...overnight,position:zonePosition(overnight.price,r.zoneBands)}:null;
@@ -401,7 +475,7 @@
       $("marketNotice").textContent="Quote observations: "+usCount+
         " US tickers via Alpaca · "+intlCount+" non-US delayed Yahoo quotes (private cache) · Updated "+
         fmt(new Date().toISOString())+
-        " · US prices and GitHub HTML reports checked every 5 minutes while visible. "+
+        " · US Alpaca IEX latest trades checked every 5 minutes while visible (not consolidated). "+
         "Non-US quotes are collected on GitHub Actions every 20 minutes during regular market hours, subject to data-feed and scheduler delays."+
         (failures.length?" Provider issues: "+failures.join("; "):"");
       state.providerReady=true;
