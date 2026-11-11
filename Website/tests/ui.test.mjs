@@ -250,3 +250,10 @@ test("new international exchanges appear as filter options without a site code c
   assert(source.includes("syncExchangeFilters();"));
   assert(source.includes('currency==="EUR"?"€"'));
 });
+
+test("a deleted HTML report disappears from an already-open dashboard",()=>{
+ assert(source.includes("const incomingHtml=new Set("));
+ assert(source.includes('if(row.sourceFormat==="html"&&!incomingHtml.has(ticker))'));
+ assert(source.includes("map.delete(ticker);"));
+ assert(source.includes("delete state.quotes[ticker];"));
+});
