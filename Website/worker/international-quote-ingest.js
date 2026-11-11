@@ -50,8 +50,11 @@ async function verifyGithubOIDC(token) {
 function cleanQuote(ticker,q,now) {
   if(!/^[A-Z0-9][A-Z0-9.-]{0,18}\.[A-Z]{2,12}$/.test(ticker)||
     !q||typeof q!=="object"||Array.isArray(q)||typeof q.exchange!=="string"||
-    !ticker.endsWith("."+q.exchange)||
+    !/^[A-Z0-9]{2,12}$/.test(q.exchange)||
     typeof q.sourceSymbol!=="string"||!/^[-A-Z0-9.^]{1,25}$/.test(q.sourceSymbol)||
+    // A canonical archive suffix might be the Yahoo country suffix rather than
+    // the ISO exchange abbreviation: SU.PA is XPAR, not "PA".
+    !(ticker.endsWith("."+q.exchange)||ticker===q.sourceSymbol)||
     typeof q.currency!=="string"||!/^[A-Z]{3}$/.test(q.currency)||
     typeof q.price!=="number"||!Number.isFinite(q.price)||q.price<=0||
     !Number.isFinite(Date.parse(q.asOf))||Date.parse(q.asOf)>now+120000||
