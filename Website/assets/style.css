@@ -186,3 +186,12 @@
 .table-wrap .market-open-label{color:#ffd77c;font-weight:850}
 .table-wrap .market-session{color:#b5cce1;font-size:.70rem;line-height:1.42}
 @media (prefers-reduced-motion:reduce){.table-wrap .ticker.market-open{transition:none}}
+
+/* Musaffa screening uses separate, accessible green/yellow/red status labels.
+   Archive folders and financial BUY/HOLD/SELL badges cannot determine status. */
+.musaffa-cell{display:flex;flex-direction:column;align-items:flex-start;gap:4px;max-width:260px}
+.musaffa-cell>.badge{font-weight:800;letter-spacing:.015em;white-space:normal;max-width:100%}
+.musaffa-cell>.badge.good{color:#83f5c2;background:#174f40;border:1px solid #368a69}
+.musaffa-cell>.badge.warn{color:#ffe19a;background:#594624;border:1px solid #ab843c}
+.musaffa-cell>.badge.bad{color:#ffabb0;background:#612832;border:1px solid #b45764}
+.musaffa-details{font-size:.78rem;line-height:1.45;overflow-wrap:anywhere}

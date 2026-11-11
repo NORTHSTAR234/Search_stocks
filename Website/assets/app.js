@@ -268,9 +268,45 @@
       highlightedCard("Acceptable",acceptable,"warn","acceptable")+
       '</div>';
   }
+  // Shariah screening is independent of investment recommendations and folder.
+  // Re-evaluate the four-month cutoff against TODAY so stale evidence turns amber.
+  function musaffaVisual(r,now=new Date()){
+    const screening=r.musaffa||"NOT VERIFIED";
+    const status=String(r.musaffaClassification||screening.split(" · ")[0]||"").trim().toUpperCase();
+    const gate=String(r.musaffaGate||(screening.match(/\b(PASS|STALE|UNVERIFIED|FAIL)\b/i)||[])[0]||"").toUpperCase();
+    const exact=String(r.musaffaScreeningDate||(screening.match(/\b\d{4}-\d{2}-\d{2}\b/)||[])[0]||"").trim();
+    const period=String(r.musaffaScreeningPeriod||"").trim();
+    const year=now.getUTCFullYear(),month=now.getUTCMonth(),day=now.getUTCDate();
+    const first=new Date(Date.UTC(year,month-4,1));
+    const last=new Date(Date.UTC(first.getUTCFullYear(),first.getUTCMonth()+1,0)).getUTCDate();
+    const cutoff=Date.UTC(first.getUTCFullYear(),first.getUTCMonth(),Math.min(day,last));
+    const parseDay=value=>{
+      const m=String(value).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if(!m)return null;
+      const ts=Date.UTC(+m[1],+m[2]-1,+m[3]);
+      return new Date(ts).toISOString().slice(0,10)===value?ts:null;
+    };
+    let checked=parseDay(exact);
+    if(checked===null&&/^\d{4}-\d{2}$/.test(period))checked=parseDay(period+"-01");
+    const recent=checked!==null&&checked>=cutoff&&checked<=now.getTime();
+    const negative=/(?:NOT\s+HALAL|NON[\s-]?COMPLIANT|NON[\s-]?HALAL|HARAM)/.test(status);
+    const positive=/(?:^|\W)(?:HALAL|COMPLIANT)(?:\W|$)/.test(status)&&!negative;
+    const ambiguous=/(?:STALE|UNVERIFIED|UNKNOWN|INCONCLUSIVE|DOUBTFUL|AMBIGUOUS|CONFLICT|UNCERTAIN)/.test(status+" "+gate);
+    if(recent&&!ambiguous&&negative)return {tone:"bad",label:"VERIFIED NON-COMPLIANT"};
+    if(recent&&!ambiguous&&positive&&gate!=="FAIL")return {tone:"good",label:"VERIFIED HALAL"};
+    return {tone:"warn",label:"INCONCLUSIVE"};
+  }
+  function screeningCell(r){
+    const screening=r.musaffa||"NOT VERIFIED";
+    const result=musaffaVisual(r);
+    return '<div class="musaffa-cell">'+badge(result.label,result.tone)+
+      '<small class="musaffa-details">'+escape(cap(screening,170))+'</small>'+
+      (r.musaffaReason?'<small>'+escape(cap(r.musaffaReason,145))+'</small>':"")+
+      (r.statusOnly?'<small class="warning">Screening only · no current investment rating (historical report)</small>':"")+
+      '<small class="muted">Archive: '+escape(r.bucket)+'</small></div>';
+  }
   function tr(r){
     const action=cap(r.action,96);
-    const screening=r.musaffa||"NOT VERIFIED";
     const context=zoneContext(r);
     const market=marketStatus(r);
     const active=market?.open?" market-open":"";
@@ -289,7 +325,7 @@
     '<td>'+escape(fmt(r.timestamp))+(r.conflictingBuckets?'<small class="warning">Both buckets contain this ticker</small>':"")+'</td>'+
     '<td>'+zoneCell(r,context)+'</td>'+
     '<td>'+stopsCell(r)+'</td>'+
-    '<td>'+escape(cap(screening,140))+(r.statusOnly?'<small class="warning">Screening only · no current investment rating</small>':"")+'<small>Folder: '+escape(r.bucket)+'</small></td>'+
+    '<td>'+screeningCell(r)+'</td>'+
     '<td>'+escape(cap(r.earnings,110))+'</td></tr>';
   }
   function syncExchangeFilters(){

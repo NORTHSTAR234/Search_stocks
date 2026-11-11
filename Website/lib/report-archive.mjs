@@ -177,10 +177,12 @@ export function parseHtmlReport(info,html) {
     snapshot?.company||snapshot?.security||snapshot?.name||
     m?.[1]||heading.replace(/\s*[—–-]\s*(?:\d{1,2}\s+\w+\s+\d{4}|\w+\s+\d{4}).*$/i,"")||ticker,95)
     .replace(/\s+(?:NASDAQ|NYSE|NYSEARCA|ASX|TWSE|Bursa|MYX|KLSE)\s*:\s*[A-Z0-9.-]+$/i,"");
-  const statusFromSnapshot=snapshot?.report_type==="screening_only";
-  const isStatus=statusFromSnapshot||
-    /(?:HALAL\s+STATUS(?:\s+ONLY)?|FINANCIAL\s+RESEARCH\s+SKIPPED|RESEARCH\s+SKIPPED|FULL INVESTMENT RESEARCH SKIPPED)/i.test(first.slice(0,10000))||
-    info.bucket==="nonhalal"&&!/<(?:div|section)\b[^>]*class=["'][^"']*(?:dashboard|scoregrid)/i.test(first);
+  // A full financial report can be archived in nonhalal/ when screening is
+  // inconclusive or non-compliant. Folder placement is NOT a research gate.
+  const isStatus=typeof snapshot?.report_type==="string"?
+    snapshot.report_type==="screening_only":
+    (/(?:HALAL\s+STATUS(?:\s+ONLY)?|FINANCIAL\s+RESEARCH\s+SKIPPED|RESEARCH\s+SKIPPED|FULL INVESTMENT RESEARCH SKIPPED)/i.test(first.slice(0,10000))||
+     info.bucket==="nonhalal"&&!/<(?:div|section)\b[^>]*class=["'][^"']*(?:dashboard|scoregrid)/i.test(first));
   const fields=tableValues(html);
   const pills=actionPills(first);
   const acts=actionTexts(first);
@@ -281,6 +283,13 @@ export function parseHtmlReport(info,html) {
     investment:isStatus?"NOT RATED":investment,
     entry:isStatus?"NOT RATED":entry,
     musaffa,
+    musaffaClassification:typeof status==="string"&&status?status:null,
+    musaffaGate:typeof musaffaSnap?.gate==="string"?musaffaSnap.gate:null,
+    musaffaScreeningDate:typeof (musaffaSnap?.screening_date||musaffaSnap?.screen_date||musaffaSnap?.screened_date||musaffaSnap?.date)==="string"?
+      (musaffaSnap.screening_date||musaffaSnap.screen_date||musaffaSnap.screened_date||musaffaSnap.date):null,
+    musaffaScreeningPeriod:typeof musaffaSnap?.screening_period==="string"?musaffaSnap.screening_period:null,
+    musaffaAssessment:typeof musaffaSnap?.assessment==="string"?musaffaSnap.assessment:null,
+    musaffaReason:typeof musaffaSnap?.reason==="string"?short(musaffaSnap.reason,180):null,
     earnings:isStatus?"NOT RATED":earnings,
     zones:isStatus?"NOT RATED":zones,
     stops:isStatus?"NOT RATED":stops,

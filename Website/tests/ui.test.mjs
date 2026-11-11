@@ -257,3 +257,24 @@ test("a deleted HTML report disappears from an already-open dashboard",()=>{
  assert(source.includes("map.delete(ticker);"));
  assert(source.includes("delete state.quotes[ticker];"));
 });
+
+test("Musaffa badges use verified date + exact classification, not archive folder or investment action",()=>{
+  const block=source.match(/function musaffaVisual\(r,now=new Date\(\)\)\{([\s\S]*?)\n  \}/);
+  assert(block,"independent Musaffa classifier must be present");
+  const classify=new Function("r","now",block[1]);
+  const now=new Date("2026-11-11T11:00:00Z");
+  const base={bucket:"nonhalal",action:"BUY",musaffaGate:"PASS"};
+  assert.deepEqual(classify({...base,musaffaClassification:"HALAL",musaffaScreeningDate:"2026-10-04"},now),
+    {tone:"good",label:"VERIFIED HALAL"});
+  assert.deepEqual(classify({...base,musaffaClassification:"NOT HALAL",musaffaScreeningDate:"2026-09-01",musaffaGate:"FAIL"},now),
+    {tone:"bad",label:"VERIFIED NON-COMPLIANT"});
+  assert.deepEqual(classify({...base,musaffaClassification:"HALAL",musaffaScreeningDate:"2026-03-01"},now),
+    {tone:"warn",label:"INCONCLUSIVE"});
+  assert.deepEqual(classify({...base,musaffaClassification:"HALAL",musaffa:"HALAL · PASS"},now),
+    {tone:"warn",label:"INCONCLUSIVE"});
+  assert.deepEqual(classify({...base,musaffaClassification:"HALAL",musaffaScreeningPeriod:"2026-10"},now),
+    {tone:"good",label:"VERIFIED HALAL"});
+  assert.deepEqual(classify({...base,musaffaClassification:"HALAL",musaffaScreeningPeriod:"2026-07"},now),
+    {tone:"warn",label:"INCONCLUSIVE"});
+  assert.match(source,/screeningCell\(r\)/);
+});

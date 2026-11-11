@@ -95,3 +95,21 @@ test("PG, JNJ, AAPL and XOM historical snapshot aliases remain readable",()=>{
   assert.notEqual(row.earnings,"NOT VERIFIED",ticker+" earnings");
  }
 });
+
+test("new nonhalal full report preserves financial research and separate Musaffa screening evidence",()=>{
+  const statusInfo=archiveInfo("nonhalal/PG/PG_2026-11-09_21-27-38Z.html");
+  const unverified={...canonical,report_type:"full",musaffa:{
+    classification:"HALAL",grade:null,screening_date:"2025-11-01",
+    gate:"STALE",assessment:"INCONCLUSIVE",reason:"Last dated screen is older than four calendar months"
+  }};
+  const parsed=parseHtmlReport(statusInfo,html(unverified));
+  assert.equal(parsed.statusOnly,false);
+  assert.equal(parsed.investment,"73/100");
+  assert.equal(parsed.entry,"35/100");
+  assert.equal(parsed.action,"WATCH");
+  assert.equal(parsed.musaffaGate,"STALE");
+  assert.equal(parsed.musaffaScreeningDate,"2025-11-01");
+  assert.equal(parsed.musaffaAssessment,"INCONCLUSIVE");
+  assert.match(parsed.musaffaReason,/older than four/);
+  assert.deepEqual(parsed.zoneBands,[[147,154],[155,161]]);
+});
