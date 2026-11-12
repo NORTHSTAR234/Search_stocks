@@ -387,6 +387,19 @@ test("vertical separators match horizontal row borders at every viewport width",
  assert(!/overflow\s*:\s*(?:auto|scroll)/.test(table),
    "Keep page-level scrolling, not an inner table scrollbar");
 });
+test("table headings and first column no longer cover rows when page scrolls",()=>{
+ const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+ const table=css.slice(css.indexOf("SINGLE-SCROLL FULL-WIDTH STOCK TABLE"),
+   css.indexOf("/* FLUID VIEWPORT WIDTH"));
+ assert.match(table,/\.table-wrap th\{[^}]*position:static;[^}]*top:auto;[^}]*z-index:auto;/);
+ assert.match(table,/\.table-wrap th:first-child \{position:static;left:auto;top:auto;z-index:auto;/);
+ assert.match(table,/\.table-wrap td:first-child \{position:static;left:auto;top:auto;z-index:auto;/);
+ assert(!table.includes("position:sticky"),"Header or first column must not overlay scrolled data");
+ assert(table.includes("border-right:1px solid #27394d;"),
+  "Keep the equally weighted vertical separators");
+ assert(table.includes("border-bottom:1px solid #27394d;"),
+  "Keep the row separators");
+});
 test("all 11 original stock headings are visible in the restored table",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
  const section=css.slice(css.indexOf("SINGLE-SCROLL FULL-WIDTH STOCK TABLE"),
