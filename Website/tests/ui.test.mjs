@@ -405,7 +405,7 @@ test("table headings and first column no longer cover rows when page scrolls",()
  assert(table.includes("border-bottom:1px solid #27394d;"),
   "Keep the row separators");
 });
-test("all 11 original stock headings are visible in the restored table",()=>{
+test("all twelve stock headings are visible in the restored table",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
  const section=css.slice(css.indexOf("ORIGINAL FULL-WIDTH STOCK TABLE WITH CONTAINED HORIZONTAL OVERFLOW"),
    css.indexOf("/* FLUID VIEWPORT WIDTH"));
