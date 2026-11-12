@@ -207,24 +207,34 @@
 .aaoifi-link:hover{text-decoration:none;filter:brightness(1.08)}
 
 
-/* SINGLE-SCROLL FULL-WIDTH STOCK TABLE — preserve the original table.
-   The page (not the table) scrolls. On narrow viewports, a true 11-column
-   table naturally needs horizontal page scrolling; there is no inner scrollbar. */
-.panel {overflow:visible}
-.table-wrap {
+/* ORIGINAL FULL-WIDTH STOCK TABLE WITH CONTAINED HORIZONTAL OVERFLOW.
+   The browser page is the ONLY vertical scrolling surface. On narrower
+   windows the table alone can scroll left/right; the header, filters and
+   other website sections always remain fully inside the viewport. */
+.panel {
   width:100%;
-  max-width:none;
+  min-width:0;
+  max-width:100%;
+  overflow:hidden;
+}
+.table-wrap {
+  display:block;
+  width:100%;
+  min-width:0;
+  max-width:100%;
   max-height:none!important;
   height:auto;
-  overflow:visible!important;
-  overscroll-behavior:auto;
+  /* Only horizontal table overflow is isolated; no inner vertical scrollbar. */
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;
 }
 .table-wrap table {
   display:table;
   width:100%!important;
-  /* Preserve legible column widths when the browser becomes narrow.
-     The DOCUMENT scrolls horizontally; there is no nested table scroller. */
-  min-width:2280px!important;
+  /* Wide desktops fit naturally; narrow screens pan the table, not the page. */
+  min-width:1680px!important;
   max-width:none;
   table-layout:fixed;
   border-collapse:separate;
@@ -305,14 +315,15 @@
 .table-wrap td[colspan] {display:table-cell;text-align:center}
 @media(max-width:850px){
   .table-wrap th,.table-wrap td {padding:11px 7px}
-  .table-wrap table {min-width:2280px!important}
+  .table-wrap table {min-width:1680px!important}
 }
 @media(max-width:560px){
-  .table-wrap table {min-width:2280px!important}
+  .table-wrap table {min-width:1680px!important}
   .table-wrap th,.table-wrap td {font-size:.76rem}
 }
-/* Entire table scrolls with the browser page, not inside a framed panel.
-   The desktop grid remains the familiar column-and-row layout. */
+/* No clipped hero, navbar, filters or horizontal page shifts.
+   A horizontal table scrollbar is necessary for 11 legible columns on mobile,
+   but the page itself remains the only vertical scrolling surface. */
 
 /* FLUID VIEWPORT WIDTH
    The stock dashboard uses the available browser width instead of the
@@ -321,6 +332,7 @@
 main:not(.report-layout){
   display:block;
   width:100%;
+  min-width:0;
   max-width:none;
   margin:0;
   padding:clamp(15px,2vw,32px) clamp(12px,1.5vw,38px) 75px;
@@ -343,4 +355,19 @@ main:not(.report-layout) .table-wrap tbody tr{
     padding:14px 9px 55px;
   }
 }
-/* No extra internal scrolling surface or fixed-width stock grid. */
+/* Contain browser-wide overflow caused by the wide table, without affecting
+   the independent scrollable code blocks inside full research reports. */
+html,body{max-width:100%;overflow-x:hidden}
+main:not(.report-layout)>.panel .toolbar,
+main:not(.report-layout)>.panel .notice,
+main:not(.report-layout)>.panel .table-footer{
+  min-width:0;
+  max-width:100%;
+}
+@media(max-width:1720px){
+  .table-wrap{
+    scrollbar-color:#71869b #122237;
+    scrollbar-width:thin;
+  }
+}
+/* On desktop the table is still a real table with normal column headers. */
