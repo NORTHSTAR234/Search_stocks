@@ -334,3 +334,45 @@
 }
 /* All columns have explicit labels; no scrollable container is introduced.
    Mobile scrolls the browser page once, exactly like desktop. */
+
+
+/* FLUID VIEWPORT WIDTH
+   The stock dashboard uses the available browser width instead of the
+   original fixed 1520px content cap. Research report pages retain their
+   original narrow readable layout through .report-layout. */
+main:not(.report-layout){
+  display:block;
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding:clamp(15px,2vw,32px) clamp(12px,1.5vw,38px) 75px;
+}
+main:not(.report-layout)>.hero,
+main:not(.report-layout)>.panel,
+main:not(.report-layout)>.note{
+  width:100%;
+  max-width:none;
+}
+.top{
+  padding-left:clamp(14px,1.5vw,38px);
+  padding-right:clamp(14px,1.5vw,38px);
+}
+main:not(.report-layout) .table-wrap tbody tr{
+  width:100%;
+}
+@media(min-width:1800px){
+  main:not(.report-layout) .table-wrap tbody tr{
+    grid-template-columns:repeat(5,minmax(0,1fr));
+  }
+}
+@media(min-width:2450px){
+  main:not(.report-layout) .table-wrap tbody tr{
+    grid-template-columns:repeat(6,minmax(0,1fr));
+  }
+}
+@media(max-width:560px){
+  main:not(.report-layout){
+    padding:14px 9px 55px;
+  }
+}
+/* No extra internal scrolling surface or fixed-width stock grid. */
