@@ -1,11 +1,52 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-12T08:45:53Z",
-  "htmlReportCount": 62,
+  "latestHtmlReportAt": "2026-11-12T08:47:06Z",
+  "htmlReportCount": 63,
   "uniqueTickers": 29,
-  "revision": "3f6dd3310e4ba5fe5a60916a8b1c11b5",
+  "revision": "9da2c3ddff4a4fc148261db6be937a11",
   "rows": [
+    {
+      "company": "Advanced Micro Devices, Inc.",
+      "ticker": "AMD",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-12T08:47:06Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "77/100",
+      "entry": "24/100",
+      "musaffa": "HALAL · 2026-08 (month) · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": "2026-08",
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "VERIFIED_HALAL",
+      "musaffaReason": "Official exact NASDAQ AMD profile states HALAL as of August 2026; publicly visible precision is month/year. Prior archived report recorded B- and 2026-08-07, not independently con…",
+      "earnings": "2 Feb 2027 estimated",
+      "zones": "US$390–425 / US$426–460",
+      "stops": "US$350 / US$480",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "AMD",
+      "zoneBands": [
+        [
+          390,
+          425
+        ],
+        [
+          426,
+          460
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/AMD/AMD_2026-11-12_08-47-06Z.html",
+      "reportPath": "/view-report?path=halal%2FAMD%2FAMD_2026-11-12_08-47-06Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Micron Technology, Inc.",
       "ticker": "MU",
@@ -44,47 +85,6 @@
       ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MU/MU_2026-11-12_08-45-53Z.html",
       "reportPath": "/view-report?path=halal%2FMU%2FMU_2026-11-12_08-45-53Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "Advanced Micro Devices, Inc.",
-      "ticker": "AMD",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-12T01:41:55Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "77/100",
-      "entry": "24/100",
-      "musaffa": "HALAL · B- · 2026-08-07 · PASS",
-      "musaffaClassification": "HALAL",
-      "musaffaGate": "PASS",
-      "musaffaScreeningDate": "2026-08-07",
-      "musaffaScreeningPeriod": "2026 Q2",
-      "musaffaScreeningMonthConflict": false,
-      "musaffaAssessment": "GREEN_VERIFIED_HALAL",
-      "musaffaReason": null,
-      "earnings": "2 Feb 2027 estimated",
-      "zones": "US$390–425 / US$426–460",
-      "stops": "US$350 / US$480",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "AMD",
-      "zoneBands": [
-        [
-          390,
-          425
-        ],
-        [
-          426,
-          460
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/AMD/AMD_2026-11-12_01-41-55Z.html",
-      "reportPath": "/view-report?path=halal%2FAMD%2FAMD_2026-11-12_01-41-55Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
