@@ -85,7 +85,7 @@ test("regular and overnight have distinct columns and signed price/percentage co
  assert(source.includes("quoteDirection(valid?c.regularChangePercent:null)"));
  assert(source.includes("quote-value overnight-value"));
  assert(source.includes("No recent verified overnight indication"));
- assert(source.includes('colspan="10"'));
+ assert(source.includes('colspan="11"'));
 });
 
 
@@ -161,13 +161,13 @@ test("dashboard columns match specified new order and remove duplicate report co
  "Company / ticker","Regular / latest price","Overnight / vs close",
  "Action / Risk","Investment / Entry","Last report (AEDT/AEST)",
  "Preferred / acceptable buy zone","Initial stop / no_chase",
- "Musaffa status / grade / screening date","Next earnings / confirmation"]);
- assert.equal(headings.length,10);
+ "Musaffa status / grade / screening date","AAOIFI","Next earnings / confirmation"]);
+ assert.equal(headings.length,11);
  assert(!source.includes('Original GitHub</a>'));
  assert(source.includes("'<td>'+scoreCell(r)+'</td>'"));
  assert(source.includes("'<td>'+zoneCell(r,context)+'</td>'"));
  assert(source.includes("'<td>'+stopsCell(r)+'</td>'"));
- assert(source.includes('colspan="10"'));
+ assert(source.includes('colspan="11"'));
  assert(source.includes("class=\"ticker'+active+'\" href="));
 });
 test("a preferred or acceptable match lights only its own buy-zone card",()=>{
@@ -338,4 +338,13 @@ test("active-session columns show IEX first and hide old pre-market indications"
  assert(source.includes("90*60000"));
  assert(source.includes("session.fresh?{label:\"Latest IEX\",price:Number(q.price)}"));
  assert(source.includes("US Alpaca IEX latest trades checked every 5 minutes while visible"));
+});
+
+test("AAOIFI dashboard column uses separate green red yellow semantics",()=>{
+ assert(source.includes("function aaoifiVisual(r)"));
+ assert(source.includes("function aaoifiCell(r)"));
+ assert(source.includes('status==="AAOIFI-COMPLIANT"'));
+ assert(source.includes('status==="AAOIFI-NON-COMPLIANT"'));
+ assert(source.includes('status==="SHARIAH REVIEW REQUIRED"'));
+ assert(source.includes("'<td>'+aaoifiCell(r)+'</td>'"));
 });
