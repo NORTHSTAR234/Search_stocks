@@ -43,12 +43,13 @@ function longCandidate(ticker,rows,at,kind="BUY_CANDIDATE"){
     triggerPrice:high,invalidationPrice:low,
     features:{barStart:start}};
 }
-function baselineCandidates(map,tickers){
+function baselineCandidates(map,tickers,input,requireNewsCoverage){
   const out=[];
   for(const [keyName,rows] of map){
     const i=keyName.indexOf("|");
     const ticker=keyName.slice(0,i),day=keyName.slice(i+1);
     if(!tickers.includes(ticker)||!anchored(rows))continue;
+    if(requireNewsCoverage&&input.newsCoverage?.[ticker]?.[day]!=="COMPLETE")continue;
     const high=Math.max(...rows.slice(0,6).map(x=>x.h));
     for(let n=6;n<rows.length-1;n++){
       const clock=dayTime(rows[n].t)[1];
@@ -69,10 +70,10 @@ function wilson(successes,n,z=1.96){
   return {low:mid-half,high:mid+half};
 }
 export function evaluatePaperBenchmark(input,{tickers=["MU","NVDA","AMD","AAPL"],costBpsPerSide=8,
-  maxChasePct=0.75,maxRiskPct=3,rewardRisk=1.5}={}){
+  maxChasePct=0.75,maxRiskPct=3,rewardRisk=1.5,requireNewsCoverage=false}={}){
   const options={costBpsPerSide,maxChasePct,maxRiskPct,rewardRisk};
   const prices=sessionsOf(input);
-  const technical=replay(input,{tickers});
+  const technical=replay(input,{tickers,requireNewsCoverage});
   const filtered=technical.signals.filter(s=>s.signal==="BUY_CANDIDATE");
   const warnings=technical.signals.filter(s=>s.signal==="SELL_RISK");
   const run=signals=>signals.map(s=>{
@@ -81,7 +82,7 @@ export function evaluatePaperBenchmark(input,{tickers=["MU","NVDA","AMD","AAPL"]
       outcome:paperLong(longCandidate(s.ticker,rows,s.asOf),rows,options)};
   });
   const primary=run(filtered);
-  const baseline=run(baselineCandidates(prices,tickers));
+  const baseline=run(baselineCandidates(prices,tickers,input,requireNewsCoverage));
   const summary=arr=>{
     const p=summarizePaperLong(arr.map(x=>x.outcome));
     return {...p,positiveInterval95:wilson(p.profitable,p.filled),
@@ -92,7 +93,7 @@ export function evaluatePaperBenchmark(input,{tickers=["MU","NVDA","AMD","AAPL"]
   const days=[...new Set([...primary,...baseline].map(x=>x.day))].sort();
   const cut=days[Math.max(0,Math.floor(days.length*.7))]||null;
   const outOfSample=arr=>summary(arr.filter(x=>x.day>=cut));
-  return {researchOnly:true,validated:false,dataFeed:input.feed,
+  return {researchOnly:true,validated:false,dataFeed:input.feed,requireNewsCoverage,
     simulator:"LONG_ONLY_NEXT_BAR_OPEN",
     assumptions:{...PAPER_DEFAULTS,...options},
     eligibleSymbols:tickers,coveredDays:days.length,holdoutStart:cut,
