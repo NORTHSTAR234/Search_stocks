@@ -141,3 +141,9 @@ An experimental, read-only 5-minute intraday research engine, automated engine t
 ## Stage 2: optional Alpaca 5-minute bars + news (not enabled)
 
 The draft research branch now includes an **independent private Cloudflare named service provider**, an owner-authenticated read-only API path, strict freshness/news-source guards, and complete mock-provider tests. See [INTRADAY_DATA_PIPELINE.md](INTRADAY_DATA_PIPELINE.md) for binding/secrets prerequisites and the data-contract security model. **No live intraday signals or automatic trades are active.** Do not confuse this experimental API with the normal owner-only Alpaca quote gateway. No price routes or existing archived reports were changed. Authentication/feature gates fail closed until explicitly configured after testing and licensing review.
+
+### Intraday research Phase 3 — isolated, disabled
+
+A **separate** Cloudflare Worker named `search-stocks-intraday-research-disabled` was provisioned from the staged source with a feature flag set to `disabled`. Cloudflare confirmed `workers.dev` and preview URLs are off and **no secrets exist in that Worker**. It is **not connected** to production Pages or existing stock-price Workers. The public website and latest price refresh remain unchanged. Its reproducible configuration is `worker/intraday.wrangler.jsonc`. Do not enable it merely because the code is deployed.
+
+Extended **3 August–11 November 2026** IEX-only paper audit: nine filtered bullish candidates, five simulated long fills, four positive, and an average **+0.028% illustrative net per filled trade** assuming 8bps cost each side. This very small sample provides **no statistical validation**. The plain 30-minute breakout control yielded 102 modeled fills and an average −0.226% per fill under identical paper-cost assumptions. See `INTRADAY_PAPER_AUDIT_2026-11-12.md`; no historical point-in-time news corpus was included.
