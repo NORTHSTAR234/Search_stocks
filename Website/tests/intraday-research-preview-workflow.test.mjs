@@ -92,3 +92,13 @@ test("Risk reports preserve risk codes but strip any headlines",async()=>{
  assert.equal(result.signals[0].observedBarAt,null);
  assert.equal(JSON.stringify(result).includes("unverified headline"),false);
 });
+
+test("Buy setups with partial news or stale bar cannot become journaled paper candidates",async()=>{
+ const incomplete=good();incomplete.signals[0].newsCoverage="PARTIAL";
+ const p=Harness(incomplete);assert.equal((await p.run()).status,"NO_VALID_RESEARCH_DATA");
+ assert.equal(p.written.length,0);
+ const stale=good();stale.signals[0].marketData.observationAsOf=
+  new Date(Date.now()-30*60000).toISOString();
+ const q=Harness(stale);assert.equal((await q.run()).status,"NO_VALID_RESEARCH_DATA");
+ assert.equal(q.written.length,0);
+});
