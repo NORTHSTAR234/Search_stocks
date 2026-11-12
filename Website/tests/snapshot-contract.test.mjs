@@ -2,7 +2,7 @@
 // They verify the exact Aya v2 contract and old reports without modifying archives.
 import test from "node:test";
 import assert from "node:assert/strict";
-import {archiveInfo,parseHtmlReport} from "../lib/report-archive.mjs";
+import {archiveInfo,aaoifiInfo,parseHtmlReport,parseAaoifiHtml} from "../lib/report-archive.mjs";
 
 const html=snapshot=>'<!doctype html><html lang="en"><head><title>Research</title></head><body>'+
   '<h1>Stock Research</h1><script type="application/json" id="aya-report-snapshot">'+
@@ -139,4 +139,21 @@ test("SU.PA October 2026 month-only Musaffa screen survives HTML snapshot parsin
     screening_period:"2026-08",screening_month:"2026-10"
   }}));
   assert.equal(conflicting.musaffaScreeningMonthConflict,true);
+});
+
+test("AAOIFI overwrite report snapshot parses into dashboard status fields",()=>{
+ const info=aaoifiInfo("AAOIFI/NVDA.NASDAQ.html");
+ const snapshot={
+  schema_version:1,ticker:"NVDA",exchange:"NASDAQ",company:"NVIDIA Corporation",
+  status:"SHARIAH REVIEW REQUIRED",confidence:"Medium",
+  screened_at:"2026-11-12T08:40:00Z",
+  executive_summary:"Core AAOIFI ratios pass, but material investment gains still require Shariah classification."
+ };
+ const doc='<!doctype html><html><body><script type="application/json" id="aaoifi-report-snapshot">'+
+  JSON.stringify(snapshot)+'</script><h1>AAOIFI</h1></body></html>';
+ const row=parseAaoifiHtml(info,doc);
+ assert.equal(row.ticker,"NVDA");
+ assert.equal(row.status,"SHARIAH REVIEW REQUIRED");
+ assert.equal(row.confidence,"Medium");
+ assert.match(row.reportPath,/AAOIFI%2FNVDA.NASDAQ.html/);
 });
