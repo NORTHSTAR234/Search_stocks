@@ -1,12 +1,12 @@
-# Intraday data and news integration — staged / not deployed
+# Intraday data and news integration — isolated Worker deployed, NOT ACTIVATED
 
-Last reviewed: 12 November 2026. This implementation is on the draft feature branch. It is **not a live alerting system**. It does not place trades, issue notifications, create recurring checks, or change the authenticated production website without being explicitly configured and merged.
+Last reviewed: 12 November 2026. This implementation remains on the draft feature branch. A separate Cloudflare Worker **search-stocks-intraday-research-disabled** was deployed with no Alpaca secrets, plain-text feature flag **disabled**, and workers.dev and preview URL access **disabled**. Its settings and empty secret list were verified by Cloudflare read-only inspection. It is **not bound to the Pages site** and is not a live alerting system. It does not place trades, issue notifications, create recurring checks, or change the authenticated production website without being explicitly configured and merged.
 
 ## Architecture and trust boundary
 
 | Component | Purpose | Security / status |
 |---|---|---|
-| Website/worker/intraday-research-provider.mjs | Private named Worker RPC entrypoint: IntradayResearchProvider, fetching Alpaca IEX 5-minute OHLCV and article metadata | NOT DEPLOYED; default HTTP endpoint returns 404 |
+| Website/worker/intraday-research-provider.mjs | Private named Worker RPC entrypoint: IntradayResearchProvider, fetching Alpaca IEX 5-minute OHLCV and article metadata | Worker exists but remains disabled and isolated; no public URL, no secrets; default HTTP endpoint returns 404 |
 | Website/lib/news-risk.mjs | Triage high-precision material-risk headlines with provider-created timestamps | Reported headline remains **reported**, not confirmed |
 | Website/lib/intraday-signals.mjs | Completed regular-session five-minute bars, VWAP, opening range, five-prior-session same-clock volume, sector and QQQ context | Every classification RESEARCH_ONLY_NOT_EXECUTABLE and validated:false |
 | Website/functions/api/intraday-research.js | Cloudflare Pages GET /api/intraday-research?symbols=MU,NVDA | Requires exact owner Access JWT, private RPC binding and read_only flag; defaults to 403/503 |
@@ -21,7 +21,7 @@ Supported pilot tickers: MU, NVDA, AMD, AAPL; up to TWO at a time. Sector benchm
 
 The current Cloudflare Pages site uses an owner-only Access JWT gateway for ordinary prices. The new pilot API reuses that owner check but has an **independent** service binding so the production PRICE_PROVIDER remains untouched.
 
-1. Create a private Worker from Website/worker/intraday-research-provider.mjs, including its Website/lib imports. Use the supported Cloudflare CLI for the existing project. Do not replace or reconfigure the production price Worker to acquire existing secrets.
+1. Isolated research Worker already provisioned under name search-stocks-intraday-research-disabled, with repository configuration Website/worker/intraday.wrangler.jsonc. Verify the exact deployed source/configuration before future changes; do not replace or reconfigure the production price Worker. Its current configuration is deliberately disabled and without Alpaca credentials.
 2. Provision **encrypted Worker secrets** ALPACA_API_KEY_ID and ALPACA_API_SECRET_KEY through Cloudflare's secure dashboard or CLI only. Never commit, log or paste secrets in chat/GitHub. A ChatGPT Alpaca connection does not automatically grant Cloudflare the same credentials.
 3. Disable public routes/workers.dev for the Worker. Only named entrypoint IntradayResearchProvider should be callable via explicit service binding. Default HTTP handler returns 404. Preserve least privilege, GET-only data access and separate Worker isolation.
 4. Configure the Pages project's service binding INTRADAY_RESEARCH_PROVIDER to that Worker **with the named entrypoint**, then set INTRADAY_RESEARCH_ENABLED=read_only in both the Worker and intended Pages environment. The flags are absent/disabled by default. Preserve all existing owner Access JWT settings.
@@ -48,3 +48,7 @@ Reference documentation:
 ## Operational acceptance gate
 
 Before enabling any BUY/SELL-style user interface, preserve production report HTML and schema; verify quote/feed entitlement and observation latency; prevent a reported headline from being described as confirmed; complete a multi-year walk-forward comparison against the unfiltered opening-range baseline including fees, spreads, execution and zero-lookahead; paper-test privately over an extended sample. Automatic order execution is outside this project.
+
+## Latest historical paper result
+
+See [INTRADAY_PAPER_AUDIT_2026-11-12.md](INTRADAY_PAPER_AUDIT_2026-11-12.md): replay of August–11 November 2026 IEX five-minute data across four primary equities. Only five pilot long fills after risk/no-chase gates, of which four were positive, with **+0.028% average illustrative net paper return** (16bps round-trip assumed) and no historical news feed. This is NOT enough evidence for active entry signals. Keep disabled.
