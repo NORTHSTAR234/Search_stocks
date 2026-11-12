@@ -8,7 +8,7 @@ const original=readFileSync(new URL("../worker/intraday-research-provider.mjs",i
 function loadProvider({fetcher,engine}){
   const source=original
     .replace(/^import\s+.*?;\s*$/gm,"")
-    .replace("export class IntradayResearchProvider","class IntradayResearchProvider")
+    .replace(/export class /g,"class ")
     .replace(/export default \{[\s\S]*$/,"");
   const context={WorkerEntrypoint:class {},fetch:fetcher,AbortSignal,URL,Response,Date,Intl,
     summarizeNewsRisk,evaluateIntradaySignal:engine};
