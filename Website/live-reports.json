@@ -4,7 +4,8 @@
   "latestHtmlReportAt": "2026-11-12T08:47:06Z",
   "htmlReportCount": 63,
   "uniqueTickers": 29,
-  "revision": "9da2c3ddff4a4fc148261db6be937a11",
+  "aaoifiReportCount": 2,
+  "revision": "4d3dfce64aec2a1d1c8d5f06e35a8519",
   "rows": [
     {
       "company": "Advanced Micro Devices, Inc.",
@@ -45,7 +46,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/AMD/AMD_2026-11-12_08-47-06Z.html",
       "reportPath": "/view-report?path=halal%2FAMD%2FAMD_2026-11-12_08-47-06Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": "AAOIFI-COMPLIANT",
+      "aaoifiConfidence": "Medium–High",
+      "aaoifiScreenedAt": "2026-11-12T08:40:00Z",
+      "aaoifiReason": "AMD's semiconductor and computing business is permissible, its interest-bearing borrowing and conservative deposit ratios are far below AAOIFI's 30% limits, and even a deliberately harsh assumption that all reported long-term investment gains are prohibited leaves prohibited inc…",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FAMD.NASDAQ.html"
     },
     {
       "company": "Micron Technology, Inc.",
@@ -86,7 +92,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MU/MU_2026-11-12_08-45-53Z.html",
       "reportPath": "/view-report?path=halal%2FMU%2FMU_2026-11-12_08-45-53Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "NVIDIA Corporation",
@@ -127,7 +138,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/NVDA/NVDA_2026-11-12_01-24-59Z.html",
       "reportPath": "/view-report?path=halal%2FNVDA%2FNVDA_2026-11-12_01-24-59Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
+      "aaoifiConfidence": "Medium",
+      "aaoifiScreenedAt": "2026-11-12T08:40:00Z",
+      "aaoifiReason": "NVIDIA's main business is permissible and its AAOIFI borrowing and deposit ratios are far below the 30% limits. The unresolved issue is the Shariah classification of very large equity-investment gains. Depending on how those gains are classified, prohibited income could remain b…",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FNVDA.NASDAQ.html"
     },
     {
       "company": "Elite Material Co., Ltd.",
@@ -189,7 +205,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/2383.TWSE/2383.TWSE_2026-11-11_13-14-44Z.html",
       "reportPath": "/view-report?path=halal%2F2383.TWSE%2F2383.TWSE_2026-11-11_13-14-44Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "Micro-Star International Co., Ltd.",
@@ -251,7 +272,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/2377.TWSE/2377.TWSE_2026-11-11_13-06-04Z.html",
       "reportPath": "/view-report?path=nonhalal%2F2377.TWSE%2F2377.TWSE_2026-11-11_13-06-04Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "MediaTek Inc.",
@@ -313,7 +339,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/2454.TWSE/2454.TWSE_2026-11-11_13-05-57Z.html",
       "reportPath": "/view-report?path=halal%2F2454.TWSE%2F2454.TWSE_2026-11-11_13-05-57Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "King Yuan Electronics Co., Ltd.",
@@ -375,7 +406,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/2449.TWSE/2449.TWSE_2026-11-11_13-05-07Z.html",
       "reportPath": "/view-report?path=nonhalal%2F2449.TWSE%2F2449.TWSE_2026-11-11_13-05-07Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "Schneider Electric SE",
@@ -437,7 +473,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/SU.PA/SU.PA_2026-11-11_13-04-43Z.html",
       "reportPath": "/view-report?path=halal%2FSU.PA%2FSU.PA_2026-11-11_13-04-43Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "ASM International N.V.",
@@ -499,7 +540,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ASM.XAMS/ASM.XAMS_2026-11-11_13-01-25Z.html",
       "reportPath": "/view-report?path=halal%2FASM.XAMS%2FASM.XAMS_2026-11-11_13-01-25Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "APA Group",
@@ -561,7 +607,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/APA.ASX/APA.ASX_2026-11-11_13-00-04Z.html",
       "reportPath": "/view-report?path=nonhalal%2FAPA.ASX%2FAPA.ASX_2026-11-11_13-00-04Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "Eli Lilly and Company",
@@ -602,7 +653,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/LLY/LLY_2026-11-10_21-46-26Z.html",
       "reportPath": "/view-report?path=halal%2FLLY%2FLLY_2026-11-10_21-46-26Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "ABB Ltd",
@@ -664,7 +720,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ABBN.SIX/ABBN.SIX_2026-11-10_21-46-14Z.html",
       "reportPath": "/view-report?path=halal%2FABBN.SIX%2FABBN.SIX_2026-11-10_21-46-14Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "The Home Depot, Inc.",
@@ -705,7 +766,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/HD/HD_2026-11-10_21-46-10Z.html",
       "reportPath": "/view-report?path=halal%2FHD%2FHD_2026-11-10_21-46-10Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "Visa Inc.",
@@ -746,7 +812,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/V/V_2026-11-10_21-45-49Z.html",
       "reportPath": "/view-report?path=halal%2FV%2FV_2026-11-10_21-45-49Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "Johnson & Johnson",
@@ -787,7 +858,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/JNJ/JNJ_2026-11-10_21-45-27Z.html",
       "reportPath": "/view-report?path=halal%2FJNJ%2FJNJ_2026-11-10_21-45-27Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "The Procter & Gamble Company",
@@ -828,7 +904,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/PG/PG_2026-11-10_21-45-15Z.html",
       "reportPath": "/view-report?path=halal%2FPG%2FPG_2026-11-10_21-45-15Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "Apple Inc.",
@@ -869,7 +950,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/AAPL/AAPL_2026-11-10_21-45-01Z.html",
       "reportPath": "/view-report?path=halal%2FAAPL%2FAAPL_2026-11-10_21-45-01Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "ExxonMobil Holdings Corporation",
@@ -910,7 +996,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/XOM/XOM_2026-11-10_21-44-59Z.html",
       "reportPath": "/view-report?path=halal%2FXOM%2FXOM_2026-11-10_21-44-59Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "Novatek Microelectronics Corporation",
@@ -972,7 +1063,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/3034.TWSE/3034.TWSE_2026-11-10_21-44-58Z.html",
       "reportPath": "/view-report?path=halal%2F3034.TWSE%2F3034.TWSE_2026-11-10_21-44-58Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "Origin Energy Limited",
@@ -1034,7 +1130,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ORG.ASX/ORG.ASX_2026-11-10_21-44-40Z.html",
       "reportPath": "/view-report?path=halal%2FORG.ASX%2FORG.ASX_2026-11-10_21-44-40Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "The Coca-Cola Company",
@@ -1075,7 +1176,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/KO/KO_2026-11-10_21-44-29Z.html",
       "reportPath": "/view-report?path=halal%2FKO%2FKO_2026-11-10_21-44-29Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "Cisco Systems, Inc.",
@@ -1116,7 +1222,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/CSCO/CSCO_2026-11-10_21-43-30Z.html",
       "reportPath": "/view-report?path=halal%2FCSCO%2FCSCO_2026-11-10_21-43-30Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "Mastercard Incorporated",
@@ -1157,7 +1268,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MA/MA_2026-11-10_21-43-08Z.html",
       "reportPath": "/view-report?path=halal%2FMA%2FMA_2026-11-10_21-43-08Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "Chevron Corporation",
@@ -1198,7 +1314,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/CVX/CVX_2026-11-10_21-43-03Z.html",
       "reportPath": "/view-report?path=halal%2FCVX%2FCVX_2026-11-10_21-43-03Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "Applied Materials, Inc.",
@@ -1239,7 +1360,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/AMAT/AMAT_2026-11-10_21-42-44Z.html",
       "reportPath": "/view-report?path=halal%2FAMAT%2FAMAT_2026-11-10_21-42-44Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "Tesla, Inc.",
@@ -1271,7 +1397,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/TSLA/TSLA_2026-11-10_21-41-55Z.html",
       "reportPath": "/view-report?path=nonhalal%2FTSLA%2FTSLA_2026-11-10_21-41-55Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "Merck & Co., Inc.",
@@ -1312,7 +1443,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MRK/MRK_2026-11-10_21-41-51Z.html",
       "reportPath": "/view-report?path=halal%2FMRK%2FMRK_2026-11-10_21-41-51Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "CBH Engineering Holding Berhad",
@@ -1369,7 +1505,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/CBHB.MYX/CBHB.MYX_2026-11-10_21-40-00Z.html",
       "reportPath": "/view-report?path=nonhalal%2FCBHB.MYX%2FCBHB.MYX_2026-11-10_21-40-00Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     },
     {
       "company": "Fortune Electric Co., Ltd.",
@@ -1401,7 +1542,12 @@
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/1519.TWSE/1519.TWSE_2026-11-09_05-23-30Z.html",
       "reportPath": "/view-report?path=nonhalal%2F1519.TWSE%2F1519.TWSE_2026-11-09_05-23-30Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": false
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
     }
   ]
 }
