@@ -89,13 +89,17 @@ export class IntradayResearchProvider extends WorkerEntrypoint {
     const [bars,news]=await Promise.allSettled([
       barsFor(instruments,now,this.env),newsFor(tickers,now,this.env)
     ]);
-    // Do not pretend a missing news feed means no negative events.
-    if(bars.status!=="fulfilled"||news.status!=="fulfilled")
+    // A failed NEWS feed blocks technical candidates, even if prices succeeded.
+    // If news succeeded and bars failed, still show attributable risk reports.
+    // Never promote the absence of bars/news to a bullish signal.
+    if(news.status!=="fulfilled")
       return {status:"DATA_UNAVAILABLE",asOf,
         reasons:[bars.status!=="fulfilled"?"BARS_UNAVAILABLE":null,
-          news.status!=="fulfilled"?"NEWS_UNAVAILABLE":null].filter(Boolean),
-        signals:[]};
-    const sessions=Object.fromEntries(instruments.map(s=>[s,grouped(bars.value[s],asOf)]));
+          "NEWS_UNAVAILABLE"].filter(Boolean),signals:[]};
+    const barsReady=bars.status==="fulfilled";
+    const sessions=Object.fromEntries(instruments.map(s=>[
+      s,barsReady?grouped(bars.value[s],asOf):{}
+    ]));
     const today=formattedParts(asOf).day;
     const results=[];
     for(const ticker of tickers){
@@ -103,10 +107,13 @@ export class IntradayResearchProvider extends WorkerEntrypoint {
       const historicalDays=Object.keys(sessions[ticker]).filter(d=>d<today).sort()
         .slice(-5).map(day=>({day,feed:"IEX",bars:sessions[ticker][day]}));
       const newsView=summarizeNewsRisk(news.value.articles,ticker,asOf);
-      const r=evaluateIntradaySignal({ticker,asOf,feed:"IEX",sectorFeed:"IEX",
+      const r=barsReady?evaluateIntradaySignal({ticker,asOf,feed:"IEX",sectorFeed:"IEX",
         broadFeed:"IEX",bars:sessions[ticker][today]||[],
         sectorBars:sessions[sector][today]||[],broadBars:sessions.QQQ[today]||[],
-        historicalDays,events:newsView.events});
+        historicalDays,events:newsView.events}):
+        newsView.events.length?evaluateIntradaySignal({ticker,asOf,events:newsView.events}):
+        {ticker,signal:"NO_DATA",asOf,reasonCodes:["BARS_UNAVAILABLE"],
+          features:{},execution:"RESEARCH_ONLY_NOT_EXECUTABLE",validated:false};
       // Even if a keyword matched, a partial news feed is not safe for candidate generation.
       const partial=!news.value.complete;
       const isCandidate=["BUY_CANDIDATE","SELL_RISK"].includes(r.signal);
@@ -118,7 +125,8 @@ export class IntradayResearchProvider extends WorkerEntrypoint {
       results.push({ticker,assessment:effective,marketData:{
         feed:"IEX",currency:"USD",observationAsOf:last?.t||null,
         lagMinutes:last?Math.max(0,Math.round((now-Date.parse(last.t)-MS5)/60000)):null,
-        priorCompleteSessions:historicalDays.length},
+        priorCompleteSessions:historicalDays.length,
+        barsAvailable:barsReady},
         newsCoverage:partial?"PARTIAL":"SAMPLED",
         riskHeadlines:newsView.events.map(e=>({
           headline:e.headline,publishedAt:e.publishedAt,verification:"reported",
@@ -127,6 +135,7 @@ export class IntradayResearchProvider extends WorkerEntrypoint {
     return {status:"RESEARCH_ONLY",asOf,feed:"IEX",
       validated:false,execution:"RESEARCH_ONLY_NOT_EXECUTABLE",
       note:"Five-minute observation and sampled news: not a live trading instruction",
+      sourceStatus:barsReady?"BARS_AND_NEWS":"NEWS_ONLY_BAR_FEED_UNAVAILABLE",
       signals:results};
   }
 }
