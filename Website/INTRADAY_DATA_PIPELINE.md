@@ -63,3 +63,9 @@ A read-only Alpaca entitlement check on **11 November 2026** found **78/78 regul
 
 Full instructions for secure activation remain in the earlier section: the isolated Worker has **no Alpaca secrets**, so on-demand live data access is not yet available. Provision those independently through encrypted Cloudflare Worker Secrets only, and keep `INTRADAY_RESEARCH_ENABLED=disabled` until an authenticated end-to-end smoke test is approved. The owner-only Pages service binding is also absent.
 
+
+## Successful Cloudflare-to-Alpaca connection acceptance (12 November 2026)
+
+On-demand, REST-triggered Cloudflare Workflow proved the isolated Worker's encrypted Alpaca credentials work against **MU IEX 5-minute bars (50 records)** and **NVDA provider-created news (10 records)**. The run completed with one step, no retries or orders. For the full timestamped acceptance, caveats and cleanup receipts, see [INTRADAY_ONDEMAND_SMOKE_ACCEPTANCE_2026-11-12.md](INTRADAY_ONDEMAND_SMOKE_ACCEPTANCE_2026-11-12.md).
+
+This resolves the **private Cloudflare-to-Alpaca data connectivity blocker**, but NOT the disabled Pages RPC binding, comprehensive news feed coverage, live data latency, risk-calibrated alerts, or profitable paper strategy validation. The proof-of-connectivity Workflow/Worker were **deleted**. The isolated permanent research Worker remains `disabled`, preserves the two encrypted credentials, and has no diagnostic flag, cron, public route or preview URL.
