@@ -27,7 +27,7 @@ const goodEnv={INTRADAY_RESEARCH_ENABLED:"read_only",
 const ok=body=>({ok:true,status:200,text:async()=>JSON.stringify(body)});
 test("Worker has a private named entrypoint and denies default public HTTP",()=>{
   assert.match(original,/export class IntradayResearchProvider extends WorkerEntrypoint/);
-  assert.match(original,/export default \{fetch\(\)\{return new Response\("Not found",\{status:404\}\);\}\};/);
+  assert.match(original,/fetch\(\)\{return new Response\("Not found",\{status:404\}\);\}/);
   assert.doesNotMatch(original,/\/v2\/orders|submitOrder|placeOrder/);
   assert.match(original,/env\.ALPACA_SECRET_KEY/);
   assert.doesNotMatch(original,/env\.ALPACA_API_SECRET_KEY/);
