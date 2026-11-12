@@ -5,7 +5,7 @@ import {readFileSync} from "node:fs";
 
 const source=readFileSync(new URL("../worker/intraday-research-provider.mjs",import.meta.url),"utf8")
   .replace(/^import\s+.*?;\s*$/gm,"")
-  .replace("export class IntradayResearchProvider","class IntradayResearchProvider")
+  .replace(/export class /g,"class ")
   .replace("export default {","const __workerDefault={");
 function load(probe){
  const ctx={WorkerEntrypoint:class {},runIntradayCredentialProbe:probe,
