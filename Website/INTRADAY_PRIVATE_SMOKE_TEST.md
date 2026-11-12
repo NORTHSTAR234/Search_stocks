@@ -47,3 +47,9 @@ The two encrypted secrets were confirmed by binding **names and types only**. Th
 For security, the Worker was reuploaded with only the two inherited encrypted Alpaca secrets and `INTRADAY_RESEARCH_ENABLED=disabled`. Follow-up inspection verified **no scheduled Cron trigger, no diagnostic armed flag, no diagnostic KV binding, no public or preview URL**, and the unchanged encrypted secret names. The dedicated, empty one-shot KV namespace was **deleted**. Existing production Pages `PRICE_PROVIDER` was not modified. No orders, alerts or live signal activation occurred.
 
 Cloudflare documents that new Cron Trigger deployments can take up to 15 minutes to propagate. Consequently a short diagnostic execution window without a KV record is an inconclusive integration test, not evidence of invalid credentials. A future authorized attempt should use a separately authenticated private invocation pathway or explicitly allow for schedule propagation, with the same disabled-by-default and one-shot cleanup guarantees.
+
+## Follow-up resolution — ON-DEMAND PRIVATE WORKFLOW PASSED
+
+The preceding *Cron* attempt remains correctly classified as **inconclusive**. A separate, later authenticated Cloudflare Workflows invocation successfully verified the privately held Alpaca credentials against the **MU IEX five-minute bars** and **NVDA news** endpoints (50 and 10 returned records respectively), with no public endpoint, no trade orders and no credentials returned. Details: [INTRADAY_ONDEMAND_SMOKE_ACCEPTANCE_2026-11-12.md](INTRADAY_ONDEMAND_SMOKE_ACCEPTANCE_2026-11-12.md).
+
+The temporary Workflow and its Worker were deleted after the successful diagnostic; all Alpaca encrypted secrets were preserved in the original isolated research Worker, which was disarmed and returned to `INTRADAY_RESEARCH_ENABLED=disabled`, zero schedules, no public URLs. This is **connection acceptance**, not acceptance of live trading signals or a production website integration.
