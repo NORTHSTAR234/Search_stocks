@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-12T03:12:03Z",
-  "htmlReportCount": 60,
+  "latestHtmlReportAt": "2026-11-12T03:36:35Z",
+  "htmlReportCount": 61,
   "uniqueTickers": 29,
-  "revision": "838c9979789f777043b2e4eadbd1efa6",
+  "revision": "49e3f5fff33ab234480a842d362b9209",
   "rows": [
     {
       "company": "Micron Technology, Inc.",
       "ticker": "MU",
       "exchange": "US",
       "bucket": "halal",
-      "timestamp": "2026-11-12T03:12:03Z",
+      "timestamp": "2026-11-12T03:36:35Z",
       "statusOnly": false,
       "action": "WATCH",
       "ownerAction": "HOLD",
@@ -42,8 +42,8 @@
           680
         ]
       ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MU/MU_2026-11-12_03-12-03Z.html",
-      "reportPath": "/view-report?path=halal%2FMU%2FMU_2026-11-12_03-12-03Z.html",
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MU/MU_2026-11-12_03-36-35Z.html",
+      "reportPath": "/view-report?path=halal%2FMU%2FMU_2026-11-12_03-36-35Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
