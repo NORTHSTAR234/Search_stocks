@@ -69,51 +69,12 @@ function cleanQuote(ticker,q,now) {
 export default {
   async fetch(request,env) {
     const url=new URL(request.url);
-    if(request.method!=="POST"||!["/ingest","/daily-history"].includes(url.pathname))
+    if(request.method!=="POST"||url.pathname!=="/ingest")
       return reply({error:"NOT_FOUND"},404);
     if(!env.INTERNATIONAL_QUOTES)return reply({error:"CACHE_NOT_CONFIGURED"},503);
     const header=request.headers.get("Authorization")||"";
     if(!header.startsWith("Bearer ")||!(await verifyGithubOIDC(header.slice(7))))
       return reply({error:"UNAUTHORIZED"},403);
-    if(url.pathname==="/daily-history"){
-      if(Number(request.headers.get("Content-Length")||0)>500000)
-        return reply({error:"OVERSIZED_HISTORY"},413);
-      let obj;
-      try{obj=await request.json();}catch{return reply({error:"INVALID_JSON"},400);}
-      const now=Date.now(),t=Date.parse(obj?.collectedAt);
-      if(obj?.schemaVersion!==1||obj.source!=="yfinance-daily"||
-        !Number.isFinite(t)||Math.abs(now-t)>600000||
-        !obj.symbols||typeof obj.symbols!=="object"||Array.isArray(obj.symbols)||
-        Object.keys(obj.symbols).length>120)return reply({error:"INVALID_HISTORY_ENVELOPE"},400);
-      const clean={};
-      for(const [ticker,value] of Object.entries(obj.symbols)){
-        if(!/^[A-Z0-9][A-Z0-9.-]{0,24}$/.test(ticker)||
-           typeof value?.sourceSymbol!=="string"||
-           !/^[-A-Z0-9.^]{1,25}$/i.test(value.sourceSymbol)||
-           value.feed!=="YFINANCE_DAILY_ADJUSTED"||
-           !Array.isArray(value.bars)||value.bars.length<65||value.bars.length>250)continue;
-        const bars=[],seen=new Set();
-        for(const bar of value.bars){
-          const date=Date.parse((bar?.d||"")+"T00:00:00Z");
-          if(!/^\d{4}-\d\d-\d\d$/.test(bar?.d)||!Number.isFinite(date)||
-             date>now+86400000||now-date>400*86400000||
-             ["o","h","l","c","v"].some(k=>typeof bar[k]!=="number"||!Number.isFinite(bar[k])||bar[k]<0)||
-             Math.min(bar.o,bar.h,bar.l,bar.c)<=0||
-             bar.h<Math.max(bar.o,bar.c)||bar.l>Math.min(bar.o,bar.c)||seen.has(bar.d))continue;
-          seen.add(bar.d);bars.push({d:bar.d,o:bar.o,h:bar.h,l:bar.l,c:bar.c,v:bar.v});
-        }
-        bars.sort((a,b)=>a.d.localeCompare(b.d));
-        if(bars.length>=65&&now-Date.parse(bars.at(-1).d+"T00:00:00Z")<8*86400000)
-          clean[ticker]={feed:"YFINANCE_DAILY_ADJUSTED",sourceSymbol:value.sourceSymbol,bars};
-      }
-      if(!Object.keys(clean).length)return reply({error:"NO_VALID_DAILY_HISTORY"},422);
-      try{
-        await env.INTERNATIONAL_QUOTES.put("daily-history",JSON.stringify({
-          schemaVersion:1,source:"yfinance-daily",collectedAt:obj.collectedAt,symbols:clean
-        }),{expirationTtl:12*86400});
-      }catch{return reply({error:"DAILY_HISTORY_STORE_FAILED"},503);}
-      return reply({status:"UPDATED",accepted:Object.keys(clean).length});
-    }
     if(Number(request.headers.get("Content-Length")||0)>200000)
       return reply({error:"OVERSIZED_PAYLOAD"},413);
     let data;

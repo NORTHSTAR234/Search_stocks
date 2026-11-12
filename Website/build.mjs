@@ -11,7 +11,6 @@ const output = path.join(here, "dist");
 const markdown = new MarkdownIt({ html: false, linkify: true, typographer: true, breaks: false });
 const versionOf = name=>createHash("sha256").update(fs.readFileSync(path.join(here,"assets",name))).digest("hex").slice(0,12);
 const styleVersion=versionOf("style.css"),scriptVersion=versionOf("app.js");
-const dailyVersion=versionOf("daily-signals.js");
 
 const github = "https://github.com/NORTHSTAR234/Search_stocks/blob/main/";
 const archivePattern = /^(halal|nonhalal)\/([A-Za-z0-9.-]+)\/([A-Za-z0-9.-]+)_(\d{4}-\d{2}-\d{2})_(\d{2}-\d{2}-\d{2})Z(?:(_chat_response))?\.(md|html)$/i;
@@ -144,8 +143,8 @@ function page(title,body,child=false) {
 function mainPage() {
   const labels=["Company / ticker","Regular / latest price","Overnight / vs close","Action / Risk","Investment / Entry","Last report (AEDT/AEST)","Preferred / acceptable buy zone","Initial stop / no_chase","Musaffa status / grade / screening date","AAOIFI","Next earnings / confirmation"];
   const head=labels.map(label=>'<th scope="col">'+esc(label)+'</th>').join("");
-  const body='<header class="top"><a class="brand" href="/">◈ Stock Research</a><span class="top-note"><a href="/daily-signals/">Daily Signals</a> · HISTORICAL REPORTS</span></header>'+
-  '<main><section class="hero"><p class="eyebrow">SEARCH_STOCK · GITHUB ARCHIVE</p><h1>Latest Research Reports</h1><p>One latest archived report per exact ticker, with separate time-stamped market observations when available.</p><p><a class="daily-link" href="/daily-signals/">View daily BUY / WATCH / HOLD / SELL research signals</a></p>'+
+  const body='<header class="top"><a class="brand" href="/">◈ Stock Research</a><span class="top-note">HISTORICAL REPORTS</span></header>'+
+  '<main><section class="hero"><p class="eyebrow">SEARCH_STOCK · GITHUB ARCHIVE</p><h1>Latest Research Reports</h1><p>One latest archived report per exact ticker, with separate time-stamped market observations when available.</p>'+
   '<div class="metrics"><div><span id="count">—</span><small>Latest reports</small></div><div><span id="halalCount">—</span><small>Halal-folder reports</small></div><div><span id="quoteCount">—</span><small>Verified quotes</small></div></div></section>'+
   '<section class="panel"><div class="toolbar"><label class="search"><span>Search</span><input id="search" type="search" placeholder="Ticker or company" aria-label="Search ticker or company"></label>'+
   '<label><span>Category</span><select id="bucket"><option value="all">All</option><option value="halal">Halal folder</option><option value="nonhalal">Nonhalal / unverified folder</option></select></label>'+
@@ -157,23 +156,6 @@ function mainPage() {
   '<p class="note">Scores: 70–100 green, 40–69 amber, below 40 red. Score colors show relative report ratings, not trading signals. Musaffa screening: green = recently verified halal; yellow = inconclusive/stale/unverified; red = recently verified non-compliant. These statuses are independent of financial Buy/Watch/Hold/Sell decisions. Storage buckets are administrative, not Shariah determinations. Unverified or stale screening does not mean haram. A 24h percentage is shown only when a comparable observation approximately 24 elapsed hours earlier exists. Non-US prices come from a private personal-use delayed Yahoo cache, subject to source terms.</p></main>'+
   '<script src="/assets/app.js?v='+scriptVersion+'" defer></script>';
   return page("Latest Research Reports",body);
-}
-function dailyPage(){
- const body='<header class="top"><a class="brand" href="/">◈ Stock Research</a><a class="back" href="/">← All reports</a></header>'+
- '<main><section class="hero"><p class="eyebrow">AUTOMATED · END OF DAY · RESEARCH ONLY</p>'+
- '<h1>Daily Stock Signals</h1><p>Technical BUY / WATCH / HOLD / SELL classifications based on dated daily indicators. No trading execution. Supported exchanges and source limitations are shown per ticker.</p>'+
- '<div class="metrics"><div><span id="ds-counts" style="font-size:1rem">Loading…</span><small>Current technical classifications</small></div></div>'+
- '</section><section class="panel"><div class="toolbar"><label class="search"><span>Find ticker</span><input id="ds-search" type="search" placeholder="Ticker or company"></label>'+
- '<label><span>Signal</span><select id="ds-filter"><option value="all">All</option><option value="BUY">BUY</option><option value="WATCH">WATCH</option><option value="HOLD">HOLD</option><option value="SELL">SELL</option><option value="NO_SIGNAL">No signal</option></select></label>'+
- '<button id="ds-refresh" type="button">Refresh daily signals</button></div>'+
- '<div class="notice" id="ds-date">Loading latest report…</div>'+
- '<div class="notice" id="ds-notice" role="status">Waiting for data.</div>'+
- '<div class="table-wrap"><table><thead><tr><th>Company / market</th><th>Daily technical signal</th><th>Last session close</th><th>Entry and exit levels</th><th>Trend / confidence</th><th>Reason / Shariah / report</th></tr></thead>'+
- '<tbody id="ds-rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div>'+
- '<div class="table-footer"><span id="ds-showing"></span><span>Once per US trading weekday, after market close</span></div></section>'+
- '<p class="note">The BUY/SELL badge is an algorithmic technical classification, not personalized advice, an order or a new fundamental research report. SELL means reassess/reduce an existing long position, not short. Shariah status is separate and a verified recent halal screening is mandatory for an automated BUY classification. IEX volumes are not consolidated US volume. Yahoo pricing is unofficial, delayed, and accessible only to the owner. Stops cannot guarantee fills through gaps. Historical reports may disagree with current technical signals.</p></main>'+
- '<script src="/assets/daily-signals.js?v='+dailyVersion+'" defer></script>';
- return page("Daily Stock Signals",body);
 }
 function reportPage(r,body) {
   return page(r.ticker+" report",'<header class="top"><a class="brand" href="/">◈ Stock Research</a><a href="/" class="back">← All reports</a></header>'+
@@ -222,10 +204,8 @@ export function build() {
   fs.copyFileSync(path.join(here,"market-exchanges.json"),path.join(jsonDir,"market-exchanges.json"));
   fs.writeFileSync(path.join(jsonDir,"reports.json"),JSON.stringify({generatedAt:new Date().toISOString(),totalFiles:archives.length,rows},null,2));
   fs.writeFileSync(path.join(output,"index.html"),mainPage());
-  fs.mkdirSync(path.join(output,"daily-signals"),{recursive:true});
-  fs.writeFileSync(path.join(output,"daily-signals","index.html"),dailyPage());
   fs.mkdirSync(path.join(output,"assets"),{recursive:true});
-  for (const name of ["app.js","style.css","daily-signals.js"]) fs.copyFileSync(path.join(here,"assets",name),path.join(output,"assets",name));
+  for (const name of ["app.js","style.css"]) fs.copyFileSync(path.join(here,"assets",name),path.join(output,"assets",name));
   fs.copyFileSync(path.join(here,"_headers"),path.join(output,"_headers"));
   fs.writeFileSync(path.join(output,"robots.txt"),"User-agent: *\nDisallow: /\n");
   console.log("Built "+rows.length+" current ticker reports from "+archives.length+" archived HTML/Markdown files.");
