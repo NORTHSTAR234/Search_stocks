@@ -18,7 +18,7 @@ const hist=()=>Array.from({length:5},(_,i)=>{
   const offset=(i+5)*86400000;
   const day=new Date(t0-offset).toISOString().slice(0,10);
   return {day,feed:"IEX",bars:[...base,bar(6,100.1)].map(b=>({
-    ...b,v:50,t:new Date(Date.parse(b.t)-offset).toISOString()
+    ...b,v:75,t:new Date(Date.parse(b.t)-offset).toISOString()
   }))};
 });
 const input=(target=102,{volume=200,sector=102,broad=101}={})=>({
