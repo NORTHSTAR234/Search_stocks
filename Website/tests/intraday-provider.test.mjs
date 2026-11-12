@@ -23,7 +23,7 @@ const engine=({ticker,events=[]})=>({
   triggerPrice:100,invalidationPrice:99
 });
 const goodEnv={INTRADAY_RESEARCH_ENABLED:"read_only",
-  ALPACA_API_KEY_ID:"test-only",ALPACA_API_SECRET_KEY:"test-only"};
+  ALPACA_API_KEY_ID:"test-only",ALPACA_SECRET_KEY:"test-only"};
 const ok=body=>({ok:true,status:200,text:async()=>JSON.stringify(body)});
 test("Worker has a private named entrypoint and denies default public HTTP",()=>{
   assert.match(original,/export class IntradayResearchProvider extends WorkerEntrypoint/);
