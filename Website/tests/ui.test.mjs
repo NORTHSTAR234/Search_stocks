@@ -351,7 +351,7 @@ test("AAOIFI dashboard column uses separate green red yellow semantics",()=>{
 
 test("dashboard restores 11-column table with one page scrollbar and only table horizontal panning",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
- const section=css.slice(css.indexOf("SINGLE-SCROLL FULL-WIDTH STOCK TABLE"),
+ const section=css.slice(css.indexOf("ORIGINAL FULL-WIDTH STOCK TABLE WITH CONTAINED HORIZONTAL OVERFLOW"),
    css.indexOf("/* FLUID VIEWPORT WIDTH"));
  assert(section.length>1800,"Original table layout override must exist");
  assert.match(section,/\.table-wrap\s*\{[^}]*max-height:none!important;[^}]*overflow-x:auto!important;[^}]*overflow-y:hidden!important;/);
@@ -371,7 +371,7 @@ test("dashboard restores 11-column table with one page scrollbar and only table 
 });
 test("vertical separators match horizontal row borders at every viewport width",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
- const table=css.slice(css.indexOf("SINGLE-SCROLL FULL-WIDTH STOCK TABLE"),
+ const table=css.slice(css.indexOf("ORIGINAL FULL-WIDTH STOCK TABLE WITH CONTAINED HORIZONTAL OVERFLOW"),
    css.indexOf("/* FLUID VIEWPORT WIDTH"));
  const header=table.match(/\.table-wrap th\s*\{([\s\S]*?)\}/)?.[1]||"";
  const cells=table.match(/\.table-wrap td\s*\{([\s\S]*?)\}/)?.[1]||"";
@@ -394,7 +394,7 @@ test("vertical separators match horizontal row borders at every viewport width",
 });
 test("table headings and first column no longer cover rows when page scrolls",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
- const table=css.slice(css.indexOf("SINGLE-SCROLL FULL-WIDTH STOCK TABLE"),
+ const table=css.slice(css.indexOf("ORIGINAL FULL-WIDTH STOCK TABLE WITH CONTAINED HORIZONTAL OVERFLOW"),
    css.indexOf("/* FLUID VIEWPORT WIDTH"));
  assert.match(table,/\.table-wrap th\{[^}]*position:static;[^}]*top:auto;[^}]*z-index:auto;/);
  assert.match(table,/\.table-wrap th:first-child \{position:static;left:auto;top:auto;z-index:auto;/);
@@ -407,7 +407,7 @@ test("table headings and first column no longer cover rows when page scrolls",()
 });
 test("all 11 original stock headings are visible in the restored table",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
- const section=css.slice(css.indexOf("SINGLE-SCROLL FULL-WIDTH STOCK TABLE"),
+ const section=css.slice(css.indexOf("ORIGINAL FULL-WIDTH STOCK TABLE WITH CONTAINED HORIZONTAL OVERFLOW"),
    css.indexOf("/* FLUID VIEWPORT WIDTH"));
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  const headings=JSON.parse(build.match(/const labels=(\[[^\n]+\]);/)[1]);
