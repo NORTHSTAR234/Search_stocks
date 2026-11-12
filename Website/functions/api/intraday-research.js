@@ -2,6 +2,7 @@
 // An independent named Cloudflare service binding is mandatory;
 // never use the existing PRICE_PROVIDER latest-trade binding as a 5m-bar feed.
 import {authenticatedOwner} from "./prices.js";
+import {validateIntradayResearchPayload} from "../../lib/intraday-gateway.mjs";
 
 const json=(payload,status=200)=>new Response(JSON.stringify(payload),{
   status,headers:{"Content-Type":"application/json; charset=utf-8",
@@ -26,9 +27,7 @@ export async function onRequestGet({request,env}){
       return json({status:"DATA_UNAVAILABLE",signals:[]},503);
     if(data.status!=="RESEARCH_ONLY")return json({
       status:data.status,signals:[],reasons:Array.isArray(data.reasons)?data.reasons:[]},503);
-    if(data.validated!==false||
-       data.execution!=="RESEARCH_ONLY_NOT_EXECUTABLE"||
-       !Array.isArray(data.signals)||data.signals.length!==tickers.length)
+    if(!validateIntradayResearchPayload(data,tickers))
       return json({status:"DATA_UNAVAILABLE",signals:[]},503);
     // Metadata is for research display only and is not an order trigger.
     return json(data);
