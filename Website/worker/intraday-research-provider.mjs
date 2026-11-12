@@ -106,7 +106,7 @@ export class IntradayResearchProvider extends WorkerEntrypoint {
       const r=evaluateIntradaySignal({ticker,asOf,feed:"IEX",sectorFeed:"IEX",
         broadFeed:"IEX",bars:sessions[ticker][today]||[],
         sectorBars:sessions[sector][today]||[],broadBars:sessions.QQQ[today]||[],
-        historicalDays,events:news.value.complete?newsView.events:[]});
+        historicalDays,events:newsView.events});
       // Even if a keyword matched, a partial news feed is not safe for candidate generation.
       const partial=!news.value.complete;
       const isCandidate=["BUY_CANDIDATE","SELL_RISK"].includes(r.signal);
