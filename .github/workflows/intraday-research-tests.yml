@@ -1,0 +1,33 @@
+name: Intraday research pilot checks
+on:
+  pull_request:
+    paths:
+      - 'Website/**'
+      - 'Aya_Prompt.md'
+      - '.github/workflows/intraday-research-tests.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-website:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install website dependencies without secret configuration
+        working-directory: Website
+        run: npm install --no-audit --no-fund
+      - name: Run complete website tests and intraday research tests
+        working-directory: Website
+        run: npm test
+      - name: Verify private research module never imports trading execution APIs
+        run: |
+          if grep -R -n -E 'createOrder|submitOrder|placeOrder|/v2/orders' Website/lib/intraday-*.mjs Website/worker/intraday-research-provider.mjs Website/functions/api/intraday-research.js; then
+            echo "Unexpected order placement reference in research module"
+            exit 1
+          fi
