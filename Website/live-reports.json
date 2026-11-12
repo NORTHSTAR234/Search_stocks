@@ -1,12 +1,79 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-12T21:16:57Z",
-  "htmlReportCount": 65,
-  "uniqueTickers": 30,
+  "latestHtmlReportAt": "2026-11-12T21:21:41Z",
+  "htmlReportCount": 66,
+  "uniqueTickers": 31,
   "aaoifiReportCount": 14,
-  "revision": "b824fbe01363f5244b3a7ebb900f3664",
+  "revision": "7b35048e1f52cf0aa566317940f34d5d",
   "rows": [
+    {
+      "company": "Greatland Resources Limited",
+      "ticker": "GGP.ASX",
+      "exchange": "ASX",
+      "bucket": "nonhalal",
+      "timestamp": "2026-11-12T21:21:41Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "69/100",
+      "entry": "45/100",
+      "musaffa": "NOT VERIFIED",
+      "musaffaClassification": null,
+      "musaffaGate": "UNVERIFIED",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": null,
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "INCONCLUSIVE",
+      "musaffaReason": "Unable to verify an official Musaffa exact-security GGP.AX screening classification with an attributable date in the preceding four calendar months; absence of evidence does not m…",
+      "earnings": "22 Feb 2027 estimated",
+      "zones": "AUD 9.25–9.7 / AUD 9.7–10.2",
+      "stops": "AUD 8.4 / AUD 11.35",
+      "nativeCurrency": "AUD",
+      "marketSchedule": {
+        "exchange": "ASX",
+        "mic": "XASX",
+        "market_time_zone": "Australia/Sydney",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "10:00",
+            "end": "16:00"
+          }
+        ],
+        "yahoo_ticker": "GGP.AX",
+        "hours_source": "https://www.asx.com.au/markets/market-resources/trading-hours-calendar/cash-market-trading-hours",
+        "hours_checked_utc": "2026-11-12T21:21:41Z"
+      },
+      "sourceMarketTicker": "GGP.AX",
+      "zoneBands": [
+        [
+          9.25,
+          9.7
+        ],
+        [
+          9.7,
+          10.2
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/GGP.ASX/GGP.ASX_2026-11-12_21-21-41Z.html",
+      "reportPath": "/view-report?path=nonhalal%2FGGP.ASX%2FGGP.ASX_2026-11-12_21-21-41Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
+    },
     {
       "company": "Woolworths Group Limited",
       "ticker": "WOW.ASX",
