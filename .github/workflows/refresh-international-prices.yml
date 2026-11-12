@@ -12,6 +12,7 @@ on:
       - 'nonhalal/*.*/*.html'
       - 'Website/market-exchanges.json'
       - 'Website/scripts/collect-international-quotes.py'
+      - 'Website/scripts/collect-international-history.py'
       - '.github/workflows/refresh-international-prices.yml'
   # UTC covered by the currently tracked ASX/TWSE/MYX/XAMS/XPAR/SIX
   # regular sessions across Sydney and European daylight-saving changes.
@@ -22,6 +23,8 @@ on:
   schedule:
     - cron: '*/20 23 * * 0-4'
     - cron: '*/20 0-16 * * 1-5'
+    # EOD daily indicator history after Asia/Europe sessions, before US daily report
+    - cron: '40 21 * * 1-5'
   workflow_dispatch:
     inputs:
       bootstrap:
@@ -75,3 +78,25 @@ jobs:
           else
             python Website/scripts/collect-international-quotes.py
           fi
+
+  collect-daily-technical-history:
+    # One daily run, plus an initial one-time rollout. No 20-min repeat history queries.
+    if: >-
+      github.repository == 'NORTHSTAR234/Search_stocks' &&
+      github.ref == 'refs/heads/main' &&
+      (github.event.schedule == '40 21 * * 1-5' ||
+       github.event_name == 'workflow_dispatch' ||
+       (github.event_name == 'push' && contains(github.event.head_commit.message, 'Deploy daily signals')))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install yfinance (one daily collection only)
+        run: python -m pip install --disable-pip-version-check 'yfinance>=0.2.65,<1'
+      - name: Send private owner-only daily history by signed GitHub OIDC
+        run: python Website/scripts/collect-international-history.py
