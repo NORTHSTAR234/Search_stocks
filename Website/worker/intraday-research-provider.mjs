@@ -29,12 +29,12 @@ function grouped(raw,asOf){
   return sessions;
 }
 async function alpacaJson(path,parameters,env){
-  if(!env.ALPACA_API_KEY_ID||!env.ALPACA_API_SECRET_KEY)
+  if(!env.ALPACA_API_KEY_ID||!env.ALPACA_SECRET_KEY)
     throw Error("ALPACA_SECRETS_MISSING");
   const url=new URL("https://data.alpaca.markets"+path);
   for(const [k,v] of Object.entries(parameters))url.searchParams.set(k,String(v));
   const r=await fetch(url.toString(),{headers:{
-    "APCA-API-KEY-ID":env.ALPACA_API_KEY_ID,"APCA-API-SECRET-KEY":env.ALPACA_API_SECRET_KEY,
+    "APCA-API-KEY-ID":env.ALPACA_API_KEY_ID,"APCA-API-SECRET-KEY":env.ALPACA_SECRET_KEY,
     "Accept":"application/json"},signal:AbortSignal.timeout(12000)});
   if(!r.ok)throw Error(r.status===429?"UPSTREAM_RATE_LIMIT":r.status===403?
     "UPSTREAM_ENTITLEMENT":"UPSTREAM_UNAVAILABLE");
