@@ -1,12 +1,83 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-12T08:47:06Z",
-  "htmlReportCount": 63,
+  "latestHtmlReportAt": "2026-11-12T10:38:16Z",
+  "htmlReportCount": 64,
   "uniqueTickers": 29,
   "aaoifiReportCount": 12,
-  "revision": "a106ae3512a213d995bec2b142017edb",
+  "revision": "9fdf95fcfe49a1ca8fa2a675c0af7f44",
   "rows": [
+    {
+      "company": "CBH Engineering Holding Berhad",
+      "ticker": "CBHB.MYX",
+      "exchange": "BURSA",
+      "bucket": "nonhalal",
+      "timestamp": "2026-11-12T10:38:16Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "69/100",
+      "entry": "52/100",
+      "musaffa": "NOT VERIFIED",
+      "musaffaClassification": null,
+      "musaffaGate": "UNVERIFIED",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": null,
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "INCONCLUSIVE",
+      "musaffaReason": "No recent attributable Musaffa listing/screen date verified for exact Bursa 0339. Separate Securities Commission Malaysia May 2026 list classifies it as Shariah-compliant.",
+      "earnings": "19 Nov 2026 estimated",
+      "zones": "MYR 0.77–0.82 / MYR 0.83–0.87",
+      "stops": "MYR 0.74 / MYR 0.94",
+      "nativeCurrency": "MYR",
+      "marketSchedule": {
+        "exchange": "MYX",
+        "mic": "XKLS",
+        "market_time_zone": "Asia/Kuala_Lumpur",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "12:30"
+          },
+          {
+            "start": "14:30",
+            "end": "16:45"
+          }
+        ],
+        "yahoo_ticker": "0339.KL",
+        "hours_source": "https://www.utrade.com.my/public/faq_local",
+        "hours_checked_utc": "2026-11-12T10:38:16.898Z"
+      },
+      "sourceMarketTicker": "0339.KL",
+      "zoneBands": [
+        [
+          0.77,
+          0.82
+        ],
+        [
+          0.83,
+          0.87
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/CBHB.MYX/CBHB.MYX_2026-11-12_10-38-16Z.html",
+      "reportPath": "/view-report?path=nonhalal%2FCBHB.MYX%2FCBHB.MYX_2026-11-12_10-38-16Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false,
+      "aaoifiStatus": null,
+      "aaoifiConfidence": null,
+      "aaoifiScreenedAt": null,
+      "aaoifiReason": null,
+      "aaoifiReportPath": null
+    },
     {
       "company": "Advanced Micro Devices, Inc.",
       "ticker": "AMD",
@@ -1442,68 +1513,6 @@
       ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MRK/MRK_2026-11-10_21-41-51Z.html",
       "reportPath": "/view-report?path=halal%2FMRK%2FMRK_2026-11-10_21-41-51Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false,
-      "aaoifiStatus": null,
-      "aaoifiConfidence": null,
-      "aaoifiScreenedAt": null,
-      "aaoifiReason": null,
-      "aaoifiReportPath": null
-    },
-    {
-      "company": "CBH Engineering Holding Berhad",
-      "ticker": "CBHB.MYX",
-      "exchange": "BURSA",
-      "bucket": "nonhalal",
-      "timestamp": "2026-11-10T21:40:00Z",
-      "statusOnly": true,
-      "action": "SCREENING ONLY — NO INVESTMENT REPORT",
-      "ownerAction": "RESEARCH SKIPPED",
-      "risk": "NOT RATED",
-      "investment": "NOT RATED",
-      "entry": "NOT RATED",
-      "musaffa": "RECENCY UNVERIFIED — SCREENING ONLY",
-      "musaffaClassification": null,
-      "musaffaGate": "UNVERIFIED",
-      "musaffaScreeningDate": null,
-      "musaffaScreeningPeriod": null,
-      "musaffaScreeningMonthConflict": false,
-      "musaffaAssessment": null,
-      "musaffaReason": null,
-      "earnings": "NOT RATED",
-      "zones": "NOT RATED",
-      "stops": "NOT RATED",
-      "nativeCurrency": "MYR",
-      "marketSchedule": {
-        "exchange": "MYX",
-        "mic": "XKLS",
-        "market_time_zone": "Asia/Kuala_Lumpur",
-        "sydney_time_zone": "Australia/Sydney",
-        "weekdays": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "sessions": [
-          {
-            "start": "09:00",
-            "end": "12:30"
-          },
-          {
-            "start": "14:30",
-            "end": "16:45"
-          }
-        ],
-        "yahoo_ticker": "0339.KL",
-        "hours_source": "https://www.bursamalaysia.com/sites/5bb54be15f36ca0af339077a/assets/5bb55acf5f36ca0c3028d8fb/rules_bms_cir_rr10_121108.pdf",
-        "hours_checked_utc": "2026-11-10T21:40:00Z"
-      },
-      "sourceMarketTicker": "0339.KL",
-      "zoneBands": [],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/CBHB.MYX/CBHB.MYX_2026-11-10_21-40-00Z.html",
-      "reportPath": "/view-report?path=nonhalal%2FCBHB.MYX%2FCBHB.MYX_2026-11-10_21-40-00Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
       "aaoifiStatus": null,
