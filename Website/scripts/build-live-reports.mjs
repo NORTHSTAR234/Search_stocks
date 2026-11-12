@@ -55,6 +55,12 @@ for(const row of rows){
  row.aaoifiScreenedAt=aa?.screenedAt||null;
  row.aaoifiReason=aa?.reason||null;
  row.aaoifiReportPath=aa?.reportPath||null;
+ row.ethicalStatus=aa?.ethicalStatus||null;
+ row.ethicalBdsListed=aa?.ethicalBdsListed??null;
+ row.ethicalAssessmentDate=aa?.ethicalAssessmentDate||null;
+ row.ethicalCheckedAt=aa?.ethicalCheckedAt||null;
+ row.ethicalReason=aa?.ethicalReason||null;
+ row.ethicalSourceUrl=aa?.ethicalSourceUrl||null;
 }
 const content=JSON.stringify(rows);
 const revision=createHash("sha256").update(content).digest("hex").slice(0,32);
