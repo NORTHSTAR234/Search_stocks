@@ -164,7 +164,7 @@
   margin-bottom:4px;
 }
 @media(max-width:680px){
- .table-wrap table{min-width:1870px}
+ .table-wrap table{min-width:2050px}
  .table-wrap th:nth-child(7),.table-wrap td:nth-child(7),
  .table-wrap th:nth-child(8),.table-wrap td:nth-child(8){min-width:245px}
 }
@@ -202,3 +202,14 @@
 body:has(#ds-rows) .table-wrap{max-height:72vh}
 body:has(#ds-rows) td:nth-child(4){min-width:190px}
 body:has(#ds-rows) td:nth-child(6){min-width:300px;max-width:480px}
+
+
+/* AAOIFI Stock_screener status is independent of Musaffa and investment actions. */
+.aaoifi-cell{display:flex;flex-direction:column;align-items:flex-start;gap:4px;max-width:280px}
+.aaoifi-cell>.badge{font-weight:800;letter-spacing:.015em;white-space:normal;max-width:100%}
+.aaoifi-cell>.badge.good{color:#83f5c2;background:#174f40;border:1px solid #368a69}
+.aaoifi-cell>.badge.warn{color:#ffe19a;background:#594624;border:1px solid #ab843c}
+.aaoifi-cell>.badge.bad{color:#ffabb0;background:#612832;border:1px solid #b45764}
+.aaoifi-details{font-size:.78rem;line-height:1.45;overflow-wrap:anywhere}
+.aaoifi-link{text-decoration:none}
+.aaoifi-link:hover{text-decoration:none;filter:brightness(1.08)}
