@@ -5,7 +5,7 @@
   "htmlReportCount": 64,
   "uniqueTickers": 29,
   "aaoifiReportCount": 14,
-  "revision": "f4f3b931b85fc30c16d478c3a36082d6",
+  "revision": "7d8599d5301b74cfc3b0d624a96a1825",
   "rows": [
     {
       "company": "CBH Engineering Holding Berhad",
@@ -279,8 +279,8 @@
       "conflictingBuckets": false,
       "aaoifiStatus": "INSUFFICIENT DATA",
       "aaoifiConfidence": "Medium",
-      "aaoifiScreenedAt": "2026-11-12T10:35:11.516Z",
-      "aaoifiReason": "Elite Material's primary electronics-materials manufacturing business appears permissible. As of 30 September 2026, conventional borrowings are approximately 2.50% of market capitalisation; cash and cash equivalents equal 1.68% and even total assets equal only 10.96%, providing…",
+      "aaoifiScreenedAt": "2026-11-12T11:38:42.987Z",
+      "aaoifiReason": "Elite Material Co., Ltd.'s core electronics-materials manufacturing business appears permissible under AAOIFI SS21. The September 2026 filing yields a conventional borrowing ratio of 2.50% against reporting-date market capitalization, an extreme all-assets upper bound on interes…",
       "aaoifiReportPath": "/view-report?path=AAOIFI%2F2383.TWSE.html"
     },
     {
