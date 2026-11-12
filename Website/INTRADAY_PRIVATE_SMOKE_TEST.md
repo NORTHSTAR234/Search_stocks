@@ -39,3 +39,11 @@ Dedicated Workers KV namespace: `SEARCH_STOCKS_INTRADAY_PROBE_20261112`. It is s
 5. Cron removed and diagnostic mode disarmed.
 
 **Post-smoke work:** A real end-to-end intraday signal RPC test, behind an owner-only authenticated service binding in a separately isolated preview environment, is a different acceptance gate. The production website must not be merged or enabled merely because Alpaca data returned successful responses.
+
+## Actual observed outcome — smoke did not complete
+
+The two encrypted secrets were confirmed by binding **names and types only**. The private probe code passed independent automated tests, and the standalone Worker deployment preserved its secret bindings. A temporary minute-based Cron was registered to trigger the one-shot read-only diagnostic, but **no KV result was observed before rollback**. Therefore the isolated Cloudflare-to-Alpaca network request, API-key validity, and downstream data entitlement were **NOT VERIFIED**. Neither successful authentication nor a data-source failure is implied by the missing result.
+
+For security, the Worker was reuploaded with only the two inherited encrypted Alpaca secrets and `INTRADAY_RESEARCH_ENABLED=disabled`. Follow-up inspection verified **no scheduled Cron trigger, no diagnostic armed flag, no diagnostic KV binding, no public or preview URL**, and the unchanged encrypted secret names. The dedicated, empty one-shot KV namespace was **deleted**. Existing production Pages `PRICE_PROVIDER` was not modified. No orders, alerts or live signal activation occurred.
+
+Cloudflare documents that new Cron Trigger deployments can take up to 15 minutes to propagate. Consequently a short diagnostic execution window without a KV record is an inconclusive integration test, not evidence of invalid credentials. A future authorized attempt should use a separately authenticated private invocation pathway or explicitly allow for schedule propagation, with the same disabled-by-default and one-shot cleanup guarantees.
