@@ -392,6 +392,29 @@
       (r.statusOnly?'<small class="warning">Screening only · no current investment rating (historical report)</small>':"")+
       '<small class="muted">Archive: '+escape(r.bucket)+'</small></div>';
   }
+  function aaoifiVisual(r){
+    const status=String(r.aaoifiStatus||"").trim().toUpperCase();
+    if(status==="AAOIFI-COMPLIANT")return {tone:"good",label:"COMPLIANT"};
+    if(status==="AAOIFI-NON-COMPLIANT")return {tone:"bad",label:"NON-COMPLIANT"};
+    if(status==="SHARIAH REVIEW REQUIRED")return {tone:"warn",label:"REVIEW REQUIRED"};
+    if(status==="INSUFFICIENT DATA")return {tone:"warn",label:"INSUFFICIENT DATA"};
+    return {tone:"warn",label:"NOT SCREENED"};
+  }
+  function aaoifiCell(r){
+    const result=aaoifiVisual(r);
+    const statusBadge=r.aaoifiReportPath?
+      '<a class="badge '+result.tone+' aaoifi-link" href="'+escape(r.aaoifiReportPath)+'">'+escape(result.label)+'</a>':
+      badge(result.label,result.tone);
+    const meta=[
+      r.aaoifiConfidence?"Confidence: "+r.aaoifiConfidence:null,
+      r.aaoifiScreenedAt?"Screened: "+fmt(r.aaoifiScreenedAt):null
+    ].filter(Boolean).join(" · ");
+    return '<div class="aaoifi-cell">'+statusBadge+
+      (meta?'<small class="aaoifi-details">'+escape(meta)+'</small>':"")+
+      (r.aaoifiReason?'<small>'+escape(cap(r.aaoifiReason,165))+'</small>':
+        '<small class="muted">No Stock_screener AAOIFI report in GitHub yet</small>')+
+      '</div>';
+  }
   function tr(r){
     const action=cap(r.action,96);
     const context=zoneContext(r);
@@ -413,6 +436,7 @@
     '<td>'+zoneCell(r,context)+'</td>'+
     '<td>'+stopsCell(r)+'</td>'+
     '<td>'+screeningCell(r)+'</td>'+
+    '<td>'+aaoifiCell(r)+'</td>'+
     '<td>'+escape(cap(r.earnings,110))+'</td></tr>';
   }
   function syncExchangeFilters(){
@@ -441,7 +465,7 @@
       order==="entry"?score(b.entry)-score(a.entry)||b.timestamp.localeCompare(a.timestamp):
       order==="investment"?score(b.investment)-score(a.investment)||b.timestamp.localeCompare(a.timestamp):
       b.timestamp.localeCompare(a.timestamp)||a.ticker.localeCompare(b.ticker));
-    $("rows").innerHTML=filtered.length?filtered.map(tr).join(""):'<tr><td colspan="10">No reports match your filters.</td></tr>';
+    $("rows").innerHTML=filtered.length?filtered.map(tr).join(""):'<tr><td colspan="11">No reports match your filters.</td></tr>';
     $("count").textContent=all.length;
     $("halalCount").textContent=all.filter(r=>r.bucket==="halal").length;
     $("quoteCount").textContent=Object.keys(state.quotes).length;
@@ -572,7 +596,7 @@
       document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkAll();});
     }catch(e){
       $("marketNotice").textContent="Could not load archive: "+e.message;
-      $("rows").innerHTML='<tr><td colspan="10">Archive unavailable.</td></tr>';
+      $("rows").innerHTML='<tr><td colspan="11">Archive unavailable.</td></tr>';
     }
   }
   ["search","bucket","exchange","order"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",render));
