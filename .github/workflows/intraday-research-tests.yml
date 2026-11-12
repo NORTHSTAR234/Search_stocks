@@ -25,9 +25,12 @@ jobs:
       - name: Run complete website tests and intraday research tests
         working-directory: Website
         run: npm test
+      - name: Recheck prospective no-lookahead paper journal and private preview gates
+        working-directory: Website
+        run: node --test tests/score-paper-journal.test.mjs tests/intraday-research-preview-workflow.test.mjs
       - name: Verify private research module never imports trading execution APIs
         run: |
-          if grep -R -n -E 'createOrder|submitOrder|placeOrder|/v2/orders' Website/lib/intraday-*.mjs Website/worker/intraday-research-provider.mjs Website/functions/api/intraday-research.js; then
+          if grep -R -n -E 'createOrder|submitOrder|placeOrder|/v2/orders' Website/lib/intraday-*.mjs Website/worker/intraday-*.mjs Website/functions/api/intraday-research.js Website/scripts/score-paper-journal.mjs; then
             echo "Unexpected order placement reference in research module"
             exit 1
           fi
