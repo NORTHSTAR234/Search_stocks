@@ -5,7 +5,7 @@
   "htmlReportCount": 63,
   "uniqueTickers": 29,
   "aaoifiReportCount": 11,
-  "revision": "384a21e59ba949e9502155361192fc9d",
+  "revision": "dbceeb5dbd2f75e71f9ec224c7706557",
   "rows": [
     {
       "company": "Advanced Micro Devices, Inc.",
@@ -209,7 +209,7 @@
       "aaoifiStatus": "INSUFFICIENT DATA",
       "aaoifiConfidence": "Medium",
       "aaoifiScreenedAt": "2026-11-12T10:35:11.516Z",
-      "aaoifiReason": "Elite Material's primary electronics-materials manufacturing business appears permissible. As of 30 September 2026, conventional borrowings are approximately 2.50% of market capitalisation, a conservative maximum for interest-taking deposits is 1.68%, and tangible-asset composit…",
+      "aaoifiReason": "Elite Material's primary electronics-materials manufacturing business appears permissible. As of 30 September 2026, conventional borrowings are approximately 2.50% of market capitalisation; cash and cash equivalents equal 1.68% and even total assets equal only 10.96%, providing…",
       "aaoifiReportPath": "/view-report?path=AAOIFI%2F2383.TWSE.html"
     },
     {
