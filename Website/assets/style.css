@@ -258,9 +258,10 @@
   white-space:normal;
 }
 .table-wrap th{
-  position:sticky;
-  top:0;
-  z-index:3;
+  /* Do not pin the heading to the viewport: it was covering scrolled rows. */
+  position:static;
+  top:auto;
+  z-index:auto;
   background:#21344b;
   border-bottom:1px solid #27394d;
   border-right:1px solid #27394d;
@@ -282,8 +283,8 @@
 .table-wrap td:first-child {border-left:1px solid #27394d}
 .table-wrap th:last-child,
 .table-wrap td:last-child {border-right:0}
-.table-wrap th:first-child {position:sticky;left:0;top:0;z-index:5;background:#233750}
-.table-wrap td:first-child {position:sticky;left:0;z-index:2;background:#132136;box-shadow:2px 0 8px #08101c77}
+.table-wrap th:first-child {position:static;left:auto;top:auto;z-index:auto;background:#233750}
+.table-wrap td:first-child {position:static;left:auto;top:auto;z-index:auto;background:#132136;box-shadow:none}
 .table-wrap tbody tr:hover td {background:#192b42}
 .table-wrap tbody tr:hover td:first-child {background:#192b42}
 .table-wrap th:nth-child(1) {width:9%}
