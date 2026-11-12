@@ -222,10 +222,13 @@
 .table-wrap table {
   display:table;
   width:100%!important;
-  min-width:1400px!important;
+  /* Preserve legible column widths when the browser becomes narrow.
+     The DOCUMENT scrolls horizontally; there is no nested table scroller. */
+  min-width:2280px!important;
   max-width:none;
   table-layout:fixed;
-  border-collapse:collapse;
+  border-collapse:separate;
+  border-spacing:0;
 }
 .table-wrap thead {
   display:table-header-group;
@@ -250,7 +253,8 @@
   max-width:none!important;
   height:auto;
   vertical-align:top;
-  overflow-wrap:anywhere;
+  overflow-wrap:break-word;
+  word-break:normal;
   white-space:normal;
 }
 .table-wrap th{
@@ -258,7 +262,8 @@
   top:0;
   z-index:3;
   background:#21344b;
-  border-bottom:1px solid #47617b;
+  border-bottom:1px solid #27394d;
+  border-right:1px solid #27394d;
   font-size:.77rem;
   line-height:1.35;
   padding:13px 9px;
@@ -267,11 +272,16 @@
   padding:14px 9px;
   border:0;
   border-bottom:1px solid #27394d;
+  border-right:1px solid #27394d;
   border-radius:0;
   background:transparent;
   box-shadow:none;
 }
 .table-wrap td::before {content:none!important;display:none!important}
+.table-wrap th:first-child,
+.table-wrap td:first-child {border-left:1px solid #27394d}
+.table-wrap th:last-child,
+.table-wrap td:last-child {border-right:0}
 .table-wrap th:first-child {position:sticky;left:0;top:0;z-index:5;background:#233750}
 .table-wrap td:first-child {position:sticky;left:0;z-index:2;background:#132136;box-shadow:2px 0 8px #08101c77}
 .table-wrap tbody tr:hover td {background:#192b42}
@@ -294,10 +304,10 @@
 .table-wrap td[colspan] {display:table-cell;text-align:center}
 @media(max-width:850px){
   .table-wrap th,.table-wrap td {padding:11px 7px}
-  .table-wrap table {min-width:1400px!important}
+  .table-wrap table {min-width:2280px!important}
 }
 @media(max-width:560px){
-  .table-wrap table {min-width:1350px!important}
+  .table-wrap table {min-width:2280px!important}
   .table-wrap th,.table-wrap td {font-size:.76rem}
 }
 /* Entire table scrolls with the browser page, not inside a framed panel.
