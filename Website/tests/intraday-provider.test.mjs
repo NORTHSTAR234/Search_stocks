@@ -9,7 +9,7 @@ function loadProvider({fetcher,engine}){
   const source=original
     .replace(/^import\s+.*?;\s*$/gm,"")
     .replace("export class IntradayResearchProvider","class IntradayResearchProvider")
-    .replace(/export default \{fetch\(\)\{[\s\S]*$/,"");
+    .replace(/export default \{[\s\S]*$/,"");
   const context={WorkerEntrypoint:class {},fetch:fetcher,AbortSignal,URL,Response,Date,Intl,
     summarizeNewsRisk,evaluateIntradaySignal:engine};
   vm.createContext(context);
