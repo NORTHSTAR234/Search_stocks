@@ -243,9 +243,9 @@ test("main dashboard has exactly eleven headings, with reports opened by ticker"
  const src=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  const labels=src.match(/const labels=(\[[^\n]+\]);/);
  assert(labels);
- assert.equal(JSON.parse(labels[1]).length,10);
+ assert.equal(JSON.parse(labels[1]).length,11);
  assert(!JSON.parse(labels[1]).includes("Report"));
- assert(src.includes('colspan="10"'));
+ assert(src.includes('colspan="11"'));
 });
 
 test("legacy exchange-suffixed Markdown reports map to actual markets, not OTHER",()=>{
