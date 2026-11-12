@@ -78,6 +78,18 @@ async function newsFor(symbols,now,env){
   }
   return {articles:items,complete:false}; // no "no risk" claim on partial feed
 }
+// Private RPC only. This class has no HTTP entrypoint and is not used by Pages.
+// The diagnostic is separately armed while the actual signal engine stays disabled.
+export class IntradayCredentialProbe extends WorkerEntrypoint {
+  async smoke(){
+    if(this.env.INTRADAY_RESEARCH_ENABLED!=="disabled"||
+       this.env.INTRADAY_DIAGNOSTIC_MODE!=="armed_on_demand_20261112")
+      return {kind:"INTRADAY_READONLY_CREDENTIAL_SMOKE_V1",
+        overall:"NOT_ARMED",execution:"READ_ONLY_NO_ORDERS"};
+    return await runIntradayCredentialProbe(this.env);
+  }
+}
+
 export class IntradayResearchProvider extends WorkerEntrypoint {
   async snapshot(tickers){
     if(this.env.INTRADAY_RESEARCH_ENABLED!=="read_only")
