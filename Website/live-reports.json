@@ -1,11 +1,52 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-11T13:14:44Z",
-  "htmlReportCount": 57,
+  "latestHtmlReportAt": "2026-11-12T01:24:59Z",
+  "htmlReportCount": 58,
   "uniqueTickers": 29,
-  "revision": "fc72377678d1b86fc3c7974ec1f8aa0d",
+  "revision": "b1c699e4f1dd3984c178e8c43b80087d",
   "rows": [
+    {
+      "company": "NVIDIA Corporation",
+      "ticker": "NVDA",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-12T01:24:59Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "VERY HIGH",
+      "investment": "72/100",
+      "entry": "25/100",
+      "musaffa": "HALAL · A · 2026-09-19 · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
+      "musaffaScreeningDate": "2026-09-19",
+      "musaffaScreeningPeriod": null,
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "VERIFIED_HALAL",
+      "musaffaReason": "Musaffa exact NVDA NASDAQ common stock page shows HALAL grade A and attributable update 19 Sep 2026; current within preceding four UTC calendar months. Screening only, not financi…",
+      "earnings": "17 Nov 2026 confirmed",
+      "zones": "US$155–165 / US$166–175",
+      "stops": "US$144 / US$185",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "NVDA",
+      "zoneBands": [
+        [
+          155,
+          165
+        ],
+        [
+          166,
+          175
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/NVDA/NVDA_2026-11-12_01-24-59Z.html",
+      "reportPath": "/view-report?path=halal%2FNVDA%2FNVDA_2026-11-12_01-24-59Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Elite Material Co., Ltd.",
       "ticker": "2383.TWSE",
@@ -375,47 +416,6 @@
       ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/ASM.XAMS/ASM.XAMS_2026-11-11_13-01-25Z.html",
       "reportPath": "/view-report?path=halal%2FASM.XAMS%2FASM.XAMS_2026-11-11_13-01-25Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "NVIDIA Corporation",
-      "ticker": "NVDA",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-11T13:01:09Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "78/100",
-      "entry": "55/100",
-      "musaffa": "HALAL · A · 2026-09-19 · PASS",
-      "musaffaClassification": "HALAL",
-      "musaffaGate": "PASS",
-      "musaffaScreeningDate": "2026-09-19",
-      "musaffaScreeningPeriod": null,
-      "musaffaScreeningMonthConflict": false,
-      "musaffaAssessment": "VERIFIED_HALAL",
-      "musaffaReason": "Official exact NVDA listing HALAL A, screening dated 19 Sep 2026, within UTC 4-month cutoff 11 Jul 2026",
-      "earnings": "17 Nov 2026 confirmed",
-      "zones": "US$155–165 / US$166–175",
-      "stops": "US$144 / US$185",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "NVDA",
-      "zoneBands": [
-        [
-          155,
-          165
-        ],
-        [
-          166,
-          175
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/NVDA/NVDA_2026-11-11_13-01-09Z.html",
-      "reportPath": "/view-report?path=halal%2FNVDA%2FNVDA_2026-11-11_13-01-09Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
