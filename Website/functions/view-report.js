@@ -1,11 +1,11 @@
 import {authenticatedOwner} from "./api/prices.js";
-import {archiveInfo,safeHtmlDocument,REPORT_CSP} from "../lib/report-archive.mjs";
+import {archiveInfo,aaoifiInfo,safeHtmlDocument,REPORT_CSP} from "../lib/report-archive.mjs";
 import {githubHtml,validGitHubArchivePath} from "../lib/github-archive.mjs";
 export async function onRequestGet({request,env}){
  if(!await authenticatedOwner(request,env))return new Response("Not authorized",{status:403,headers:{"Cache-Control":"no-store"}});
  const path=new URL(request.url).searchParams.get("path");
  if(!validGitHubArchivePath(path))return new Response("Invalid report path",{status:400});
- const info=archiveInfo(path);
+ const info=archiveInfo(path)||aaoifiInfo(path);
  if(!info||info.format!=="html")return new Response("Invalid report identity",{status:400});
  try{
   // GitHub's fine-grained read-only token is server-side only, for private cutover.
