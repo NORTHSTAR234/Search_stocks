@@ -4,6 +4,7 @@
 import {WorkerEntrypoint} from "cloudflare:workers";
 import {evaluateIntradaySignal} from "../lib/intraday-signals.mjs";
 import {summarizeNewsRisk} from "../lib/news-risk.mjs";
+import {runIntradayCredentialProbe} from "./intraday-readonly-probe.mjs";
 
 const allow=new Set(["MU","NVDA","AMD","AAPL"]);
 const mappings={MU:"SOXX",NVDA:"SOXX",AMD:"SOXX",AAPL:"SPY"};
@@ -140,4 +141,21 @@ export class IntradayResearchProvider extends WorkerEntrypoint {
   }
 }
 // No public HTTP data access, even if workers.dev is accidentally enabled.
-export default {fetch(){return new Response("Not found",{status:404});}};
+export default {
+  fetch(){return new Response("Not found",{status:404});},
+  async scheduled(controller,env){
+    // Deliberately one-shot. Never scheduled in ordinary deployments.
+    // The investment-signal feature stays DISABLED even during this probe.
+    if(env.INTRADAY_RESEARCH_ENABLED!=="disabled"||
+      env.INTRADAY_DIAGNOSTIC_MODE!=="armed_20261112"||
+      !env.PROBE_RESULTS)return;
+    const key="intraday-smoke-20261112";
+    if(await env.PROBE_RESULTS.get(key))return;
+    await env.PROBE_RESULTS.put(key,JSON.stringify({status:"STARTED"}),
+      {expirationTtl:3600});
+    const result=await runIntradayCredentialProbe(env);
+    // The helper exports only API success/failure codes, row counts, and times.
+    await env.PROBE_RESULTS.put(key,JSON.stringify({status:"COMPLETE",...result}),
+      {expirationTtl:86400});
+  }
+};
