@@ -137,3 +137,7 @@ A separate, source-labeled price context beneath Action/Risk summarises the loca
 ## Intraday signal research pilot (12 November 2026)
 
 An experimental, read-only 5-minute intraday research engine, automated engine tests, and local-data-only replay script are developed on the feature branch documented in `INTRADAY_SIGNALS_V1.md`. **This does not activate live BUY/SELL alerts, broker orders or dashboard trading signals.** The existing owner-only Alpaca IEX latest-trade pricing continues unchanged. Any future live alert launch requires an appropriate historical/candle feed, verified news provenance and walk-forward/paper validation. The pilot must not modify the canonical investment, Shariah or archival report semantics.
+
+## Stage 2: optional Alpaca 5-minute bars + news (not enabled)
+
+The draft research branch now includes an **independent private Cloudflare named service provider**, an owner-authenticated read-only API path, strict freshness/news-source guards, and complete mock-provider tests. See [INTRADAY_DATA_PIPELINE.md](INTRADAY_DATA_PIPELINE.md) for binding/secrets prerequisites and the data-contract security model. **No live intraday signals or automatic trades are active.** Do not confuse this experimental API with the normal owner-only Alpaca quote gateway. No price routes or existing archived reports were changed. Authentication/feature gates fail closed until explicitly configured after testing and licensing review.
