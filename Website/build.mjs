@@ -142,7 +142,7 @@ function page(title,body,child=false) {
   body+'<footer>Archived research is historical, not a current investment recommendation. Verify market data, Shariah screening and risk independently.</footer></body></html>';
 }
 function mainPage() {
-  const labels=["Company / ticker","Regular / latest price","Overnight / vs close","Action / Risk","Investment / Entry","Last report (AEDT/AEST)","Preferred / acceptable buy zone","Initial stop / no_chase","Musaffa status / grade / screening date","Next earnings / confirmation"];
+  const labels=["Company / ticker","Regular / latest price","Overnight / vs close","Action / Risk","Investment / Entry","Last report (AEDT/AEST)","Preferred / acceptable buy zone","Initial stop / no_chase","Musaffa status / grade / screening date","AAOIFI","Next earnings / confirmation"];
   const head=labels.map(label=>'<th scope="col">'+esc(label)+'</th>').join("");
   const body='<header class="top"><a class="brand" href="/">◈ Stock Research</a><span class="top-note"><a href="/daily-signals/">Daily Signals</a> · HISTORICAL REPORTS</span></header>'+
   '<main><section class="hero"><p class="eyebrow">SEARCH_STOCK · GITHUB ARCHIVE</p><h1>Latest Research Reports</h1><p>One latest archived report per exact ticker, with separate time-stamped market observations when available.</p><p><a class="daily-link" href="/daily-signals/">View daily BUY / WATCH / HOLD / SELL research signals</a></p>'+
