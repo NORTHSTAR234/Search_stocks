@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {classifyNewsRisk,summarizeNewsRisk} from "../lib/news-risk.mjs";
+import {evaluateIntradaySignal} from "../lib/intraday-signals.mjs";
 
 const at="2026-11-12T04:00:00Z";
 const base={id:101,created_at:"2026-11-12T00:01:45Z",
@@ -43,4 +44,20 @@ test("Deduplicates by article id and does not claim full event coverage",()=>{
 });
 test("Historical risk event is ignored after 48 hours",()=>{
   assert.equal(classifyNewsRisk({...base,created_at:"2026-11-09T00:00:00Z"},"NVDA",at),null);
+});
+
+test("Nov 8–9 NVDA board headline is a time-correct reported-risk veto for Nov 9 setup",()=>{
+ const headline={id:3398017,created_at:"2026-11-09T02:01:35Z",
+   headline:"NVIDIA Board Initiates Independent Investigation into CEO Jensen Huang",
+   symbols:["NVDA"],source:"test-issuer-release",
+   url:"https://www.globenewswire.com/news-release/2026/11/08/3398017/0/en/statement-from-nvidia-board-of-directors.html"};
+ const earlier=classifyNewsRisk(headline,"NVDA","2026-11-09T02:01:00Z");
+ assert.equal(earlier,null,"Future provider headline must not leak into earlier minute");
+ const later=classifyNewsRisk(headline,"NVDA","2026-11-09T15:15:00Z");
+ assert(later);
+ assert.equal(later.verification,"reported");
+ const risk=evaluateIntradaySignal({ticker:"NVDA",asOf:"2026-11-09T15:15:00Z",
+   feed:"IEX",events:[later]});
+ assert.equal(risk.signal,"RISK_ALERT");
+ assert.equal(risk.execution,"RESEARCH_ONLY_NOT_EXECUTABLE");
 });
