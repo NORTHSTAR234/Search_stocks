@@ -4,8 +4,8 @@
   "latestHtmlReportAt": "2026-11-12T08:47:06Z",
   "htmlReportCount": 63,
   "uniqueTickers": 29,
-  "aaoifiReportCount": 5,
-  "revision": "378ea5e30a6f837f4b59cfe6a00e4b47",
+  "aaoifiReportCount": 6,
+  "revision": "b05e3687361aff80b64bd3912e8b154f",
   "rows": [
     {
       "company": "Advanced Micro Devices, Inc.",
@@ -608,11 +608,11 @@
       "reportPath": "/view-report?path=nonhalal%2FAPA.ASX%2FAPA.ASX_2026-11-11_13-00-04Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
-      "aaoifiStatus": null,
-      "aaoifiConfidence": null,
-      "aaoifiScreenedAt": null,
-      "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
+      "aaoifiConfidence": "High",
+      "aaoifiScreenedAt": "2026-11-12T10:08:49Z",
+      "aaoifiReason": "APA Group's underlying energy-infrastructure operations are not intrinsically prohibited, but ASX:APA is a stapled security made up of units in two registered managed investment schemes rather than an ordinary corporate share. A definitive SS21 instrument ruling therefore requir…",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FAPA.ASX.html"
     },
     {
       "company": "Eli Lilly and Company",
