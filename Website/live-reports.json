@@ -4,8 +4,8 @@
   "latestHtmlReportAt": "2026-11-12T08:47:06Z",
   "htmlReportCount": 63,
   "uniqueTickers": 29,
-  "aaoifiReportCount": 7,
-  "revision": "69c93f2c42e2a10eeae74886758b96dc",
+  "aaoifiReportCount": 8,
+  "revision": "008e647a62867b084c9e4f71b778b107",
   "rows": [
     {
       "company": "Advanced Micro Devices, Inc.",
@@ -93,11 +93,11 @@
       "reportPath": "/view-report?path=halal%2FMU%2FMU_2026-11-12_08-45-53Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
-      "aaoifiStatus": null,
-      "aaoifiConfidence": null,
-      "aaoifiScreenedAt": null,
-      "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiStatus": "AAOIFI-COMPLIANT",
+      "aaoifiConfidence": "Medium",
+      "aaoifiScreenedAt": "2026-11-12T10:32:48.170Z",
+      "aaoifiReason": "Micron Technology (NASDAQ: MU) passes the AAOIFI SS21 business screen and the verified conventional borrowing, identifiable interest-taking deposit, identified prohibited-income and book-value tradability calculations using its audited fiscal 2026 financial statements ended Sept…",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FMU.NASDAQ.html"
     },
     {
       "company": "NVIDIA Corporation",
