@@ -56,6 +56,12 @@ Examples:
 - MU on 11 November: first upside break was followed by +2.14% to the IEX session end but lacked the proposed simultaneous volume and sector confirmation. **It would NOT have been a confirmed v1 buy.**
 - NVDA on 11 November: first upside break was followed by roughly -1% to the IEX session end, despite an initially constructive session.
 
+## Exact v1 evaluator replay of available historical bars (separate from exploratory audit)
+
+The checked-in offline replay was also executed against the same seven Alpaca IEX 5-minute history streams, spanning 26 October–11 November 2026. Using MU, NVDA, AMD and AAPL as primary symbols, SOXX as the semiconductor benchmark, SPY for AAPL, QQQ as the broad benchmark, and exactly the coded 1.5 relative-volume rule, the engine generated **6 research candidates: 3 positive signed same-session directional moves and 3 negative**, with an arithmetic mean signed move of **+1.810%**. This result is **not profitable-trading evidence**, because downside alerts are not short trades, the data are IEX-only, and the mean is driven by outsized declines on 5 November. No real trading costs or fills are included.
+
+Importantly, the replay contained **no timestamped event-news dataset**, so NVDA generated an apparent BUY_CANDIDATE on 9 November even though the company had issued its governance-related statement on 8 November. A correctly sourced, time-stamped material-risk event would suppress it. This is a concrete reason not to deploy automated live signals until event ingestion is implemented. These results include neither an out-of-sample period nor a real news replay.
+
 ## Validation requirements before live display
 
 1. Obtain an appropriately licensed, timely intraday OHLCV feed for symbols and benchmarks. Today's latest IEX trade plus five-minute website refresh is insufficient to recreate correctly completed bar histories or reliably timed alerts.
