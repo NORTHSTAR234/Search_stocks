@@ -348,3 +348,30 @@ test("AAOIFI dashboard column uses separate green red yellow semantics",()=>{
  assert(source.includes('status==="SHARIAH REVIEW REQUIRED"'));
  assert(source.includes("'<td>'+aaoifiCell(r)+'</td>'"));
 });
+
+test("dashboard uses the browser page as its only vertical scrolling surface",()=>{
+ const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+ const section=css.slice(css.indexOf("SINGLE-SCROLL RESPONSIVE STOCK DASHBOARD"));
+ assert(section.length>3000,"Responsive stock-card stylesheet must exist");
+ assert.match(section,/\.table-wrap\s*\{[^}]*max-height:none;[^}]*overflow:visible;/);
+ assert.match(section,/\.table-wrap table\s*\{[^}]*min-width:0;/);
+ assert.match(section,/\.table-wrap tbody\s*\{[^}]*display:grid;/);
+ assert.match(section,/\.table-wrap tbody tr\s*\{[^}]*display:grid;/);
+ assert.match(section,/min-width:0!important;/);
+ assert.match(section,/@media\(max-width:1200px\)/);
+ assert.match(section,/@media\(max-width:850px\)/);
+ assert.match(section,/@media\(max-width:560px\)/);
+ assert(!/overflow\s*:\s*(?:auto|scroll)/.test(section),
+   "No scrollable inner table/card container should be reintroduced");
+});
+test("responsive cards preserve labels for every original dashboard field",()=>{
+ const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+ const section=css.slice(css.indexOf("SINGLE-SCROLL RESPONSIVE STOCK DASHBOARD"));
+ const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
+ const headings=JSON.parse(build.match(/const labels=(\[[^\n]+\]);/)[1]);
+ for(let i=1;i<=headings.length;i++)
+   assert(new RegExp("td:nth-child\\("+i+"\\)::before").test(section),
+     "Missing accessible card label for table field "+i);
+ assert.equal(headings.length,11);
+ assert(section.includes("td[colspan]"));
+});
