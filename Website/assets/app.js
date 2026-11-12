@@ -415,6 +415,37 @@
         '<small class="muted">No Stock_screener AAOIFI report in GitHub yet</small>')+
       '</div>';
   }
+  // Independent ethical/BDS screening. Only evidence-backed recent neutral is green.
+  function ethicalVisual(r,now=new Date()){
+    const status=String(r.ethicalStatus||"").trim().toUpperCase();
+    const bds=r.ethicalBdsListed;
+    const source=typeof r.ethicalSourceUrl==="string"&&
+      /^https:\/\/(?:www\.)?rizqinvests\.com\//i.test(r.ethicalSourceUrl);
+    const date=String(r.ethicalAssessmentDate||"");
+    const validDate=/^\d{4}-\d{2}-\d{2}$/.test(date)&&
+      Number.isFinite(Date.parse(date))&&Date.parse(date)<=now.getTime();
+    if(!source||!validDate)return {tone:"warn",label:"NOT VERIFIED"};
+    const older=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth()-4,now.getUTCDate()));
+    const stale=Date.parse(date)<older.getTime();
+    if(bds===true||status==="UNETHICAL"||status==="BDS_LISTED")
+      return {tone:"bad",label:bds===true||status==="BDS_LISTED"?"BDS FLAGGED":"UNETHICAL",stale};
+    if(!stale&&bds===false&&(status==="NEUTRAL"||status==="ETHICAL"))
+      return {tone:"good",label:status==="NEUTRAL"?"NEUTRAL":"ETHICAL",stale:false};
+    return {tone:"warn",label:stale?"STALE / RECHECK":"NOT VERIFIED",stale};
+  }
+  function ethicalCell(r){
+    const view=ethicalVisual(r),path=r.aaoifiReportPath;
+    const pill=path?'<a href="'+escape(path)+'" class="badge '+view.tone+' aaoifi-link">'+escape(view.label)+'</a>':badge(view.label,view.tone);
+    const parts=[r.ethicalAssessmentDate?"Assessment: "+r.ethicalAssessmentDate:null,
+      r.ethicalBdsListed===true?"BDS listed":r.ethicalBdsListed===false?"BDS: not flagged":"BDS: unverified",
+      view.stale?"Stale assessment":null].filter(Boolean).join(" · ");
+    const link=r.ethicalSourceUrl&&/^https:\/\/(?:www\.)?rizqinvests\.com\//i.test(r.ethicalSourceUrl)?
+      '<a href="'+escape(r.ethicalSourceUrl)+'" target="_blank" rel="noopener noreferrer">RizqInvests evidence</a>':"";
+    return '<div class="ethical-cell">'+pill+
+      (parts?'<small>'+escape(parts)+'</small>':"")+
+      (r.ethicalReason?'<small>'+escape(cap(r.ethicalReason,160))+'</small>':"")+
+      (link?'<small>'+link+'</small>':"")+'</div>';
+  }
   function tr(r){
     const action=cap(r.action,96);
     const context=zoneContext(r);
@@ -437,6 +468,7 @@
     '<td>'+stopsCell(r)+'</td>'+
     '<td>'+screeningCell(r)+'</td>'+
     '<td>'+aaoifiCell(r)+'</td>'+
+    '<td>'+ethicalCell(r)+'</td>'+
     '<td>'+escape(cap(r.earnings,110))+'</td></tr>';
   }
   function syncExchangeFilters(){
@@ -465,7 +497,7 @@
       order==="entry"?score(b.entry)-score(a.entry)||b.timestamp.localeCompare(a.timestamp):
       order==="investment"?score(b.investment)-score(a.investment)||b.timestamp.localeCompare(a.timestamp):
       b.timestamp.localeCompare(a.timestamp)||a.ticker.localeCompare(b.ticker));
-    $("rows").innerHTML=filtered.length?filtered.map(tr).join(""):'<tr><td colspan="11">No reports match your filters.</td></tr>';
+    $("rows").innerHTML=filtered.length?filtered.map(tr).join(""):'<tr><td colspan="12">No reports match your filters.</td></tr>';
     $("count").textContent=all.length;
     $("halalCount").textContent=all.filter(r=>r.bucket==="halal").length;
     $("quoteCount").textContent=Object.keys(state.quotes).length;
@@ -596,7 +628,7 @@
       document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkAll();});
     }catch(e){
       $("marketNotice").textContent="Could not load archive: "+e.message;
-      $("rows").innerHTML='<tr><td colspan="11">Archive unavailable.</td></tr>';
+      $("rows").innerHTML='<tr><td colspan="12">Archive unavailable.</td></tr>';
     }
   }
   ["search","bucket","exchange","order"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",render));
