@@ -268,8 +268,9 @@
   left:auto;
   right:auto;
   z-index:auto;
-  min-width:0;
-  max-width:none;
+  /* Earlier per-column table widths must never force card overflow. */
+  min-width:0!important;
+  max-width:none!important;
   width:100%;
   height:auto;
   padding:11px 12px;
