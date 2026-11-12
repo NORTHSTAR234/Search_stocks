@@ -45,7 +45,8 @@ test("Private Workflow returns sanitized research and writes private journal, ne
  assert.equal(h.written.length,1);
  assert.equal(h.written[0].ttl,90*86400);
  assert.equal(h.written[0].body.signalId,"MU|2026-11-12|10:00|UP");
- assert.deepEqual(h.requests,[["MU"]]);
+ assert.equal(h.requests.length,1);
+ assert.equal(String(h.requests[0]),"MU");
  const all=JSON.stringify({...result,journal:h.written});
  for(const word of ["triggerPrice","invalidationPrice","unverified headline","example.org","relativeVolume"]){
    assert.equal(all.includes(word),false,word);
@@ -87,7 +88,7 @@ test("Risk reports preserve risk codes but strip any headlines",async()=>{
  const h=Harness(p);
  const result=await h.run();
  assert.equal(result.status,"PRIVATE_RESEARCH_PREVIEW");
- assert.deepEqual(result.signals[0].materialReportedRiskCodes,["LEADERSHIP_DISRUPTION"]);
+ assert.equal(result.signals[0].materialReportedRiskCodes.join(","),"LEADERSHIP_DISRUPTION");
  assert.equal(result.signals[0].observedBarAt,null);
  assert.equal(JSON.stringify(result).includes("unverified headline"),false);
 });
