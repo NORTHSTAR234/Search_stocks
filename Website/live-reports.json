@@ -4,8 +4,8 @@
   "latestHtmlReportAt": "2026-11-12T08:47:06Z",
   "htmlReportCount": 63,
   "uniqueTickers": 29,
-  "aaoifiReportCount": 6,
-  "revision": "b05e3687361aff80b64bd3912e8b154f",
+  "aaoifiReportCount": 7,
+  "revision": "69c93f2c42e2a10eeae74886758b96dc",
   "rows": [
     {
       "company": "Advanced Micro Devices, Inc.",
@@ -1131,11 +1131,11 @@
       "reportPath": "/view-report?path=halal%2FORG.ASX%2FORG.ASX_2026-11-10_21-44-40Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
-      "aaoifiStatus": null,
-      "aaoifiConfidence": null,
-      "aaoifiScreenedAt": null,
-      "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
+      "aaoifiConfidence": "Medium",
+      "aaoifiScreenedAt": "2026-11-12T10:32:12.390Z",
+      "aaoifiReason": "Origin Energy's main electricity, natural gas and energy-services business is provisionally permissible under AAOIFI SS21. Its FY2026 conventional borrowings are 20.21% of reporting-date market value, under the 30% ceiling; at least A$54 million of group and attributable APLNG i…",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FORG.ASX.html"
     },
     {
       "company": "The Coca-Cola Company",
