@@ -5,7 +5,7 @@ import {readFileSync} from "node:fs";
 import {summarizeNewsRisk} from "../lib/news-risk.mjs";
 
 const original=readFileSync(new URL("../worker/intraday-research-provider.mjs",import.meta.url),"utf8");
-function loadProvider({fetcher,engine}){
+function loadProvider({fetcher,engine,entrypoint="IntradayResearchProvider"}){
   const source=original
     .replace(/^import\s+.*?;\s*$/gm,"")
     .replace(/export class /g,"class ")
@@ -13,7 +13,7 @@ function loadProvider({fetcher,engine}){
   const context={WorkerEntrypoint:class {},fetch:fetcher,AbortSignal,URL,Response,Date,Intl,
     summarizeNewsRisk,evaluateIntradaySignal:engine};
   vm.createContext(context);
-  const ctor=vm.runInContext(source+"\nIntradayResearchProvider;",context);
+  const ctor=vm.runInContext(source+"\n"+entrypoint+";",context);
   return ctor;
 }
 const engine=({ticker,events=[]})=>({
@@ -118,4 +118,47 @@ test("No price bars and zero detectable risk cannot create a BUY",async()=>{
  assert.equal(r.signals[0].assessment.signal,"NO_DATA");
  assert(r.signals[0].assessment.reasonCodes.includes("BARS_UNAVAILABLE"));
  assert.equal(r.signals[0].marketData.barsAvailable,false);
+});
+
+test("Private preview is unreachable without an explicit short-lived diagnostic flag",async()=>{
+ let calls=0;
+ const C=loadProvider({fetcher:async()=>{calls++;throw Error("MUST_NOT_FETCH");},engine,
+  entrypoint:"IntradayPrivatePreview"});
+ const p=new C();
+ p.env={...goodEnv,INTRADAY_RESEARCH_ENABLED:"disabled"};
+ assert.equal((await p.snapshot(["MU"])).status,"NOT_ACTIVE");
+ p.env={...goodEnv,INTRADAY_RESEARCH_ENABLED:"read_only",
+  INTRADAY_DIAGNOSTIC_MODE:"armed_preview_20261112"};
+ assert.equal((await p.snapshot(["MU"])).status,"NOT_ACTIVE");
+ assert.equal(calls,0);
+});
+test("Private preview can evaluate in disabled live mode only when specifically armed",async()=>{
+ const seen=[],C=loadProvider({entrypoint:"IntradayPrivatePreview",engine,
+  fetcher:async uri=>{
+   const p=new URL(uri).pathname;seen.push(p);
+   return p.includes("bars")?ok({bars:{MU:[],SOXX:[],QQQ:[]}}):
+    ok({news:[],next_page_token:null});
+  }});
+ const p=new C();p.env={...goodEnv,INTRADAY_RESEARCH_ENABLED:"disabled",
+  INTRADAY_DIAGNOSTIC_MODE:"armed_preview_20261112"};
+ const result=await p.snapshot(["MU"]);
+ assert.equal(result.status,"RESEARCH_ONLY");
+ assert.equal(result.execution,"RESEARCH_ONLY_NOT_EXECUTABLE");
+ assert.equal(result.validated,false);
+ assert.equal(result.signals.length,1);
+ assert.deepEqual(seen.sort(),["/v1beta1/news","/v2/stocks/bars"]);
+ // An arm for the private inspection MUST NOT unlock the regular live-signal RPC.
+ const prod=new (loadProvider({engine,fetcher:async()=>{throw Error("must not call");}}))();
+ prod.env=p.env;
+ assert.equal((await prod.snapshot(["MU"])).status,"NOT_ACTIVE");
+});
+test("Private preview refuses non-whitelisted tickers without any provider traffic",async()=>{
+ let calls=0;
+ const P=loadProvider({entrypoint:"IntradayPrivatePreview",engine,
+  fetcher:async()=>{calls++;return ok({})}});
+ const p=new P();p.env={...goodEnv,INTRADAY_RESEARCH_ENABLED:"disabled",
+ INTRADAY_DIAGNOSTIC_MODE:"armed_preview_20261112"};
+ assert.equal((await p.snapshot(["TSLA"])).status,"INVALID_SYMBOLS");
+ assert.equal((await p.snapshot(["MU","MU"])).status,"INVALID_SYMBOLS");
+ assert.equal(calls,0);
 });
