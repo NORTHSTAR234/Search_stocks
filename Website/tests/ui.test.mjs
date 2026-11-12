@@ -349,33 +349,37 @@ test("AAOIFI dashboard column uses separate green red yellow semantics",()=>{
  assert(source.includes("'<td>'+aaoifiCell(r)+'</td>'"));
 });
 
-test("dashboard uses the browser page as its only vertical scrolling surface",()=>{
+test("dashboard restores real 11-column table and has no inner scrollbars",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
- const section=css.slice(css.indexOf("SINGLE-SCROLL RESPONSIVE STOCK DASHBOARD"));
- assert(section.length>3000,"Responsive stock-card stylesheet must exist");
- assert.match(section,/\.table-wrap\s*\{[^}]*max-height:none;[^}]*overflow:visible;/);
- assert.match(section,/\.table-wrap table\s*\{[^}]*min-width:0;/);
- assert.match(section,/\.table-wrap tbody\s*\{[^}]*display:grid;/);
- assert.match(section,/\.table-wrap tbody tr\s*\{[^}]*display:grid;/);
+ const section=css.slice(css.indexOf("SINGLE-SCROLL FULL-WIDTH STOCK TABLE"),
+   css.indexOf("/* FLUID VIEWPORT WIDTH"));
+ assert(section.length>1800,"Original table layout override must exist");
+ assert.match(section,/\.table-wrap\s*\{[^}]*max-height:none!important;[^}]*overflow:visible!important;/);
+ assert.match(section,/\.table-wrap table\s*\{[^}]*display:table;[^}]*width:100%!important;/);
+ assert.match(section,/\.table-wrap thead\s*\{[^}]*display:table-header-group;/);
+ assert.match(section,/\.table-wrap tbody\s*\{display:table-row-group\}/);
+ assert.match(section,/\.table-wrap tr\s*\{display:table-row\}/);
+ assert.match(section,/\.table-wrap th,[\s\S]*?display:table-cell;/);
  assert.match(section,/min-width:0!important;/);
- assert.match(section,/@media\(max-width:1200px\)/);
- assert.match(section,/@media\(max-width:850px\)/);
- assert.match(section,/@media\(max-width:560px\)/);
+ assert(!/grid-template-columns|display:grid|display:none!important[^}]*thead/.test(section),
+   "The stock table must never be turned into cards or hide its headers");
  assert(!/overflow\s*:\s*(?:auto|scroll)/.test(section),
-   "No scrollable inner table/card container should be reintroduced");
+   "The table must not create nested scrolling");
 });
-test("responsive cards preserve labels for every original dashboard field",()=>{
+test("all 11 original stock headings are visible in the restored table",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
- const section=css.slice(css.indexOf("SINGLE-SCROLL RESPONSIVE STOCK DASHBOARD"));
+ const section=css.slice(css.indexOf("SINGLE-SCROLL FULL-WIDTH STOCK TABLE"),
+   css.indexOf("/* FLUID VIEWPORT WIDTH"));
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  const headings=JSON.parse(build.match(/const labels=(\[[^\n]+\]);/)[1]);
- for(let i=1;i<=headings.length;i++)
-   assert(new RegExp("td:nth-child\\("+i+"\\)::before").test(section),
-     "Missing accessible card label for table field "+i);
  assert.equal(headings.length,11);
+ assert(section.includes("display:table-header-group"));
+ assert(section.includes("td::before {content:none!important;display:none!important}"));
+ for(let i=1;i<=headings.length;i++)
+   assert(section.includes(".table-wrap th:nth-child("+i+")"),
+     "Missing proportional column width for heading "+i);
  assert(section.includes("td[colspan]"));
 });
-
 
 test("dashboard fills available window width without creating a second scrollbar",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
@@ -384,8 +388,7 @@ test("dashboard fills available window width without creating a second scrollbar
  assert.match(fluid,/main:not\(\.report-layout\)\s*\{[^}]*width:100%;[^}]*max-width:none;/);
  assert.match(fluid,/main:not\(\.report-layout\)>\.panel/);
  assert.match(fluid,/\.top\s*\{[^}]*padding-left:clamp\(/);
- assert.match(fluid,/@media\(min-width:1800px\)/);
- assert.match(fluid,/@media\(min-width:2450px\)/);
+ assert(!fluid.includes("grid-template-columns"),"No card layout on wide screens");
  assert.match(fluid,/@media\(max-width:560px\)/);
  assert(!/max-height\s*:\s*70vh/.test(fluid));
  assert(!/overflow\s*:\s*(?:auto|scroll)/.test(fluid));
