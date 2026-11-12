@@ -6,6 +6,7 @@ on:
     paths:
       - 'halal/**/*.html'
       - 'nonhalal/**/*.html'
+      - 'AAOIFI/*.html'
       - 'Website/scripts/build-live-reports.mjs'
       - 'Website/lib/report-archive.mjs'
       - 'Website/tests/snapshot-contract.test.mjs'
