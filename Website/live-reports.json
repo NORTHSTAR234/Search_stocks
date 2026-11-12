@@ -4,8 +4,8 @@
   "latestHtmlReportAt": "2026-11-12T08:47:06Z",
   "htmlReportCount": 63,
   "uniqueTickers": 29,
-  "aaoifiReportCount": 11,
-  "revision": "dbceeb5dbd2f75e71f9ec224c7706557",
+  "aaoifiReportCount": 12,
+  "revision": "a106ae3512a213d995bec2b142017edb",
   "rows": [
     {
       "company": "Advanced Micro Devices, Inc.",
@@ -474,11 +474,11 @@
       "reportPath": "/view-report?path=halal%2FSU.PA%2FSU.PA_2026-11-11_13-04-43Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
-      "aaoifiStatus": null,
-      "aaoifiConfidence": null,
-      "aaoifiScreenedAt": null,
-      "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
+      "aaoifiConfidence": "Medium",
+      "aaoifiScreenedAt": "2026-11-12T10:36:36Z",
+      "aaoifiReason": "Schneider Electric SE (SU.PA, Euronext Paris) has a permissible core energy-management and industrial-automation business. At the 30 June 2026 reporting date, identified conventional borrowings of €18.847bn equal 11.44% of reporting-date equity market value, comfortably within A…",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FSU.XPAR.html"
     },
     {
       "company": "ASM International N.V.",
