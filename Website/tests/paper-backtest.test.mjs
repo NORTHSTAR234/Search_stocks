@@ -60,3 +60,32 @@ test("No future events generate falsely prescient vetoes",()=>{
   const r=evaluatePaperBenchmark(data,{tickers:["MU"]});
   assert.equal(r.pilot.signalCount,1);
 });
+
+test("Dated Alpaca-style headline from PRIOR session vetoes next-day bullish pilot",()=>{
+ const data=fixture();
+ data.news={MU:[{id:101,created_at:"2026-11-09T22:00:00Z",
+   headline:"Micron CEO removed after board investigation",
+   url:"https://example.org/issuer/announcement",symbols:["MU"],source:"test-provider"}]};
+ const r=evaluatePaperBenchmark(data,{tickers:["MU"]});
+ assert.equal(r.pilot.signalCount,0);
+ assert.equal(r.baseline.signalCount,1);
+});
+test("A future provider-created news timestamp is not used as historical foresight",()=>{
+ const data=fixture();
+ data.news={MU:[{id:102,created_at:"2026-11-11T09:00:00Z",
+   headline:"Micron CEO removed after board investigation",
+   url:"https://example.org/issuer/announcement",symbols:["MU"]}]};
+ const r=evaluatePaperBenchmark(data,{tickers:["MU"]});
+ assert.equal(r.pilot.signalCount,1);
+});
+test("Strict news coverage opt-in suppresses both pilot and control days without complete evidence",()=>{
+ const data=fixture();
+ const missing=evaluatePaperBenchmark(data,{tickers:["MU"],requireNewsCoverage:true});
+ assert.equal(missing.pilot.signalCount,0);
+ assert.equal(missing.baseline.signalCount,0);
+ data.newsCoverage={MU:{"2026-11-10":"COMPLETE"}};
+ const ready=evaluatePaperBenchmark(data,{tickers:["MU"],requireNewsCoverage:true});
+ assert.equal(ready.pilot.signalCount,1);
+ assert.equal(ready.baseline.signalCount,1);
+ assert.equal(ready.requireNewsCoverage,true);
+});
