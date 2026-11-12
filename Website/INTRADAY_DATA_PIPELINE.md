@@ -52,3 +52,14 @@ Before enabling any BUY/SELL-style user interface, preserve production report HT
 ## Latest historical paper result
 
 See [INTRADAY_PAPER_AUDIT_2026-11-12.md](INTRADAY_PAPER_AUDIT_2026-11-12.md): replay of August–11 November 2026 IEX five-minute data across four primary equities. Only five pilot long fills after risk/no-chase gates, of which four were positive, with **+0.028% average illustrative net paper return** (16bps round-trip assumed) and no historical news feed. This is NOT enough evidence for active entry signals. Keep disabled.
+
+## Phase 4: source-time news and outage handling (12 November 2026)
+
+The offline IEX replay now accepts optional `news` article metadata keyed by ticker and converts only **already-created** provider articles into timestamped reported-risk events using `classifyNewsRisk`. A strict `requireNewsCoverage=true` option restricts BOTH the filtered strategy and plain opening-range comparator to dates explicitly marked `newsCoverage[ticker][YYYY-MM-DD]="COMPLETE"`. If historical coverage is missing, the strict result is **no eligible trades**, never an assumed absence of news. This stricter gate is **opt-in** for backward-compatible technical-only research; it must be mandatory for any future official news-adjusted validation claim. A provider `created_at` timestamp is not proof of the actual first public disclosure time.
+
+A second safeguard keeps source-attributed **RISK_ALERT** observations visible when the bar endpoint fails but news still works. In that situation the response reports `sourceStatus="NEWS_ONLY_BAR_FEED_UNAVAILABLE"` and no BUY/SELL price candidate. If the news endpoint itself fails, the RPC returns `DATA_UNAVAILABLE` without asserting the absence of risk.
+
+A read-only Alpaca entitlement check on **11 November 2026** found **78/78 regular-session IEX five-minute candles** for each of MU, NVDA, AMD, AAPL, SOXX, QQQ and SPY. This confirms one historical day's sample completeness, **not** consolidated SIP licensing, live latency, or continuous access. Alpaca news included source-created NVIDIA governance reporting from **8–9 November** that predates the previously identified **9 November 10:10 New York** upward candidate. New tests verify a pre-existing article vetoes that setup and future-dated articles are never pulled backward into earlier times. The archived four-month cost-adjusted paper stats remain **technical-only**, because a complete historical news corpus has still not been collected. Do not compare them to an event-complete live strategy.
+
+Full instructions for secure activation remain in the earlier section: the isolated Worker has **no Alpaca secrets**, so on-demand live data access is not yet available. Provision those independently through encrypted Cloudflare Worker Secrets only, and keep `INTRADAY_RESEARCH_ENABLED=disabled` until an authenticated end-to-end smoke test is approved. The owner-only Pages service binding is also absent.
+
