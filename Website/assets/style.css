@@ -308,6 +308,7 @@
 .table-wrap th:nth-child(9) {width:8%}
 .table-wrap th:nth-child(10){width:7%}
 .table-wrap th:nth-child(11){width:6%}
+.table-wrap th:nth-child(12){width:6%}
 .table-wrap .score-pair {min-width:0;gap:5px}
 .table-wrap .score-box {min-width:0;padding:7px 5px}
 .table-wrap .range-value {font-size:.83rem}
