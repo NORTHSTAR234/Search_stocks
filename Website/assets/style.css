@@ -195,3 +195,10 @@
 .musaffa-cell>.badge.warn{color:#ffe19a;background:#594624;border:1px solid #ab843c}
 .musaffa-cell>.badge.bad{color:#ffabb0;background:#612832;border:1px solid #b45764}
 .musaffa-details{font-size:.78rem;line-height:1.45;overflow-wrap:anywhere}
+
+/* Daily signals section: non-executable technical research */
+.daily-link{display:inline-flex;padding:12px 16px;background:#215347;color:#cfffee;font-weight:750;border:1px solid #448e7f;border-radius:9px}
+.daily-link:hover{background:#2c695d;text-decoration:none}
+body:has(#ds-rows) .table-wrap{max-height:72vh}
+body:has(#ds-rows) td:nth-child(4){min-width:190px}
+body:has(#ds-rows) td:nth-child(6){min-width:300px;max-width:480px}
