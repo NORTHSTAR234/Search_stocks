@@ -349,12 +349,13 @@ test("AAOIFI dashboard column uses separate green red yellow semantics",()=>{
  assert(source.includes("'<td>'+aaoifiCell(r)+'</td>'"));
 });
 
-test("dashboard restores real 11-column table and has no inner scrollbars",()=>{
+test("dashboard restores 11-column table with one page scrollbar and only table horizontal panning",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
  const section=css.slice(css.indexOf("SINGLE-SCROLL FULL-WIDTH STOCK TABLE"),
    css.indexOf("/* FLUID VIEWPORT WIDTH"));
  assert(section.length>1800,"Original table layout override must exist");
- assert.match(section,/\.table-wrap\s*\{[^}]*max-height:none!important;[^}]*overflow:visible!important;/);
+ assert.match(section,/\.table-wrap\s*\{[^}]*max-height:none!important;[^}]*overflow-x:auto!important;[^}]*overflow-y:hidden!important;/);
+ assert.match(section,/\.panel\s*\{[^}]*max-width:100%;[^}]*overflow:hidden;/);
  assert.match(section,/\.table-wrap table\s*\{[^}]*display:table;[^}]*width:100%!important;/);
  assert.match(section,/\.table-wrap thead\s*\{[^}]*display:table-header-group;/);
  assert.match(section,/\.table-wrap tbody\s*\{display:table-row-group\}/);
@@ -363,8 +364,10 @@ test("dashboard restores real 11-column table and has no inner scrollbars",()=>{
  assert.match(section,/min-width:0!important;/);
  assert(!/grid-template-columns|display:grid|display:none!important[^}]*thead/.test(section),
    "The stock table must never be turned into cards or hide its headers");
- assert(!/overflow\s*:\s*(?:auto|scroll)/.test(section),
-   "The table must not create nested scrolling");
+ assert(section.includes("overflow-y:hidden!important;"),
+   "The table must never create an additional vertical scrollbar");
+ assert(section.includes("overflow-x:auto!important;"),
+   "Wide table must pan independently rather than shift the entire page");
 });
 test("vertical separators match horizontal row borders at every viewport width",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
@@ -378,14 +381,16 @@ test("vertical separators match horizontal row borders at every viewport width",
  }
  assert(table.includes("th:first-child,\n.table-wrap td:first-child {border-left:1px solid #27394d}"));
  assert(table.includes(".table-wrap th:last-child,\n.table-wrap td:last-child {border-right:0}"));
- assert(table.includes("min-width:2280px!important;"));
+ assert(table.includes("min-width:1680px!important;"));
  assert(!table.includes("min-width:1400px!important;"));
  assert(!table.includes("min-width:1350px!important;"));
  assert(table.includes("overflow-wrap:break-word;"));
  assert(table.includes("word-break:normal;"));
  assert(!table.includes("overflow-wrap:anywhere;"));
- assert(!/overflow\s*:\s*(?:auto|scroll)/.test(table),
-   "Keep page-level scrolling, not an inner table scrollbar");
+ assert(table.includes("overflow-y:hidden!important;"),
+   "Keep page-level vertical scrolling");
+ assert(table.includes("overflow-x:auto!important;"),
+   "Use only horizontal overflow for 11 columns on narrow windows");
 });
 test("table headings and first column no longer cover rows when page scrolls",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
@@ -415,6 +420,21 @@ test("all 11 original stock headings are visible in the restored table",()=>{
  assert(section.includes("td[colspan]"));
 });
 
+test("narrow screens cannot horizontally shift the website header or filters",()=>{
+ const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+ const table=css.slice(css.indexOf("ORIGINAL FULL-WIDTH STOCK TABLE WITH CONTAINED HORIZONTAL OVERFLOW"),
+   css.indexOf("/* FLUID VIEWPORT WIDTH"));
+ const fluid=css.slice(css.indexOf("/* FLUID VIEWPORT WIDTH"));
+ assert(table.includes("max-width:100%;"));
+ assert(table.includes("overflow-x:auto!important;"));
+ assert(table.includes("min-width:1680px!important;"));
+ assert(fluid.includes("html,body{max-width:100%;overflow-x:hidden}"));
+ assert(fluid.includes("main:not(.report-layout)>.panel .toolbar,"));
+ assert(fluid.includes("main:not(.report-layout)>.panel .notice,"));
+ assert(fluid.includes("main:not(.report-layout)>.panel .table-footer{"));
+ assert(!table.includes("min-width:2280px!important;"));
+ assert(!table.includes("overflow:visible!important;"));
+});
 test("dashboard fills available window width without creating a second scrollbar",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
  const fluid=css.slice(css.indexOf("/* FLUID VIEWPORT WIDTH"));
