@@ -366,6 +366,27 @@ test("dashboard restores real 11-column table and has no inner scrollbars",()=>{
  assert(!/overflow\s*:\s*(?:auto|scroll)/.test(section),
    "The table must not create nested scrolling");
 });
+test("vertical separators match horizontal row borders at every viewport width",()=>{
+ const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+ const table=css.slice(css.indexOf("SINGLE-SCROLL FULL-WIDTH STOCK TABLE"),
+   css.indexOf("/* FLUID VIEWPORT WIDTH"));
+ const header=table.match(/\.table-wrap th\s*\{([\s\S]*?)\}/)?.[1]||"";
+ const cells=table.match(/\.table-wrap td\s*\{([\s\S]*?)\}/)?.[1]||"";
+ for(const rule of [header,cells]){
+   assert(rule.includes("border-bottom:1px solid #27394d;"));
+   assert(rule.includes("border-right:1px solid #27394d;"));
+ }
+ assert(table.includes("th:first-child,\n.table-wrap td:first-child {border-left:1px solid #27394d}"));
+ assert(table.includes(".table-wrap th:last-child,\n.table-wrap td:last-child {border-right:0}"));
+ assert(table.includes("min-width:2280px!important;"));
+ assert(!table.includes("min-width:1400px!important;"));
+ assert(!table.includes("min-width:1350px!important;"));
+ assert(table.includes("overflow-wrap:break-word;"));
+ assert(table.includes("word-break:normal;"));
+ assert(!table.includes("overflow-wrap:anywhere;"));
+ assert(!/overflow\s*:\s*(?:auto|scroll)/.test(table),
+   "Keep page-level scrolling, not an inner table scrollbar");
+});
 test("all 11 original stock headings are visible in the restored table",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
  const section=css.slice(css.indexOf("SINGLE-SCROLL FULL-WIDTH STOCK TABLE"),
