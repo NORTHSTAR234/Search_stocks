@@ -29,6 +29,8 @@ test("Worker has a private named entrypoint and denies default public HTTP",()=>
   assert.match(original,/export class IntradayResearchProvider extends WorkerEntrypoint/);
   assert.match(original,/export default \{fetch\(\)\{return new Response\("Not found",\{status:404\}\);\}\};/);
   assert.doesNotMatch(original,/\/v2\/orders|submitOrder|placeOrder/);
+  assert.match(original,/env\.ALPACA_SECRET_KEY/);
+  assert.doesNotMatch(original,/env\.ALPACA_API_SECRET_KEY/);
 });
 test("RPC flags disabled means no credentials or upstream call used",async()=>{
   let n=0;
