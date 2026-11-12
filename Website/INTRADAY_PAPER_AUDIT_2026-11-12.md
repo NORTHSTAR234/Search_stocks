@@ -28,6 +28,21 @@ There were also **nine downside SELL_RISK alerts** across these four groups, but
 
 Among the five simulated pilot long fills: three were from September (AMD once, AAPL twice) and two from October (NVDA twice). MU produced no filled pilot longs. Four other bullish candidates were rejected because the required initial stop distance exceeded 3%. The five filled trade outcomes were approximately +0.141%, +0.582%, +0.496%, −1.487%, and +0.411% net. Their arithmetic mean was **+0.0283%**, before portfolio taxes, funding, non-modeled spread/impact, any brokerage-specific commissions or delayed fills. The sum of five separate percentage trade outcomes is **not a portfolio return**.
 
+### Sensitivity to assumed costs (same five paper fills)
+
+Repricing the *same five simulated entry/exit observations*, without changing trade eligibility, produces:
+
+| Assumed total cost per side | Mean net paper outcome per fill |
+|---|---:|
+| 0 bps | +0.189% |
+| 8 bps (base case) | +0.028% |
+| **10 bps** | **−0.012%** |
+| 12 bps | −0.052% |
+| 15 bps | −0.112% |
+| 20 bps | −0.211% |
+
+These are arithmetical stress estimates from the rounded recorded five-trade results, **not actual brokerage quotations**. A mere **two extra basis points per side** reverses the apparent mean. That sensitivity is an additional reason to reject a profitability claim.
+
 ### What the results do and do not mean
 
 1. The filtered candidate universe was **far smaller** than baseline (nine versus 140 signals, only five modeled long fills). A four-of-five favourable count is statistically weak; approximate 95% Wilson interval for the underlying win rate spans **about 38%–96%**. It cannot be interpreted as an 80% expected win rate.
