@@ -375,3 +375,20 @@ test("responsive cards preserve labels for every original dashboard field",()=>{
  assert.equal(headings.length,11);
  assert(section.includes("td[colspan]"));
 });
+
+
+test("dashboard fills available window width without creating a second scrollbar",()=>{
+ const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+ const fluid=css.slice(css.indexOf("/* FLUID VIEWPORT WIDTH"));
+ assert(fluid.length>500,"Fluid width stylesheet must exist");
+ assert.match(fluid,/main:not\(\.report-layout\)\s*\{[^}]*width:100%;[^}]*max-width:none;/);
+ assert.match(fluid,/main:not\(\.report-layout\)>\.panel/);
+ assert.match(fluid,/\.top\s*\{[^}]*padding-left:clamp\(/);
+ assert.match(fluid,/@media\(min-width:1800px\)/);
+ assert.match(fluid,/@media\(min-width:2450px\)/);
+ assert.match(fluid,/@media\(max-width:560px\)/);
+ assert(!/max-height\s*:\s*70vh/.test(fluid));
+ assert(!/overflow\s*:\s*(?:auto|scroll)/.test(fluid));
+ assert(fluid.includes("report-layout"),
+   "Report pages must preserve their readable width independently");
+});
