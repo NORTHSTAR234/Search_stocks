@@ -85,7 +85,7 @@ test("regular and overnight have distinct columns and signed price/percentage co
  assert(source.includes("quoteDirection(valid?c.regularChangePercent:null)"));
  assert(source.includes("quote-value overnight-value"));
  assert(source.includes("No recent verified overnight indication"));
- assert(source.includes('colspan="11"'));
+ assert(source.includes('colspan="12"'));
 });
 
 
@@ -161,13 +161,13 @@ test("dashboard columns match specified new order and remove duplicate report co
  "Company / ticker","Regular / latest price","Overnight / vs close",
  "Action / Risk","Investment / Entry","Last report (AEDT/AEST)",
  "Preferred / acceptable buy zone","Initial stop / no_chase",
- "Musaffa status / grade / screening date","AAOIFI","Next earnings / confirmation"]);
- assert.equal(headings.length,11);
+ "Musaffa status / grade / screening date","AAOIFI","Ethical / BDS","Next earnings / confirmation"]);
+ assert.equal(headings.length,12);
  assert(!source.includes('Original GitHub</a>'));
  assert(source.includes("'<td>'+scoreCell(r)+'</td>'"));
  assert(source.includes("'<td>'+zoneCell(r,context)+'</td>'"));
  assert(source.includes("'<td>'+stopsCell(r)+'</td>'"));
- assert(source.includes('colspan="11"'));
+ assert(source.includes('colspan="12"'));
  assert(source.includes("class=\"ticker'+active+'\" href="));
 });
 test("a preferred or acceptable match lights only its own buy-zone card",()=>{
@@ -411,7 +411,7 @@ test("all 11 original stock headings are visible in the restored table",()=>{
    css.indexOf("/* FLUID VIEWPORT WIDTH"));
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  const headings=JSON.parse(build.match(/const labels=(\[[^\n]+\]);/)[1]);
- assert.equal(headings.length,11);
+ assert.equal(headings.length,12);
  assert(section.includes("display:table-header-group"));
  assert(section.includes("td::before {content:none!important;display:none!important}"));
  for(let i=1;i<=headings.length;i++)
@@ -448,4 +448,23 @@ test("dashboard fills available window width without creating a second scrollbar
  assert(!/overflow\s*:\s*(?:auto|scroll)/.test(fluid));
  assert(fluid.includes("report-layout"),
    "Report pages must preserve their readable width independently");
+});
+
+test("RizqInvests ethical/BDS column colors neutral green, flags red, unknown yellow",()=>{
+ const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
+ assert(build.includes('"Ethical / BDS"'));
+ assert(source.includes("function ethicalVisual(r,now=new Date())"));
+ assert(source.includes("'<td>'+ethicalCell(r)+'</td>'"));
+ const m=source.match(/function ethicalVisual\(r,now=new Date\(\)\)\{([\s\S]*?)\n  \}/);
+ assert(m);
+ const rate=new Function("r","now",m[1]);
+ const evidence={ethicalSourceUrl:"https://www.rizqinvests.com/ethical",ethicalAssessmentDate:"2026-11-12"};
+ const now=new Date("2026-11-13T01:00:00Z");
+ assert.equal(rate({...evidence,ethicalStatus:"NEUTRAL",ethicalBdsListed:false},now).tone,"good");
+ assert.equal(rate({...evidence,ethicalStatus:"ETHICAL",ethicalBdsListed:false},now).tone,"good");
+ assert.equal(rate({...evidence,ethicalStatus:"NEUTRAL",ethicalBdsListed:true},now).tone,"bad");
+ assert.equal(rate({...evidence,ethicalStatus:"UNETHICAL",ethicalBdsListed:false},now).tone,"bad");
+ assert.equal(rate({...evidence,ethicalStatus:"NEUTRAL",ethicalBdsListed:null},now).tone,"warn");
+ assert.equal(rate({ethicalStatus:"NEUTRAL",ethicalBdsListed:false},now).tone,"warn");
+ assert.equal(rate({...evidence,ethicalAssessmentDate:"2026-03-01",ethicalStatus:"NEUTRAL",ethicalBdsListed:false},now).tone,"warn");
 });
