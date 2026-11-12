@@ -1,5 +1,6 @@
 // Pure archive helpers shared by the Pages build and the live GitHub HTML check.
 const PATTERN=/^(halal|nonhalal)\/([A-Za-z0-9.-]+)\/([A-Za-z0-9.-]+)_(\d{4}-\d{2}-\d{2})_(\d{2}-\d{2}-\d{2})Z(?:(_chat_response))?\.(md|html)$/i;
+const AAOIFI_PATTERN=/^AAOIFI\/([A-Za-z0-9.-]+)\.html$/i;
 const GITHUB="https://github.com/NORTHSTAR234/Search_stocks/blob/main/";
 const entityMap={amp:"&",lt:"<",gt:">",quot:'"',apos:"'",nbsp:" ",mdash:"—",ndash:"–",bull:"•",times:"×",hellip:"…"};
 export function archiveInfo(relative) {
@@ -9,6 +10,13 @@ export function archiveInfo(relative) {
   if(!Number.isFinite(Date.parse(timestamp)))return null;
   return {bucket:m[1].toLowerCase(),ticker:m[2].toUpperCase(),timestamp,path:relative,
     format:m[7].toLowerCase(),legacyHtmlSuffix:Boolean(m[6])};
+}
+export function aaoifiInfo(relative) {
+  const value=String(relative||"");
+  const m=value.match(AAOIFI_PATTERN);
+  if(!m)return null;
+  return {bucket:"aaoifi",ticker:m[1].toUpperCase(),timestamp:"LATEST AAOIFI",path:value,
+    format:"html",legacyHtmlSuffix:false};
 }
 export function latestArchive(files) {
   const found=new Map();
@@ -59,6 +67,37 @@ function namedField(fields,regex) {
 }
 function numericBands(raw){
   return [...String(raw).matchAll(/(?:US\$|USD\s*|\$)\s*([\d,]+(?:\.\d+)?)\s*[–—-]\s*(?:(?:US\$|USD\s*|\$)\s*)?([\d,]+(?:\.\d+)?)/gi)].slice(0,2).map(x=>[+x[1].replaceAll(",",""),+x[2].replaceAll(",","")]);
+}
+
+export function parseAaoifiHtml(info,html){
+  if(!info||info.bucket!=="aaoifi"||info.format!=="html")
+    throw Error("Invalid AAOIFI report identity");
+  const m=String(html||"").match(/<script\b(?=[^>]*\bid\s*=\s*["']aaoifi-report-snapshot["'])[^>]*>([\s\S]*?)<\/script\s*>/i);
+  if(!m)throw Error("Missing AAOIFI report snapshot");
+  if(m[1].length>60000)throw Error("Oversized AAOIFI report snapshot");
+  let snap;
+  try{snap=JSON.parse(m[1]);}catch{throw Error("Invalid AAOIFI report snapshot JSON");}
+  const allowed=new Set(["AAOIFI-COMPLIANT","AAOIFI-NON-COMPLIANT","SHARIAH REVIEW REQUIRED","INSUFFICIENT DATA"]);
+  const required=["schema_version","ticker","exchange","company","status","confidence","screened_at","executive_summary"];
+  const has=(object,key)=>object&&Object.prototype.hasOwnProperty.call(object,key);
+  if(!snap||typeof snap!=="object"||snap.schema_version!==1||required.some(key=>!has(snap,key)))
+    throw Error("Incomplete AAOIFI report snapshot");
+  if(typeof snap.ticker!=="string"||!/^[A-Z0-9][A-Z0-9.-]{0,24}$/i.test(snap.ticker)||
+     typeof snap.exchange!=="string"||!/^[A-Z0-9][A-Z0-9.-]{1,15}$/i.test(snap.exchange)||
+     typeof snap.company!=="string"||!snap.company.trim()||
+     typeof snap.status!=="string"||!allowed.has(snap.status)||
+     !(snap.confidence===null||typeof snap.confidence==="string")||
+     typeof snap.screened_at!=="string"||!/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d+)?Z$/.test(snap.screened_at)||
+     !Number.isFinite(Date.parse(snap.screened_at))||
+     typeof snap.executive_summary!=="string"||!snap.executive_summary.trim())
+    throw Error("Invalid AAOIFI report snapshot");
+  return {
+    ticker:snap.ticker.toUpperCase(),exchange:snap.exchange.toUpperCase(),company:short(snap.company,120),
+    status:snap.status,confidence:snap.confidence?short(snap.confidence,40):null,
+    screenedAt:snap.screened_at,reason:short(snap.executive_summary,280),
+    reportUrl:GITHUB+info.path.split("/").map(encodeURIComponent).join("/"),
+    reportPath:"/view-report?path="+encodeURIComponent(info.path)
+  };
 }
 
 function snapshotFromHtml(html,expectedTicker){
