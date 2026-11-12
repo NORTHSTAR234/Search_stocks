@@ -50,7 +50,7 @@ test("Missing secrets or upstream outage returns DATA_UNAVAILABLE, never BUY",as
   const p=new C();p.env=goodEnv;
   const x=await p.snapshot(["MU"]);
   assert.equal(x.status,"DATA_UNAVAILABLE");
-  assert.deepEqual(x.signals,[]);
+  assert.equal(x.signals.length,0);
 });
 test("A timestamped reported governance headline overrides a mocked buy",async()=>{
   let requested=[];
