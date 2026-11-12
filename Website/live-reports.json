@@ -4,8 +4,8 @@
   "latestHtmlReportAt": "2026-11-12T08:47:06Z",
   "htmlReportCount": 63,
   "uniqueTickers": 29,
-  "aaoifiReportCount": 4,
-  "revision": "6048027f3177e7abeeceda7c28476dad",
+  "aaoifiReportCount": 5,
+  "revision": "378ea5e30a6f837f4b59cfe6a00e4b47",
   "rows": [
     {
       "company": "Advanced Micro Devices, Inc.",
@@ -273,11 +273,11 @@
       "reportPath": "/view-report?path=nonhalal%2F2377.TWSE%2F2377.TWSE_2026-11-11_13-06-04Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
-      "aaoifiStatus": null,
-      "aaoifiConfidence": null,
-      "aaoifiScreenedAt": null,
-      "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiStatus": "AAOIFI-COMPLIANT",
+      "aaoifiConfidence": "Medium",
+      "aaoifiScreenedAt": "2026-11-12T10:04:00Z",
+      "aaoifiReason": "Micro-Star International is AAOIFI-COMPLIANT on the latest verified financial position available to this screen, 30 June 2026. Its core business and constitutional purposes are computer, electronics, communications and related equipment activities, and the Articles of Incorporat…",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2F2377.TWSE.html"
     },
     {
       "company": "MediaTek Inc.",
