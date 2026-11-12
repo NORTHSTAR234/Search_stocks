@@ -87,3 +87,33 @@ test("Unfinished news pagination suppresses bullish candidate",async()=>{
   assert.equal(x.signals[0].assessment.signal,"NO_DATA");
   assert.equal(x.signals[0].assessment.triggerPrice,null);
 });
+
+test("Attributable risk headline remains visible when Alpaca candle endpoint fails",async()=>{
+ const article={id:9,created_at:new Date(Date.now()-600000).toISOString(),
+   headline:"NVIDIA Board Initiates Independent Investigation into CEO Jensen Huang",
+   url:"https://example.org/board/statement",symbols:["NVDA"],source:"test-news"};
+ const C=loadProvider({fetcher:async uri=>{
+   if(new URL(uri).pathname==="/v2/stocks/bars")throw Error("bar outage");
+   return ok({news:[article],next_page_token:null});
+ },engine});
+ const p=new C();p.env=goodEnv;
+ const r=await p.snapshot(["NVDA"]);
+ assert.equal(r.status,"RESEARCH_ONLY");
+ assert.equal(r.sourceStatus,"NEWS_ONLY_BAR_FEED_UNAVAILABLE");
+ assert.equal(r.signals[0].assessment.signal,"RISK_ALERT");
+ assert.equal(r.signals[0].marketData.barsAvailable,false);
+ assert.equal(r.signals[0].marketData.observationAsOf,null);
+ assert.equal(r.signals[0].assessment.execution,"RESEARCH_ONLY_NOT_EXECUTABLE");
+});
+test("No price bars and zero detectable risk cannot create a BUY",async()=>{
+ const C=loadProvider({fetcher:async uri=>{
+   if(new URL(uri).pathname==="/v2/stocks/bars")throw Error("bar outage");
+   return ok({news:[],next_page_token:null});
+ },engine});
+ const p=new C();p.env=goodEnv;
+ const r=await p.snapshot(["MU"]);
+ assert.equal(r.status,"RESEARCH_ONLY");
+ assert.equal(r.signals[0].assessment.signal,"NO_DATA");
+ assert(r.signals[0].assessment.reasonCodes.includes("BARS_UNAVAILABLE"));
+ assert.equal(r.signals[0].marketData.barsAvailable,false);
+});
