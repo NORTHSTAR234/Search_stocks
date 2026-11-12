@@ -65,6 +65,12 @@ async function generate(env){
        "YFINANCE_DAILY_ADJUSTED":null};
  }
  const report=makeDailyReport(tracked.rows,hist,at);
+ // Archive a report under its LAST COMPLETED US bar session, not its wall-clock
+ // execution date (important for a manual test before the NYSE close).
+ const observedUS=report.rows.filter(r=>r.exchange==="US"&&r.status==="OK"&&
+   typeof r.sessionDate==="string").map(r=>r.sessionDate).sort();
+ const observedSession=observedUS.at(-1)||date;
+ report.usRunDate=observedSession;
  report.manifestSource=tracked.source;
  report.dataStatus={alpaca:us.status,international: Object.keys(intl).length?"AVAILABLE":"NO_RECENT_HISTORY"};
  report.signalCounts=report.rows.reduce((a,r)=>(a[r.technicalSignal]=(a[r.technicalSignal]||0)+1,a),{});
@@ -72,11 +78,11 @@ async function generate(env){
  if(!report.ready)return {status:"NO_SUITABLE_MARKET_DATA",date,counts:report.signalCounts,
    us:us.status,manifest:tracked.source};
  // No customer data written: only research and public ticker metadata in private KV.
- await env.DAILY_STORE.put("snapshot:"+date,JSON.stringify(report),{expirationTtl:400*86400});
+ await env.DAILY_STORE.put("snapshot:"+observedSession,JSON.stringify(report),{expirationTtl:400*86400});
  const prior=await env.DAILY_STORE.get("latest","json");
- if(!prior?.usRunDate||prior.usRunDate<=date)
+ if(!prior?.usRunDate||prior.usRunDate<=observedSession)
   await env.DAILY_STORE.put("latest",JSON.stringify(report));
- return {status:"SAVED",date,tickers:report.rows.length,counts:report.signalCounts,
+ return {status:"SAVED",date:observedSession,tickers:report.rows.length,counts:report.signalCounts,
    source:tracked.source,feed:us.status,generatedAt:report.generatedAt};
 }
 export class DailySignalsRead extends WorkerEntrypoint {
