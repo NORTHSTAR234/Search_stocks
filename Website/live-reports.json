@@ -4,8 +4,8 @@
   "latestHtmlReportAt": "2026-11-12T10:38:16Z",
   "htmlReportCount": 64,
   "uniqueTickers": 29,
-  "aaoifiReportCount": 12,
-  "revision": "9fdf95fcfe49a1ca8fa2a675c0af7f44",
+  "aaoifiReportCount": 13,
+  "revision": "aa1f712c79c5bb0ea07cf5bfb8405066",
   "rows": [
     {
       "company": "CBH Engineering Holding Berhad",
@@ -72,11 +72,11 @@
       "reportPath": "/view-report?path=nonhalal%2FCBHB.MYX%2FCBHB.MYX_2026-11-12_10-38-16Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
-      "aaoifiStatus": null,
-      "aaoifiConfidence": null,
-      "aaoifiScreenedAt": null,
-      "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
+      "aaoifiConfidence": "Medium",
+      "aaoifiScreenedAt": "2026-11-12T10:39:11Z",
+      "aaoifiReason": "CBHB's electrical and mechanical engineering business is permissible in principle and its audited FY2025 AAOIFI borrowing (0.24%), disclosed conventional term-deposit (0%, subject to bank-balance classification), and prohibited-income (0.41%) ratios pass. However, the AAOIFI tra…",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FCBHB.MYX.html"
     },
     {
       "company": "Advanced Micro Devices, Inc.",
