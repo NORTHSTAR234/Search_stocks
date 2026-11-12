@@ -90,66 +90,84 @@ export class IntradayCredentialProbe extends WorkerEntrypoint {
   }
 }
 
+// Shared engine is private. The production RPC and the short-lived preview RPC
+// each enforce separate, fail-closed activation gates before calling it.
+async function assembleResearchSnapshot(tickers,env){
+
+  if(!Array.isArray(tickers)||!tickers.length||tickers.length>2||
+     new Set(tickers).size!==tickers.length||!tickers.every(allowedSymbol))
+    return {status:"INVALID_SYMBOLS"};
+  const now=Date.now(),asOf=new Date(now).toISOString();
+  const instruments=[...new Set([...tickers,...tickers.map(t=>mappings[t]),"QQQ"])];
+  const [bars,news]=await Promise.allSettled([
+    barsFor(instruments,now,env),newsFor(tickers,now,env)
+  ]);
+  // A failed NEWS feed blocks technical candidates, even if prices succeeded.
+  // If news succeeded and bars failed, still show attributable risk reports.
+  // Never promote the absence of bars/news to a bullish signal.
+  if(news.status!=="fulfilled")
+    return {status:"DATA_UNAVAILABLE",asOf,
+      reasons:[bars.status!=="fulfilled"?"BARS_UNAVAILABLE":null,
+        "NEWS_UNAVAILABLE"].filter(Boolean),signals:[]};
+  const barsReady=bars.status==="fulfilled";
+  const sessions=Object.fromEntries(instruments.map(s=>[
+    s,barsReady?grouped(bars.value[s],asOf):{}
+  ]));
+  const today=formattedParts(asOf).day;
+  const results=[];
+  for(const ticker of tickers){
+    const sector=mappings[ticker];
+    const historicalDays=Object.keys(sessions[ticker]).filter(d=>d<today).sort()
+      .slice(-5).map(day=>({day,feed:"IEX",bars:sessions[ticker][day]}));
+    const newsView=summarizeNewsRisk(news.value.articles,ticker,asOf);
+    const r=barsReady?evaluateIntradaySignal({ticker,asOf,feed:"IEX",sectorFeed:"IEX",
+      broadFeed:"IEX",bars:sessions[ticker][today]||[],
+      sectorBars:sessions[sector][today]||[],broadBars:sessions.QQQ[today]||[],
+      historicalDays,events:newsView.events}):
+      newsView.events.length?evaluateIntradaySignal({ticker,asOf,events:newsView.events}):
+      {ticker,signal:"NO_DATA",asOf,reasonCodes:["BARS_UNAVAILABLE"],
+        features:{},execution:"RESEARCH_ONLY_NOT_EXECUTABLE",validated:false};
+    // Even if a keyword matched, a partial news feed is not safe for candidate generation.
+    const partial=!news.value.complete;
+    const isCandidate=["BUY_CANDIDATE","SELL_RISK"].includes(r.signal);
+    const effective=partial&&isCandidate?{
+      ...r,signal:"NO_DATA",reasonCodes:["PARTIAL_NEWS_COVERAGE"],
+      triggerPrice:null,invalidationPrice:null}:r;
+    const currentBars=sessions[ticker][today]||[];
+    const last=currentBars.at(-1);
+    results.push({ticker,assessment:effective,marketData:{
+      feed:"IEX",currency:"USD",observationAsOf:last?.t||null,
+      lagMinutes:last?Math.max(0,Math.round((now-Date.parse(last.t)-MS5)/60000)):null,
+      priorCompleteSessions:historicalDays.length,
+      barsAvailable:barsReady},
+      newsCoverage:partial?"PARTIAL":"SAMPLED",
+      riskHeadlines:newsView.events.map(e=>({
+        headline:e.headline,publishedAt:e.publishedAt,verification:"reported",
+        riskCode:e.riskCode,url:e.sourceUrl})).slice(0,5)});
+  }
+  return {status:"RESEARCH_ONLY",asOf,feed:"IEX",
+    validated:false,execution:"RESEARCH_ONLY_NOT_EXECUTABLE",
+    note:"Five-minute observation and sampled news: not a live trading instruction",
+    sourceStatus:barsReady?"BARS_AND_NEWS":"NEWS_ONLY_BAR_FEED_UNAVAILABLE",
+    signals:results};
+}
+
 export class IntradayResearchProvider extends WorkerEntrypoint {
   async snapshot(tickers){
     if(this.env.INTRADAY_RESEARCH_ENABLED!=="read_only")
       return {status:"NOT_ACTIVE",reason:"RESEARCH_FLAG_DISABLED"};
-    if(!Array.isArray(tickers)||!tickers.length||tickers.length>2||
-       new Set(tickers).size!==tickers.length||!tickers.every(allowedSymbol))
-      return {status:"INVALID_SYMBOLS"};
-    const now=Date.now(),asOf=new Date(now).toISOString();
-    const instruments=[...new Set([...tickers,...tickers.map(t=>mappings[t]),"QQQ"])];
-    const [bars,news]=await Promise.allSettled([
-      barsFor(instruments,now,this.env),newsFor(tickers,now,this.env)
-    ]);
-    // A failed NEWS feed blocks technical candidates, even if prices succeeded.
-    // If news succeeded and bars failed, still show attributable risk reports.
-    // Never promote the absence of bars/news to a bullish signal.
-    if(news.status!=="fulfilled")
-      return {status:"DATA_UNAVAILABLE",asOf,
-        reasons:[bars.status!=="fulfilled"?"BARS_UNAVAILABLE":null,
-          "NEWS_UNAVAILABLE"].filter(Boolean),signals:[]};
-    const barsReady=bars.status==="fulfilled";
-    const sessions=Object.fromEntries(instruments.map(s=>[
-      s,barsReady?grouped(bars.value[s],asOf):{}
-    ]));
-    const today=formattedParts(asOf).day;
-    const results=[];
-    for(const ticker of tickers){
-      const sector=mappings[ticker];
-      const historicalDays=Object.keys(sessions[ticker]).filter(d=>d<today).sort()
-        .slice(-5).map(day=>({day,feed:"IEX",bars:sessions[ticker][day]}));
-      const newsView=summarizeNewsRisk(news.value.articles,ticker,asOf);
-      const r=barsReady?evaluateIntradaySignal({ticker,asOf,feed:"IEX",sectorFeed:"IEX",
-        broadFeed:"IEX",bars:sessions[ticker][today]||[],
-        sectorBars:sessions[sector][today]||[],broadBars:sessions.QQQ[today]||[],
-        historicalDays,events:newsView.events}):
-        newsView.events.length?evaluateIntradaySignal({ticker,asOf,events:newsView.events}):
-        {ticker,signal:"NO_DATA",asOf,reasonCodes:["BARS_UNAVAILABLE"],
-          features:{},execution:"RESEARCH_ONLY_NOT_EXECUTABLE",validated:false};
-      // Even if a keyword matched, a partial news feed is not safe for candidate generation.
-      const partial=!news.value.complete;
-      const isCandidate=["BUY_CANDIDATE","SELL_RISK"].includes(r.signal);
-      const effective=partial&&isCandidate?{
-        ...r,signal:"NO_DATA",reasonCodes:["PARTIAL_NEWS_COVERAGE"],
-        triggerPrice:null,invalidationPrice:null}:r;
-      const currentBars=sessions[ticker][today]||[];
-      const last=currentBars.at(-1);
-      results.push({ticker,assessment:effective,marketData:{
-        feed:"IEX",currency:"USD",observationAsOf:last?.t||null,
-        lagMinutes:last?Math.max(0,Math.round((now-Date.parse(last.t)-MS5)/60000)):null,
-        priorCompleteSessions:historicalDays.length,
-        barsAvailable:barsReady},
-        newsCoverage:partial?"PARTIAL":"SAMPLED",
-        riskHeadlines:newsView.events.map(e=>({
-          headline:e.headline,publishedAt:e.publishedAt,verification:"reported",
-          riskCode:e.riskCode,url:e.sourceUrl})).slice(0,5)});
-    }
-    return {status:"RESEARCH_ONLY",asOf,feed:"IEX",
-      validated:false,execution:"RESEARCH_ONLY_NOT_EXECUTABLE",
-      note:"Five-minute observation and sampled news: not a live trading instruction",
-      sourceStatus:barsReady?"BARS_AND_NEWS":"NEWS_ONLY_BAR_FEED_UNAVAILABLE",
-      signals:results};
+    return assembleResearchSnapshot(tickers,this.env);
+  }
+}
+// Not used by the website: private, one-shot research inspection via an
+// account-authenticated, REST-triggered Workflow and a named RPC binding.
+// Signal engine remains disabled; diagnostics cannot place orders.
+export class IntradayPrivatePreview extends WorkerEntrypoint {
+  async snapshot(tickers){
+    if(this.env.INTRADAY_RESEARCH_ENABLED!=="disabled"||
+       this.env.INTRADAY_DIAGNOSTIC_MODE!=="armed_preview_20261112")
+      return {status:"NOT_ACTIVE",reason:"PREVIEW_NOT_ARMED"};
+    return assembleResearchSnapshot(tickers,this.env);
   }
 }
 // No public HTTP data access, even if workers.dev is accidentally enabled.
