@@ -11,7 +11,10 @@ const iso=x=>typeof x==="string"&&Number.isFinite(Date.parse(x))?
 function sanitize(raw,tickers){
   if(!raw||raw.status!=="RESEARCH_ONLY"||
     raw.validated!==false||raw.execution!=="RESEARCH_ONLY_NOT_EXECUTABLE"||
-    raw.feed!=="IEX"||!iso(raw.asOf)||!Array.isArray(raw.signals)||
+    raw.feed!=="IEX"||!iso(raw.asOf)||
+    !["BARS_AND_NEWS","NEWS_ONLY_BAR_FEED_UNAVAILABLE"].includes(raw.sourceStatus)||
+    Date.parse(raw.asOf)>Date.now()+120000||Date.now()-Date.parse(raw.asOf)>300000||
+    !Array.isArray(raw.signals)||
     raw.signals.length!==tickers.length)return {status:"NO_VALID_RESEARCH_DATA"};
   const seen=new Set(),out=[];
   for(const item of raw.signals){
@@ -19,7 +22,11 @@ function sanitize(raw,tickers){
     if(!item||!tickers.includes(item.ticker)||seen.has(item.ticker)||
       !statuses.has(a?.signal)||a?.validated!==false||
       a?.execution!=="RESEARCH_ONLY_NOT_EXECUTABLE"||
-      !Array.isArray(a?.reasonCodes)||!item.marketData||item.marketData.feed!=="IEX")
+      !Array.isArray(a?.reasonCodes)||!item.marketData||item.marketData.feed!=="IEX"||
+      (["BUY_CANDIDATE","SELL_RISK"].includes(a.signal)&&
+       (item.newsCoverage!=="SAMPLED"||
+       !iso(item.marketData.observationAsOf)||
+       Date.parse(raw.asOf)-Date.parse(item.marketData.observationAsOf)>15*60000)))
       return {status:"NO_VALID_RESEARCH_DATA"};
     seen.add(item.ticker);
     out.push({
