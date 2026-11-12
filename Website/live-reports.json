@@ -4,8 +4,8 @@
   "latestHtmlReportAt": "2026-11-12T08:47:06Z",
   "htmlReportCount": 63,
   "uniqueTickers": 29,
-  "aaoifiReportCount": 9,
-  "revision": "c0b5bc038e723d7470184cfdb0d151c9",
+  "aaoifiReportCount": 11,
+  "revision": "384a21e59ba949e9502155361192fc9d",
   "rows": [
     {
       "company": "Advanced Micro Devices, Inc.",
@@ -206,11 +206,11 @@
       "reportPath": "/view-report?path=halal%2F2383.TWSE%2F2383.TWSE_2026-11-11_13-14-44Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
-      "aaoifiStatus": null,
-      "aaoifiConfidence": null,
-      "aaoifiScreenedAt": null,
-      "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiStatus": "INSUFFICIENT DATA",
+      "aaoifiConfidence": "Medium",
+      "aaoifiScreenedAt": "2026-11-12T10:35:11.516Z",
+      "aaoifiReason": "Elite Material's primary electronics-materials manufacturing business appears permissible. As of 30 September 2026, conventional borrowings are approximately 2.50% of market capitalisation, a conservative maximum for interest-taking deposits is 1.68%, and tangible-asset composit…",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2F2383.TWSE.html"
     },
     {
       "company": "Micro-Star International Co., Ltd.",
@@ -407,11 +407,11 @@
       "reportPath": "/view-report?path=nonhalal%2F2449.TWSE%2F2449.TWSE_2026-11-11_13-05-07Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
-      "aaoifiStatus": null,
-      "aaoifiConfidence": null,
-      "aaoifiScreenedAt": null,
-      "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiStatus": "INSUFFICIENT DATA",
+      "aaoifiConfidence": "Medium",
+      "aaoifiScreenedAt": "2026-11-12T10:35:29Z",
+      "aaoifiReason": "King Yuan Electronics' semiconductor testing business is generally permissible. Its 30 September 2026 reporting-date conventional borrowing is approximately 11.38% of market capitalization, and identified cash and other financial assets are only 5.04% even when conservatively gr…",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2F2449.TWSE.html"
     },
     {
       "company": "Schneider Electric SE",
