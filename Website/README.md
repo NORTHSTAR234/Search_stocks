@@ -132,3 +132,8 @@ A separate, source-labeled price context beneath Action/Risk summarises the loca
 - Production Cloudflare Pages deployment `97014d25-7f32-4d8f-b659-849040e65c1f` **succeeded**. Earlier report-index GitHub Action run `42778506876` passed the website regression suite, market-session preflight and HTML indexing.
 - Removed the one-time test-only `push` workflow trigger and revoked its Worker ingest permission. Routine GitHub Actions trigger is every 20 minutes, with market-open gating; optional explicit `workflow_dispatch.bootstrap` can reinitialize the private cache if needed without changing routine schedule. US Alpaca binding and five-minute browser refresh are unchanged.
 - The private cache contents, collection workflow and production deployment were verified independently; **owner's authenticated mobile browser rendering still requires the user to load the updated page to confirm**. Natural scheduled cron firing was not independently certified at this checkpoint.
+
+
+## Intraday signal research pilot (12 November 2026)
+
+An experimental, read-only 5-minute intraday research engine, automated engine tests, and local-data-only replay script are developed on the feature branch documented in `INTRADAY_SIGNALS_V1.md`. **This does not activate live BUY/SELL alerts, broker orders or dashboard trading signals.** The existing owner-only Alpaca IEX latest-trade pricing continues unchanged. Any future live alert launch requires an appropriate historical/candle feed, verified news provenance and walk-forward/paper validation. The pilot must not modify the canonical investment, Shariah or archival report semantics.
