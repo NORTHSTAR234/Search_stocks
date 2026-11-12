@@ -1,0 +1,47 @@
+name: Preserve stock site while removing Daily Signals
+on:
+  pull_request:
+    paths:
+      - 'Website/**'
+      - '.github/workflows/refresh-international-prices.yml'
+      - '.github/workflows/daily-trader-site-regression.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        working-directory: Website
+        run: npm install --no-audit --no-fund
+      - name: Existing website regression tests
+        working-directory: Website
+        run: npm test
+      - name: Verify protected stock website build unaffected
+        working-directory: Website
+        env:
+          PUBLISH_REPORTS: 'yes'
+        run: |
+          npm run build
+          test -f dist/index.html
+          test -f dist/data/reports.json
+          grep -q 'AAOIFI' dist/index.html
+          test ! -e dist/daily-signals
+          test ! -e dist/assets/daily-signals.js
+          ! grep -q 'daily-signals/' dist/index.html
+      - name: Confirm old daily schedule and files are absent
+        run: |
+          python -m py_compile Website/scripts/collect-international-quotes.py
+          test -f 'daily trader/index.html'
+          test ! -f Website/worker/daily-signals-worker.mjs
+          test ! -f Website/functions/api/daily-signals.js
+          ! grep -q '40 21 \* \* 1-5' .github/workflows/refresh-international-prices.yml
