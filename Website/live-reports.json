@@ -5,7 +5,7 @@
   "htmlReportCount": 67,
   "uniqueTickers": 31,
   "aaoifiReportCount": 15,
-  "revision": "0425e837a5be10e6d4d414027472f8ea",
+  "revision": "87b62e4ac41105d720414f83d080e9ff",
   "rows": [
     {
       "company": "Greatland Resources Limited",
@@ -72,7 +72,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Woolworths Group Limited",
@@ -139,7 +145,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "CBH Engineering Holding Berhad",
@@ -210,7 +222,13 @@
       "aaoifiConfidence": "Medium",
       "aaoifiScreenedAt": "2026-11-12T10:39:11Z",
       "aaoifiReason": "CBHB's electrical and mechanical engineering business is permissible in principle and its audited FY2025 AAOIFI borrowing (0.24%), disclosed conventional term-deposit (0%, subject to bank-balance classification), and prohibited-income (0.41%) ratios pass. However, the AAOIFI tra…",
-      "aaoifiReportPath": "/view-report?path=AAOIFI%2FCBHB.MYX.html"
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FCBHB.MYX.html",
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Advanced Micro Devices, Inc.",
@@ -256,7 +274,13 @@
       "aaoifiConfidence": "Medium–High",
       "aaoifiScreenedAt": "2026-11-12T08:40:00Z",
       "aaoifiReason": "AMD's semiconductor and computing business is permissible, its interest-bearing borrowing and conservative deposit ratios are far below AAOIFI's 30% limits, and even a deliberately harsh assumption that all reported long-term investment gains are prohibited leaves prohibited inc…",
-      "aaoifiReportPath": "/view-report?path=AAOIFI%2FAMD.NASDAQ.html"
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FAMD.NASDAQ.html",
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Micron Technology, Inc.",
@@ -302,7 +326,13 @@
       "aaoifiConfidence": "Medium",
       "aaoifiScreenedAt": "2026-11-12T10:32:48.170Z",
       "aaoifiReason": "Micron Technology (NASDAQ: MU) passes the AAOIFI SS21 business screen and the verified conventional borrowing, identifiable interest-taking deposit, identified prohibited-income and book-value tradability calculations using its audited fiscal 2026 financial statements ended Sept…",
-      "aaoifiReportPath": "/view-report?path=AAOIFI%2FMU.NASDAQ.html"
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FMU.NASDAQ.html",
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "NVIDIA Corporation",
@@ -348,7 +378,13 @@
       "aaoifiConfidence": "Medium",
       "aaoifiScreenedAt": "2026-11-12T08:40:00Z",
       "aaoifiReason": "NVIDIA's main business is permissible and its AAOIFI borrowing and deposit ratios are far below the 30% limits. The unresolved issue is the Shariah classification of very large equity-investment gains. Depending on how those gains are classified, prohibited income could remain b…",
-      "aaoifiReportPath": "/view-report?path=AAOIFI%2FNVDA.NASDAQ.html"
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FNVDA.NASDAQ.html",
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Elite Material Co., Ltd.",
@@ -415,7 +451,13 @@
       "aaoifiConfidence": "Medium",
       "aaoifiScreenedAt": "2026-11-12T12:08:10.118Z",
       "aaoifiReason": "Deeper 12 November 2026 AAOIFI SS21 review of Elite Material Co., Ltd. (2383.TWSE), using its September 2026 consolidated financial report and Note 6(19): verified bank-deposit interest income is NT$200.547 million for January–September, or 0.142% of NT$141.227 billion operating…",
-      "aaoifiReportPath": "/view-report?path=AAOIFI%2F2383.TWSE.html"
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2F2383.TWSE.html",
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Micro-Star International Co., Ltd.",
@@ -482,7 +524,13 @@
       "aaoifiConfidence": "Medium",
       "aaoifiScreenedAt": "2026-11-12T10:04:00Z",
       "aaoifiReason": "Micro-Star International is AAOIFI-COMPLIANT on the latest verified financial position available to this screen, 30 June 2026. Its core business and constitutional purposes are computer, electronics, communications and related equipment activities, and the Articles of Incorporat…",
-      "aaoifiReportPath": "/view-report?path=AAOIFI%2F2377.TWSE.html"
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2F2377.TWSE.html",
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "MediaTek Inc.",
@@ -549,7 +597,13 @@
       "aaoifiConfidence": "Medium",
       "aaoifiScreenedAt": "2026-11-12T10:34:50.054Z",
       "aaoifiReason": "MediaTek's semiconductor business appears permissible under AAOIFI Shari'ah Standard No. 21. Its borrowing and deposit exposures are comfortably below the 30% limits even using conservative accounting assumptions. However, the prohibited-income calculation is incomplete, the ass…",
-      "aaoifiReportPath": "/view-report?path=AAOIFI%2F2454.TWSE.html"
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2F2454.TWSE.html",
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "King Yuan Electronics Co., Ltd.",
@@ -616,7 +670,13 @@
       "aaoifiConfidence": "Medium",
       "aaoifiScreenedAt": "2026-11-12T10:35:29Z",
       "aaoifiReason": "King Yuan Electronics' semiconductor testing business is generally permissible. Its 30 September 2026 reporting-date conventional borrowing is approximately 11.38% of market capitalization, and identified cash and other financial assets are only 5.04% even when conservatively gr…",
-      "aaoifiReportPath": "/view-report?path=AAOIFI%2F2449.TWSE.html"
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2F2449.TWSE.html",
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Schneider Electric SE",
@@ -683,7 +743,13 @@
       "aaoifiConfidence": "Medium",
       "aaoifiScreenedAt": "2026-11-12T10:36:36Z",
       "aaoifiReason": "Schneider Electric SE (SU.PA, Euronext Paris) has a permissible core energy-management and industrial-automation business. At the 30 June 2026 reporting date, identified conventional borrowings of €18.847bn equal 11.44% of reporting-date equity market value, comfortably within A…",
-      "aaoifiReportPath": "/view-report?path=AAOIFI%2FSU.XPAR.html"
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FSU.XPAR.html",
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "ASM International N.V.",
@@ -750,7 +816,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "APA Group",
@@ -817,7 +889,13 @@
       "aaoifiConfidence": "High",
       "aaoifiScreenedAt": "2026-11-12T10:08:49Z",
       "aaoifiReason": "APA Group's underlying energy-infrastructure operations are not intrinsically prohibited, but ASX:APA is a stapled security made up of units in two registered managed investment schemes rather than an ordinary corporate share. A definitive SS21 instrument ruling therefore requir…",
-      "aaoifiReportPath": "/view-report?path=AAOIFI%2FAPA.ASX.html"
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FAPA.ASX.html",
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Eli Lilly and Company",
@@ -863,7 +941,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "ABB Ltd",
@@ -930,7 +1014,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "The Home Depot, Inc.",
@@ -976,7 +1066,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Visa Inc.",
@@ -1022,7 +1118,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Johnson & Johnson",
@@ -1068,7 +1170,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "The Procter & Gamble Company",
@@ -1114,7 +1222,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Apple Inc.",
@@ -1160,7 +1274,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "ExxonMobil Holdings Corporation",
@@ -1206,7 +1326,13 @@
       "aaoifiConfidence": "Medium",
       "aaoifiScreenedAt": "2026-11-12T11:28:31.995Z",
       "aaoifiReason": "ExxonMobil Holdings Corporation's core upstream, refining and chemicals business appears permissible. As of 30 September 2026, conventional borrowings of $34.250 billion were 5.16% of an estimated $663.893 billion reporting-date market capitalization; even the very conservative…",
-      "aaoifiReportPath": "/view-report?path=AAOIFI%2FXOM.NYSE.html"
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FXOM.NYSE.html",
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Novatek Microelectronics Corporation",
@@ -1273,7 +1399,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Origin Energy Limited",
@@ -1340,7 +1472,13 @@
       "aaoifiConfidence": "Medium",
       "aaoifiScreenedAt": "2026-11-12T10:32:12.390Z",
       "aaoifiReason": "Origin Energy's main electricity, natural gas and energy-services business is provisionally permissible under AAOIFI SS21. Its FY2026 conventional borrowings are 20.21% of reporting-date market value, under the 30% ceiling; at least A$54 million of group and attributable APLNG i…",
-      "aaoifiReportPath": "/view-report?path=AAOIFI%2FORG.ASX.html"
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FORG.ASX.html",
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "The Coca-Cola Company",
@@ -1386,7 +1524,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Cisco Systems, Inc.",
@@ -1432,7 +1576,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Mastercard Incorporated",
@@ -1478,7 +1628,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Chevron Corporation",
@@ -1524,7 +1680,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Applied Materials, Inc.",
@@ -1570,7 +1732,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Tesla, Inc.",
@@ -1607,7 +1775,13 @@
       "aaoifiConfidence": "Medium",
       "aaoifiScreenedAt": "2026-11-12T09:33:49.113Z",
       "aaoifiReason": "Tesla's vehicle and energy businesses are primarily permissible and its debt (0.66%) and interest-taking deposits (0.87%) pass AAOIFI's 30% limits. Disclosed interest income alone is 1.63% of a defined total-income measure, below 5%. However, Tesla directly underwrites conventio…",
-      "aaoifiReportPath": "/view-report?path=AAOIFI%2FTSLA.NASDAQ.html"
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FTSLA.NASDAQ.html",
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Merck & Co., Inc.",
@@ -1653,7 +1827,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     },
     {
       "company": "Fortune Electric Co., Ltd.",
@@ -1690,7 +1870,13 @@
       "aaoifiConfidence": null,
       "aaoifiScreenedAt": null,
       "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiReportPath": null,
+      "ethicalStatus": null,
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": null,
+      "ethicalSourceUrl": null
     }
   ]
 }
