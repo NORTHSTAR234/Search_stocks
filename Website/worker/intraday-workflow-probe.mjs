@@ -6,7 +6,7 @@ export class AlpacaConnectivityOnce extends WorkflowEntrypoint {
     if(event?.payload?.purpose!=="read_only_alpaca_smoke_20261112")
       return {kind:"INTRADAY_WORKFLOW_SMOKE_V1",overall:"INVALID_PURPOSE"};
     return await step.do("authenticated-data-probe",{
-      retries:{limit:0},timeout:"30 seconds"
+      retries:{limit:0,delay:"1 second",backoff:"constant"},timeout:"30 seconds"
     },async()=>{
       const result=await this.env.PRIVATE_ALPACA_PROBE.smoke();
       // Keep only the short, sanitized data contract, not prices, headline bodies,
