@@ -1,11 +1,52 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-12T01:41:55Z",
-  "htmlReportCount": 59,
+  "latestHtmlReportAt": "2026-11-12T03:12:03Z",
+  "htmlReportCount": 60,
   "uniqueTickers": 29,
-  "revision": "0bb09a356d85dae917b0505a4348d290",
+  "revision": "838c9979789f777043b2e4eadbd1efa6",
   "rows": [
+    {
+      "company": "Micron Technology, Inc.",
+      "ticker": "MU",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-12T03:12:03Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "75/100",
+      "entry": "27/100",
+      "musaffa": "HALAL · C+ · 2026-10-03 · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
+      "musaffaScreeningDate": "2026-10-03",
+      "musaffaScreeningPeriod": "FY2026 annual report",
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "GREEN_VERIFIED_HALAL",
+      "musaffaReason": null,
+      "earnings": "23 Dec 2026 estimated",
+      "zones": "US$580–640 / US$641–680",
+      "stops": "US$520 / US$750",
+      "nativeCurrency": "USD",
+      "marketSchedule": null,
+      "sourceMarketTicker": "MU",
+      "zoneBands": [
+        [
+          580,
+          640
+        ],
+        [
+          641,
+          680
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MU/MU_2026-11-12_03-12-03Z.html",
+      "reportPath": "/view-report?path=halal%2FMU%2FMU_2026-11-12_03-12-03Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false
+    },
     {
       "company": "Advanced Micro Devices, Inc.",
       "ticker": "AMD",
@@ -745,47 +786,6 @@
       ],
       "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/JNJ/JNJ_2026-11-10_21-45-27Z.html",
       "reportPath": "/view-report?path=halal%2FJNJ%2FJNJ_2026-11-10_21-45-27Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false
-    },
-    {
-      "company": "Micron Technology, Inc.",
-      "ticker": "MU",
-      "exchange": "US",
-      "bucket": "halal",
-      "timestamp": "2026-11-10T21:45:21Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "75/100",
-      "entry": "44/100",
-      "musaffa": "HALAL · C+ · 2026-10-03 · PASS",
-      "musaffaClassification": "HALAL",
-      "musaffaGate": "PASS",
-      "musaffaScreeningDate": "2026-10-03",
-      "musaffaScreeningPeriod": null,
-      "musaffaScreeningMonthConflict": false,
-      "musaffaAssessment": null,
-      "musaffaReason": null,
-      "earnings": "23 Dec 2026 estimated",
-      "zones": "US$580–640 / US$641–680",
-      "stops": "US$520 / US$750",
-      "nativeCurrency": "USD",
-      "marketSchedule": null,
-      "sourceMarketTicker": "MU",
-      "zoneBands": [
-        [
-          580,
-          640
-        ],
-        [
-          641,
-          680
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MU/MU_2026-11-10_21-45-21Z.html",
-      "reportPath": "/view-report?path=halal%2FMU%2FMU_2026-11-10_21-45-21Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false
     },
