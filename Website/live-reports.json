@@ -4,8 +4,8 @@
   "latestHtmlReportAt": "2026-11-12T10:38:16Z",
   "htmlReportCount": 64,
   "uniqueTickers": 29,
-  "aaoifiReportCount": 13,
-  "revision": "aa1f712c79c5bb0ea07cf5bfb8405066",
+  "aaoifiReportCount": 14,
+  "revision": "f4f3b931b85fc30c16d478c3a36082d6",
   "rows": [
     {
       "company": "CBH Engineering Holding Berhad",
@@ -1068,11 +1068,11 @@
       "reportPath": "/view-report?path=halal%2FXOM%2FXOM_2026-11-10_21-44-59Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
-      "aaoifiStatus": null,
-      "aaoifiConfidence": null,
-      "aaoifiScreenedAt": null,
-      "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
+      "aaoifiConfidence": "Medium",
+      "aaoifiScreenedAt": "2026-11-12T11:28:31.995Z",
+      "aaoifiReason": "ExxonMobil Holdings Corporation's core upstream, refining and chemicals business appears permissible. As of 30 September 2026, conventional borrowings of $34.250 billion were 5.16% of an estimated $663.893 billion reporting-date market capitalization; even the very conservative…",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FXOM.NYSE.html"
     },
     {
       "company": "Novatek Microelectronics Corporation",
