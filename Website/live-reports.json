@@ -4,8 +4,8 @@
   "latestHtmlReportAt": "2026-11-12T08:47:06Z",
   "htmlReportCount": 63,
   "uniqueTickers": 29,
-  "aaoifiReportCount": 8,
-  "revision": "008e647a62867b084c9e4f71b778b107",
+  "aaoifiReportCount": 9,
+  "revision": "c0b5bc038e723d7470184cfdb0d151c9",
   "rows": [
     {
       "company": "Advanced Micro Devices, Inc.",
@@ -340,11 +340,11 @@
       "reportPath": "/view-report?path=halal%2F2454.TWSE%2F2454.TWSE_2026-11-11_13-05-57Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
-      "aaoifiStatus": null,
-      "aaoifiConfidence": null,
-      "aaoifiScreenedAt": null,
-      "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
+      "aaoifiConfidence": "Medium",
+      "aaoifiScreenedAt": "2026-11-12T10:34:50.054Z",
+      "aaoifiReason": "MediaTek's semiconductor business appears permissible under AAOIFI Shari'ah Standard No. 21. Its borrowing and deposit exposures are comfortably below the 30% limits even using conservative accounting assumptions. However, the prohibited-income calculation is incomplete, the ass…",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2F2454.TWSE.html"
     },
     {
       "company": "King Yuan Electronics Co., Ltd.",
