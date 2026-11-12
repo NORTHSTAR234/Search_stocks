@@ -48,7 +48,7 @@ function unavailable(row,why,latest=null){
   currency:row.nativeCurrency||"UNKNOWN",technicalSignal:"NO_SIGNAL",status:why,
   sessionDate:latest,close:null,changePct:null,score:null,entryLow:null,entryHigh:null,
   stop:null,target:null,riskReward:null,rsi:null,atr:null,sma20:null,sma50:null,
-  reasons:[why],feed:null,shariah:"UNVERIFIED",
+  reasons:[why],feed:null,shariah:halalStatus(row,latest||new Date().toISOString().slice(0,10)),
   archivedReportAction:String(row.action||"NOT RATED").slice(0,160),
   reportUrl:typeof row.reportPath==="string"?row.reportPath:null};
 }
