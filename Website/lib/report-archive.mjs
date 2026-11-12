@@ -91,7 +91,28 @@ export function parseAaoifiHtml(info,html){
      !Number.isFinite(Date.parse(snap.screened_at))||
      typeof snap.executive_summary!=="string"||!snap.executive_summary.trim())
     throw Error("Invalid AAOIFI report snapshot");
+
+  const ethical=snap.ethical??null;
+  if(ethical!==null){
+    const statuses=new Set(["NEUTRAL","ETHICAL","UNETHICAL","BDS_LISTED","UNVERIFIED"]);
+    if(typeof ethical!=="object"||Array.isArray(ethical)||!statuses.has(ethical.status)||
+       !(ethical.bds_listed===true||ethical.bds_listed===false||ethical.bds_listed===null)||
+       !(ethical.assessment_date===null||typeof ethical.assessment_date==="string"&&
+          /^\d{4}-\d{2}-\d{2}$/.test(ethical.assessment_date)&&Number.isFinite(Date.parse(ethical.assessment_date)))||
+       typeof ethical.checked_at_utc!=="string"||!/^\d{4}-\d{2}-\d{2}T/.test(ethical.checked_at_utc)||
+       !Number.isFinite(Date.parse(ethical.checked_at_utc))||
+       typeof ethical.source_url!=="string"||
+       !/^https:\/\/(?:www\.)?rizqinvests\.com\//i.test(ethical.source_url)||
+       typeof ethical.reason!=="string"||ethical.reason.length>1000)
+       throw Error("Invalid ethical screening snapshot");
+  }
   return {
+    ethicalStatus:ethical?.status||null,
+    ethicalBdsListed:ethical?.bds_listed??null,
+    ethicalAssessmentDate:ethical?.assessment_date||null,
+    ethicalCheckedAt:ethical?.checked_at_utc||null,
+    ethicalReason:ethical?short(ethical.reason,280):null,
+    ethicalSourceUrl:ethical?.source_url||null,
     ticker:snap.ticker.toUpperCase(),exchange:snap.exchange.toUpperCase(),company:short(snap.company,120),
     status:snap.status,confidence:snap.confidence?short(snap.confidence,40):null,
     screenedAt:snap.screened_at,reason:short(snap.executive_summary,280),
