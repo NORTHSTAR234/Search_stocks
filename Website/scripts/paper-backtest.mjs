@@ -101,7 +101,7 @@ export function evaluatePaperBenchmark(input,{tickers=["MU","NVDA","AMD","AAPL"]
     downsideWarnings: {count:warnings.length,meanSignedMoveToClosePct:warnings.length?
       warnings.reduce((a,x)=>a+x.signedMovePct,0)/warnings.length:null,
       note:"Downside warnings are NOT simulated short sales or profits."},
-    paperRows:primary,
+    paperRows:primary,baselinePaperRows:baseline,downsideWarningRows:warnings,
     caveat:"Rule was examined before the holdout was defined: a chronological 30% tail is NOT a truly unseen prospective test. Data are IEX-only and no historical news events were supplied unless explicitly included."};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
