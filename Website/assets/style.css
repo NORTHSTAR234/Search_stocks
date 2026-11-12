@@ -371,3 +371,10 @@ main:not(.report-layout)>.panel .table-footer{
   }
 }
 /* On desktop the table is still a real table with normal column headers. */
+
+/* Separate RizqInvests ethical/BDS status, preserving existing AAOIFI styling. */
+.ethical-cell{display:flex;flex-direction:column;align-items:flex-start;gap:5px;max-width:275px}
+.ethical-cell>.badge{max-width:100%;font-weight:800;white-space:normal}
+.ethical-cell small{overflow-wrap:anywhere;line-height:1.45}
+.table-wrap th:nth-child(11),.table-wrap td:nth-child(11){min-width:155px;max-width:225px}
+.table-wrap th:nth-child(12),.table-wrap td:nth-child(12){min-width:130px;max-width:215px}
