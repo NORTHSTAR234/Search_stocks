@@ -44,6 +44,9 @@ function reconstruct(record,bars){
  const ix=day.indexOf(signalBar);
  if(ix<6||ix>=77||day[ix-1].c>hi||signalBar.c<=hi)
    return missed("NOT_A_NEW_UPSIDE_BREAKOUT");
+ // A delayed model response cannot be retroactively filled at an already-open candle.
+ if(Date.parse(record.recordedAt)>Date.parse(day[ix+1].t))
+   return missed("NEXT_BAR_ALREADY_OPEN_AT_RECORDING");
  const setup={ticker:record.ticker,signal:"BUY_CANDIDATE",
   execution:"RESEARCH_ONLY_NOT_EXECUTABLE",validated:false,
   signalId:record.signalId,asOf:record.asOf,triggerPrice:hi,
