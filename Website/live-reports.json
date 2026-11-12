@@ -4,8 +4,8 @@
   "latestHtmlReportAt": "2026-11-12T08:47:06Z",
   "htmlReportCount": 63,
   "uniqueTickers": 29,
-  "aaoifiReportCount": 2,
-  "revision": "4d3dfce64aec2a1d1c8d5f06e35a8519",
+  "aaoifiReportCount": 3,
+  "revision": "6048027f3177e7abeeceda7c28476dad",
   "rows": [
     {
       "company": "Advanced Micro Devices, Inc.",
@@ -1398,11 +1398,11 @@
       "reportPath": "/view-report?path=nonhalal%2FTSLA%2FTSLA_2026-11-10_21-41-55Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
-      "aaoifiStatus": null,
-      "aaoifiConfidence": null,
-      "aaoifiScreenedAt": null,
-      "aaoifiReason": null,
-      "aaoifiReportPath": null
+      "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
+      "aaoifiConfidence": "Medium",
+      "aaoifiScreenedAt": "2026-11-12T09:33:49.113Z",
+      "aaoifiReason": "Tesla's vehicle and energy businesses are primarily permissible and its debt (0.66%) and interest-taking deposits (0.87%) pass AAOIFI's 30% limits. Disclosed interest income alone is 1.63% of a defined total-income measure, below 5%. However, Tesla directly underwrites conventio…",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FTSLA.NASDAQ.html"
     },
     {
       "company": "Merck & Co., Inc.",
