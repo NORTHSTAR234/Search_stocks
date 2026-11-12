@@ -5,7 +5,7 @@
   "htmlReportCount": 64,
   "uniqueTickers": 29,
   "aaoifiReportCount": 14,
-  "revision": "7d8599d5301b74cfc3b0d624a96a1825",
+  "revision": "71232637ecc24437b500b5825db9a029",
   "rows": [
     {
       "company": "CBH Engineering Holding Berhad",
@@ -279,8 +279,8 @@
       "conflictingBuckets": false,
       "aaoifiStatus": "INSUFFICIENT DATA",
       "aaoifiConfidence": "Medium",
-      "aaoifiScreenedAt": "2026-11-12T11:38:42.987Z",
-      "aaoifiReason": "Elite Material Co., Ltd.'s core electronics-materials manufacturing business appears permissible under AAOIFI SS21. The September 2026 filing yields a conventional borrowing ratio of 2.50% against reporting-date market capitalization, an extreme all-assets upper bound on interes…",
+      "aaoifiScreenedAt": "2026-11-12T12:08:10.118Z",
+      "aaoifiReason": "Deeper 12 November 2026 AAOIFI SS21 review of Elite Material Co., Ltd. (2383.TWSE), using its September 2026 consolidated financial report and Note 6(19): verified bank-deposit interest income is NT$200.547 million for January–September, or 0.142% of NT$141.227 billion operating…",
       "aaoifiReportPath": "/view-report?path=AAOIFI%2F2383.TWSE.html"
     },
     {
