@@ -5,7 +5,7 @@
   "htmlReportCount": 67,
   "uniqueTickers": 31,
   "aaoifiReportCount": 15,
-  "revision": "a847f592aa15216c1425ebd7b168f798",
+  "revision": "df74615d48de2534b98ce3fb1f13e2c4",
   "rows": [
     {
       "company": "Greatland Resources Limited",
@@ -270,17 +270,17 @@
       "reportPath": "/view-report?path=halal%2FAMD%2FAMD_2026-11-12_08-47-06Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
-      "aaoifiStatus": "AAOIFI-COMPLIANT",
-      "aaoifiConfidence": "Medium–High",
-      "aaoifiScreenedAt": "2026-11-12T08:40:00Z",
-      "aaoifiReason": "AMD's semiconductor and computing business is permissible, its interest-bearing borrowing and conservative deposit ratios are far below AAOIFI's 30% limits, and even a deliberately harsh assumption that all reported long-term investment gains are prohibited leaves prohibited inc…",
+      "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
+      "aaoifiConfidence": "Medium",
+      "aaoifiScreenedAt": "2026-11-13T00:02:18Z",
+      "aaoifiReason": "Semiconductor primary business is permissible and tested AAOIFI interest-bearing debt, deposits and reported interest/investment-income stress ratios are below SS21 limits. However, the separate 30% tradability test hinges on the treatment and market valuation of acquired intang…",
       "aaoifiReportPath": "/view-report?path=AAOIFI%2FAMD.NASDAQ.html",
-      "ethicalStatus": null,
+      "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": null,
-      "ethicalReason": null,
-      "ethicalSourceUrl": null
+      "ethicalCheckedAt": "2026-11-13T00:02:18Z",
+      "ethicalReason": "Public RizqInvests ethical endpoint was not accessible and no issuer-specific dated rating could be independently established. A checked official BDS tech priority-target page did not name AMD; absence from that page is not a documented negative BDS determination. AMD has indepe…",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
     },
     {
       "company": "Micron Technology, Inc.",
