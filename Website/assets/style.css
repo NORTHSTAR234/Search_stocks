@@ -414,3 +414,9 @@ main:not(.report-layout)>.panel .table-footer{
 .mini-chart-empty{font-size:.77rem;color:#b1c4d8;line-height:1.5}
 .mini-chart-empty small{color:#8297af}
 
+
+/* Badge-only screening columns: the source reports still contain full evidence. */
+.table-wrap .status-only-cell{display:flex;align-items:flex-start;justify-content:flex-start;flex-wrap:wrap;gap:7px;max-width:100%}
+.table-wrap .status-only-cell>.badge{margin:0;max-width:100%;white-space:normal;overflow-wrap:normal;word-break:normal}
+.table-wrap .ethical-source-link{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:26px;padding:2px 5px;border:1px solid #456780;border-radius:7px;background:#1c3449;color:#8ad4ff;font-size:1rem;font-weight:750;text-decoration:none}
+.table-wrap .ethical-source-link:hover,.table-wrap .ethical-source-link:focus-visible{border-color:#77c7ff;background:#284860}

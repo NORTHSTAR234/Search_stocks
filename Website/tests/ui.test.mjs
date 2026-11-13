@@ -492,13 +492,14 @@ test("AMD RizqInvests Neutral explicitly maps to provider-only BDS not flagged",
  assert.equal(obj.ethical.bds_listed,false);
  assert.equal(obj.ethical.bds_scope,"RIZQINVESTS_TABLE_2026_11");
  assert.equal(obj.status,"SHARIAH REVIEW REQUIRED");
- assert(source.includes("BDS: not flagged (RizqInvests)"));
+ assert(source.includes("function ethicalCell(r)"));
 });
 
-test("AAOIFI table keeps overall badge but shows separate financial and tradability explanations",()=>{
- assert(source.includes('Financial: tested pass'));
- assert(source.includes('Tradability: conditional'));
- assert(source.includes('Missing: '));
+test("AAOIFI keeps the classified badge and linked full report without inline financial commentary",()=>{
+ assert(source.includes("function aaoifiCell(r)"));
+ assert(source.includes("aaoifiReportPath"));
+ const block=source.split("  function aaoifiCell(r){")[1].split("  // Independent ethical/BDS screening")[0];
+ assert(!block.includes("<small"),"Do not render financial and tradability writeups");
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  const headings=JSON.parse(build.split("\n").find(l=>l.includes("const labels=")).split("const labels=")[1].trim().replace(/;$/, ""));
  assert.equal(headings.length,11);
@@ -532,4 +533,24 @@ test("Markers remains 3 paired rows with all six existing values and behaviors",
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
  assert(css.includes(".table-wrap .markers-stack>.score-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))"));
  assert(css.includes(".table-wrap .markers-stack .score-label"));
+});
+
+test("all three screening status columns display only badges and compact source links",()=>{
+ const block=(start,end)=>source.split("  function "+start+"(r){")[1]?.split(end)[0];
+ const musaffa=block("screeningCell","  function aaoifiVisual(r){");
+ const aa=block("aaoifiCell","  // Independent ethical/BDS screening");
+ const ethical=block("ethicalCell","  // One calendar month");
+ for(const item of [musaffa,aa,ethical]){
+   assert(item&&item.includes("status-only-cell"));
+   assert(!item.includes("<small"),"Status cells must not show multiline prose");
+ }
+ assert(musaffa.includes("musaffaVisual(r)"),"Musaffa classification stays independent");
+ assert(aa.includes("aaoifiVisual(r)"),"AAOIFI classification stays independent");
+ assert(aa.includes("aaoifiReportPath"),"AAOIFI report link remains accessible");
+ assert(ethical.includes("ethicalVisual(r)"),"Ethical/BDS classification stays independent");
+ assert(ethical.includes("ethicalSourceUrl"),"RizqInvests provider URL remains accessible");
+ assert(ethical.includes("ethical-source-link"),"Compact provider link remains accessible");
+ assert(source.includes("markersCell(r,context)"),"Six buy/stop score boxes remain unchanged");
+ const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+ assert(css.includes(".table-wrap .status-only-cell"));
 });

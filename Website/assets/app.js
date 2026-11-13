@@ -384,13 +384,9 @@
     return {tone:"warn",label:"INCONCLUSIVE"};
   }
   function screeningCell(r){
-    const screening=r.musaffa||"NOT VERIFIED";
+    // The full Musaffa evidence remains in the existing ticker report.
     const result=musaffaVisual(r);
-    return '<div class="musaffa-cell">'+badge(result.label,result.tone)+
-      '<small class="musaffa-details">'+escape(cap(screening,170))+'</small>'+
-      (r.musaffaReason?'<small>'+escape(cap(r.musaffaReason,145))+'</small>':"")+
-      (r.statusOnly?'<small class="warning">Screening only · no current investment rating (historical report)</small>':"")+
-      '<small class="muted">Archive: '+escape(r.bucket)+'</small></div>';
+    return '<div class="musaffa-cell status-only-cell">'+badge(result.label,result.tone)+'</div>';
   }
   function aaoifiVisual(r){
     const status=String(r.aaoifiStatus||"").trim().toUpperCase();
@@ -402,33 +398,11 @@
   }
   function aaoifiCell(r){
     const result=aaoifiVisual(r);
+    // Preserve the AAOIFI report hyperlink and the independent verdict.
     const statusBadge=r.aaoifiReportPath?
       '<a class="badge '+result.tone+' aaoifi-link" href="'+escape(r.aaoifiReportPath)+'">'+escape(result.label)+'</a>':
       badge(result.label,result.tone);
-    const meta=[
-      r.aaoifiConfidence?"Confidence: "+r.aaoifiConfidence:null,
-      r.aaoifiScreenedAt?"Screened: "+fmt(r.aaoifiScreenedAt):null
-    ].filter(Boolean).join(" · ");
-    const fin=r.aaoifiFinancialStatus==="PASS_ON_TESTED_EVIDENCE"?"Financial: tested pass":
-      r.aaoifiFinancialStatus==="FAIL_VERIFIED"?"Financial: verified fail":
-      r.aaoifiFinancialStatus==="REVIEW_REQUIRED"?"Financial: review required":
-      r.aaoifiFinancialStatus==="INSUFFICIENT_DATA"?"Financial: insufficient data":null;
-    const book=typeof r.aaoifiTradabilityBookProxyPercent==="number"&&
-      Number.isFinite(r.aaoifiTradabilityBookProxyPercent)?
-      " ("+r.aaoifiTradabilityBookProxyPercent.toFixed(2)+"% book)":"";
-    const trad=r.aaoifiTradabilityStatus?.startsWith("CONDITIONAL_BOOK_PROXY_")?
-      "Tradability: conditional"+book:
-      r.aaoifiTradabilityStatus==="CONFIRMED_PASS"?"Tradability: verified pass":
-      r.aaoifiTradabilityStatus==="CONFIRMED_FAIL"?"Tradability: verified fail":
-      r.aaoifiTradabilityStatus==="NOT_CALCULABLE"?"Tradability: not calculable":null;
-    const layers=[fin,trad].filter(Boolean).join(" · ");
-    return '<div class="aaoifi-cell">'+statusBadge+
-      (layers?'<small class="aaoifi-details">'+escape(layers)+'</small>':"")+
-      (r.aaoifiMissingEvidence?'<small class="aaoifi-details">Missing: '+escape(cap(r.aaoifiMissingEvidence,140))+'</small>':"")+
-      (meta?'<small class="aaoifi-details">'+escape(meta)+'</small>':"")+
-      (r.aaoifiReason?'<small>'+escape(cap(r.aaoifiReason,165))+'</small>':
-        '<small class="muted">No Stock_screener AAOIFI report in GitHub yet</small>')+
-      '</div>';
+    return '<div class="aaoifi-cell status-only-cell">'+statusBadge+'</div>';
   }
   // Independent ethical/BDS screening. Only evidence-backed recent neutral is green.
   function ethicalVisual(r,now=new Date()){
@@ -453,22 +427,12 @@
   }
   function ethicalCell(r){
     const view=ethicalVisual(r),path=r.aaoifiReportPath;
+    // Keep existing link from status badge to AAOIFI; provide the original
+    // RizqInvests provider link using an adjacent icon instead of prose.
     const pill=path?'<a href="'+escape(path)+'" class="badge '+view.tone+' aaoifi-link">'+escape(view.label)+'</a>':badge(view.label,view.tone);
-    const snapshot=r.ethicalSourceKind==="USER_SNAPSHOT";
-    const parts=[
-      snapshot?"User-supplied RizqInvests snapshot: Nov 2026 · imported 13 Nov 2026":
-        r.ethicalAssessmentDate?"Assessment: "+r.ethicalAssessmentDate:
-        r.ethicalCheckedAt?"Provider assessment date unpublished · observed: "+fmt(r.ethicalCheckedAt):null,
-      snapshot?"Provider assessment date not supplied":null,
-      r.ethicalBdsListed===true?"BDS badge shown":
-        r.ethicalBdsListed===false?"BDS: not flagged (RizqInvests)":"BDS: no explicit badge / unverified",
-      view.stale?"Snapshot older than four months":null].filter(Boolean).join(" · ");
-    const link=r.ethicalSourceUrl&&/^https:\/\/www\.rizqinvests\.com\/halal\/stock\/[A-Z0-9.-]+\?view=both$/i.test(r.ethicalSourceUrl)?
-      '<a href="'+escape(r.ethicalSourceUrl)+'" target="_blank" rel="noopener noreferrer">View '+escape(r.ticker)+' on RizqInvests</a>':"";
-    return '<div class="ethical-cell">'+pill+
-      (parts?'<small>'+escape(parts)+'</small>':"")+
-      (r.ethicalReason?'<small>'+escape(cap(r.ethicalReason,160))+'</small>':"")+
-      (link?'<small>'+link+'</small>':"")+'</div>';
+    const provider=r.ethicalSourceUrl&&/^https:\/\/www\.rizqinvests\.com\/halal\/stock\/[A-Z0-9.-]+\?view=both$/i.test(r.ethicalSourceUrl)?
+      '<a class="ethical-source-link" href="'+escape(r.ethicalSourceUrl)+'" target="_blank" rel="noopener noreferrer" title="View '+escape(r.ticker)+' on RizqInvests" aria-label="View '+escape(r.ticker)+' on RizqInvests">↗</a>':"";
+    return '<div class="ethical-cell status-only-cell">'+pill+provider+'</div>';
   }
 
   // One calendar month of actual IEX daily closes, plus the separately
