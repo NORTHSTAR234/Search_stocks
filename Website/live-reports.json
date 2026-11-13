@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-13T22:56:05Z",
-  "htmlReportCount": 75,
+  "latestHtmlReportAt": "2026-11-13T22:56:34Z",
+  "htmlReportCount": 76,
   "uniqueTickers": 29,
   "aaoifiReportCount": 30,
-  "revision": "af70a7104793bd87a74f27e5243aee6e",
+  "revision": "1f353961ca96852dc89ff47933d1dc4c",
   "rows": [
     {
       "company": "Mastercard Incorporated",
       "ticker": "MA",
       "exchange": "US",
       "bucket": "halal",
-      "timestamp": "2026-11-13T22:56:05Z",
+      "timestamp": "2026-11-13T22:56:34Z",
       "statusOnly": false,
       "action": "WATCH",
       "ownerAction": "HOLD",
@@ -43,8 +43,8 @@
           630
         ]
       ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MA/MA_2026-11-13_22-56-05Z.html",
-      "reportPath": "/view-report?path=halal%2FMA%2FMA_2026-11-13_22-56-05Z.html",
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/MA/MA_2026-11-13_22-56-34Z.html",
+      "reportPath": "/view-report?path=halal%2FMA%2FMA_2026-11-13_22-56-34Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
       "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
