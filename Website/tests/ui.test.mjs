@@ -483,3 +483,15 @@ test("RizqInvests source-backed Neutral remains green with BDS unknown and provi
  assert.equal(classify({...evidence,ethicalSourceUrl:null},now).tone,"warn");
  assert.equal(classify({...evidence,ethicalCheckedAt:"2026-03-01T00:00:00Z"},now).tone,"warn");
 });
+
+test("AMD RizqInvests Neutral explicitly maps to provider-only BDS not flagged",()=>{
+ const fs=readFileSync(new URL("../../AAOIFI/AMD.NASDAQ.html",import.meta.url),"utf8");
+ const block=fs.match(/id="aaoifi-report-snapshot">([\\s\\S]*?)<\\/script>/);
+ assert(block,"AMD source must retain machine-readable snapshot");
+ const obj=JSON.parse(block[1]);
+ assert.equal(obj.ethical.status,"NEUTRAL");
+ assert.equal(obj.ethical.bds_listed,false);
+ assert.equal(obj.ethical.bds_scope,"RIZQINVESTS");
+ assert.equal(obj.status,"SHARIAH REVIEW REQUIRED");
+ assert(source.includes("BDS: not flagged (RizqInvests)"));
+});
