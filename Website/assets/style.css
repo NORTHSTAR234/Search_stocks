@@ -133,6 +133,17 @@
   border-color:#ffc377;
   box-shadow:0 0 0 1px rgba(255,195,119,.38),0 0 17px rgba(255,195,119,.30),inset 0 0 15px rgba(255,195,119,.10);
 }
+/* Below all buy ranges is a caution, never a buy recommendation.
+   Keeps the green/amber reference text and existing in-range glow intact. */
+.table-wrap .range-box.zone-below{
+  border:2px solid #ef7884;
+  background:linear-gradient(145deg,#372536,#252436);
+  box-shadow:0 0 0 1px rgba(239,120,132,.30),inset 0 0 12px rgba(225,75,96,.08);
+}
+.table-wrap .range-box.zone-below .range-below-chip{
+  border-color:#e37b83;background:#552b39;color:#ffc5c9;
+  white-space:normal;line-height:1.3;text-align:left;
+}
 .range-live-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px}
 .range-hit-chip{
   display:inline-flex;

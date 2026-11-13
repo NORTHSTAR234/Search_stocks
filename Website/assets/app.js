@@ -264,8 +264,8 @@
       reportRangeCard("No chase",noChase,"warn")+
       '</div>';
   }
-  // Compare only exact-listing USD Alpaca observations with numeric USD zones
-  // from this report. Do not treat archived prices as quotes or silently convert FX.
+  // Compare independent verified live/delayed quotes to numeric historical
+  // buy zones, always in the exact listing's currency; never perform silent FX.
   function zonePosition(price,bands){
     if(typeof price!=="number"||!Number.isFinite(price)||price<=0)return null;
     const valid=b=>Array.isArray(b)&&b.length===2&&b.every(x=>typeof x==="number"&&Number.isFinite(x)&&x>0&&x<=1e9)&&b[1]>=b[0];
@@ -287,9 +287,23 @@
     return {kind:"outside",text:"outside the quoted buy ranges",distance:null};
   }
   function zoneContext(r){
-    if(r.statusOnly||r.exchange!=="US"||r.nativeCurrency!=="USD"||!Array.isArray(r.zoneBands))return null;
+    if(r.statusOnly||!Array.isArray(r.zoneBands)||!r.nativeCurrency)return null;
     const q=state.quotes[r.ticker.toUpperCase()];
-    if(!q||q.feed!=="IEX"||q.currency!=="USD")return null;
+    if(!q||q.currency!==r.nativeCurrency)return null;
+    if(r.exchange!=="US"){
+      // Yahoo quote identities were validated by the private GitHub-OIDC
+      // ingestion Worker. BURSA uses MYX as the provider's exchange code.
+      const market=state.markets?.aliases?.[r.exchange]||r.exchange;
+      const observed=Date.parse(q.asOf),age=Date.now()-observed;
+      if(q.feed!=="YFINANCE_YAHOO_5M_BAR_DELAYED"||
+        q.exchange!==market||typeof q.sourceSymbol!=="string"||
+        !Number.isFinite(observed)||age < -120000||age>96*3600000||
+        typeof q.price!=="number"||!Number.isFinite(q.price)||q.price<=0)return null;
+      const last={label:"Yahoo delayed",price:q.price,
+        position:zonePosition(q.price,r.zoneBands)};
+      return last.position?{regular:last,overnight:null}:null;
+    }
+    if(q.feed!=="IEX"||q.currency!=="USD")return null;
     const session=usSessionQuote(r,q);
     const current=session?.open?
       session.fresh?{label:"Latest IEX",price:Number(q.price)}:null:
@@ -326,10 +340,28 @@
   }
   function zoneCell(r,context){
     const [preferred,acceptable]=splitReportPair(r.zones);
-    const hits=kind=>[context?.regular,context?.overnight].filter(x=>x?.position?.kind===kind).map(x=>x.label);
+    const observations=[context?.regular,context?.overnight].filter(Boolean);
+    const hits=kind=>observations.filter(x=>x?.position?.kind===kind).map(x=>x.label);
     function highlightedCard(label,value,tone,kind){
       const matches=hits(kind);
-      if(!matches.length)return reportRangeCard(label,value,tone);
+      const range=r.zoneBands?.[kind==="preferred"?0:1];
+      // Only show a BELOW warning when price is below every buy range.
+      // A price already inside Preferred must not be warned as below Acceptable.
+      const warnings=observations.filter(x=>x?.position?.kind==="below"&&
+        Array.isArray(range)&&typeof range[0]==="number"&&
+        Number.isFinite(range[0])&&range[0]>0&&x.price<range[0]).map(x=>({
+          label:x.label,percent:((range[0]-x.price)/range[0]*100).toFixed(1)
+        }));
+      if(!matches.length&&!warnings.length)return reportRangeCard(label,value,tone);
+      if(!matches.length){
+        const chips=warnings.map(x=>'<span class="range-hit-chip range-below-chip">'+
+          escape(x.label)+': '+escape(x.percent)+'% below · caution</span>').join("");
+        return '<div class="score-box range-box '+tone+' zone-below">'+
+          '<span class="score-label">'+escape(label)+'</span>'+
+          '<strong class="range-value '+tone+'">'+escape(value)+'</strong>'+
+          '<div class="range-live-tags">'+chips+'</div>'+
+          '</div>';
+      }
       const highlight=kind==="preferred"?"zone-hit-preferred":"zone-hit-acceptable";
       const badgeText=matches.map(source=>'<span class="range-hit-chip">'+escape(source)+' in range</span>').join("");
       return '<div class="score-box range-box '+tone+' zone-hit '+highlight+'">'+

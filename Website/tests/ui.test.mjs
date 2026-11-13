@@ -178,6 +178,9 @@ test("a preferred or acceptable match lights only its own buy-zone card",()=>{
  assert(source.includes('zone-hit-preferred'));
  assert(source.includes('zone-hit-acceptable'));
  assert(source.includes("const matches=hits(kind)"));
+  assert(source.includes("zone-below"));
+  assert(source.includes("range-below-chip"));
+  assert(source.includes("x?.position?.kind===\"below\""));
  assert(source.includes("regular:regular?.position?regular:null"));
  assert(source.includes("overnight:night?.position?night:null"));
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
@@ -577,4 +580,53 @@ test("non-US chart draws actual hourly bars only for an exact verified source/cu
   assert(section.includes('Waiting for verified delayed Yahoo hourly bars'));
   assert(section.includes('Actual Alpaca IEX 1-month daily raw closes'));
   assert(!source.includes("query1.finance.yahoo.com")&&!source.includes("query2.finance.yahoo.com"));
+});
+
+
+test("CBHB.MYX delayed quote below both bands adds two caution chips and keeps 6 markers",()=>{
+ const contextSection=source.match(/function zoneContext\(r\)\{([\s\S]*?)\n  \}/);
+ const cardSection=source.match(/function zoneCell\(r,context\)\{([\s\S]*?)\n  \}/);
+ const positionSection=source.match(/function zonePosition\(price,bands\)\{([\s\S]*?)\n  \}/);
+ assert(contextSection&&cardSection&&positionSection);
+ const position=new Function("price","bands",positionSection[1]);
+ const observed="2026-11-13T08:00:00.000Z",now=Date.parse(observed)+120000;
+ const delayedQuote={price:0.68,currency:"MYR",feed:"YFINANCE_YAHOO_5M_BAR_DELAYED",
+   exchange:"MYX",sourceSymbol:"0339.KL",asOf:observed};
+ const state={quotes:{"CBHB.MYX":delayedQuote},markets:{aliases:{BURSA:"MYX"}}};
+ const row={ticker:"CBHB.MYX",exchange:"BURSA",nativeCurrency:"MYR",
+   statusOnly:false,zoneBands:[[0.70,0.74],[0.75,0.78]],
+   zones:"MYR 0.7–0.74 / MYR 0.75–0.78"};
+ const realNow=Date.now;
+ try{
+   Date.now=()=>now;
+   const context=new Function("r","state","usSessionQuote","zonePosition",contextSection[1]);
+   const getContext=x=>context(x,state,()=>null,position);
+   const found=getContext(row);
+   assert.equal(found.regular.position.kind,"below");
+   assert.equal(found.regular.label,"Yahoo delayed");
+   const splitReportPair=s=>s.split(" / ");
+   const originalCard=(label,value,tone)=>'<card>'+label+value+tone+'</card>';
+   const html=new Function("r","context","splitReportPair","reportRangeCard","escape",cardSection[1])(
+     row,found,splitReportPair,originalCard,String);
+   assert.equal((html.match(/zone-below/g)||[]).length,2,"both out-of-range boxes should warn");
+   assert(html.includes("2.9% below · caution"));
+   assert(html.includes("9.3% below · caution"));
+   assert(!html.includes(" in range"));
+   assert.equal(getContext({...row,nativeCurrency:"USD"}),null,"foreign currency cannot trigger signal");
+   assert.equal(getContext({...row,statusOnly:true}),null,"screening-only reports never get signals");
+   assert.equal(getContext(row)===null,false);
+   state.quotes["CBHB.MYX"]={...delayedQuote,exchange:"ASX"};
+   assert.equal(getContext(row),null,"mismatched exchange must fail closed");
+   state.quotes["CBHB.MYX"]={...delayedQuote,asOf:"2026-10-01T00:00:00Z"};
+   assert.equal(getContext(row),null,"stale observation must fail closed");
+   state.quotes["CBHB.MYX"]={...delayedQuote,price:0.72};
+   const inside=getContext(row);
+   const insideHtml=new Function("r","context","splitReportPair","reportRangeCard","escape",cardSection[1])(
+     row,inside,splitReportPair,originalCard,String);
+   assert(insideHtml.includes("zone-hit-preferred"));
+   assert(!insideHtml.includes("zone-below"),"inside preferred must not warn acceptable");
+ }finally{Date.now=realNow;}
+ const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+ assert(css.includes(".table-wrap .range-box.zone-below"));
+ assert(css.includes(".table-wrap .range-box.zone-below .range-below-chip"));
 });
