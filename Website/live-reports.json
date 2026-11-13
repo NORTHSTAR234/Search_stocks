@@ -5,7 +5,7 @@
   "htmlReportCount": 67,
   "uniqueTickers": 31,
   "aaoifiReportCount": 15,
-  "revision": "df74615d48de2534b98ce3fb1f13e2c4",
+  "revision": "df850e32c268331f190bef6beec68de7",
   "rows": [
     {
       "company": "Greatland Resources Limited",
@@ -275,11 +275,11 @@
       "aaoifiScreenedAt": "2026-11-13T00:02:18Z",
       "aaoifiReason": "Semiconductor primary business is permissible and tested AAOIFI interest-bearing debt, deposits and reported interest/investment-income stress ratios are below SS21 limits. However, the separate 30% tradability test hinges on the treatment and market valuation of acquired intang…",
       "aaoifiReportPath": "/view-report?path=AAOIFI%2FAMD.NASDAQ.html",
-      "ethicalStatus": "UNVERIFIED",
+      "ethicalStatus": "NEUTRAL",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T00:02:18Z",
-      "ethicalReason": "Public RizqInvests ethical endpoint was not accessible and no issuer-specific dated rating could be independently established. A checked official BDS tech priority-target page did not name AMD; absence from that page is not a documented negative BDS determination. AMD has indepe…",
+      "ethicalCheckedAt": "2026-11-13T00:04:52.546Z",
+      "ethicalReason": "User-provided screenshot from the RizqInvests ethical screener clearly identifies Advanced Micro Devices, Inc. (AMD) and rates its ethical screening Neutral. RizqInvests explains that AMD has an R&D centre in Tel Aviv but is explicitly excluded from its OpenIntel Israel Complici…",
       "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
     },
     {
