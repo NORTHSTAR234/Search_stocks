@@ -5,7 +5,7 @@
   "htmlReportCount": 67,
   "uniqueTickers": 31,
   "aaoifiReportCount": 15,
-  "revision": "87b62e4ac41105d720414f83d080e9ff",
+  "revision": "ccbaff05ee11e90d545ea016240c9a5e",
   "rows": [
     {
       "company": "Greatland Resources Limited",
@@ -376,15 +376,15 @@
       "conflictingBuckets": false,
       "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
       "aaoifiConfidence": "Medium",
-      "aaoifiScreenedAt": "2026-11-12T08:40:00Z",
-      "aaoifiReason": "NVIDIA's main business is permissible and its AAOIFI borrowing and deposit ratios are far below the 30% limits. The unresolved issue is the Shariah classification of very large equity-investment gains. Depending on how those gains are classified, prohibited income could remain b…",
+      "aaoifiScreenedAt": "2026-11-13T00:00:20.268Z",
+      "aaoifiReason": "SHARIAH REVIEW REQUIRED: Core semiconductor and AI business is generally permissible; July 2026 conventional borrowing is 0.668% of reporting-date market capitalization, with no material deposits-ratio risk even under a conservative cash/debt-securities bound. The US$23.707bn si…",
       "aaoifiReportPath": "/view-report?path=AAOIFI%2FNVDA.NASDAQ.html",
-      "ethicalStatus": null,
-      "ethicalBdsListed": null,
+      "ethicalStatus": "BDS_LISTED",
+      "ethicalBdsListed": true,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": null,
-      "ethicalReason": null,
-      "ethicalSourceUrl": null
+      "ethicalCheckedAt": "2026-11-13T00:00:20.268Z",
+      "ethicalReason": "RizqInvests homepage explicitly lists NVDA among 'halal compliant, ethically flagged' shares described as flagged by BDS watchdog organizations; AFSC Investigate independently lists Nvidia under Military Contractors/Suppliers/Logistics, describing reported Israeli military purch…",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/"
     },
     {
       "company": "Elite Material Co., Ltd.",
