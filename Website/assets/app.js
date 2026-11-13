@@ -409,7 +409,22 @@
       r.aaoifiConfidence?"Confidence: "+r.aaoifiConfidence:null,
       r.aaoifiScreenedAt?"Screened: "+fmt(r.aaoifiScreenedAt):null
     ].filter(Boolean).join(" · ");
+    const fin=r.aaoifiFinancialStatus==="PASS_ON_TESTED_EVIDENCE"?"Financial: tested pass":
+      r.aaoifiFinancialStatus==="FAIL_VERIFIED"?"Financial: verified fail":
+      r.aaoifiFinancialStatus==="REVIEW_REQUIRED"?"Financial: review required":
+      r.aaoifiFinancialStatus==="INSUFFICIENT_DATA"?"Financial: insufficient data":null;
+    const book=typeof r.aaoifiTradabilityBookProxyPercent==="number"&&
+      Number.isFinite(r.aaoifiTradabilityBookProxyPercent)?
+      " ("+r.aaoifiTradabilityBookProxyPercent.toFixed(2)+"% book)":"";
+    const trad=r.aaoifiTradabilityStatus?.startsWith("CONDITIONAL_BOOK_PROXY_")?
+      "Tradability: conditional"+book:
+      r.aaoifiTradabilityStatus==="CONFIRMED_PASS"?"Tradability: verified pass":
+      r.aaoifiTradabilityStatus==="CONFIRMED_FAIL"?"Tradability: verified fail":
+      r.aaoifiTradabilityStatus==="NOT_CALCULABLE"?"Tradability: not calculable":null;
+    const layers=[fin,trad].filter(Boolean).join(" · ");
     return '<div class="aaoifi-cell">'+statusBadge+
+      (layers?'<small class="aaoifi-details">'+escape(layers)+'</small>':"")+
+      (r.aaoifiMissingEvidence?'<small class="aaoifi-details">Missing: '+escape(cap(r.aaoifiMissingEvidence,140))+'</small>':"")+
       (meta?'<small class="aaoifi-details">'+escape(meta)+'</small>':"")+
       (r.aaoifiReason?'<small>'+escape(cap(r.aaoifiReason,165))+'</small>':
         '<small class="muted">No Stock_screener AAOIFI report in GitHub yet</small>')+
