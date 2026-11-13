@@ -171,3 +171,23 @@ test("AMD independent AAOIFI screen retains tested financial pass, conditional r
  assert.equal(out.ethicalStatus,"NEUTRAL");
  assert.equal(out.ethicalBdsListed,false);
 });
+
+test("unmatched frozen-table issuer stays unverified and never invents a provider URL",()=>{
+ const base={schema_version:1,ticker:"ORG.ASX",exchange:"ASX",company:"Origin Energy",
+   status:"INSUFFICIENT DATA",confidence:"Low",screened_at:"2026-11-13T03:00:00Z",
+   executive_summary:"Financial evidence pending"};
+ const ethical={status:"UNVERIFIED",bds_listed:null,assessment_date:null,
+   checked_at_utc:"2026-11-13T06:02:41.606Z",source_url:null,
+   source_kind:"USER_SNAPSHOT",bds_scope:"RIZQINVESTS_TABLE_2026_11",
+   reason:"No exact issuer in the frozen table"};
+ const info=aaoifiInfo("AAOIFI/ORG.ASX.html");
+ const doc=e=>'<script type="application/json" id="aaoifi-report-snapshot">'+
+   JSON.stringify({...base,ethical:e})+"</script>";
+ const result=parseAaoifiHtml(info,doc(ethical));
+ assert.equal(result.ethicalStatus,"UNVERIFIED");
+ assert.equal(result.ethicalBdsListed,null);
+ assert.equal(result.ethicalSourceUrl,null);
+ assert.throws(()=>parseAaoifiHtml(info,doc({...ethical,status:"NEUTRAL"})),/Invalid ethical screening snapshot/);
+ assert.throws(()=>parseAaoifiHtml(info,doc({...ethical,bds_listed:true})),/Invalid ethical screening snapshot/);
+ assert.throws(()=>parseAaoifiHtml(info,doc({...ethical,source_kind:"LIVE"})),/Invalid ethical screening snapshot/);
+});
