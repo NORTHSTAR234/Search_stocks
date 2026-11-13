@@ -435,47 +435,75 @@
     return '<div class="ethical-cell status-only-cell">'+pill+provider+'</div>';
   }
 
-  // One calendar month of actual IEX daily closes, plus the separately
-  // timestamped latest IEX trade. Both use RAW prices: no fabricated bars.
+  // One calendar month of verified actual observations from independent feeds:
+  // US = Alpaca daily IEX bars; non-US = cached private Yahoo 1-hour bars.
+  // Prices/currencies are never inferred from archived investment reports.
   function monthChartCell(r){
-    if(r.exchange!=="US")return '<div class="mini-chart-empty">US IEX only<small>Non-US month history unavailable from this feed</small></div>';
-    const bars=state.history[r.ticker]?.bars;
-    if(!Array.isArray(bars)||bars.length<2)return '<div class="mini-chart-empty">1M history unavailable<small>No verified IEX daily bars</small></div>';
-    const daily=bars.map(b=>({t:Date.parse(b.asOf),p:Number(b.close),date:b.date}))
-      .filter(b=>Number.isFinite(b.t)&&Number.isFinite(b.p)&&b.p>0).sort((a,b)=>a.t-b.t);
-    if(daily.length<2)return '<div class="mini-chart-empty">1M history unavailable<small>Insufficient daily bars</small></div>';
-    const q=state.quotes[r.ticker],t=Date.parse(q?.asOf),p=Number(q?.price);
-    const latest=q?.feed==="IEX"&&q?.currency==="USD"&&Number.isFinite(t)&&Number.isFinite(p)&&p>0&&
-      t>daily.at(-1).t&&t<Date.now()+120000&&Date.now()-t<10*86400000?{t,p,live:true}:null;
-    const points=latest?[...daily,latest]:daily;
-    const levels=Array.isArray(r.zoneBands)?r.zoneBands.slice(0,2).map(b=>
+    const us=r.exchange==="US",q=state.quotes[r.ticker];
+    const hourly=us?null:q?.hourly;
+    const verifiedHourly=!us&&q?.feed==="YFINANCE_YAHOO_5M_BAR_DELAYED"&&
+      hourly?.feed==="YFINANCE_YAHOO_1H_BAR_DELAYED"&&hourly?.interval==="1h"&&
+      hourly?.currency===q.currency&&hourly?.exchange===q.exchange&&
+      hourly?.sourceSymbol===q.sourceSymbol&&/^[A-Z]{3}$/.test(hourly.currency)&&
+      Array.isArray(hourly.bars)&&hourly.bars.length>=2&&hourly.bars.length<=200;
+    const bars=us?state.history[r.ticker]?.bars:verifiedHourly?hourly.bars:null;
+    if(!Array.isArray(bars)||bars.length<2)return '<div class="mini-chart-empty">1M history unavailable<small>'+
+      (us?'No verified IEX daily bars':'Waiting for verified delayed Yahoo hourly bars')+'</small></div>';
+    const currency=us?"USD":hourly.currency;
+    const observations=us?bars.map(b=>({t:Date.parse(b.asOf),p:Number(b.close),date:b.date})):
+      bars.map(b=>({t:Number(b?.[0])*1000,p:Number(b?.[1]),date:null}));
+    const daily=observations.filter(b=>Number.isFinite(b.t)&&b.t<Date.now()+120000&&
+      b.t>=Date.now()-35*86400000&&Number.isFinite(b.p)&&b.p>0).sort((a,b)=>a.t-b.t);
+    if(daily.length<2)return '<div class="mini-chart-empty">1M history unavailable<small>Insufficient verified observations</small></div>';
+    const qt=Date.parse(q?.asOf),price=Number(q?.price);
+    const sameFeed=us?q?.feed==="IEX"&&q?.currency==="USD":
+      q?.feed==="YFINANCE_YAHOO_5M_BAR_DELAYED"&&q?.currency===currency;
+    // A new observed trade/bar can extend the chart; this is not a forecast.
+    const recent=sameFeed&&Number.isFinite(qt)&&Number.isFinite(price)&&price>0&&
+      qt>daily.at(-1).t&&qt<=Date.now()+120000&&Date.now()-qt<8*86400000?
+      {t:qt,p:price,latest:true}:null;
+    const points=recent?[...daily,recent]:daily;
+    // Apply report-derived price zones only when the recorded quote currency
+    // matches the archived band currency (no hidden FX assumptions).
+    const sameZoneCurrency=us||typeof r.zones==="string"&&
+      new RegExp("\\b"+currency+"\\b","i").test(r.zones);
+    const levels=sameZoneCurrency&&Array.isArray(r.zoneBands)?r.zoneBands.slice(0,2).map(b=>
       Array.isArray(b)&&b.length===2&&Number.isFinite(Number(b[0]))&&Number.isFinite(Number(b[1]))&&Number(b[0])>0&&Number(b[0])<=Number(b[1])?
       (Number(b[0])+Number(b[1]))/2:null):[];
     const values=points.map(b=>b.p).concat(levels.filter(v=>v!=null));
-    const lower=Math.min(...values),upper=Math.max(...values);
-    const pad=Math.max((upper-lower)*.12,upper*.008,.2);
+    const lower=Math.min(...values),upper=Math.max(...values),pad=Math.max((upper-lower)*.12,upper*.008,.2);
     const y=v=>(105-(v-lower+pad)/(upper-lower+2*pad)*95).toFixed(1);
-    const left=points[0].t,right=points.at(-1).t,span=Math.max(1,right-left);
-    const x=v=>(6+(v-left)/span*248).toFixed(1);
+    const first=points[0].t,last=points.at(-1).t,span=Math.max(1,last-first);
+    const x=v=>(6+(v-first)/span*248).toFixed(1);
     const d=points.map((b,i)=>(i?"L":"M")+x(b.t)+","+y(b.p)).join(" ");
     const ref=(v,color)=>v==null?"":'<line x1="6" x2="254" y1="'+y(v)+'" y2="'+y(v)+'" stroke="'+color+'" stroke-width="1.7" stroke-dasharray="5 3"/>';
-    const last=points.at(-1);
-    const tooltip="Actual Alpaca IEX 1-month daily raw closes (not consolidated)."+
-      (latest?" Latest IEX raw trade "+p+" at "+q.asOf+".":"")+
+    const lastPoint=points.at(-1);
+    const zone=us?"America/New_York":state.markets?.markets?.[r.exchange]?.timeZone||"UTC";
+    const dayLabel=b=>{
+      if(b.date)return String(b.date).slice(5);
+      try{return new Intl.DateTimeFormat("en-GB",{timeZone:zone,month:"2-digit",day:"2-digit"}).format(new Date(b.t));}
+      catch{return new Date(b.t).toISOString().slice(5,10);}
+    };
+    const provider=us?"IEX":"Yahoo 1h";
+    const description=us?"Actual Alpaca IEX 1-month daily raw closes (not consolidated).":
+      "Actual delayed Yahoo Finance 1-month 1-hour closing-bar observations in "+currency+"; not real-time or consolidated.";
+    const tooltip=description+(recent?" Latest observed "+(us?"IEX trade":"Yahoo 5-minute bar")+" "+price+" at "+q.asOf+".":"")+
       (levels[0]!=null?" Preferred midpoint "+levels[0]+".":"")+
       (levels[1]!=null?" Acceptable midpoint "+levels[1]+".":"");
-    const lastLabel=latest?'<small class="mini-chart-latest">Latest IEX '+escape(quoteMoney("USD",p))+' · '+escape(fmt(q.asOf))+'</small>':
-      '<small class="mini-chart-latest">Last daily IEX '+escape(quoteMoney("USD",last.p))+' · '+escape(bars.at(-1).date)+'</small>';
+    const lastLabel=recent?'<small class="mini-chart-latest">'+(us?"Latest IEX":"Latest Yahoo · delayed")+
+      ' '+escape(quoteMoney(currency,price))+' · '+escape(fmt(q.asOf))+'</small>':
+      '<small class="mini-chart-latest">Last '+escape(provider)+' '+escape(quoteMoney(currency,lastPoint.p))+
+      ' · '+escape(fmt(new Date(lastPoint.t).toISOString()))+'</small>';
     return '<div class="mini-chart"><svg class="mini-chart-svg" viewBox="0 0 260 112" role="img" aria-label="'+escape(tooltip)+'">'+
       '<title>'+escape(tooltip)+'</title>'+
       '<line x1="6" x2="254" y1="58" y2="58" stroke="#425671" stroke-dasharray="3 5" opacity=".5"/>'+
       ref(levels[0]??null,"#31d0b8")+ref(levels[1]??null,"#ffd05e")+
       '<path d="'+d+'" fill="none" stroke="#8dabff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>'+
-      '<circle cx="'+x(last.t)+'" cy="'+y(last.p)+'" r="4" fill="#8dabff" stroke="#132136" stroke-width="1.5"/>'+
-      '</svg><div class="mini-chart-axis"><span>'+escape(String(daily[0].date).slice(5))+'</span><span>'+escape(String(bars.at(-1).date).slice(5))+'</span></div>'+
-      lastLabel+'<small class="mini-chart-legend"><span class="blue-dot">IEX closes</span>'+
-      (levels[0]!=null?'<span class="preferred-dot">Preferred '+escape(quoteMoney("USD",levels[0]))+'</span>':"")+
-      (levels[1]!=null?'<span class="acceptable-dot">Acceptable '+escape(quoteMoney("USD",levels[1]))+'</span>':"")+
+      '<circle cx="'+x(lastPoint.t)+'" cy="'+y(lastPoint.p)+'" r="4" fill="#8dabff" stroke="#132136" stroke-width="1.5"/>'+
+      '</svg><div class="mini-chart-axis"><span>'+escape(dayLabel(daily[0]))+'</span><span>'+escape(dayLabel(daily.at(-1)))+'</span></div>'+
+      lastLabel+'<small class="mini-chart-legend"><span class="blue-dot">'+escape(us?"IEX closes":"Yahoo 1h · delayed")+'</span>'+
+      (levels[0]!=null?'<span class="preferred-dot">Preferred '+escape(quoteMoney(currency,levels[0]))+'</span>':"")+
+      (levels[1]!=null?'<span class="acceptable-dot">Acceptable '+escape(quoteMoney(currency,levels[1]))+'</span>':"")+
       '</small></div>';
   }
 
@@ -590,7 +618,7 @@
       $("marketNotice").textContent="Quote observations: "+usCount+
         " US tickers via Alpaca · "+intlCount+" non-US delayed Yahoo quotes (private cache) · Updated "+
         fmt(new Date().toISOString())+
-        " · US Alpaca IEX prices and one-month charts checked every 5 minutes while visible (IEX-only, not consolidated). "+
+        " · US IEX daily and non-US delayed Yahoo hourly month charts checked from private caches every 5 minutes while visible. "+
         "Non-US quotes are collected on GitHub Actions every 20 minutes during regular market hours, subject to data-feed and scheduler delays."+
         (failures.length?" Provider issues: "+failures.join("; "):"");
       state.providerReady=true;

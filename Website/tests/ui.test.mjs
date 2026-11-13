@@ -338,7 +338,7 @@ test("active-session columns show IEX first and hide old pre-market indications"
  assert(source.includes("Current-session IEX comparison unavailable"));
  assert(source.includes("90*60000"));
  assert(source.includes("session.fresh?{label:\"Latest IEX\",price:Number(q.price)}"));
- assert(source.includes("US Alpaca IEX prices and one-month charts checked every 5 minutes while visible"));
+ assert(source.includes("non-US delayed Yahoo hourly month charts checked from private caches every 5 minutes while visible"));
 });
 
 test("AAOIFI dashboard column uses separate green red yellow semantics",()=>{
@@ -513,6 +513,10 @@ test("one-month IEX chart is sourced, responsive and polled with every quote cyc
   assert(source.includes('"/api/price-history?symbols="'));
   assert(source.includes("monthChartCell(r)"));
   assert(source.includes('IEX closes'));
+   assert(source.includes('Yahoo 1h · delayed'));
+   assert(source.includes('YFINANCE_YAHOO_1H_BAR_DELAYED'));
+   assert(source.includes('hourly?.currency===q.currency'));
+   assert(source.includes('new RegExp("\\\\b"+currency+"\\\\b","i")'));
   assert(source.includes('colspan="11"'));
   const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
   assert(css.includes(".mini-chart-svg"));
@@ -555,4 +559,22 @@ test("all three screening status columns display only badges and compact source 
  assert(source.includes("markersCell(r,context)"),"Six buy/stop score boxes remain unchanged");
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
  assert(css.includes(".table-wrap .status-only-cell"));
+});
+
+test("non-US chart draws actual hourly bars only for an exact verified source/currency and preserves IEX",()=>{
+  const start=source.indexOf("function monthChartCell(r){");
+  const end=source.indexOf("function markersCell(r,context)",start);
+  assert(start>=0&&end>start);
+  const section=source.slice(start,end);
+  assert(section.includes('q?.feed==="YFINANCE_YAHOO_5M_BAR_DELAYED"'));
+  assert(section.includes('hourly?.feed==="YFINANCE_YAHOO_1H_BAR_DELAYED"'));
+  assert(section.includes('hourly?.sourceSymbol===q.sourceSymbol'));
+  assert(section.includes('hourly?.exchange===q.exchange'));
+  assert(section.includes('hourly?.currency===q.currency'));
+  assert(section.includes('Number(b?.[0])*1000'));
+  assert(section.includes('new RegExp('));
+  assert(section.includes('Latest Yahoo · delayed'));
+  assert(section.includes('Waiting for verified delayed Yahoo hourly bars'));
+  assert(section.includes('Actual Alpaca IEX 1-month daily raw closes'));
+  assert(!source.includes("query1.finance.yahoo.com")&&!source.includes("query2.finance.yahoo.com"));
 });
