@@ -5,7 +5,7 @@
   "htmlReportCount": 67,
   "uniqueTickers": 31,
   "aaoifiReportCount": 15,
-  "revision": "ccbaff05ee11e90d545ea016240c9a5e",
+  "revision": "a847f592aa15216c1425ebd7b168f798",
   "rows": [
     {
       "company": "Greatland Resources Limited",
@@ -324,15 +324,15 @@
       "conflictingBuckets": false,
       "aaoifiStatus": "AAOIFI-COMPLIANT",
       "aaoifiConfidence": "Medium",
-      "aaoifiScreenedAt": "2026-11-12T10:32:48.170Z",
+      "aaoifiScreenedAt": "2026-11-13T00:01:35Z",
       "aaoifiReason": "Micron Technology (NASDAQ: MU) passes the AAOIFI SS21 business screen and the verified conventional borrowing, identifiable interest-taking deposit, identified prohibited-income and book-value tradability calculations using its audited fiscal 2026 financial statements ended Sept…",
       "aaoifiReportPath": "/view-report?path=AAOIFI%2FMU.NASDAQ.html",
-      "ethicalStatus": null,
-      "ethicalBdsListed": null,
+      "ethicalStatus": "BDS_LISTED",
+      "ethicalBdsListed": true,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": null,
-      "ethicalReason": null,
-      "ethicalSourceUrl": null
+      "ethicalCheckedAt": "2026-11-13T00:01:35Z",
+      "ethicalReason": "Independently verified boycott-israel.org lists Micron as medium impact because of a claimed Kiryat Gat factory; 2014 Micron/SEC reporting confirms sale of the 200mm fabrication equipment and lease termination in December 2013. Micron currently reports Israel-based R&D and sales…",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
     },
     {
       "company": "NVIDIA Corporation",
