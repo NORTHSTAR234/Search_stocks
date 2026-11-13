@@ -337,7 +337,7 @@ test("active-session columns show IEX first and hide old pre-market indications"
  assert(source.includes("Current-session IEX comparison unavailable"));
  assert(source.includes("90*60000"));
  assert(source.includes("session.fresh?{label:\"Latest IEX\",price:Number(q.price)}"));
- assert(source.includes("US Alpaca IEX latest trades checked every 5 minutes while visible"));
+ assert(source.includes("US Alpaca IEX prices and one-month charts checked every 5 minutes while visible"));
 });
 
 test("AAOIFI dashboard column uses separate green red yellow semantics",()=>{
@@ -491,7 +491,7 @@ test("AMD RizqInvests Neutral explicitly maps to provider-only BDS not flagged",
  const obj=JSON.parse(block);
  assert.equal(obj.ethical.status,"NEUTRAL");
  assert.equal(obj.ethical.bds_listed,false);
- assert.equal(obj.ethical.bds_scope,"RIZQINVESTS");
+ assert.equal(obj.ethical.bds_scope,"RIZQINVESTS_TABLE_2026_11");
  assert.equal(obj.status,"SHARIAH REVIEW REQUIRED");
  assert(source.includes("BDS: not flagged (RizqInvests)"));
 });
