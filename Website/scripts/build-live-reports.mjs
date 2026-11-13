@@ -55,6 +55,11 @@ for(const row of rows){
  row.aaoifiScreenedAt=aa?.screenedAt||null;
  row.aaoifiReason=aa?.reason||null;
  row.aaoifiReportPath=aa?.reportPath||null;
+ row.aaoifiFinancialStatus=aa?.aaoifiFinancialStatus||null;
+ row.aaoifiTradabilityStatus=aa?.aaoifiTradabilityStatus||null;
+ row.aaoifiTradabilityBookProxyPercent=aa?.aaoifiTradabilityBookProxyPercent??null;
+ row.aaoifiMissingEvidence=aa?.aaoifiMissingEvidence||null;
+ row.aaoifiBreakdownUpdatedAt=aa?.aaoifiBreakdownUpdatedAt||null;
  row.ethicalStatus=aa?.ethicalStatus||null;
  row.ethicalBdsListed=aa?.ethicalBdsListed??null;
  row.ethicalAssessmentDate=aa?.ethicalAssessmentDate||null;
