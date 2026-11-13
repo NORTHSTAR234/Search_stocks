@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Private November 2026 snapshot of 491 RizqInvests ethical and halal screener entries, with separate BDS badges.">
+  <title>Ethical & BDS Database · November 2026 · Stock Research</title>
+  <link rel="stylesheet" href="/assets/ethical-db.css">
+  <script src="/assets/ethical-db.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#database">Skip to table</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/" aria-label="Back to Stock Research dashboard"><span class="brand-icon">◈</span> Stock Research</a>
+      <nav aria-label="Section navigation">
+        <a href="/">Research dashboard</a>
+        <span class="nav-current" aria-current="page">Ethical / BDS database</span>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="eyebrow"><span class="dot"></span> USER-SUPPLIED DATASET · NOVEMBER 2026</div>
+        <h1>Ethical &amp; BDS <span>screening database</span></h1>
+        <p class="hero-lead">Explore the archived RizqInvests screening table. Search all 491 stocks and ETFs, filter ethical classifications and BDS badges, and open each original ticker page.</p>
+        <div class="summary" aria-label="Snapshot overview">
+          <div class="metric"><div class="metric-label">Total securities</div><div class="metric-value" id="totalMetric">491</div><div class="metric-detail">490 stocks · 1 ETF</div></div>
+          <div class="metric"><div class="metric-label">Neutral</div><div class="metric-value neutral-color" id="neutralMetric">431</div><div class="metric-detail">Provider ethical label</div></div>
+          <div class="metric"><div class="metric-label">Unethical</div><div class="metric-value red-color" id="unethicalMetric">60</div><div class="metric-detail">Provider ethical label</div></div>
+          <div class="metric"><div class="metric-label">Explicit BDS badge</div><div class="metric-value red-color" id="bdsMetric">40</div><div class="metric-detail">Not the same as “Unethical”</div></div>
+        </div>
+      </div>
+    </section>
+    <div class="shell content">
+      <div class="notice" role="note">
+        <span class="notice-symbol" aria-hidden="true">i</span>
+        <div><strong>Historical snapshot, not a live screening.</strong> Imported 13 November 2026 from the user-provided RizqInvests screener. All halal labels and scores are <em>RizqInvests values only</em>, not independent AAOIFI conclusions. A missing BDS badge is not universal BDS clearance. Prices and market caps are archived, not current.</div>
+      </div>
+
+      <section class="panel" id="database" aria-labelledby="tableTitle">
+        <div class="panel-top">
+          <div><div class="section-kicker">Securities explorer</div><h2 id="tableTitle">Full screening table</h2><p>Filters operate entirely on the stored database. No ethical/BDS websites are queried.</p></div>
+          <button class="download" id="csv" type="button" disabled title="Export the currently filtered table as CSV">↓ Export visible rows</button>
+        </div>
+        <div class="filters">
+          <label class="search-field"><span>Search symbol, company or sector</span><input id="search" type="search" placeholder="Try MU, NVIDIA, Healthcare…" autocomplete="off" spellcheck="false"></label>
+          <label><span>Ethical</span><select id="ethical"><option value="">All ethical statuses</option><option value="Neutral">Neutral</option><option value="Unethical">Unethical</option><option value="Ethical">Ethical</option></select></label>
+          <label><span>BDS indicator</span><select id="bds"><option value="">All BDS indicators</option><option value="yes">Badge shown</option><option value="no">No badge shown</option></select></label>
+          <label><span>Provider halal</span><select id="halal"><option value="">All halal labels</option><option value="Halal">Halal</option><option value="Not Halal">Not Halal</option><option value="Uncertain">Uncertain</option></select></label>
+          <label><span>Security type</span><select id="type"><option value="">Stocks &amp; ETFs</option><option value="STOCK">Stock</option><option value="ETF">ETF</option></select></label>
+          <label><span>Sector</span><select id="sector"><option value="">All sectors</option></select></label>
+          <label><span>Sort</span><select id="sort"><option value="ticker">Ticker · A to Z</option><option value="tickerDesc">Ticker · Z to A</option><option value="company">Company · A to Z</option><option value="scoreDesc">Score · high to low</option><option value="scoreAsc">Score · low to high</option><option value="capDesc">Market cap · high to low</option><option value="priceDesc">Archived price · high to low</option><option value="bdsFirst">BDS badges first</option></select></label>
+          <div class="filters-action"><button type="button" class="reset" id="reset">Reset filters</button></div>
+        </div>
+
+        <div class="results-bar"><div><strong id="matchCount">Loading</strong><span id="resultLabel"> securities</span><span id="activeFilters" class="active-filter-note"></span></div><label class="page-size">Rows per page <select id="pageSize"><option value="25">25</option><option value="50" selected>50</option><option value="100">100</option><option value="491">All 491</option></select></label></div>
+        <div class="table-scroll" tabindex="0" aria-label="Scrollable screening table">
+          <table>
+            <caption>RizqInvests November 2026 user-supplied stock and ETF snapshot</caption>
+            <thead><tr><th scope="col">Ticker</th><th scope="col">Company</th><th scope="col">Ethical</th><th scope="col">BDS badge</th><th scope="col">Provider halal</th><th scope="col">Sector</th><th scope="col">Type</th><th scope="col" class="num">Score</th><th scope="col" class="num">Market cap</th><th scope="col" class="num">Price</th><th scope="col">Original source</th></tr></thead>
+            <tbody id="tableBody"><tr><td colspan="11" class="empty-state">Loading archived data…</td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-bottom"><div class="pagination" aria-label="Table pagination"><button type="button" id="prev" disabled>← Previous</button><span id="pageInfo">—</span><button type="button" id="next" disabled>Next →</button></div><span id="rowRange"></span></div>
+      </section>
+      <div class="footnote"><strong>Source &amp; scope:</strong> This page reproduces the uploaded screener snapshot. “Unethical” without a BDS badge does not imply a formal BDS listing. Likewise, “Neutral” refers to RizqInvests' label only. Independent AAOIFI screening remains in the separate Stock Research reports. <a href="/">Return to research dashboard</a>.</div>
+    </div>
+  </main>
+  <footer class="footer"><div class="shell">Stock Research · Archived third-party labels for personal reference · November 2026</div></footer>
+</body>
+</html>
