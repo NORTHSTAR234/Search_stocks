@@ -243,6 +243,81 @@ def fetch_prices(symbols):
                 continue
     return collected
 
+
+def compact_hourly_bars(values, now=None):
+    """Compact, verified one-month hourly observations; no price interpolation.
+
+    Each item is (tz-aware timestamp, observed close). Unix seconds keep the
+    private owner cache small. Missing, future and stale points are discarded.
+    """
+    now=now or now_utc()
+    lows=now-dt.timedelta(days=35)
+    points={}
+    for timestamp,close in values:
+        try:
+            observed=timestamp.to_pydatetime() if hasattr(timestamp,"to_pydatetime") else timestamp
+            if not isinstance(observed,dt.datetime) or observed.tzinfo is None:
+                continue
+            observed=observed.astimezone(UTC)
+            price=float(close)
+            if observed<lows or observed>now+dt.timedelta(minutes=2):
+                continue
+            if not math.isfinite(price) or price<=0 or price>1e9:
+                continue
+            epoch=int(observed.timestamp())
+            points[epoch]=[epoch,round(price,6)]
+        except (ValueError,TypeError,OverflowError):
+            continue
+    bars=[points[t] for t in sorted(points)][-200:]
+    return bars if len(bars)>=2 else []
+
+def fetch_hourly_history(symbols):
+    """Monthly 1-hour Yahoo bars for *already verified* exact market listings.
+
+    It runs at most once hourly during the existing price collector sessions,
+    and during an authorized bootstrap. Failed charts never suppress quotes.
+    """
+    import pandas as pd
+    import yfinance as yf
+    by_yahoo={}
+    for ticker,meta in sorted(symbols.items()):
+        by_yahoo.setdefault(meta["yahoo"],[]).append((ticker,meta))
+    result={}
+    all_symbols=list(by_yahoo)
+    for start in range(0,len(all_symbols),25):
+        batch=all_symbols[start:start+25]
+        try:
+            data=yf.download(batch,period="1mo",interval="1h",auto_adjust=False,
+                             prepost=False,progress=False,group_by="ticker",
+                             threads=True,timeout=20)
+        except Exception as exc:
+            print("Yahoo hourly history unavailable:",type(exc).__name__,file=sys.stderr)
+            continue
+        for symbol in batch:
+            try:
+                if len(batch)==1 and not isinstance(data.columns,pd.MultiIndex):
+                    frame=data
+                elif isinstance(data.columns,pd.MultiIndex):
+                    if symbol in data.columns.get_level_values(0):
+                        frame=data[symbol]
+                    elif symbol in data.columns.get_level_values(1):
+                        frame=data.xs(symbol,axis=1,level=1)
+                    else:continue
+                else:continue
+                closes=frame["Close"].dropna()
+                bars=compact_hourly_bars(closes.items())
+                if not bars:continue
+                for ticker,meta in by_yahoo[symbol]:
+                    result[ticker]={
+                      "feed":"YFINANCE_YAHOO_1H_BAR_DELAYED",
+                      "interval":"1h",
+                      "sourceSymbol":symbol,"exchange":meta["exchange"],
+                      "currency":meta["currency"],"bars":bars
+                    }
+            except (ValueError,TypeError,KeyError,AttributeError,IndexError):
+                continue
+    return result
+
 def github_oidc():
     url=os.environ["ACTIONS_ID_TOKEN_REQUEST_URL"]
     token=os.environ["ACTIONS_ID_TOKEN_REQUEST_TOKEN"]
@@ -309,6 +384,19 @@ def main():
     print("Requested",len(symbols),"tickers across",len(open_now),"exchanges; verified",len(quotes),"Yahoo 5-minute bars",("(bootstrap)" if args.bootstrap else ""))
     if not quotes:
         raise RuntimeError("No verifiable international quote: no cache overwrite attempted")
+    # The private cached hourly charts update around UTC xx:00, not on every
+    # 20-minute price check. Push/bootstrap fetches all tracked markets once.
+    # Never fetch for a ticker whose exact 5-minute quote identity failed.
+    hourly={}
+    if args.bootstrap or now_utc().minute<16:
+        verified={ticker:meta for ticker,meta in symbols.items() if ticker in quotes}
+        try:
+            hourly=fetch_hourly_history(verified)
+        except Exception as exc:
+            print("Hourly chart collection failed:",type(exc).__name__,file=sys.stderr)
+        for ticker,series in hourly.items():
+            quotes[ticker]["hourly"]=series
+    print("One-month hourly bars available for",len(hourly),"verified listings")
     result=publish(quotes)
     if result.get("status")!="UPDATED":
         raise RuntimeError("Private ingest failed")
