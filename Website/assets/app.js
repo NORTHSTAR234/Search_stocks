@@ -431,7 +431,7 @@
     const stale=evidenceAt<older.getTime();
     if(bds===true||status==="UNETHICAL"||status==="BDS_LISTED")
       return {tone:"bad",label:bds===true||status==="BDS_LISTED"?"BDS FLAGGED":"UNETHICAL",stale};
-    // A verified RizqInvests NEUTRAL rating is green; BDS UNKNOWN stays disclosed.
+    // NEUTRAL means no RizqInvests BDS flag under the owner policy; external lists remain separate.
     if(!stale&&(status==="NEUTRAL"||status==="ETHICAL"))
       return {tone:"good",label:status==="NEUTRAL"?"NEUTRAL":"ETHICAL",stale:false};
     return {tone:"warn",label:stale?"STALE / RECHECK":"NOT VERIFIED",stale};
@@ -443,7 +443,7 @@
       r.ethicalAssessmentDate?"Assessment: "+r.ethicalAssessmentDate:
         r.ethicalCheckedAt?"Provider assessment date unpublished · observed: "+fmt(r.ethicalCheckedAt):null,
       r.ethicalBdsListed===true?"BDS listed":
-        r.ethicalBdsListed===false?"BDS: not flagged":"BDS: separately unverified",
+        r.ethicalBdsListed===false?"BDS: not flagged (RizqInvests)":"BDS: unverified",
       view.stale?"Stale assessment":null].filter(Boolean).join(" · ");
     const link=r.ethicalSourceUrl&&/^https:\/\/(?:www\.)?rizqinvests\.com\//i.test(r.ethicalSourceUrl)?
       '<a href="'+escape(r.ethicalSourceUrl)+'" target="_blank" rel="noopener noreferrer">RizqInvests evidence</a>':"";
