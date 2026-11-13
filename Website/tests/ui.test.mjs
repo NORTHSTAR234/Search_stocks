@@ -410,7 +410,7 @@ test("all twelve stock headings are visible in the restored table",()=>{
  const section=css.slice(css.indexOf("ORIGINAL FULL-WIDTH STOCK TABLE WITH CONTAINED HORIZONTAL OVERFLOW"),
    css.indexOf("/* FLUID VIEWPORT WIDTH"));
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
- assert(build.includes("\"Ethical / BDS\""));
+ const headings=JSON.parse(build.split("\n").find(l=>l.includes("const labels=")).split("const labels=")[1].trim().replace(/;$/, ""));
  assert.equal(headings.length,12);
  assert(section.includes("display:table-header-group"));
  assert(section.includes("td::before {content:none!important;display:none!important}"));
@@ -501,6 +501,6 @@ test("AAOIFI table keeps overall badge but shows separate financial and tradabil
  assert(source.includes('Tradability: conditional'));
  assert(source.includes('Missing: '));
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
- const headings=JSON.parse(build.match(/const labels=(\\[[^\\n]+\\]);/)[1]);
+ const headings=JSON.parse(build.split("\n").find(l=>l.includes("const labels=")).split("const labels=")[1].trim().replace(/;$/, ""));
  assert.equal(headings.length,12);
 });
