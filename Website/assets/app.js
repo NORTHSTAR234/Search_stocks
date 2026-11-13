@@ -454,14 +454,17 @@
   function ethicalCell(r){
     const view=ethicalVisual(r),path=r.aaoifiReportPath;
     const pill=path?'<a href="'+escape(path)+'" class="badge '+view.tone+' aaoifi-link">'+escape(view.label)+'</a>':badge(view.label,view.tone);
+    const snapshot=r.ethicalSourceKind==="USER_SNAPSHOT";
     const parts=[
-      r.ethicalAssessmentDate?"Assessment: "+r.ethicalAssessmentDate:
+      snapshot?"User-supplied RizqInvests snapshot: Nov 2026 · imported 13 Nov 2026":
+        r.ethicalAssessmentDate?"Assessment: "+r.ethicalAssessmentDate:
         r.ethicalCheckedAt?"Provider assessment date unpublished · observed: "+fmt(r.ethicalCheckedAt):null,
-      r.ethicalBdsListed===true?"BDS listed":
-        r.ethicalBdsListed===false?"BDS: not flagged (RizqInvests)":"BDS: unverified",
-      view.stale?"Stale assessment":null].filter(Boolean).join(" · ");
-    const link=r.ethicalSourceUrl&&/^https:\/\/(?:www\.)?rizqinvests\.com\//i.test(r.ethicalSourceUrl)?
-      '<a href="'+escape(r.ethicalSourceUrl)+'" target="_blank" rel="noopener noreferrer">RizqInvests evidence</a>':"";
+      snapshot?"Provider assessment date not supplied":null,
+      r.ethicalBdsListed===true?"BDS badge shown":
+        r.ethicalBdsListed===false?"BDS: not flagged in supplied table":"BDS: no explicit badge / unverified",
+      view.stale?"Snapshot older than four months":null].filter(Boolean).join(" · ");
+    const link=r.ethicalSourceUrl&&/^https:\/\/www\.rizqinvests\.com\/halal\/stock\/[A-Z0-9.-]+\?view=both$/i.test(r.ethicalSourceUrl)?
+      '<a href="'+escape(r.ethicalSourceUrl)+'" target="_blank" rel="noopener noreferrer">View '+escape(r.ticker)+' on RizqInvests</a>':"";
     return '<div class="ethical-cell">'+pill+
       (parts?'<small>'+escape(parts)+'</small>':"")+
       (r.ethicalReason?'<small>'+escape(cap(r.ethicalReason,160))+'</small>':"")+
