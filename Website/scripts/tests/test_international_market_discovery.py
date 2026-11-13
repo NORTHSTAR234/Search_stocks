@@ -158,3 +158,37 @@ class PrivateActionsBudgetCoverage(unittest.TestCase):
 
 if __name__=="__main__":
     unittest.main()
+
+class HourlyChartDataValidation(unittest.TestCase):
+    def test_compact_hourly_bars_accepts_valid_times_and_preserves_actual_prices(self):
+        now=dt.datetime(2026,11,13,7,0,tzinfo=dt.timezone.utc)
+        bars=module.compact_hourly_bars([
+            (now-dt.timedelta(hours=3),147.125),
+            (now-dt.timedelta(hours=2),148.25),
+            (now-dt.timedelta(hours=2),148.5)
+        ],now)
+        self.assertEqual(len(bars),2)
+        self.assertEqual(bars[0][1],147.125)
+        self.assertEqual(bars[1][1],148.5)
+        self.assertLess(bars[0][0],bars[1][0])
+    def test_compact_hourly_bars_fail_closed_for_fabricated_or_ineligible_observations(self):
+        now=dt.datetime(2026,11,13,7,0,tzinfo=dt.timezone.utc)
+        points=[
+            (now-dt.timedelta(hours=3),101.25),
+            (now-dt.timedelta(hours=2),102.75),
+            (now+dt.timedelta(hours=1),104),
+            (now-dt.timedelta(days=44),98),
+            (now-dt.timedelta(hours=1),-3),
+            (now-dt.timedelta(hours=1),float("nan")),
+            (dt.datetime(2026,11,12,9,0),100)
+        ]
+        bars=module.compact_hourly_bars(points,now)
+        self.assertEqual([x[1] for x in bars],[101.25,102.75])
+        self.assertEqual(module.compact_hourly_bars(points[:1],now),[])
+    def test_monthly_hourly_collection_is_existing_market_and_quote_gated(self):
+        src=COLLECTOR.read_text()
+        self.assertIn('period="1mo",interval="1h"',src)
+        self.assertIn('if args.bootstrap or now_utc().minute<16:',src)
+        self.assertIn('if ticker in quotes',src)
+        self.assertIn('quotes[ticker]["hourly"]=series',src)
+        self.assertIn('"feed":"YFINANCE_YAHOO_1H_BAR_DELAYED"',src)
