@@ -95,14 +95,19 @@ export function parseAaoifiHtml(info,html){
   const ethical=snap.ethical??null;
   if(ethical!==null){
     const statuses=new Set(["NEUTRAL","ETHICAL","UNETHICAL","BDS_LISTED","UNVERIFIED"]);
+    // Unmatched issuer: there is no provider URL. Do not mark Neutral.
+    const hasSource=typeof ethical.source_url==="string"&&
+      /^https:\/\/(?:www\.)?rizqinvests\.com\//i.test(ethical.source_url);
+    const noMatch=ethical.status==="UNVERIFIED"&&ethical.bds_listed===null&&
+      ethical.source_url===null&&ethical.source_kind==="USER_SNAPSHOT"&&
+      ethical.bds_scope==="RIZQINVESTS_TABLE_2026_11";
     if(typeof ethical!=="object"||Array.isArray(ethical)||!statuses.has(ethical.status)||
        !(ethical.bds_listed===true||ethical.bds_listed===false||ethical.bds_listed===null)||
        !(ethical.assessment_date===null||typeof ethical.assessment_date==="string"&&
           /^\d{4}-\d{2}-\d{2}$/.test(ethical.assessment_date)&&Number.isFinite(Date.parse(ethical.assessment_date)))||
        typeof ethical.checked_at_utc!=="string"||!/^\d{4}-\d{2}-\d{2}T/.test(ethical.checked_at_utc)||
        !Number.isFinite(Date.parse(ethical.checked_at_utc))||
-       typeof ethical.source_url!=="string"||
-       !/^https:\/\/(?:www\.)?rizqinvests\.com\//i.test(ethical.source_url)||
+       !(hasSource||noMatch)||
        typeof ethical.reason!=="string"||ethical.reason.length>1000)
        throw Error("Invalid ethical screening snapshot");
   }
