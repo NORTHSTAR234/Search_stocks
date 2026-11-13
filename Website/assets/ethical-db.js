@@ -66,8 +66,15 @@
     link.href="https://www.rizqinvests.com/halal/stock/"+encodeURIComponent(r.ticker)+"?view=both";
     link.target="_blank";
     link.rel="noopener noreferrer";
-    link.textContent="View source ↗";
-    link.setAttribute("aria-label","Open RizqInvests report for "+r.ticker+" in a new tab");
+    const info=document.createElement("span");
+    info.className="info-circle";
+    info.textContent="i";
+    info.setAttribute("aria-hidden","true");
+    const text=document.createElement("span");
+    text.textContent="Details";
+    link.append(info,text);
+    link.setAttribute("aria-label","Open RizqInvests stock details for "+r.ticker+" in a new tab");
+    link.title="View "+r.ticker+" on RizqInvests (new tab)";
     src.append(link);
     return tr;
   }
