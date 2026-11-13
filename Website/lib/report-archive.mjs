@@ -106,7 +106,34 @@ export function parseAaoifiHtml(info,html){
        typeof ethical.reason!=="string"||ethical.reason.length>1000)
        throw Error("Invalid ethical screening snapshot");
   }
+  const breakdown=snap.assessment_breakdown??null;
+  if(breakdown!==null){
+    const financialStates=new Set(["PASS_ON_TESTED_EVIDENCE","FAIL_VERIFIED","REVIEW_REQUIRED","INSUFFICIENT_DATA"]);
+    const rightsStates=new Set(["CONFIRMED_PASS","CONFIRMED_FAIL","CONDITIONAL_BOOK_PROXY_ABOVE","CONDITIONAL_BOOK_PROXY_BELOW","NOT_CALCULABLE"]);
+    const part=(p,states,detail)=>
+      p&&typeof p==="object"&&!Array.isArray(p)&&states.has(p.status)&&
+      typeof p.summary==="string"&&p.summary.length>0&&p.summary.length<=1200&&
+      typeof p.missing_evidence==="string"&&p.missing_evidence.length>0&&p.missing_evidence.length<=1200;
+    const f=breakdown.financial,t=breakdown.tradability,o=breakdown.overall;
+    if(typeof breakdown!=="object"||Array.isArray(breakdown)||
+       !part(f,financialStates,"financial")||!part(t,rightsStates,"tradability")||
+       !o||typeof o!=="object"||o.status!==snap.status||
+       typeof o.reason!=="string"||!o.reason.trim()||o.reason.length>1200||
+       typeof o.missing_evidence!=="string"||!o.missing_evidence.trim()||o.missing_evidence.length>1200||
+       (t.book_proxy_percent!==null&&t.book_proxy_percent!==undefined&&
+        (typeof t.book_proxy_percent!=="number"||!Number.isFinite(t.book_proxy_percent)||t.book_proxy_percent<0||t.book_proxy_percent>100))||
+       (t.threshold_percent!==null&&t.threshold_percent!==undefined&&
+        (typeof t.threshold_percent!=="number"||t.threshold_percent<0||t.threshold_percent>100))||
+       typeof breakdown.updated_at_utc!=="string"||
+       !Number.isFinite(Date.parse(breakdown.updated_at_utc)))
+       throw Error("Invalid three-part AAOIFI assessment snapshot");
+  }
   return {
+    aaoifiFinancialStatus:breakdown?.financial?.status||null,
+    aaoifiTradabilityStatus:breakdown?.tradability?.status||null,
+    aaoifiTradabilityBookProxyPercent:breakdown?.tradability?.book_proxy_percent??null,
+    aaoifiMissingEvidence:breakdown?short(breakdown.overall.missing_evidence,210):null,
+    aaoifiBreakdownUpdatedAt:breakdown?.updated_at_utc||null,
     ethicalStatus:ethical?.status||null,
     ethicalBdsListed:ethical?.bds_listed??null,
     ethicalAssessmentDate:ethical?.assessment_date||null,
