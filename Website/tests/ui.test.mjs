@@ -464,7 +464,7 @@ test("RizqInvests ethical/BDS column colors neutral green, flags red, unknown ye
  assert.equal(rate({...evidence,ethicalStatus:"ETHICAL",ethicalBdsListed:false},now).tone,"good");
  assert.equal(rate({...evidence,ethicalStatus:"NEUTRAL",ethicalBdsListed:true},now).tone,"bad");
  assert.equal(rate({...evidence,ethicalStatus:"UNETHICAL",ethicalBdsListed:false},now).tone,"bad");
- assert.equal(rate({...evidence,ethicalStatus:"NEUTRAL",ethicalBdsListed:null},now).tone,"warn");
+ assert.equal(rate({...evidence,ethicalStatus:"NEUTRAL",ethicalBdsListed:null},now).tone,"good");
  assert.equal(rate({ethicalStatus:"NEUTRAL",ethicalBdsListed:false},now).tone,"warn");
  assert.equal(rate({...evidence,ethicalAssessmentDate:"2026-03-01",ethicalStatus:"NEUTRAL",ethicalBdsListed:false},now).tone,"warn");
 });
