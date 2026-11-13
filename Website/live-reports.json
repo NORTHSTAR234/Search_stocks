@@ -1,12 +1,93 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-13T10:48:18Z",
-  "htmlReportCount": 65,
-  "uniqueTickers": 28,
+  "latestHtmlReportAt": "2026-11-13T20:06:53Z",
+  "htmlReportCount": 66,
+  "uniqueTickers": 29,
   "aaoifiReportCount": 30,
-  "revision": "0d2d6c92cdf76476e91fc8fc8442406a",
+  "revision": "f22188bbad7d783ff8ab418c6c2c0ee6",
   "rows": [
+    {
+      "company": "Realtek Semiconductor Corporation",
+      "ticker": "2379.TWSE",
+      "exchange": "TWSE",
+      "bucket": "halal",
+      "timestamp": "2026-11-13T20:06:53Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "73/100",
+      "entry": "45/100",
+      "musaffa": "HALAL · 2026-10 (month) · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": "2026-10",
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "VERIFIED_HALAL",
+      "musaffaReason": "Exact 2379.TW official Musaffa first-party indexed page explicitly HALAL as of October 2026, AAOIFI methodology; date month only. Direct page cache miss does not revoke first-part…",
+      "earnings": "NOT VERIFIED",
+      "zones": "TWD 705–730 / TWD 735–750",
+      "stops": "TWD 655 / TWD 785",
+      "nativeCurrency": "TWD",
+      "marketSchedule": {
+        "exchange": "TWSE",
+        "mic": "XTAI",
+        "market_time_zone": "Asia/Taipei",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "13:30"
+          }
+        ],
+        "yahoo_ticker": "2379.TW",
+        "hours_source": "https://www.twse.com.tw/en/products/system/trading.html",
+        "hours_checked_utc": "2026-11-13T20:06:53Z"
+      },
+      "sourceMarketTicker": "2379.TW",
+      "zoneBands": [
+        [
+          705,
+          730
+        ],
+        [
+          735,
+          750
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/2379.TWSE/2379.TWSE_2026-11-13_20-06-53Z.html",
+      "reportPath": "/view-report?path=halal%2F2379.TWSE%2F2379.TWSE_2026-11-13_20-06-53Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false,
+      "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
+      "aaoifiConfidence": "Medium for issuer identity and audited/…",
+      "aaoifiScreenedAt": "2026-11-13T05:35:08.631Z",
+      "aaoifiReason": "Realtek is the Taiwanese ordinary equity 2379.TWSE (not an unrelated US stock). Core semiconductor design/IC business is permissible on evidence. H1 2026 matched June 30 reporting-date market capitalization ~TWD415.503bn; bank borrowing 0.788%, interest-inclusive debt including…",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2F2379.TWSE.html",
+      "aaoifiFinancialStatus": "REVIEW_REQUIRED",
+      "aaoifiTradabilityStatus": "CONDITIONAL_BOOK_PROXY_BELOW",
+      "aaoifiTradabilityBookProxyPercent": 25.589227875520308,
+      "aaoifiMissingEvidence": "A full Q3 note-based gross prohibited-income/deposit/debt bridge, and qualified transferable-right identification with independent market valuation sufficient to clear 30% asset tradability.",
+      "aaoifiBreakdownUpdatedAt": "2026-11-13T05:35:08.631Z",
+      "ethicalStatus": "UNVERIFIED",
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
+    },
     {
       "company": "King Yuan Electronics Co., Ltd.",
       "ticker": "2449.TWSE",
