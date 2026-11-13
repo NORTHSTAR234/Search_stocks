@@ -495,3 +495,12 @@ test("AMD RizqInvests Neutral explicitly maps to provider-only BDS not flagged",
  assert.equal(obj.status,"SHARIAH REVIEW REQUIRED");
  assert(source.includes("BDS: not flagged (RizqInvests)"));
 });
+
+test("AAOIFI table keeps overall badge but shows separate financial and tradability explanations",()=>{
+ assert(source.includes('Financial: tested pass'));
+ assert(source.includes('Tradability: conditional'));
+ assert(source.includes('Missing: '));
+ const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
+ const headings=JSON.parse(build.match(/const labels=(\\[[^\\n]+\\]);/)[1]);
+ assert.equal(headings.length,12);
+});
