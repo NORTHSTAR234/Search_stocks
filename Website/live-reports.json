@@ -1,12 +1,97 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-13T05:56:24Z",
-  "htmlReportCount": 70,
+  "latestHtmlReportAt": "2026-11-13T09:11:15Z",
+  "htmlReportCount": 71,
   "uniqueTickers": 32,
   "aaoifiReportCount": 34,
-  "revision": "b8df31ebbfbebcc0b3c299e8f68df6f1",
+  "revision": "42e69c9dd9e387808fce919495e0ffd3",
   "rows": [
+    {
+      "company": "CBH Engineering Holding Berhad",
+      "ticker": "CBHB.MYX",
+      "exchange": "BURSA",
+      "bucket": "nonhalal",
+      "timestamp": "2026-11-13T09:11:15Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "VERY HIGH",
+      "investment": "61/100",
+      "entry": "18/100",
+      "musaffa": "NOT VERIFIED",
+      "musaffaClassification": null,
+      "musaffaGate": "UNVERIFIED",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": null,
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "INCONCLUSIVE",
+      "musaffaReason": "Exact Bursa 0339 Musaffa classification and screening date not attributable despite official-domain searches and direct canonical page attempt (inaccessible). This is an access/ev…",
+      "earnings": "19 Nov 2026 estimated",
+      "zones": "MYR 0.7–0.74 / MYR 0.75–0.78",
+      "stops": "MYR 0.62 / MYR 0.82",
+      "nativeCurrency": "MYR",
+      "marketSchedule": {
+        "exchange": "MYX",
+        "mic": "XKLS",
+        "market_time_zone": "Asia/Kuala_Lumpur",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "12:30"
+          },
+          {
+            "start": "14:30",
+            "end": "16:45"
+          }
+        ],
+        "yahoo_ticker": "0339.KL",
+        "hours_source": "https://www.utrade.com.my/public/faq_local",
+        "hours_checked_utc": "2026-11-13T09:11:15.241Z"
+      },
+      "sourceMarketTicker": "0339.KL",
+      "zoneBands": [
+        [
+          0.7,
+          0.74
+        ],
+        [
+          0.75,
+          0.78
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/CBHB.MYX/CBHB.MYX_2026-11-13_09-11-15Z.html",
+      "reportPath": "/view-report?path=nonhalal%2FCBHB.MYX%2FCBHB.MYX_2026-11-13_09-11-15Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false,
+      "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
+      "aaoifiConfidence": "Medium",
+      "aaoifiScreenedAt": "2026-11-13T09:11:50.937Z",
+      "aaoifiReason": "CBHB's electrical and mechanical engineering business is permissible in principle and its audited FY2025 AAOIFI borrowing (0.24%), disclosed conventional term-deposit (0%, subject to bank-balance classification), and prohibited-income (0.41%) ratios pass. However, the AAOIFI tra…",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FCBHB.MYX.html",
+      "aaoifiFinancialStatus": "PASS_ON_TESTED_EVIDENCE",
+      "aaoifiTradabilityStatus": "CONDITIONAL_BOOK_PROXY_BELOW",
+      "aaoifiTradabilityBookProxyPercent": 23.6194,
+      "aaoifiMissingEvidence": "Determine whether and how CBHB contractual engineering rights/benefits count and value them under SS21; confirm Jun 2026 financing, income, and asset bridge.",
+      "aaoifiBreakdownUpdatedAt": "2026-11-13T09:11:50.937Z",
+      "ethicalStatus": "UNVERIFIED",
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
+    },
     {
       "company": "Merck & Co., Inc.",
       "ticker": "MRK",
@@ -382,91 +467,6 @@
       "aaoifiTradabilityBookProxyPercent": 43.43461,
       "aaoifiMissingEvidence": "Product/financial prohibited-income ledger plus qualified tangible market-value assessment",
       "aaoifiBreakdownUpdatedAt": "2026-11-13T05:58:22.791Z",
-      "ethicalStatus": "UNVERIFIED",
-      "ethicalBdsListed": null,
-      "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": null,
-      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
-      "ethicalSourceUrl": null,
-      "ethicalSourceKind": "USER_SNAPSHOT",
-      "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13"
-    },
-    {
-      "company": "CBH Engineering Holding Berhad",
-      "ticker": "CBHB.MYX",
-      "exchange": "BURSA",
-      "bucket": "nonhalal",
-      "timestamp": "2026-11-12T10:38:16Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "69/100",
-      "entry": "52/100",
-      "musaffa": "NOT VERIFIED",
-      "musaffaClassification": null,
-      "musaffaGate": "UNVERIFIED",
-      "musaffaScreeningDate": null,
-      "musaffaScreeningPeriod": null,
-      "musaffaScreeningMonthConflict": false,
-      "musaffaAssessment": "INCONCLUSIVE",
-      "musaffaReason": "No recent attributable Musaffa listing/screen date verified for exact Bursa 0339. Separate Securities Commission Malaysia May 2026 list classifies it as Shariah-compliant.",
-      "earnings": "19 Nov 2026 estimated",
-      "zones": "MYR 0.77–0.82 / MYR 0.83–0.87",
-      "stops": "MYR 0.74 / MYR 0.94",
-      "nativeCurrency": "MYR",
-      "marketSchedule": {
-        "exchange": "MYX",
-        "mic": "XKLS",
-        "market_time_zone": "Asia/Kuala_Lumpur",
-        "sydney_time_zone": "Australia/Sydney",
-        "weekdays": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "sessions": [
-          {
-            "start": "09:00",
-            "end": "12:30"
-          },
-          {
-            "start": "14:30",
-            "end": "16:45"
-          }
-        ],
-        "yahoo_ticker": "0339.KL",
-        "hours_source": "https://www.utrade.com.my/public/faq_local",
-        "hours_checked_utc": "2026-11-12T10:38:16.898Z"
-      },
-      "sourceMarketTicker": "0339.KL",
-      "zoneBands": [
-        [
-          0.77,
-          0.82
-        ],
-        [
-          0.83,
-          0.87
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/CBHB.MYX/CBHB.MYX_2026-11-12_10-38-16Z.html",
-      "reportPath": "/view-report?path=nonhalal%2FCBHB.MYX%2FCBHB.MYX_2026-11-12_10-38-16Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false,
-      "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
-      "aaoifiConfidence": "Medium",
-      "aaoifiScreenedAt": "2026-11-12T10:39:11Z",
-      "aaoifiReason": "CBHB's electrical and mechanical engineering business is permissible in principle and its audited FY2025 AAOIFI borrowing (0.24%), disclosed conventional term-deposit (0%, subject to bank-balance classification), and prohibited-income (0.41%) ratios pass. However, the AAOIFI tra…",
-      "aaoifiReportPath": "/view-report?path=AAOIFI%2FCBHB.MYX.html",
-      "aaoifiFinancialStatus": null,
-      "aaoifiTradabilityStatus": null,
-      "aaoifiTradabilityBookProxyPercent": null,
-      "aaoifiMissingEvidence": null,
-      "aaoifiBreakdownUpdatedAt": null,
       "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
