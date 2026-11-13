@@ -422,22 +422,28 @@
     const source=typeof r.ethicalSourceUrl==="string"&&
       /^https:\/\/(?:www\.)?rizqinvests\.com\//i.test(r.ethicalSourceUrl);
     const date=String(r.ethicalAssessmentDate||"");
-    const validDate=/^\d{4}-\d{2}-\d{2}$/.test(date)&&
-      Number.isFinite(Date.parse(date))&&Date.parse(date)<=now.getTime();
-    if(!source||!validDate)return {tone:"warn",label:"NOT VERIFIED"};
+    const observed=String(r.ethicalCheckedAt||"");
+    const dated=/^\d{4}-\d{2}-\d{2}$/.test(date)&&Number.isFinite(Date.parse(date))?Date.parse(date):null;
+    const checked=/^\d{4}-\d{2}-\d{2}T/.test(observed)&&Number.isFinite(Date.parse(observed))?Date.parse(observed):null;
+    const evidenceAt=dated??checked;
+    if(!source||evidenceAt===null||evidenceAt>now.getTime())return {tone:"warn",label:"NOT VERIFIED"};
     const older=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth()-4,now.getUTCDate()));
-    const stale=Date.parse(date)<older.getTime();
+    const stale=evidenceAt<older.getTime();
     if(bds===true||status==="UNETHICAL"||status==="BDS_LISTED")
       return {tone:"bad",label:bds===true||status==="BDS_LISTED"?"BDS FLAGGED":"UNETHICAL",stale};
-    if(!stale&&bds===false&&(status==="NEUTRAL"||status==="ETHICAL"))
+    // A verified RizqInvests NEUTRAL rating is green; BDS UNKNOWN stays disclosed.
+    if(!stale&&(status==="NEUTRAL"||status==="ETHICAL"))
       return {tone:"good",label:status==="NEUTRAL"?"NEUTRAL":"ETHICAL",stale:false};
     return {tone:"warn",label:stale?"STALE / RECHECK":"NOT VERIFIED",stale};
   }
   function ethicalCell(r){
     const view=ethicalVisual(r),path=r.aaoifiReportPath;
     const pill=path?'<a href="'+escape(path)+'" class="badge '+view.tone+' aaoifi-link">'+escape(view.label)+'</a>':badge(view.label,view.tone);
-    const parts=[r.ethicalAssessmentDate?"Assessment: "+r.ethicalAssessmentDate:null,
-      r.ethicalBdsListed===true?"BDS listed":r.ethicalBdsListed===false?"BDS: not flagged":"BDS: unverified",
+    const parts=[
+      r.ethicalAssessmentDate?"Assessment: "+r.ethicalAssessmentDate:
+        r.ethicalCheckedAt?"Provider assessment date unpublished · observed: "+fmt(r.ethicalCheckedAt):null,
+      r.ethicalBdsListed===true?"BDS listed":
+        r.ethicalBdsListed===false?"BDS: not flagged":"BDS: separately unverified",
       view.stale?"Stale assessment":null].filter(Boolean).join(" · ");
     const link=r.ethicalSourceUrl&&/^https:\/\/(?:www\.)?rizqinvests\.com\//i.test(r.ethicalSourceUrl)?
       '<a href="'+escape(r.ethicalSourceUrl)+'" target="_blank" rel="noopener noreferrer">RizqInvests evidence</a>':"";
