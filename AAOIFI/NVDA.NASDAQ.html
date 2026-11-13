@@ -1,13 +1,125 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>NVDA AAOIFI screening</title><style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0b1320;color:#e6eef8;font:15px/1.58 system-ui,-apple-system,Segoe UI,sans-serif}.wrap{max-width:1050px;margin:auto;padding:24px}.hero,.card{background:#121f31;border:1px solid #29415e;border-radius:14px;padding:20px;margin:0 0 16px}.hero h1{margin:.25rem 0}.meta,.muted{color:#a9bdd2}.badge{display:inline-block;padding:7px 11px;border-radius:999px;font-weight:800}.good{color:#83f5c2;background:#174f40;border:1px solid #368a69}.warn{color:#ffe19a;background:#594624;border:1px solid #ab843c}.bad{color:#ffabb0;background:#612832;border:1px solid #b45764}table{width:100%;border-collapse:collapse;display:block;overflow:auto}th,td{padding:10px;border-bottom:1px solid #29415e;text-align:left;vertical-align:top}th{color:#bcd1e8}a{color:#8fc7ff}.summary{font-size:1.05rem}@media(max-width:650px){.wrap{padding:12px}.hero,.card{padding:15px}}</style></head><body><div class="wrap">
-<script type="application/json" id="aaoifi-report-snapshot">{"schema_version":1,"ticker":"NVDA","exchange":"NASDAQ","company":"NVIDIA Corporation","status":"SHARIAH REVIEW REQUIRED","confidence":"Medium","screened_at":"2026-11-12T08:40:00Z","executive_summary":"NVIDIA's main business is permissible and its AAOIFI borrowing and deposit ratios are far below the 30% limits. The unresolved issue is the Shariah classification of very large equity-investment gains. Depending on how those gains are classified, prohibited income could remain below 5% or rise above it, so a clean AAOIFI-compliant verdict is not yet defensible."}</script>
-<section class="hero"><span class="badge warn">SHARIAH REVIEW REQUIRED</span><h1>NVIDIA Corporation · NVDA</h1><div class="meta">NASDAQ · screened 2026-11-12T08:40:00Z · confidence Medium</div><h2>Executive summary</h2><p class="summary">NVIDIA's main business is permissible and its AAOIFI borrowing and deposit ratios are far below the 30% limits. The unresolved issue is the Shariah classification of very large equity-investment gains. Depending on how those gains are classified, prohibited income could remain below 5% or rise above it, so a clean AAOIFI-compliant verdict is not yet defensible.</p></section>
-<section class="card"><h2>A. Business activity</h2><p>NVIDIA's primary activities are semiconductors, AI accelerators, graphics, networking and computing platforms. These are not intrinsically prohibited businesses under the AAOIFI share-screening framework.</p></section>
-<section class="card"><h2>B. AAOIFI tests</h2><table><thead><tr><th>Test</th><th>Numerator</th><th>Denominator</th><th>Result</th><th>Threshold</th><th>Outcome</th></tr></thead><tbody><tr><td>Primary business</td><td>AI / semiconductors / computing</td><td>—</td><td>Permissible primary activity</td><td>Permissible</td><td>PASS</td></tr><tr><td>Interest-bearing borrowing</td><td>US$33.366B</td><td>≈US$4.989T reporting-date market cap</td><td>≈0.67%</td><td>≤30%</td><td>PASS</td></tr><tr><td>Interest-taking deposits</td><td>Conservative upper bound US$56.586B</td><td>≈US$4.989T</td><td>≤1.13%</td><td>≤30%</td><td>PASS</td></tr><tr><td>Confirmed prohibited income</td><td>US$1.037B interest income</td><td>≈US$201.977B total income</td><td>≈0.51%</td><td>≤5%</td><td>PASS on confirmed amount</td></tr><tr><td>Investment-gain stress case</td><td>US$1.037B + US$23.707B</td><td>≈US$201.977B</td><td>≈12.25% if all gains prohibited</td><td>≤5%</td><td>UNRESOLVED</td></tr></tbody></table></section>
-<section class="card"><h2>C. Accounting bridge</h2><p>Conventional interest-bearing debt is included in the borrowing numerator. Cash, debt securities and equity investments are kept separate rather than automatically collapsed into an AAOIFI deposit numerator. The material uncertainty is the Shariah status of gains from equity securities.</p></section>
-<section class="card"><h2>D. Market-capitalisation convention</h2><p>AAOIFI SS21 specifies market capitalisation for the borrowing and deposit tests but does not specify a 24- or 36-month averaging window. Stock_screener therefore uses market capitalisation at or close to the financial-position date as an explicitly disclosed implementation convention and tests sensitivity where material.</p></section>
-<section class="card"><h2>E. Tradability / asset composition</h2><p>The separate mixed-asset tradability test is not reliably reproducible from public GAAP book values alone because SS21 refers to the value/market value of tangible assets, benefits and rights. This remains a Shariah-review item.</p></section>
-<section class="card"><h2>F. Purification</h2><p>Confirmed interest income alone implies a minimum identifiable purification of about <strong>US$0.04295 per share</strong> for the first six months using 24.147B shares. This is a minimum, not a final amount, because the investment-gain classification remains unresolved.</p></section>
-<section class="card"><h2>G. Data quality and unresolved issues</h2><p>The unresolved investment gains are large enough to change the prohibited-income verdict. Stock_screener therefore does not treat missing classification as zero.</p></section>
-<section class="card"><h2>H. AAOIFI guidance</h2><p><strong>SHARIAH REVIEW REQUIRED.</strong> Core business, borrowing and deposit tests are comfortably within limits, but the underlying investments producing material gains need classification before a final AAOIFI verdict and purification amount can be stated.</p></section>
-<section class="card"><h2>Sources</h2><ul><li><a href="https://aaoifi.com/shariah-standards-3/?lang=en">AAOIFI Shari’ah Standards</a></li><li><a href="https://aaoifi.com/download/24233/">AAOIFI SS21</a></li><li><a href="https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm">NVIDIA 10-Q</a></li></ul></section>
-<p class="muted">Rules-based Stock_screener assessment; not an AAOIFI certification or fatwa.</p></div></body></html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>NVDA NASDAQ — AAOIFI and ethical / BDS screen — 13 Nov 2026</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0b1320;color:#e6eef8;font:15px/1.58 system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+.wrap{max-width:1080px;margin:auto;padding:23px}.hero,.card{background:#121f31;border:1px solid #29415e;border-radius:14px;padding:22px;margin-bottom:16px}
+h1{font-size:2rem;margin:.2rem 0 .5rem}h2{margin:0 0 13px;font-size:1.25rem}h3{font-size:1rem;margin:12px 0 5px}.muted{color:#b0c2d5}
+.hero .sub{margin:0 0 16px;color:#b3c5d9}.twins{display:grid;grid-template-columns:1fr 1fr;gap:14px}.verdict{border-radius:12px;background:#19283a;border:1px solid #34516d;padding:16px}
+.tag{font-weight:750;display:inline-block;padding:6px 11px;border-radius:7px}.yellow{color:#ffe19a;background:#594624;border:1px solid #ab843c}.red{color:#ffb7bd;background:#612832;border:1px solid #b45764}.ok{color:#83f5c2;background:#174f40;border:1px solid #368a69}
+table{width:100%;border-collapse:collapse;display:block;overflow-x:auto}td,th{padding:9px 11px;border-bottom:1px solid #29415e;text-align:left;vertical-align:top}th{color:#c2d6ec}
+a{color:#8fc7ff}p{margin:8px 0 14px}li{margin:7px 0}.small{font-size:.91rem}.metric{font-size:1.13rem;font-weight:750}.foot{font-size:.85rem;color:#b2c1d1}code{color:#e9c98b;white-space:normal}
+@media(max-width:700px){.wrap{padding:11px}.hero,.card{padding:15px}.twins{grid-template-columns:1fr}h1{font-size:1.55rem}}
+</style></head>
+<body><div class="wrap">
+<header class="hero"><div class="muted">NVIDIA Corporation • NASDAQ: NVDA • USD • 2026-11-13 UTC</div>
+<h1>NVDA — AAOIFI stock screen</h1><p class="sub">Latest audited FY2026 financial statements (25 Jan 2026), supplemented by fiscal 2027 Q2 10-Q for six months ended 26 Jul 2026 (released Aug 2026). No later Q3 financial report published as of the screening date; next result scheduled 17 Nov 2026.</p>
+<div class="twins">
+<div class="verdict"><strong>1 · AAOIFI SS21 screening</strong><p><span class="tag yellow">SHARIAH REVIEW REQUIRED</span></p><p><strong>Confidence: medium for accounting facts; low for unresolved Shariah classifications.</strong></p><p>Business activity appears principally permissible, and conventional debt ratio is well below 30%. Investment gains, derivative arrangements and mixed-asset tradability have unresolved SS21 treatments.</p></div>
+<div class="verdict"><strong>2 · Ethical / BDS — independent</strong><p><span class="tag red">BDS_LISTED — WATCHDOG FLAG</span></p><p><strong>RizqInvests assessment day: not verified (undated).</strong> AFSC evidence as of 18 March 2025: STALE.</p><p>RizqInvests includes NVDA in a “halal compliant, ethically flagged” list and AFSC records military-supply concerns. This is <em>not</em> confirmation of an official BDS priority campaign target.</p></div>
+</div><p class="small muted">Research only. Not an official AAOIFI certificate, fatwa, trading recommendation, or determination of legal responsibility for third-party claims.</p></header>
+
+<section class="card"><h2>A. Company and principal business</h2>
+<p>NVIDIA Corporation, Delaware issuer, trades ordinary shares on NASDAQ (not an ADR). Its business comprises Compute &amp; Networking and Graphics, principally AI accelerators, data-center computing and networks, gaming and visualization. Fiscal Q2 2027 revenue was US$96.221bn; Data Center represented US$89.0bn, reflecting a predominantly technology rather than conventional-finance business.</p>
+<p>The public disclosures include securities investments, conventional interest-bearing notes, finance-related partner arrangements and dual-use products sold through channels that can reach military customers. These require review for ancillary prohibited dealings; they do not by themselves establish that NVIDIA's main business is prohibited. Legal corporate objects and individual sensitive customer contracts were not fully verified.</p>
+<p>Sources: <a href="https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm">SEC Q2 10-Q</a>; <a href="https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm">audited 2026 10-K</a>.</p></section>
+
+<section class="card"><h2>B. Reconstructed financial line items</h2>
+<p>US$ millions unless otherwise stated; July 26, 2026 balance-sheet date. Do not equate all cash and investments with <em>interest-taking deposits</em>.</p>
+<table><thead><tr><th>GAAP caption / item</th><th>US$m</th><th>Screen treatment / unresolved detail</th></tr></thead><tbody>
+<tr><td>Short-term debt</td><td>1,000</td><td>Interest-bearing senior notes; included in conventional borrowing.</td></tr>
+<tr><td>Long-term debt</td><td>32,366</td><td>Interest-bearing fixed-rate notes; included. US$25bn debt issued in June 2026; commercial-paper program had no balance.</td></tr>
+<tr><td>Cash and cash equivalents</td><td>22,443</td><td>Contains US$12,318m Treasury debt instruments, US$399m agency debt, US$8,633m money-market funds; residual cash approx. US$1,093m; deposit yield and account terms not separately disclosed.</td></tr>
+<tr><td>Marketable debt securities</td><td>34,143</td><td>US$33,003m Treasuries and US$1,140m government agency debt. Interest-bearing financial assets but not automatically bank deposits under a strict deposits test.</td></tr>
+<tr><td>Marketable equity securities</td><td>42,783</td><td>Requires investee-by-investee permissible-activity assessment; publicly-held securities also appear in other assets.</td></tr>
+<tr><td>Non-marketable securities</td><td>51,157</td><td>Includes US$47,898m nonmarketable equity securities and US$3,259m other investments / finance relationships; underlying terms need review.</td></tr>
+<tr><td>Accounts receivable</td><td>63,059</td><td>Trade receivables; not automatically Shariah-tradable tangible assets.</td></tr>
+<tr><td>Inventories</td><td>31,575</td><td>Tangible stock; included in conservative book-value asset proxy.</td></tr>
+<tr><td>Property and equipment, net</td><td>14,285</td><td>Tangible operating assets; included.</td></tr>
+<tr><td>Operating lease right-of-use assets</td><td>5,390</td><td>Book-value benefit/right proxy, subject to Shariah classification.</td></tr>
+<tr><td>Intangible assets, net</td><td>2,998</td><td>Book-value identifiable rights proxy; goodwill of US$21,125m not presumed eligible.</td></tr>
+<tr><td>Total assets</td><td>320,272</td><td>Book-value denominator; not the market-value asset assessment.</td></tr>
+<tr><td>Shares outstanding at period end</td><td>24,147 million</td><td>Reconstructed from Q2 shareholders’ equity rollforward: 24,221 + 32 − 12 − 94.</td></tr>
+</tbody></table>
+<p><strong>Six months' income:</strong> operating revenue US$177,837m, interest income US$1,037m, gains from equity securities net US$23,707m, interest expense US$329m, other net loss US$275m. Positive-income proxy = revenue + interest income + net equity gains = <strong>US$202,581m</strong>. Equity gains are <strong>not automatically prohibited</strong>, but do not count as permitted without underlying Shariah review. <a href="https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm">SEC filing, Notes 5–9 and income statement</a>.</p>
+</section>
+
+<section class="card"><h2>C. AAOIFI SS21 financial tests — calculations</h2>
+<p>SS21 framework used here: conventional borrowings ≤30% of market cap; interest-taking deposits ≤30%; prohibited / total income ≤5%; separate relevant tradability analysis ≥30% qualifying assets. Official issuer of standard: <a href="https://aaoifi.com/ss-21-financial-paper-shares-and-bonds/?lang=en">AAOIFI SS21</a>. Reporting-date market capitalization: US$4,994,565m (Section D).</p>
+<table><thead><tr><th>Test</th><th>Arithmetic</th><th>Result</th></tr></thead><tbody>
+<tr><td>Conventional loans (≤30%)</td><td>(1,000 + 32,366) ÷ 4,994,565 × 100</td><td>0.668% — PASS. Entire reported debt conservatively classified conventional.</td></tr>
+<tr><td>Interest-taking deposits (≤30%)</td><td>Exact qualifying deposit balances not isolated; conservative upper-bound all cash plus marketable debt = (22,443 + 34,143) ÷ 4,994,565 × 100</td><td>≤1.133% bound — PASS for threshold exposure, but deposit classification not verified. Interest securities ≠ deposits.</td></tr>
+<tr><td>Prohibited income (≤5%)</td><td>Identifiable interest income 1,037 ÷ (177,837 + 1,037 + 23,707) × 100</td><td>0.512% known minimum — NOT CALCULABLE as definitive result: classification of US$23,707m net investment gains, derivatives and other items unresolved.</td></tr>
+<tr><td>Investment-gain stress test</td><td>(1,037 + 23,707) ÷ 202,581 × 100</td><td>12.214% if ALL net equity gains were prohibited — FAIL scenario only, not a proven classification.</td></tr>
+<tr><td>Separate asset tradability (≥30%)</td><td>(31,575 + 14,285 + 5,390 + 2,998) ÷ 320,272 × 100</td><td>16.938% narrow book-value proxy — INCONCLUSIVE, not a true SS21 market-value adjudication.</td></tr>
+</tbody></table>
+<p>The income limit is US$10,129m (5% × US$202,581m). After identifiable interest of US$1,037m, only US$9,092m of otherwise prohibited net investment gains could be added before exceeding 5%: <strong>38.35% of US$23,707m</strong>. This sensitivity is decisive. Different total-income denominators and gross/net treatments are further Shariah accounting questions.</p></section>
+
+<section class="card"><h2>D. Market cap and timing</h2>
+<p>Reporting date was Sunday 26 July 2026; latest preceding NASDAQ close was Friday 24 July at US$206.84. July-period-end 24.147 billion shares × US$206.84 = <strong>US$4.9946 trillion</strong>. A historical close rather than a trailing 24/36-month average is an <strong>implementation convention</strong>, not an AAOIFI textual requirement. <a href="https://finance.yahoo.com/quote/NVDA/history/">Historical closes</a>.</p>
+<p>At the US$166.19 NASDAQ close on 12 November 2026, holding the July share count constant for an explicitly stale-share-count sensitivity: market cap ≈ <strong>US$4.0130 trillion</strong>, borrowing ratio ≈ <strong>0.831%</strong>, broad cash-plus-marketable-debt bound ≈ <strong>1.410%</strong>. Neither approaches 30%; classification of assets and income remains the issue. <a href="https://www.google.com/finance/quote/NVDA:NASDAQ">Price source</a>.</p></section>
+
+<section class="card"><h2>E. AAOIFI determination</h2>
+<p><span class="tag yellow">SHARIAH REVIEW REQUIRED</span></p>
+<p><strong>Why not a green verdict?</strong> (i) The US$23.707bn net equity gains cannot be treated as universally halal or haram without security-specific evidence; classification can flip the 5% test. (ii) Warrant/equity derivatives, credit-derivative guarantees, some infrastructure-financier investments and FX contracts need contract-level Shariah review. (iii) Qualifying tangible assets, benefits and rights cannot be established fully from a narrow US-GAAP book-value proxy; the proxy is below 30%. Company objectives and some contractual arrangements remain unverified.</p>
+<p><strong>Strength:</strong> principal semiconductor business and low conventional leverage. <strong>Limitation:</strong> favorable financial leverage does not cure unresolved income or asset composition. This is not an official AAOIFI certification.</p></section>
+
+<section class="card"><h2>F. Purification — SS21-style amount</h2>
+<p>The six months ended 26 July 2026 disclose <strong>US$1.037bn of interest income</strong>. An <em>identifiable minimum from disclosed interest alone</em> equals <strong>US$1,037m / 24,147m = US$0.04295 per share</strong>. For 100 shares held at the applicable period end, this is approximately <strong>US$4.29</strong> of interest-only purification, before the unresolved income components.</p>
+<p>If all US$23,707m net equity gains also required purification, the *scenario subtotal for those two known classes* would be approximately <strong>US$1.02472 per share</strong>, or US$102.47 for 100 shares. This is <strong>not</strong> a verified upper bound for all prohibited income, nor a final payable amount. The income period is interim, share count is period-end, and an annual final figure awaits full-year audited disclosures and Shariah classification. No dividend-ratio shortcut is used. Sold-before-period-end holdings are not adjudicated here.</p></section>
+
+<section class="card"><h2>G. Outstanding diligence and evidence quality</h2><ol>
+<li>Identify the investees generating US$23.707bn net securities gains; determine each business, contract type, and unrealized vs realized attribution.</li>
+<li>Resolve Shariah treatment of US$824m fair-value public-company warrants, equity derivatives, credit guarantees, FX contracts and US$3.3bn infrastructure-financier equity-method interests (these are balances, not necessarily period income).</li>
+<li>Confirm interest-bearing deposit account balances; distinguish bank deposits from Treasuries, money-market funds and non-interest cash.</li>
+<li>Obtain market-value/asset-right analysis for share tradability; the 16.938% figure is an illustrative narrow book proxy.</li>
+<li>Update with fiscal Q3 2027 results scheduled for 17 Nov 2026 and verify exact contract/treasury classifications. Audited FY2026 10-K provides historical context, not the current period.</li></ol>
+<p class="muted">Evidence: high for SEC figures and dates; medium for price convention; low for unconstrained Shariah character of equity gains and tradability.</p></section>
+
+<section class="card"><h2>H. Practical AAOIFI guidance</h2>
+<p>AAOIFI SS21 compliance is a legal/financial Shariah standard, not a credit score or BUY/SELL signal. This screen cannot certify NVDA compliant while potentially decisive investment-income and asset-composition questions remain open. Several commercial screens classify NVIDIA as halal, and RizqInvests' homepage displays NVDA in a <em>“halal compliant, ethically flagged”</em> group, but such independent labels are secondary and have not replaced this document-by-document AAOIFI review.</p></section>
+
+<section class="card"><h2>I. Ethical and BDS — RizqInvests (independent stage)</h2>
+<p><span class="tag red">BDS_LISTED — attributable watchdog flag</span> &nbsp; <strong>bds_listed: YES</strong> (watchdog context; official priority target unverified)</p>
+<table><tbody>
+<tr><td>Issuer identity</td><td>NVIDIA Corporation (NVDA, NASDAQ)</td><td>Matched exactly in RizqInvests homepage and AFSC listing.</td></tr>
+<tr><td>RizqInvests public wording</td><td>“Halal but ethically flagged”; “Halal ✓ Unethical ✗”; NVDA is among 15 assets “flagged as complicit by BDS watchdog organizations.”</td><td>This is provider's ethically negative category, independent of its halal opinion.</td></tr>
+<tr><td>Ethical assessment date</td><td>Not verified / null</td><td>Site page update and market price do NOT substitute for exact assessment date; direct interactive ethical details unavailable.</td></tr>
+<tr><td>Independent watchdog date</td><td>18 March 2025 (AFSC)</td><td>Old evidence — stale warning retained, no fabricated fresh assessment.</td></tr>
+<tr><td>Research checked UTC</td><td>2026-11-13T00:00:20.268Z</td><td>Date the sources were checked, not provider assessment date.</td></tr>
+</tbody></table>
+<p><strong>Attributable concern:</strong> AFSC Investigate says Israeli Ministry of Defense purchase data contain NVIDIA products, including Jetson and DGX, and notes Jetson TX2 use in Elbit's Lanius platform. Its page reports contracts are not public, so military units, actual purposes and commercial details cannot be determined from those records. This is NGO/watchdog research, not a court judgment or proof that every NVIDIA product or transaction was used unlawfully.</p>
+<p><strong>Scope distinction:</strong> this finding documents a BDS-related watchdog flag, <strong>not</strong> separately confirmed inclusion in the BDS Movement's official priority boycott campaigns. Absence of the latter finding must not erase the former. The exact RizqInvests ethical assessment date remains unknown; evidence may be stale.</p>
+<p><strong>Ethical conclusion:</strong> red, BDS_LISTED on identifiable watchdog evidence, with dated-evidence freshness limitation. Do not conflate this with the yellow AAOIFI status.</p>
+<p>Sources: <a href="https://www.rizqinvests.com/">RizqInvests homepage/provider's public classification</a>; <a href="https://www.rizqinvests.com/ethical">RizqInvests ethical screener (interactive, unavailable to text fetch)</a>; <a href="https://investigate.afsc.org/company/nvidia">AFSC Investigate — NVIDIA, date 18 March 2025</a>.</p></section>
+
+<footer class="card foot"><h2>Sources and research record</h2>
+<ol><li><a href="https://aaoifi.com/ss-21-financial-paper-shares-and-bonds/?lang=en">AAOIFI SS21 official listing</a> — standard metadata; full authoritative text access may require AAOIFI's eStandards portal. Ratios reflect the plugin's SS21 research implementation.</li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm">NVIDIA SEC fiscal Q2 2027 10-Q</a> (period ending 26 July 2026; most recent interim accounting source)</li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm">NVIDIA SEC FY2026 10-K</a> (year ended 25 January 2026; audited baseline)</li>
+<li><a href="https://finance.yahoo.com/quote/NVDA/history/">NVDA historical daily prices</a>; <a href="https://www.google.com/finance/quote/NVDA:NASDAQ">12 Nov 2026 close</a></li>
+<li><a href="https://www.rizqinvests.com/">RizqInvests public homepage</a>; <a href="https://investigate.afsc.org/company/nvidia">AFSC Investigate NVIDIA</a></li>
+<li><a href="https://nvidianews.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873">NVIDIA Q3 FY2027 results timing (17 Nov 2026)</a></li></ol>
+<p>Research timestamp 2026-11-13T00:00:20.268Z. Potentially inaccurate assumptions are surfaced as explicit implementation conventions, scenarios or review requirements. USD throughout unless specified.</p></footer>
+</div>
+<script type="application/json" id="aaoifi-report-snapshot">
+{
+  "schema_version": 1,
+  "ticker": "NVDA",
+  "exchange": "NASDAQ",
+  "company": "NVIDIA Corporation",
+  "status": "SHARIAH REVIEW REQUIRED",
+  "confidence": "Medium",
+  "screened_at": "2026-11-13T00:00:20.268Z",
+  "executive_summary": "SHARIAH REVIEW REQUIRED: Core semiconductor and AI business is generally permissible; July 2026 conventional borrowing is 0.668% of reporting-date market capitalization, with no material deposits-ratio risk even under a conservative cash/debt-securities bound. The US$23.707bn six-month net equity-security gains require investee- and contract-specific Shariah classification and could move prohibited income across the AAOIFI 5% limit. Book-value asset composition is also inconclusive for tradability; no claim of certification.",
+  "ethical": {
+    "status": "BDS_LISTED",
+    "bds_listed": true,
+    "assessment_date": null,
+    "checked_at_utc": "2026-11-13T00:00:20.268Z",
+    "source_url": "https://www.rizqinvests.com/",
+    "reason": "RizqInvests homepage explicitly lists NVDA among 'halal compliant, ethically flagged' shares described as flagged by BDS watchdog organizations; AFSC Investigate independently lists Nvidia under Military Contractors/Suppliers/Logistics, describing reported Israeli military purchases and Jetson TX2 integration into an Elbit Lanius system (page valid as of 2025-03-18). This is a watchdog/BDS-related flag, NOT verified inclusion on the BDS Movement's official priority boycott target list. The individual procurement contracts and use cases are not public. RizqInvests exact ethical assessment date could not be verified."
+  }
+}
+</script>
+</body></html>
