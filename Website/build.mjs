@@ -145,7 +145,7 @@ function mainPage() {
   const labels=["Company / ticker","Regular / latest price","Overnight / vs close","Action / Risk","Investment / Entry","Last report (AEDT/AEST)","Preferred / acceptable buy zone","Initial stop / no_chase","Musaffa status / grade / screening date","AAOIFI","Ethical / BDS","Next earnings / confirmation"];
   const head=labels.map(label=>'<th scope="col">'+esc(label)+'</th>').join("");
   const body='<header class="top"><a class="brand" href="/">◈ Stock Research</a><span class="top-note">HISTORICAL REPORTS</span></header>'+
-  '<main><section class="hero"><p class="eyebrow">SEARCH_STOCK · GITHUB ARCHIVE</p><h1>Latest Research Reports</h1><p>One latest archived report per exact ticker, with separate time-stamped market observations when available.</p>'+
+  '<main><section class="hero"><p class="eyebrow">SEARCH_STOCK · GITHUB ARCHIVE</p><h1>Latest Research Reports</h1><p>One latest archived report per exact ticker, with separate time-stamped market observations when available.</p><a class="ethical-database-link" href="/ethical-database/">Browse the Ethical / BDS database · 491 securities ↗</a>'+
   '<div class="metrics"><div><span id="count">—</span><small>Latest reports</small></div><div><span id="halalCount">—</span><small>Halal-folder reports</small></div><div><span id="quoteCount">—</span><small>Verified quotes</small></div></div></section>'+
   '<section class="panel"><div class="toolbar"><label class="search"><span>Search</span><input id="search" type="search" placeholder="Ticker or company" aria-label="Search ticker or company"></label>'+
   '<label><span>Category</span><select id="bucket"><option value="all">All</option><option value="halal">Halal folder</option><option value="nonhalal">Nonhalal / unverified folder</option></select></label>'+
@@ -204,10 +204,15 @@ export function build() {
   fs.mkdirSync(jsonDir,{recursive:true});
   // Read-only market schedule for the client; no private quote data is published.
   fs.copyFileSync(path.join(here,"market-exchanges.json"),path.join(jsonDir,"market-exchanges.json"));
+  // Frozen user-supplied November 2026 ethical/BDS snapshot — no provider fetch.
+  fs.copyFileSync(path.join(here,"data","rizqinvests-ethical-bds-2026-11.json"),path.join(jsonDir,"rizqinvests-ethical-bds-2026-11.json"));
   fs.writeFileSync(path.join(jsonDir,"reports.json"),JSON.stringify({generatedAt:new Date().toISOString(),totalFiles:archives.length,rows},null,2));
   fs.writeFileSync(path.join(output,"index.html"),mainPage());
   fs.mkdirSync(path.join(output,"assets"),{recursive:true});
-  for (const name of ["app.js","style.css"]) fs.copyFileSync(path.join(here,"assets",name),path.join(output,"assets",name));
+  for (const name of ["app.js","style.css","ethical-db.css","ethical-db.js"]) fs.copyFileSync(path.join(here,"assets",name),path.join(output,"assets",name));
+  const ethicalPage=path.join(output,"ethical-database");
+  fs.mkdirSync(ethicalPage,{recursive:true});
+  fs.copyFileSync(path.join(here,"ethical-database","index.html"),path.join(ethicalPage,"index.html"));
   fs.copyFileSync(path.join(here,"_headers"),path.join(output,"_headers"));
   fs.writeFileSync(path.join(output,"robots.txt"),"User-agent: *\nDisallow: /\n");
   console.log("Built "+rows.length+" current ticker reports from "+archives.length+" archived HTML/Markdown files.");
