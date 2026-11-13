@@ -461,7 +461,7 @@
         r.ethicalCheckedAt?"Provider assessment date unpublished · observed: "+fmt(r.ethicalCheckedAt):null,
       snapshot?"Provider assessment date not supplied":null,
       r.ethicalBdsListed===true?"BDS badge shown":
-        r.ethicalBdsListed===false?"BDS: not flagged in supplied table":"BDS: no explicit badge / unverified",
+        r.ethicalBdsListed===false?"BDS: not flagged (RizqInvests)":"BDS: no explicit badge / unverified",
       view.stale?"Snapshot older than four months":null].filter(Boolean).join(" · ");
     const link=r.ethicalSourceUrl&&/^https:\/\/www\.rizqinvests\.com\/halal\/stock\/[A-Z0-9.-]+\?view=both$/i.test(r.ethicalSourceUrl)?
       '<a href="'+escape(r.ethicalSourceUrl)+'" target="_blank" rel="noopener noreferrer">View '+escape(r.ticker)+' on RizqInvests</a>':"";
