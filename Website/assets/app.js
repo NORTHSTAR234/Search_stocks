@@ -264,27 +264,20 @@
       reportRangeCard("No chase",noChase,"warn")+
       '</div>';
   }
-  // Compare independent verified live/delayed quotes to numeric historical
-  // buy zones, always in the exact listing's currency; never perform silent FX.
+  // Entry zones are inclusive CEILINGS. Preferred takes priority.
+  // A low price qualifies even below the reported lower bound.
   function zonePosition(price,bands){
     if(typeof price!=="number"||!Number.isFinite(price)||price<=0)return null;
-    const valid=b=>Array.isArray(b)&&b.length===2&&b.every(x=>typeof x==="number"&&Number.isFinite(x)&&x>0&&x<=1e9)&&b[1]>=b[0];
+    const valid=b=>Array.isArray(b)&&b.length===2&&b.every(x=>
+      typeof x==="number"&&Number.isFinite(x)&&x>0&&x<=1e9)&&b[1]>=b[0];
     const preferred=valid(bands?.[0])?bands[0]:null;
     const acceptable=valid(bands?.[1])?bands[1]:null;
     if(!preferred&&!acceptable)return null;
-    const between=(b)=>b&&price>=b[0]&&price<=b[1];
-    if(between(preferred))return {kind:"preferred",text:"inside preferred buy zone",distance:null};
-    if(between(acceptable))return {kind:"acceptable",text:"inside acceptable buy zone",distance:null};
-    const lowest=Math.min(...[preferred,acceptable].filter(Boolean).map(b=>b[0]));
-    const highest=Math.max(...[preferred,acceptable].filter(Boolean).map(b=>b[1]));
-    const ordered=preferred&&acceptable&&preferred[1]<acceptable[0];
-    const labelBelow=ordered?"preferred":preferred&&!acceptable?"preferred":!preferred&&acceptable?"acceptable":"both";
-    const labelAbove=ordered?"acceptable":preferred&&!acceptable?"preferred":!preferred&&acceptable?"acceptable":"both";
-    if(price<lowest)return {kind:"below",text:"below "+labelBelow+" buy zone"+(labelBelow==="both"?"s":""),distance:Math.round((lowest-price)/lowest*1000)/10};
-    if(price>highest)return {kind:"above",text:"above "+labelAbove+" buy zone"+(labelAbove==="both"?"s":""),distance:Math.round((price-highest)/highest*1000)/10};
-    if(ordered&&price>preferred[1]&&price<acceptable[0])
-      return {kind:"between",text:"between preferred and acceptable zones",distance:null};
-    return {kind:"outside",text:"outside the quoted buy ranges",distance:null};
+    if(preferred&&price<=preferred[1])
+      return {kind:"preferred",text:"at or below preferred maximum",distance:null};
+    if(acceptable&&price<=acceptable[1])
+      return {kind:"acceptable",text:"at or below acceptable maximum",distance:null};
+    return {kind:"above",text:"above both entry ceilings",distance:null};
   }
   function zoneContext(r){
     if(r.statusOnly||!Array.isArray(r.zoneBands)||!r.nativeCurrency)return null;
@@ -322,7 +315,9 @@
   }
   function zoneInsight(context){
     if(!context)return "";
-    const entries=[context.regular,context.overnight].filter(Boolean);
+    // Above the entry ceilings should not raise an Action/Risk notification.
+    const entries=[context.regular,context.overnight].filter(x=>
+      x?.position&&x.position.kind!=="above");
     if(!entries.length)return "";
     const phrase=item=>item.position.text+(item.position.distance!==null?
       " by "+item.position.distance.toFixed(1)+"%":"");
@@ -340,58 +335,17 @@
   }
   function zoneCell(r,context){
     const [preferred,acceptable]=splitReportPair(r.zones);
-    const observations=[context?.regular,context?.overnight].filter(Boolean);
-    const hits=kind=>observations.filter(x=>x?.position?.kind===kind).map(x=>x.label);
+    // One current observation, one highlighted box. A recent verified overnight
+    // quote is preferred to the previous regular close, when available.
+    const selected=context?.overnight||context?.regular;
+    const hits=kind=>selected?.position?.kind===kind?[selected.label]:[];
     function highlightedCard(label,value,tone,kind){
       const matches=hits(kind);
-      const range=r.zoneBands?.[kind==="preferred"?0:1];
-      // Only show a BELOW warning when price is below every buy range.
-      // A price already inside Preferred must not be warned as below Acceptable.
-      const warnings=observations.filter(x=>x?.position?.kind==="below"&&
-        Array.isArray(range)&&typeof range[0]==="number"&&
-        Number.isFinite(range[0])&&range[0]>0&&x.price<range[0]).map(x=>({
-          label:x.label,percent:((range[0]-x.price)/range[0]*100).toFixed(1)
-        }));
-      // A stock can be BETWEEN two ordered zones (as with 2383.TWSE).
-      // Explain the relationship in BOTH adjacent boxes, not just Action/Risk.
-      // Never treat a gap between zones as an in-range buy alert.
-      const validRange=Array.isArray(range)&&range.length===2&&
-        range.every(n=>typeof n==="number"&&Number.isFinite(n)&&n>0)&&range[1]>=range[0];
-      const between=validRange?observations.filter(x=>x?.position?.kind==="between")
-        .map(x=>({
-          label:x.label,side:kind==="preferred"?"above":"below",
-          percent:(kind==="preferred"?(x.price-range[1])/range[1]*100:
-            (range[0]-x.price)/range[0]*100).toFixed(1)
-        })):[];
-
-      // When beyond the highest entry band, warn on Acceptable (or Preferred
-      // if no valid Acceptable reference exists). The separate no-chase level
-      // must not be falsely described as breached.
-      const hasAcceptable=Array.isArray(r.zoneBands?.[1])&&
-        r.zoneBands[1].length===2&&r.zoneBands[1].every(n=>
-          typeof n==="number"&&Number.isFinite(n)&&n>0)&&
-        r.zoneBands[1][1]>=r.zoneBands[1][0];
-      const above=validRange&&(kind==="acceptable"||!hasAcceptable)?
-        observations.filter(x=>x?.position?.kind==="above"&&x.price>range[1])
-        .map(x=>({label:x.label,percent:((x.price-range[1])/range[1]*100).toFixed(1)})):[];
-      if(!matches.length&&!warnings.length&&!between.length&&!above.length)
-        return reportRangeCard(label,value,tone);
-      if(!matches.length){
-        const alertKind=warnings.length?"below":between.length?"between":"above";
-        const data=warnings.length?warnings:between.length?between:above;
-        const chips=data.map(x=>'<span class="range-hit-chip range-'+alertKind+'-chip">'+
-          escape(x.label)+': '+escape(x.percent)+'% '+
-          (alertKind==="between"?escape(x.side)+' this zone · between ranges':
-            alertKind==="above"?'above entry range · caution':'below · caution')+
-          '</span>').join("");
-        return '<div class="score-box range-box '+tone+' zone-'+alertKind+'">'+
-          '<span class="score-label">'+escape(label)+'</span>'+
-          '<strong class="range-value '+tone+'">'+escape(value)+'</strong>'+
-          '<div class="range-live-tags">'+chips+'</div>'+
-          '</div>';
-      }
+      if(!matches.length)return reportRangeCard(label,value,tone);
       const highlight=kind==="preferred"?"zone-hit-preferred":"zone-hit-acceptable";
-      const badgeText=matches.map(source=>'<span class="range-hit-chip">'+escape(source)+' in range</span>').join("");
+      const capLabel=kind==="preferred"?"Preferred max":"Acceptable max";
+      const badgeText=matches.map(source=>'<span class="range-hit-chip">'+
+        escape(source)+': ≤ '+capLabel+'</span>').join("");
       return '<div class="score-box range-box '+tone+' zone-hit '+highlight+'">'+
         '<span class="score-label">'+escape(label)+'</span>'+
         '<strong class="range-value '+tone+'">'+escape(value)+'</strong>'+

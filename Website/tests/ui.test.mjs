@@ -171,63 +171,36 @@ test("dashboard columns match specified new order and remove duplicate report co
  assert(source.includes('colspan="11"'));
  assert(source.includes("class=\"ticker'+active+'\" href="));
 });
-test("a preferred or acceptable match lights only its own buy-zone card",()=>{
- assert(source.includes('function zonePosition(price,bands)'));
- assert(source.includes('function zoneContext(r)'));
- assert(source.includes('function zoneInsight(context)'));
- assert(source.includes('zone-hit-preferred'));
- assert(source.includes('zone-hit-acceptable'));
- assert(source.includes("const matches=hits(kind)"));
-  assert(source.includes('const alertKind=warnings.length?"below":between.length?"between":"above"'));
-  assert(source.includes("' zone-'+alertKind"));
-  assert(source.includes("range-'+alertKind+'-chip"));
-  assert(source.includes("x?.position?.kind===\"below\""));
- assert(source.includes("regular:regular?.position?regular:null"));
- assert(source.includes("overnight:night?.position?night:null"));
+test("entry caps use preferred-first inclusive thresholds and Action/Risk ignores above ceilings",()=>{
+ const sourcePosition=source.match(/function zonePosition\(price,bands\)\{([\s\S]*?)\n  \}/);
+ const sourceInsight=source.match(/function zoneInsight\(context\)\{([\s\S]*?)\n  \}/);
+ assert(sourcePosition&&sourceInsight);
+ const zone=new Function("price","bands",sourcePosition[1]);
+ const insight=new Function("context","escape",sourceInsight[1]);
+ const bands=[[4000,4200],[4250,4350]];
+ for(const p of [1,3990,4000,4200])assert.equal(zone(p,bands).kind,"preferred",p);
+ for(const p of [4200.01,4225,4250,4350])assert.equal(zone(p,bands).kind,"acceptable",p);
+ for(const p of [4350.01,5000])assert.equal(zone(p,bands).kind,"above",p);
+ assert.equal(zone(-1,bands),null);
+ assert.equal(zone(0,bands),null);
+ assert.equal(zone(180,[]),null);
+ assert.equal(zone(180,[[200,100],[176,185]]).kind,"acceptable");
+ assert.equal(zone(160,[[165,175],[176,185]]).kind,"preferred");
+ assert.equal(zone(175.5,[[165,175],[176,185]]).kind,"acceptable");
+ assert.equal(zone(198,[[185,195],null]).kind,"above");
+ const above={regular:{label:"Regular",position:{kind:"above",text:"above both entry ceilings",distance:null}}};
+ assert.equal(insight(above,String),"","above both should have no alert anywhere");
+ assert.equal(insight(null,String),"");
+ assert(source.includes("const selected=context?.overnight||context?.regular"));
+ assert(source.includes("zone-hit-preferred")&&source.includes("zone-hit-acceptable"));
+ assert(!source.includes("zone-below")&&!source.includes("zone-between")&&!source.includes("zone-above"));
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
- assert(css.includes('.table-wrap .range-box.zone-hit-preferred'));
- assert(css.includes('.table-wrap .range-box.zone-hit-acceptable'));
- assert(css.includes('.range-hit-chip'));
+ assert(css.includes(".table-wrap .range-box.zone-hit-preferred"));
+ assert(css.includes(".table-wrap .range-box.zone-hit-acceptable"));
+ assert(!css.includes(".table-wrap .range-box.zone-below"));
+ assert(!css.includes(".table-wrap .range-box.zone-between"));
+ assert(!css.includes(".table-wrap .range-box.zone-above"));
 });
-test("price-zone relationships are mutually exclusive, boundary aware and never use mismatched bands",()=>{
- const match=source.match(/function zonePosition\(price,bands\)\{([\s\S]*?)\n  \}/);
- assert(match);
- const compare=new Function("price","bands",match[1]);
- const bands=[[165,175],[176,185]];
- assert.equal(compare(170,bands).kind,"preferred");
- assert.equal(compare(178,bands).kind,"acceptable");
- assert.equal(compare(165,bands).kind,"preferred");
- assert.equal(compare(185,bands).kind,"acceptable");
- assert.equal(compare(175.5,bands).text,"between preferred and acceptable zones");
- assert.equal(compare(160,bands).text,"below preferred buy zone");
- const above=compare(187.62,bands);
- assert.equal(above.kind,"above");
- assert(above.text.includes("above acceptable buy zone"));
- assert(!above.text.includes("preferred"));
- assert.equal(compare(185.5,bands).kind,"above");
- assert.equal(compare(-50,bands),null);
- assert.equal(compare(180,[]),null);
- assert.equal(compare(180,[[200,100],[176,185]]).kind,"acceptable");
- assert.equal(compare(300,[[185,195],[196,205]]).text,"above acceptable buy zone");
-});
-test("entry context describes only the correct relation for regular and overnight prices",()=>{
- const body=source.match(/function zoneInsight\(context\)\{([\s\S]*?)\n  \}/);
- assert(body);
- const insight=new Function("context","escape",body[1]);
- const esc=x=>String(x).replace(/[&<>"']/g,"");
- const same={regular:{label:"Regular",position:{kind:"above",text:"above acceptable buy zone",distance:8.8}},
-  overnight:{label:"Overnight",position:{kind:"above",text:"above acceptable buy zone",distance:9.1}}};
- const combined=insight(same,esc);
- assert(combined.includes("Regular and overnight: above acceptable buy zone"));
- assert(combined.includes("regular 8.8%; overnight 9.1%"));
- assert(!combined.includes("above preferred"));
- const mixed=insight({regular:{label:"Regular",position:{kind:"preferred",text:"inside preferred buy zone",distance:null}},
-   overnight:{label:"Overnight",position:{kind:"acceptable",text:"inside acceptable buy zone",distance:null}}},esc);
- assert(mixed.includes("Regular: inside preferred buy zone"));
- assert(mixed.includes("Overnight: inside acceptable buy zone"));
- assert.equal(insight(null,esc),"");
-});
-
 test("market-open glow follows Sydney-rendered exchange weekdays without market price inference",()=>{
   assert(source.includes("function marketStatus(r,now=new Date())"));
   assert(source.includes('timeZone:"Australia/Sydney"'));
@@ -584,105 +557,64 @@ test("non-US chart draws actual hourly bars only for an exact verified source/cu
 });
 
 
-test("CBHB.MYX delayed quote below both bands adds two caution chips and keeps 6 markers",()=>{
- const contextSection=source.match(/function zoneContext\(r\)\{([\s\S]*?)\n  \}/);
- const cardSection=source.match(/function zoneCell\(r,context\)\{([\s\S]*?)\n  \}/);
- const positionSection=source.match(/function zonePosition\(price,bands\)\{([\s\S]*?)\n  \}/);
- assert(contextSection&&cardSection&&positionSection);
- const position=new Function("price","bands",positionSection[1]);
- const observed="2026-11-13T08:00:00.000Z",now=Date.parse(observed)+120000;
- const delayedQuote={price:0.68,currency:"MYR",feed:"YFINANCE_YAHOO_5M_BAR_DELAYED",
-   exchange:"MYX",sourceSymbol:"0339.KL",asOf:observed};
- const state={quotes:{"CBHB.MYX":delayedQuote},markets:{aliases:{BURSA:"MYX"}}};
- const row={ticker:"CBHB.MYX",exchange:"BURSA",nativeCurrency:"MYR",
-   statusOnly:false,zoneBands:[[0.70,0.74],[0.75,0.78]],
-   zones:"MYR 0.7–0.74 / MYR 0.75–0.78"};
- const realNow=Date.now;
- try{
-   Date.now=()=>now;
-   const context=new Function("r","state","usSessionQuote","zonePosition",contextSection[1]);
-   const getContext=x=>context(x,state,()=>null,position);
-   const found=getContext(row);
-   assert.equal(found.regular.position.kind,"below");
-   assert.equal(found.regular.label,"Yahoo delayed");
-   const splitReportPair=s=>s.split(" / ");
-   const originalCard=(label,value,tone)=>'<card>'+label+value+tone+'</card>';
-   const html=new Function("r","context","splitReportPair","reportRangeCard","escape",cardSection[1])(
-     row,found,splitReportPair,originalCard,String);
-   assert.equal((html.match(/zone-below/g)||[]).length,2,"both out-of-range boxes should warn");
-   assert(html.includes("2.9% below · caution"));
-   assert(html.includes("9.3% below · caution"));
-   assert(!html.includes(" in range"));
-   assert.equal(getContext({...row,nativeCurrency:"USD"}),null,"foreign currency cannot trigger signal");
-   assert.equal(getContext({...row,statusOnly:true}),null,"screening-only reports never get signals");
-   assert.equal(getContext(row)===null,false);
-   state.quotes["CBHB.MYX"]={...delayedQuote,exchange:"ASX"};
-   assert.equal(getContext(row),null,"mismatched exchange must fail closed");
-   state.quotes["CBHB.MYX"]={...delayedQuote,asOf:"2026-10-01T00:00:00Z"};
-   assert.equal(getContext(row),null,"stale observation must fail closed");
-   state.quotes["CBHB.MYX"]={...delayedQuote,price:0.72};
-   const inside=getContext(row);
-   const insideHtml=new Function("r","context","splitReportPair","reportRangeCard","escape",cardSection[1])(
-     row,inside,splitReportPair,originalCard,String);
-   assert(insideHtml.includes("zone-hit-preferred"));
-   assert(!insideHtml.includes("zone-below"),"inside preferred must not warn acceptable");
- }finally{Date.now=realNow;}
- const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
- assert(css.includes(".table-wrap .range-box.zone-below"));
- assert(css.includes(".table-wrap .range-box.zone-below .range-below-chip"));
-});
-
-test("all tickers: the shared markers alert in preferred/acceptable gaps and above ranges",()=>{
- const contextSource=source.match(/function zoneContext\(r\)\{([\s\S]*?)\n  \}/);
- const cardSource=source.match(/function zoneCell\(r,context\)\{([\s\S]*?)\n  \}/);
- const positionSource=source.match(/function zonePosition\(price,bands\)\{([\s\S]*?)\n  \}/);
- assert(contextSource&&cardSource&&positionSource);
- const position=new Function("price","bands",positionSource[1]);
- const compare=new Function("r","state","usSessionQuote","zonePosition",contextSource[1]);
- const render=new Function("r","context","splitReportPair","reportRangeCard","escape",cardSource[1]);
- const escaped=x=>String(x).replace(/[&<>"']/g,"");
- const pair=x=>String(x).split(" / ");
- const card=(label,value,tone)=>'<card>'+label+":"+value+":"+tone+'</card>';
- const observed="2026-11-13T08:00:00.000Z",clock=Date.now;
+test("all exchanges share exactly one green/amber highlight or none",()=>{
+ const mZone=source.match(/function zonePosition\(price,bands\)\{([\s\S]*?)\n  \}/);
+ const mContext=source.match(/function zoneContext\(r\)\{([\s\S]*?)\n  \}/);
+ const mCell=source.match(/function zoneCell\(r,context\)\{([\s\S]*?)\n  \}/);
+ assert(mZone&&mContext&&mCell);
+ const pos=new Function("price","bands",mZone[1]);
+ const ctx=new Function("r","state","usSessionQuote","zonePosition",mContext[1]);
+ const cell=new Function("r","context","splitReportPair","reportRangeCard","escape",mCell[1]);
+ const pair=s=>String(s).split(" / ");
+ const originalCard=(label,value,tone)=>'<card>'+label+value+tone+'</card>';
+ const render=(row,context)=>cell(row,context,pair,originalCard,String);
+ const count=(h,label)=>(h.match(new RegExp("zone-hit-"+label+"(?:[^a-z]|$)","g"))||[]).length;
+ const date="2026-11-13T08:00:00Z",realNow=Date.now;
  const cases=[
-  {ticker:"2383.TWSE",exchange:"TWSE",currency:"TWD",price:4225,
-   bands:[[4000,4200],[4250,4350]],expected:["zone-between","0.6% above this zone","0.6% below this zone"],count:2},
-  {ticker:"2377.TWSE",exchange:"TWSE",currency:"TWD",price:137.5,
-   bands:[[126,133],[134,141]],expected:["zone-hit-acceptable"],count:0},
-  {ticker:"CBHB.MYX",exchange:"BURSA",sourceExchange:"MYX",currency:"MYR",price:0.68,
-   bands:[[0.70,0.74],[0.75,0.78]],expected:["zone-below","2.9% below","9.3% below"],count:0},
-  {ticker:"APA.ASX",exchange:"ASX",currency:"AUD",price:11.1,
-   bands:[[9.60,9.95],[9.96,10.30]],expected:["zone-above","above entry range · caution"],count:0},
-  {ticker:"SU.PA",exchange:"XPAR",currency:"EUR",price:225,
-   bands:[[220,228],[229,236]],expected:["zone-hit-preferred"],count:0}
+  ["2383.TWSE","TWSE","TWSE","TWD",4225,[[4000,4200],[4250,4350]],"acceptable"],
+  ["2383.TWSE","TWSE","TWSE","TWD",4200,[[4000,4200],[4250,4350]],"preferred"],
+  ["2383.TWSE","TWSE","TWSE","TWD",4350,[[4000,4200],[4250,4350]],"acceptable"],
+  ["2383.TWSE","TWSE","TWSE","TWD",4350.01,[[4000,4200],[4250,4350]],"none"],
+  ["2377.TWSE","TWSE","TWSE","TWD",137.5,[[126,133],[134,141]],"acceptable"],
+  ["CBHB.MYX","BURSA","MYX","MYR",.68,[[.7,.74],[.75,.78]],"preferred"],
+  ["CBHB.MYX","BURSA","MYX","MYR",.745,[[.7,.74],[.75,.78]],"acceptable"],
+  ["APA.ASX","ASX","ASX","AUD",11.1,[[9.6,9.95],[9.96,10.3]],"none"],
+  ["SU.PA","XPAR","XPAR","EUR",225,[[220,228],[229,236]],"preferred"]
  ];
  try{
-  Date.now=()=>Date.parse(observed)+60000;
-  for(const entry of cases){
-   const quote={price:entry.price,currency:entry.currency,feed:"YFINANCE_YAHOO_5M_BAR_DELAYED",
-    exchange:entry.sourceExchange||entry.exchange,sourceSymbol:entry.ticker.split(".")[0]+".FAKE",asOf:observed};
-   const state={quotes:{[entry.ticker]:quote},markets:{aliases:{BURSA:"MYX"}}};
-   const row={ticker:entry.ticker,exchange:entry.exchange,nativeCurrency:entry.currency,
-     statusOnly:false,zoneBands:entry.bands,zones:entry.bands.map(b=>b.join("–")).join(" / ")};
-   const context=compare(row,state,()=>null,position);
-   assert(context,"No context for "+entry.ticker);
-   const markup=render(row,context,pair,card,escaped);
-   for(const needle of entry.expected)assert(markup.includes(needle),entry.ticker+" expected "+needle);
-   if(entry.count===2)assert.equal((markup.match(/zone-between/g)||[]).length,2,entry.ticker);
-   if(entry.ticker==="2383.TWSE")assert(!markup.includes(" in range"),"Gap must never be highlighted as in-zone");
-   if(entry.ticker==="2377.TWSE")assert(!markup.includes("zone-between"),"Actual acceptable-zone hit must not show gap warning");
-   if(entry.ticker==="APA.ASX")assert(!markup.includes("No chase"),"No-chase is a separate report threshold");
-   const wrong=compare({...row,nativeCurrency:"USD"},state,()=>null,position);
-   assert.equal(wrong,null,"Ticker "+entry.ticker+" must reject mismatched currency");
+  Date.now=()=>Date.parse(date)+60000;
+  for(const [ticker,exchange,sourceEx,currency,price,bands,expected] of cases){
+   const row={ticker,exchange,nativeCurrency:currency,zoneBands:bands,
+     zones:bands.map(b=>b.join("–")).join(" / "),statusOnly:false};
+   const state={quotes:{[ticker]:{price,currency,exchange:sourceEx,
+     sourceSymbol:"VERIFIED.LOCAL",feed:"YFINANCE_YAHOO_5M_BAR_DELAYED",asOf:date}},
+     markets:{aliases:{BURSA:"MYX"}}};
+   const c=ctx(row,state,()=>null,pos);
+   assert(c,"Missing context "+ticker);
+   const html=render(row,c),a=count(html,"preferred"),b=count(html,"acceptable");
+   assert.equal(a+b,expected==="none"?0:1,ticker+" one state only");
+   assert.equal(a,expected==="preferred"?1:0,ticker+" preferred");
+   assert.equal(b,expected==="acceptable"?1:0,ticker+" acceptable");
+   assert.equal(ctx({...row,nativeCurrency:"USD"},state,()=>null,pos),null,"wrong currency");
+   assert.equal(ctx({...row,statusOnly:true},state,()=>null,pos),null,"screen-only");
+   state.quotes[ticker].exchange="OTHER";
+   assert.equal(ctx(row,state,()=>null,pos),null,"wrong exchange");
+   state.quotes[ticker].exchange=sourceEx;
+   state.quotes[ticker].asOf="2026-10-01T00:00:00Z";
+   assert.equal(ctx(row,state,()=>null,pos),null,"stale");
   }
-  // Open/closed range boundaries should remain inclusive; no warnings.
-  const bands=[[4000,4200],[4250,4350]];
-  assert.equal(position(4200,bands).kind,"preferred");
-  assert.equal(position(4250,bands).kind,"acceptable");
-  assert.equal(position(4225,bands).kind,"between");
-  assert.equal(position(4351,bands).kind,"above");
- }finally{Date.now=clock;}
- const styles=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
- for(const cls of ["zone-below","zone-between","zone-above","zone-hit-preferred","zone-hit-acceptable"])
-  assert(styles.includes(".table-wrap .range-box."+cls),"Missing global status style "+cls);
+  const row={ticker:"NVDA",exchange:"US",nativeCurrency:"USD",statusOnly:false,
+    zoneBands:[[155,165],[166,175]],zones:"US$155–165 / US$166–175"};
+  const state={quotes:{NVDA:{feed:"IEX",currency:"USD",price:160,asOf:date}}};
+  const u=ctx(row,state,()=>({open:true,fresh:true}),pos);
+  assert.equal(count(render(row,u),"preferred"),1,"US IEX retains green");
+  assert.equal(count(render(row,u),"acceptable"),0,"US IEX no duplicate");
+  const both={regular:{label:"Regular",position:pos(170,row.zoneBands)},
+    overnight:{label:"Overnight",position:pos(160,row.zoneBands)}};
+  assert.equal(count(render(row,both),"preferred"),1,"new overnight preferred");
+  assert.equal(count(render(row,both),"acceptable"),0,"older regular not also lit");
+  state.quotes.NVDA.price=176;
+  const above=ctx(row,state,()=>({open:true,fresh:true}),pos);
+  assert.equal(count(render(row,above),"preferred")+count(render(row,above),"acceptable"),0);
+ }finally{Date.now=realNow;}
 });
