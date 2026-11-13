@@ -5,7 +5,7 @@
   "htmlReportCount": 67,
   "uniqueTickers": 31,
   "aaoifiReportCount": 15,
-  "revision": "04bc61a9cc0832f9a87a193518e2590d",
+  "revision": "0110629006d07b36cf7a7d000c5d9fad",
   "rows": [
     {
       "company": "Greatland Resources Limited",
@@ -273,7 +273,7 @@
       "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
       "aaoifiConfidence": "Medium",
       "aaoifiScreenedAt": "2026-11-13T00:02:18Z",
-      "aaoifiReason": "Semiconductor primary business is permissible and tested AAOIFI interest-bearing debt, deposits and reported interest/investment-income stress ratios are below SS21 limits. However, the separate 30% tradability test hinges on the treatment and market valuation of acquired intang…",
+      "aaoifiReason": "Semiconductor primary business is permissible and tested AAOIFI interest-bearing debt, deposits and reported interest/investment-income stress ratios are below SS21 limits. The targeted SS21 rights assessment splits inventory/PP&E (16.23%), developed technology, trademarks and c…",
       "aaoifiReportPath": "/view-report?path=AAOIFI%2FAMD.NASDAQ.html",
       "ethicalStatus": "NEUTRAL",
       "ethicalBdsListed": false,
