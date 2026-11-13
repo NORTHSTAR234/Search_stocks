@@ -5,6 +5,7 @@ import path from "node:path";
 import {fileURLToPath} from "node:url";
 import {createHash} from "node:crypto";
 import {archiveInfo,aaoifiInfo,latestArchive,parseHtmlReport,parseAaoifiHtml} from "../lib/report-archive.mjs";
+import {loadEthicalDataset,applyEthicalDataset} from "../lib/ethical-dataset.mjs";
 const here=path.dirname(fileURLToPath(import.meta.url));
 const root=path.resolve(here,"../..");
 const target=path.resolve(here,"../live-reports.json");
@@ -24,6 +25,7 @@ for(const bucket of ["halal","nonhalal"]){
 }
 const chosen=latestArchive(archives);
 const rows=[];
+const ethicalRegistry=loadEthicalDataset();
 const byBucket=new Map();
 for(const report of archives){
  const key=report.ticker.toUpperCase();
@@ -66,6 +68,7 @@ for(const row of rows){
  row.ethicalCheckedAt=aa?.ethicalCheckedAt||null;
  row.ethicalReason=aa?.ethicalReason||null;
  row.ethicalSourceUrl=aa?.ethicalSourceUrl||null;
+  Object.assign(row,applyEthicalDataset(row,ethicalRegistry));
 }
 const content=JSON.stringify(rows);
 const revision=createHash("sha256").update(content).digest("hex").slice(0,32);
