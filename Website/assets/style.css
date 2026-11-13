@@ -234,7 +234,7 @@
   display:table;
   width:100%!important;
   /* Wide desktops fit naturally; narrow screens pan the table, not the page. */
-  min-width:1900px!important;
+  min-width:1840px!important;
   max-width:none;
   table-layout:fixed;
   border-collapse:separate;
@@ -297,19 +297,17 @@
 .table-wrap td:first-child {position:static;left:auto;top:auto;z-index:auto;background:#132136;box-shadow:none}
 .table-wrap tbody tr:hover td {background:#192b42}
 .table-wrap tbody tr:hover td:first-child {background:#192b42}
-.table-wrap th:nth-child(1) {width:8%}
-.table-wrap th:nth-child(2) {width:10%}
-.table-wrap th:nth-child(3) {width:10%}
-.table-wrap th:nth-child(4) {width:14%}
-.table-wrap th:nth-child(5) {width:10%}
-.table-wrap th:nth-child(6) {width:8%}
+.table-wrap th:nth-child(1) {width:7%}
+.table-wrap th:nth-child(2) {width:9%}
+.table-wrap th:nth-child(3) {width:9%}
+.table-wrap th:nth-child(4) {width:12%}
+.table-wrap th:nth-child(5) {width:11%}
+.table-wrap th:nth-child(6) {width:18%}
 .table-wrap th:nth-child(7) {width:7%}
-.table-wrap th:nth-child(8) {width:10%}
-.table-wrap th:nth-child(9) {width:9%}
+.table-wrap th:nth-child(8) {width:9%}
+.table-wrap th:nth-child(9) {width:7%}
 .table-wrap th:nth-child(10){width:7%}
-.table-wrap th:nth-child(11){width:6%}
-.table-wrap th:nth-child(12){width:6%}
-.table-wrap th:nth-child(13){width:5%}
+.table-wrap th:nth-child(11){width:4%}
 .table-wrap .score-pair {min-width:0;gap:5px}
 .table-wrap .score-box {min-width:0;padding:7px 5px}
 .table-wrap .range-value {font-size:.83rem}
@@ -378,8 +376,8 @@ main:not(.report-layout)>.panel .table-footer{
 .ethical-cell{display:flex;flex-direction:column;align-items:flex-start;gap:5px;max-width:275px}
 .ethical-cell>.badge{max-width:100%;font-weight:800;white-space:normal}
 .ethical-cell small{overflow-wrap:anywhere;line-height:1.45}
-.table-wrap th:nth-child(12),.table-wrap td:nth-child(12){min-width:155px;max-width:225px}
-.table-wrap th:nth-child(13),.table-wrap td:nth-child(13){min-width:130px;max-width:215px}
+.table-wrap th:nth-child(10),.table-wrap td:nth-child(10){min-width:155px;max-width:225px}
+.table-wrap th:nth-child(11),.table-wrap td:nth-child(11){min-width:130px;max-width:215px}
 
 /* Responsive one-month IEX chart: keep the native table, equal row/column
    dividers, single page vertical scrollbar and table-only horizontal pan. */
@@ -396,3 +394,21 @@ main:not(.report-layout)>.panel .table-footer{
 .mini-chart-legend .acceptable-dot::before{background:#ffd05e}
 .mini-chart-empty{font-size:.77rem;color:#b1c4d8;line-height:1.5}
 .mini-chart-empty small{color:#8297af}
+
+/* One combined Markers field: scores → price zones → stop/no-chase.
+   The existing classes retain color, zone-hit highlights and exact numbers. */
+.table-wrap th:nth-child(6),.table-wrap td:nth-child(6){width:18%}
+.table-wrap td.markers-cell{padding:11px 10px;vertical-align:top}
+.table-wrap .markers-stack{display:flex;flex-direction:column;gap:9px;width:100%;min-width:0}
+.table-wrap .markers-stack>.score-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;width:100%;min-width:0}
+.table-wrap .markers-stack .score-box{min-width:0;max-width:none;width:100%;min-height:74px;padding:9px 9px 10px;align-items:flex-start;justify-content:flex-start;gap:7px}
+.table-wrap .markers-stack .score-label{display:block;font-size:.73rem;line-height:1.32;white-space:normal;word-break:normal;overflow-wrap:normal}
+.table-wrap .markers-stack .score-number{display:block;font-size:1.03rem;white-space:normal;overflow-wrap:normal;word-break:normal}
+.table-wrap .markers-stack .range-value{font-size:.91rem;line-height:1.33;word-break:normal}
+.table-wrap .markers-stack .range-live-tags{width:100%;margin-top:3px}
+.table-wrap .markers-stack .range-hit-chip{white-space:normal;text-align:left}
+@media(max-width:680px){
+ .table-wrap td.markers-cell{padding:10px 8px}
+ .table-wrap .markers-stack>.score-pair{gap:7px}
+ .table-wrap .markers-stack .score-box{padding:8px 8px 9px;min-height:68px}
+}

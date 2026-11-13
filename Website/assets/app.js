@@ -260,7 +260,7 @@
   function stopsCell(r){
     const [initial,noChase]=splitReportPair(r.stops);
     return '<div class="score-pair range-pair">'+
-      reportRangeCard("Initial stop",initial,"bad")+
+      reportRangeCard("Stop-loss",initial,"bad")+
       reportRangeCard("No chase",noChase,"warn")+
       '</div>';
   }
@@ -515,6 +515,14 @@
       '</small></div>';
   }
 
+  // Keep all existing score, buy-zone and risk-marker helpers unchanged.
+  function markersCell(r,context){
+    return '<div class="markers-stack">'+
+      scoreCell(r)+
+      zoneCell(r,context)+
+      stopsCell(r)+
+      '</div>';
+  }
   function tr(r){
     const action=cap(r.action,96);
     const context=zoneContext(r);
@@ -532,10 +540,8 @@
     '<td>'+monthChartCell(r)+'</td>'+
     '<td>'+badge(action,actionKind(action))+'<small>Risk: '+escape(cap(r.risk,78))+'</small>'+
       '<small>Own: '+escape(cap(r.ownerAction,75))+'</small>'+zoneInsight(context)+'</td>'+
-    '<td>'+scoreCell(r)+'</td>'+
+    '<td class="markers-cell">'+markersCell(r,context)+'</td>'+
     '<td>'+escape(fmt(r.timestamp))+(r.conflictingBuckets?'<small class="warning">Both buckets contain this ticker</small>':"")+'</td>'+
-    '<td>'+zoneCell(r,context)+'</td>'+
-    '<td>'+stopsCell(r)+'</td>'+
     '<td>'+screeningCell(r)+'</td>'+
     '<td>'+aaoifiCell(r)+'</td>'+
     '<td>'+ethicalCell(r)+'</td>'+
@@ -567,7 +573,7 @@
       order==="entry"?score(b.entry)-score(a.entry)||b.timestamp.localeCompare(a.timestamp):
       order==="investment"?score(b.investment)-score(a.investment)||b.timestamp.localeCompare(a.timestamp):
       b.timestamp.localeCompare(a.timestamp)||a.ticker.localeCompare(b.ticker));
-    $("rows").innerHTML=filtered.length?filtered.map(tr).join(""):'<tr><td colspan="13">No reports match your filters.</td></tr>';
+    $("rows").innerHTML=filtered.length?filtered.map(tr).join(""):'<tr><td colspan="11">No reports match your filters.</td></tr>';
     $("count").textContent=all.length;
     $("halalCount").textContent=all.filter(r=>r.bucket==="halal").length;
     $("quoteCount").textContent=Object.keys(state.quotes).length;
@@ -716,7 +722,7 @@
       document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkAll();});
     }catch(e){
       $("marketNotice").textContent="Could not load archive: "+e.message;
-      $("rows").innerHTML='<tr><td colspan="13">Archive unavailable.</td></tr>';
+      $("rows").innerHTML='<tr><td colspan="11">Archive unavailable.</td></tr>';
     }
   }
   ["search","bucket","exchange","order"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",render));

@@ -71,7 +71,7 @@ test("new standalone HTML report extracts fields without borrowing prior Markdow
 test("dashboard uses independent regular and overnight columns",()=>{
  const code=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  assert(code.includes('"Regular / latest price","Overnight / vs close","Live chart · 1M","Action / Risk"'));
- assert(code.includes('colspan="13"'));
+ assert(code.includes('colspan="11"'));
 });
 
 test("snapshot-based Mastercard HTML extraction yields actual scores, actions, Shariah and bands",async()=>{
@@ -239,13 +239,13 @@ test("newer screening-only HTML never backfills earlier investment scores",async
  assert(v.musaffa.includes("RECENCY UNVERIFIED"));
 });
 
-test("main dashboard has thirteen headings, with reports opened by ticker",()=>{
+test("main dashboard has eleven headings, with reports opened by ticker",()=>{
  const src=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  const labels=src.match(/const labels=(\[[^\n]+\]);/);
  assert(labels);
- assert.equal(JSON.parse(labels[1]).length,13);
+ assert.equal(JSON.parse(labels[1]).length,11);
  assert(!JSON.parse(labels[1]).includes("Report"));
- assert(src.includes('colspan="13"'));
+ assert(src.includes('colspan="11"'));
 });
 
 test("legacy exchange-suffixed Markdown reports map to actual markets, not OTHER",()=>{
