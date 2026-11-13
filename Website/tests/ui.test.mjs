@@ -468,3 +468,18 @@ test("RizqInvests ethical/BDS column colors neutral green, flags red, unknown ye
  assert.equal(rate({ethicalStatus:"NEUTRAL",ethicalBdsListed:false},now).tone,"warn");
  assert.equal(rate({...evidence,ethicalAssessmentDate:"2026-03-01",ethicalStatus:"NEUTRAL",ethicalBdsListed:false},now).tone,"warn");
 });
+
+test("RizqInvests source-backed Neutral remains green with BDS unknown and provider date unpublished",()=>{
+ const m=source.match(/function ethicalVisual\(r,now=new Date\(\)\)\{([\s\S]*?)\n  \}/);
+ assert(m);
+ const classify=new Function("r","now",m[1]);
+ const now=new Date("2026-11-13T02:00:00Z");
+ const evidence={ethicalStatus:"NEUTRAL",ethicalBdsListed:null,
+   ethicalAssessmentDate:null,ethicalCheckedAt:"2026-11-13T00:55:00Z",
+   ethicalSourceUrl:"https://www.rizqinvests.com/ethical"};
+ assert.equal(classify(evidence,now).tone,"good");
+ assert.equal(classify({...evidence,ethicalBdsListed:true},now).tone,"bad");
+ assert.equal(classify({...evidence,ethicalStatus:"UNVERIFIED"},now).tone,"warn");
+ assert.equal(classify({...evidence,ethicalSourceUrl:null},now).tone,"warn");
+ assert.equal(classify({...evidence,ethicalCheckedAt:"2026-03-01T00:00:00Z"},now).tone,"warn");
+});
