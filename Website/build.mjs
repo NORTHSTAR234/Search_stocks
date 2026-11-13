@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import MarkdownIt from "markdown-it";
 import { createHash } from "node:crypto";
 import {parseHtmlReport,safeHtmlDocument} from "./lib/report-archive.mjs";
+import {loadEthicalDataset,applyEthicalDataset} from "./lib/ethical-dataset.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
@@ -177,6 +178,7 @@ export function build() {
     console.log("Safe placeholder deployed. PUBLISH_REPORTS=yes required for report publication.");
     return;
   }
+  const ethicalRegistry=loadEthicalDataset();
   const archives=[...scan("halal"),...scan("nonhalal")];
   if(!archives.length) throw new Error("No valid archived stock reports were found. Build stopped.");
   fs.rmSync(output,{recursive:true,force:true});
@@ -193,7 +195,7 @@ export function build() {
     const raw=fs.readFileSync(path.join(root,info.path),"utf8");
     const row=info.format==="html"?parseHtmlReport(info,raw):parseReport(info,raw);
     row.conflictingBuckets=bucketsByTicker.get(info.ticker.toUpperCase()).size>1;
-    rows.push(row);
+    rows.push(applyEthicalDataset(row,ethicalRegistry));
     const target=path.join(output,"reports",info.ticker,"index.html");
     fs.mkdirSync(path.dirname(target),{recursive:true});
     fs.writeFileSync(target,info.format==="html"?safeHtmlDocument(info,raw):reportPage(row,markdown.render(raw)));
