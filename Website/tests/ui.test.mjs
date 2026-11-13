@@ -92,7 +92,9 @@ test("regular and overnight have distinct columns and signed price/percentage co
 test("same-timestamp HTML field corrections and screening gates sync without a new filename",()=>{
  assert(source.includes('r.timestamp===old.timestamp&&(old.sourceFormat!=="html"||JSON.stringify(old)!==JSON.stringify(r))'));
  assert(source.includes('const screening=r.musaffa||"NOT VERIFIED"'));
- assert(source.includes('Screening only · no current investment rating'));
+ assert(source.includes("const result=musaffaVisual(r);"));
+ assert(source.includes("musaffa-cell status-only-cell"));
+ assert(!source.includes("Screening only · no current investment rating"),"Verbose badge note must stay hidden");
 });
 
 test("investment quality and entry timing have equal, independent color-coded score boxes",()=>{
