@@ -178,8 +178,9 @@ test("a preferred or acceptable match lights only its own buy-zone card",()=>{
  assert(source.includes('zone-hit-preferred'));
  assert(source.includes('zone-hit-acceptable'));
  assert(source.includes("const matches=hits(kind)"));
-  assert(source.includes("zone-below"));
-  assert(source.includes("range-below-chip"));
+  assert(source.includes('const alertKind=warnings.length?"below":between.length?"between":"above"'));
+  assert(source.includes("' zone-'+alertKind"));
+  assert(source.includes("'range-'+alertKind+'-chip'"));
   assert(source.includes("x?.position?.kind===\"below\""));
  assert(source.includes("regular:regular?.position?regular:null"));
  assert(source.includes("overnight:night?.position?night:null"));
