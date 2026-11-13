@@ -207,6 +207,25 @@
 .aaoifi-link:hover{text-decoration:none;filter:brightness(1.08)}
 
 
+/* One combined Markers field: scores → price zones → stop/no-chase.
+   The existing classes retain color, zone-hit highlights and exact numbers. */
+.table-wrap th:nth-child(6),.table-wrap td:nth-child(6){width:18%}
+.table-wrap td.markers-cell{padding:11px 10px;vertical-align:top}
+.table-wrap .markers-stack{display:flex;flex-direction:column;gap:9px;width:100%;min-width:0}
+.table-wrap .markers-stack>.score-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;width:100%;min-width:0}
+.table-wrap .markers-stack .score-box{min-width:0;max-width:none;width:100%;min-height:74px;padding:9px 9px 10px;align-items:flex-start;justify-content:flex-start;gap:7px}
+.table-wrap .markers-stack .score-label{display:block;font-size:.73rem;line-height:1.32;white-space:normal;word-break:normal;overflow-wrap:normal}
+.table-wrap .markers-stack .score-number{display:block;font-size:1.03rem;white-space:normal;overflow-wrap:normal;word-break:normal}
+.table-wrap .markers-stack .range-value{font-size:.91rem;line-height:1.33;word-break:normal}
+.table-wrap .markers-stack .range-live-tags{width:100%;margin-top:3px}
+.table-wrap .markers-stack .range-hit-chip{white-space:normal;text-align:left}
+@media(max-width:680px){
+ .table-wrap td.markers-cell{padding:10px 8px}
+ .table-wrap .markers-stack>.score-pair{gap:7px}
+ .table-wrap .markers-stack .score-box{padding:8px 8px 9px;min-height:68px}
+}
+
+
 /* ORIGINAL FULL-WIDTH STOCK TABLE WITH CONTAINED HORIZONTAL OVERFLOW.
    The browser page is the ONLY vertical scrolling surface. On narrower
    windows the table alone can scroll left/right; the header, filters and
@@ -324,24 +343,6 @@
 /* No clipped hero, navbar, filters or horizontal page shifts.
    A horizontal table scrollbar is necessary for 11 legible columns on mobile,
    but the page itself remains the only vertical scrolling surface. */
-
-/* One combined Markers field: scores → price zones → stop/no-chase.
-   The existing classes retain color, zone-hit highlights and exact numbers. */
-.table-wrap th:nth-child(6),.table-wrap td:nth-child(6){width:18%}
-.table-wrap td.markers-cell{padding:11px 10px;vertical-align:top}
-.table-wrap .markers-stack{display:flex;flex-direction:column;gap:9px;width:100%;min-width:0}
-.table-wrap .markers-stack>.score-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;width:100%;min-width:0}
-.table-wrap .markers-stack .score-box{min-width:0;max-width:none;width:100%;min-height:74px;padding:9px 9px 10px;align-items:flex-start;justify-content:flex-start;gap:7px}
-.table-wrap .markers-stack .score-label{display:block;font-size:.73rem;line-height:1.32;white-space:normal;word-break:normal;overflow-wrap:normal}
-.table-wrap .markers-stack .score-number{display:block;font-size:1.03rem;white-space:normal;overflow-wrap:normal;word-break:normal}
-.table-wrap .markers-stack .range-value{font-size:.91rem;line-height:1.33;word-break:normal}
-.table-wrap .markers-stack .range-live-tags{width:100%;margin-top:3px}
-.table-wrap .markers-stack .range-hit-chip{white-space:normal;text-align:left}
-@media(max-width:680px){
- .table-wrap td.markers-cell{padding:10px 8px}
- .table-wrap .markers-stack>.score-pair{gap:7px}
- .table-wrap .markers-stack .score-box{padding:8px 8px 9px;min-height:68px}
-}
 
 /* FLUID VIEWPORT WIDTH
    The stock dashboard uses the available browser width instead of the
