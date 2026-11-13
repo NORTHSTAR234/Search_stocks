@@ -630,3 +630,58 @@ test("CBHB.MYX delayed quote below both bands adds two caution chips and keeps 6
  assert(css.includes(".table-wrap .range-box.zone-below"));
  assert(css.includes(".table-wrap .range-box.zone-below .range-below-chip"));
 });
+
+test("all tickers: the shared markers alert in preferred/acceptable gaps and above ranges",()=>{
+ const contextSource=source.match(/function zoneContext\(r\)\{([\s\S]*?)\n  \}/);
+ const cardSource=source.match(/function zoneCell\(r,context\)\{([\s\S]*?)\n  \}/);
+ const positionSource=source.match(/function zonePosition\(price,bands\)\{([\s\S]*?)\n  \}/);
+ assert(contextSource&&cardSource&&positionSource);
+ const position=new Function("price","bands",positionSource[1]);
+ const compare=new Function("r","state","usSessionQuote","zonePosition",contextSource[1]);
+ const render=new Function("r","context","splitReportPair","reportRangeCard","escape",cardSource[1]);
+ const escaped=x=>String(x).replace(/[&<>"']/g,"");
+ const pair=x=>String(x).split(" / ");
+ const card=(label,value,tone)=>'<card>'+label+":"+value+":"+tone+'</card>';
+ const observed="2026-11-13T08:00:00.000Z",clock=Date.now;
+ const cases=[
+  {ticker:"2383.TWSE",exchange:"TWSE",currency:"TWD",price:4225,
+   bands:[[4000,4200],[4250,4350]],expected:["zone-between","0.6% above this zone","0.6% below this zone"],count:2},
+  {ticker:"2377.TWSE",exchange:"TWSE",currency:"TWD",price:137.5,
+   bands:[[126,133],[134,141]],expected:["zone-hit-acceptable"],count:0},
+  {ticker:"CBHB.MYX",exchange:"BURSA",sourceExchange:"MYX",currency:"MYR",price:0.68,
+   bands:[[0.70,0.74],[0.75,0.78]],expected:["zone-below","2.9% below","9.3% below"],count:0},
+  {ticker:"APA.ASX",exchange:"ASX",currency:"AUD",price:11.1,
+   bands:[[9.60,9.95],[9.96,10.30]],expected:["zone-above","above entry range · caution"],count:0},
+  {ticker:"SU.PA",exchange:"XPAR",currency:"EUR",price:225,
+   bands:[[220,228],[229,236]],expected:["zone-hit-preferred"],count:0}
+ ];
+ try{
+  Date.now=()=>Date.parse(observed)+60000;
+  for(const entry of cases){
+   const quote={price:entry.price,currency:entry.currency,feed:"YFINANCE_YAHOO_5M_BAR_DELAYED",
+    exchange:entry.sourceExchange||entry.exchange,sourceSymbol:entry.ticker.split(".")[0]+".FAKE",asOf:observed};
+   const state={quotes:{[entry.ticker]:quote},markets:{aliases:{BURSA:"MYX"}}};
+   const row={ticker:entry.ticker,exchange:entry.exchange,nativeCurrency:entry.currency,
+     statusOnly:false,zoneBands:entry.bands,zones:entry.bands.map(b=>b.join("–")).join(" / ")};
+   const context=compare(row,state,()=>null,position);
+   assert(context,"No context for "+entry.ticker);
+   const markup=render(row,context,pair,card,escaped);
+   for(const needle of entry.expected)assert(markup.includes(needle),entry.ticker+" expected "+needle);
+   if(entry.count===2)assert.equal((markup.match(/zone-between/g)||[]).length,2,entry.ticker);
+   if(entry.ticker==="2383.TWSE")assert(!markup.includes(" in range"),"Gap must never be highlighted as in-zone");
+   if(entry.ticker==="2377.TWSE")assert(!markup.includes("zone-between"),"Actual acceptable-zone hit must not show gap warning");
+   if(entry.ticker==="APA.ASX")assert(!markup.includes("No chase"),"No-chase is a separate report threshold");
+   const wrong=compare({...row,nativeCurrency:"USD"},state,()=>null,position);
+   assert.equal(wrong,null,"Ticker "+entry.ticker+" must reject mismatched currency");
+  }
+  // Open/closed range boundaries should remain inclusive; no warnings.
+  const bands=[[4000,4200],[4250,4350]];
+  assert.equal(position(4200,bands).kind,"preferred");
+  assert.equal(position(4250,bands).kind,"acceptable");
+  assert.equal(position(4225,bands).kind,"between");
+  assert.equal(position(4351,bands).kind,"above");
+ }finally{Date.now=clock;}
+ const styles=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+ for(const cls of ["zone-below","zone-between","zone-above","zone-hit-preferred","zone-hit-acceptable"])
+  assert(styles.includes(".table-wrap .range-box."+cls),"Missing global status style "+cls);
+});

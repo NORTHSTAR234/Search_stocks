@@ -352,11 +352,39 @@
         Number.isFinite(range[0])&&range[0]>0&&x.price<range[0]).map(x=>({
           label:x.label,percent:((range[0]-x.price)/range[0]*100).toFixed(1)
         }));
-      if(!matches.length&&!warnings.length)return reportRangeCard(label,value,tone);
+      // A stock can be BETWEEN two ordered zones (as with 2383.TWSE).
+      // Explain the relationship in BOTH adjacent boxes, not just Action/Risk.
+      // Never treat a gap between zones as an in-range buy alert.
+      const validRange=Array.isArray(range)&&range.length===2&&
+        range.every(n=>typeof n==="number"&&Number.isFinite(n)&&n>0)&&range[1]>=range[0];
+      const between=validRange?observations.filter(x=>x?.position?.kind==="between")
+        .map(x=>({
+          label:x.label,side:kind==="preferred"?"above":"below",
+          percent:(kind==="preferred"?(x.price-range[1])/range[1]*100:
+            (range[0]-x.price)/range[0]*100).toFixed(1)
+        })):[];
+
+      // When beyond the highest entry band, warn on Acceptable (or Preferred
+      // if no valid Acceptable reference exists). The separate no-chase level
+      // must not be falsely described as breached.
+      const hasAcceptable=Array.isArray(r.zoneBands?.[1])&&
+        r.zoneBands[1].length===2&&r.zoneBands[1].every(n=>
+          typeof n==="number"&&Number.isFinite(n)&&n>0)&&
+        r.zoneBands[1][1]>=r.zoneBands[1][0];
+      const above=validRange&&(kind==="acceptable"||!hasAcceptable)?
+        observations.filter(x=>x?.position?.kind==="above"&&x.price>range[1])
+        .map(x=>({label:x.label,percent:((x.price-range[1])/range[1]*100).toFixed(1)})):[];
+      if(!matches.length&&!warnings.length&&!between.length&&!above.length)
+        return reportRangeCard(label,value,tone);
       if(!matches.length){
-        const chips=warnings.map(x=>'<span class="range-hit-chip range-below-chip">'+
-          escape(x.label)+': '+escape(x.percent)+'% below · caution</span>').join("");
-        return '<div class="score-box range-box '+tone+' zone-below">'+
+        const alertKind=warnings.length?"below":between.length?"between":"above";
+        const data=warnings.length?warnings:between.length?between:above;
+        const chips=data.map(x=>'<span class="range-hit-chip range-'+alertKind+'-chip">'+
+          escape(x.label)+': '+escape(x.percent)+'% '+
+          (alertKind==="between"?escape(x.side)+' this zone · between ranges':
+            alertKind==="above"?'above entry range · caution':'below · caution')+
+          '</span>').join("");
+        return '<div class="score-box range-box '+tone+' zone-'+alertKind+'">'+
           '<span class="score-label">'+escape(label)+'</span>'+
           '<strong class="range-value '+tone+'">'+escape(value)+'</strong>'+
           '<div class="range-live-tags">'+chips+'</div>'+
