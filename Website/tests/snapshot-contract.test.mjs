@@ -1,3 +1,4 @@
+import {readFileSync} from "node:fs";
 // Dependency-free regression tests run by the GitHub Actions report-index workflow.
 // They verify the exact Aya v2 contract and old reports without modifying archives.
 import test from "node:test";
@@ -156,4 +157,17 @@ test("AAOIFI overwrite report snapshot parses into dashboard status fields",()=>
  assert.equal(row.status,"SHARIAH REVIEW REQUIRED");
  assert.equal(row.confidence,"Medium");
  assert.match(row.reportPath,/AAOIFI%2FNVDA.NASDAQ.html/);
+});
+
+test("AMD independent AAOIFI screen retains tested financial pass, conditional rights and overall review",()=>{
+ const source=readFileSync(new URL("../../AAOIFI/AMD.NASDAQ.html",import.meta.url),"utf8");
+ const out=parseAaoifiHtml(aaoifiInfo("AAOIFI/AMD.NASDAQ.html"),source);
+ assert.equal(out.ticker,"AMD");
+ assert.equal(out.status,"SHARIAH REVIEW REQUIRED");
+ assert.equal(out.aaoifiFinancialStatus,"PASS_ON_TESTED_EVIDENCE");
+ assert.equal(out.aaoifiTradabilityStatus,"CONDITIONAL_BOOK_PROXY_ABOVE");
+ assert(Math.abs(out.aaoifiTradabilityBookProxyPercent-32.162)<0.001);
+ assert(out.aaoifiMissingEvidence.includes("market value"));
+ assert.equal(out.ethicalStatus,"NEUTRAL");
+ assert.equal(out.ethicalBdsListed,false);
 });
