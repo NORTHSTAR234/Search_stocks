@@ -5,7 +5,7 @@
   "htmlReportCount": 67,
   "uniqueTickers": 31,
   "aaoifiReportCount": 33,
-  "revision": "582db909b83dfdd8b5d12c8b2fbdf8b5",
+  "revision": "d2164e6fa770d233e57512ced2a41a03",
   "rows": [
     {
       "company": "Greatland Resources Limited",
@@ -78,12 +78,15 @@
       "aaoifiTradabilityBookProxyPercent": null,
       "aaoifiMissingEvidence": null,
       "aaoifiBreakdownUpdatedAt": null,
-      "ethicalStatus": null,
+      "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
       "ethicalCheckedAt": null,
-      "ethicalReason": null,
-      "ethicalSourceUrl": null
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
     },
     {
       "company": "Woolworths Group Limited",
@@ -156,12 +159,15 @@
       "aaoifiTradabilityBookProxyPercent": null,
       "aaoifiMissingEvidence": null,
       "aaoifiBreakdownUpdatedAt": null,
-      "ethicalStatus": null,
+      "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
       "ethicalCheckedAt": null,
-      "ethicalReason": null,
-      "ethicalSourceUrl": null
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
     },
     {
       "company": "CBH Engineering Holding Berhad",
@@ -238,12 +244,15 @@
       "aaoifiTradabilityBookProxyPercent": null,
       "aaoifiMissingEvidence": null,
       "aaoifiBreakdownUpdatedAt": null,
-      "ethicalStatus": null,
+      "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
       "ethicalCheckedAt": null,
-      "ethicalReason": null,
-      "ethicalSourceUrl": null
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
     },
     {
       "company": "Advanced Micro Devices, Inc.",
@@ -298,9 +307,13 @@
       "ethicalStatus": "NEUTRAL",
       "ethicalBdsListed": false,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "User-provided screenshot from the RizqInvests ethical screener clearly identifies Advanced Micro Devices, Inc. (AMD) and rates its ethical screening Neutral. RizqInvests explains that AMD has an R&D centre in Tel Aviv but is explicitly excluded from its OpenIntel Israel Complici…",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Neutral; BDS badge not shown. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/AMD?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Neutral"
     },
     {
       "company": "Micron Technology, Inc.",
@@ -352,12 +365,16 @@
       "aaoifiTradabilityBookProxyPercent": 37.614351057747285,
       "aaoifiMissingEvidence": "Independent market value evidence for physical manufacturing assets under SS21 3/19 and documented gross Shariah classification of 2026 derivative settlements, non-operating income, and equity-method investmen…",
       "aaoifiBreakdownUpdatedAt": "2026-11-13T03:48:56Z",
-      "ethicalStatus": "BDS_LISTED",
-      "ethicalBdsListed": true,
+      "ethicalStatus": "NEUTRAL",
+      "ethicalBdsListed": false,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:48:56Z",
-      "ethicalReason": "A third-party boycott site currently displays 'Micron medium' alleging an operating Micron factory in Kiryat Gat, Israel. Micron's 2014 10-K states it sold Kiryat Gat fabrication equipment and terminated Intel facility lease in December 2013. Accordingly the cited specific facil…",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Neutral; BDS badge not shown. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/MU?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Neutral"
     },
     {
       "company": "NVIDIA Corporation",
@@ -412,9 +429,13 @@
       "ethicalStatus": "BDS_LISTED",
       "ethicalBdsListed": true,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "RizqInvests homepage lists NVDA among assets it describes as ethically flagged by BDS watchdog organisations. This is a provider/watchdog flag, not verified inclusion in an official BDS Movement priority target campaign; issuer-specific assessment date and original incident docu…",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/"
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Unethical; BDS badge present. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/NVDA?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Unethical"
     },
     {
       "company": "Elite Material Co., Ltd.",
@@ -490,9 +511,12 @@
       "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
     },
     {
       "company": "Micro-Star International Co., Ltd.",
@@ -568,9 +592,12 @@
       "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
     },
     {
       "company": "MediaTek Inc.",
@@ -646,9 +673,12 @@
       "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
     },
     {
       "company": "King Yuan Electronics Co., Ltd.",
@@ -721,12 +751,15 @@
       "aaoifiTradabilityBookProxyPercent": null,
       "aaoifiMissingEvidence": null,
       "aaoifiBreakdownUpdatedAt": null,
-      "ethicalStatus": null,
+      "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
       "ethicalCheckedAt": null,
-      "ethicalReason": null,
-      "ethicalSourceUrl": null
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
     },
     {
       "company": "Schneider Electric SE",
@@ -802,9 +835,12 @@
       "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
     },
     {
       "company": "ASM International N.V.",
@@ -880,9 +916,12 @@
       "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
     },
     {
       "company": "APA Group",
@@ -955,12 +994,15 @@
       "aaoifiTradabilityBookProxyPercent": null,
       "aaoifiMissingEvidence": null,
       "aaoifiBreakdownUpdatedAt": null,
-      "ethicalStatus": null,
+      "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
       "ethicalCheckedAt": null,
-      "ethicalReason": null,
-      "ethicalSourceUrl": null
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
     },
     {
       "company": "Eli Lilly and Company",
@@ -1012,12 +1054,16 @@
       "aaoifiTradabilityBookProxyPercent": 34.02533902425847,
       "aaoifiMissingEvidence": "Reconcile interest-bearing borrowing, deposit classification and gross prohibited income from issuer notes; obtain eligible underlying rights documentation and independent market-value evidence to resolve SS21…",
       "aaoifiBreakdownUpdatedAt": "2026-11-13T03:39:39Z",
-      "ethicalStatus": "UNVERIFIED",
-      "ethicalBdsListed": null,
+      "ethicalStatus": "NEUTRAL",
+      "ethicalBdsListed": false,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Neutral; BDS badge not shown. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/LLY?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Neutral"
     },
     {
       "company": "ABB Ltd",
@@ -1093,9 +1139,12 @@
       "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
     },
     {
       "company": "The Home Depot, Inc.",
@@ -1147,12 +1196,16 @@
       "aaoifiTradabilityBookProxyPercent": 58.77824910407372,
       "aaoifiMissingEvidence": "Reconcile interest-bearing borrowing, deposit classification and gross prohibited income from issuer notes; obtain eligible underlying rights documentation and independent market-value evidence to resolve SS21…",
       "aaoifiBreakdownUpdatedAt": "2026-11-13T03:39:39Z",
-      "ethicalStatus": "UNVERIFIED",
-      "ethicalBdsListed": null,
+      "ethicalStatus": "NEUTRAL",
+      "ethicalBdsListed": false,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Neutral; BDS badge not shown. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/HD?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Neutral"
     },
     {
       "company": "Visa Inc.",
@@ -1204,12 +1257,16 @@
       "aaoifiTradabilityBookProxyPercent": 2.8730394234845273,
       "aaoifiMissingEvidence": "Reconcile interest-bearing borrowing, deposit classification and gross prohibited income from issuer notes; obtain eligible underlying rights documentation and independent market-value evidence to resolve SS21…",
       "aaoifiBreakdownUpdatedAt": "2026-11-13T03:39:39Z",
-      "ethicalStatus": "UNVERIFIED",
+      "ethicalStatus": "UNETHICAL",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Unethical; BDS badge not shown. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/V?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Unethical"
     },
     {
       "company": "Johnson & Johnson",
@@ -1261,12 +1318,16 @@
       "aaoifiTradabilityBookProxyPercent": 19.997973914144612,
       "aaoifiMissingEvidence": "Reconcile interest-bearing borrowing, deposit classification and gross prohibited income from issuer notes; obtain eligible underlying rights documentation and independent market-value evidence to resolve SS21…",
       "aaoifiBreakdownUpdatedAt": "2026-11-13T03:39:39Z",
-      "ethicalStatus": "BDS_LISTED",
-      "ethicalBdsListed": true,
+      "ethicalStatus": "NEUTRAL",
+      "ethicalBdsListed": false,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "RizqInvests homepage lists JNJ among assets it describes as ethically flagged by BDS watchdog organisations. This is a provider/watchdog flag, not verified inclusion in an official BDS Movement priority target campaign; issuer-specific assessment date and original incident docum…",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/"
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Neutral; BDS badge not shown. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/JNJ?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Neutral"
     },
     {
       "company": "The Procter & Gamble Company",
@@ -1321,9 +1382,13 @@
       "ethicalStatus": "BDS_LISTED",
       "ethicalBdsListed": true,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "RizqInvests homepage lists PG among assets it describes as ethically flagged by BDS watchdog organisations. This is a provider/watchdog flag, not verified inclusion in an official BDS Movement priority target campaign; issuer-specific assessment date and original incident docume…",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/"
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Unethical; BDS badge present. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/PG?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Unethical"
     },
     {
       "company": "Apple Inc.",
@@ -1375,12 +1440,16 @@
       "aaoifiTradabilityBookProxyPercent": 16.468997498442707,
       "aaoifiMissingEvidence": "Reconcile interest-bearing borrowing, deposit classification and gross prohibited income from issuer notes; obtain eligible underlying rights documentation and independent market-value evidence to resolve SS21…",
       "aaoifiBreakdownUpdatedAt": "2026-11-13T03:39:39Z",
-      "ethicalStatus": "BDS_LISTED",
-      "ethicalBdsListed": true,
+      "ethicalStatus": "UNETHICAL",
+      "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "RizqInvests homepage lists AAPL among assets it describes as ethically flagged by BDS watchdog organisations. This is a provider/watchdog flag, not verified inclusion in an official BDS Movement priority target campaign; issuer-specific assessment date and original incident docu…",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/"
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Unethical; BDS badge not shown. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/AAPL?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Unethical"
     },
     {
       "company": "ExxonMobil Holdings Corporation",
@@ -1435,9 +1504,12 @@
       "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
     },
     {
       "company": "Novatek Microelectronics Corporation",
@@ -1513,9 +1585,12 @@
       "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
     },
     {
       "company": "Origin Energy Limited",
@@ -1591,9 +1666,12 @@
       "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
     },
     {
       "company": "The Coca-Cola Company",
@@ -1645,12 +1723,16 @@
       "aaoifiTradabilityBookProxyPercent": 12.87169986104678,
       "aaoifiMissingEvidence": "Reconcile interest-bearing borrowing, deposit classification and gross prohibited income from issuer notes; obtain eligible underlying rights documentation and independent market-value evidence to resolve SS21…",
       "aaoifiBreakdownUpdatedAt": "2026-11-13T03:39:39Z",
-      "ethicalStatus": "UNVERIFIED",
-      "ethicalBdsListed": null,
+      "ethicalStatus": "BDS_LISTED",
+      "ethicalBdsListed": true,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Unethical; BDS badge present. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/KO?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Unethical"
     },
     {
       "company": "Cisco Systems, Inc.",
@@ -1705,9 +1787,13 @@
       "ethicalStatus": "BDS_LISTED",
       "ethicalBdsListed": true,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "RizqInvests homepage lists CSCO among assets it describes as ethically flagged by BDS watchdog organisations. This is a provider/watchdog flag, not verified inclusion in an official BDS Movement priority target campaign; issuer-specific assessment date and original incident docu…",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/"
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Unethical; BDS badge present. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/CSCO?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Unethical"
     },
     {
       "company": "Mastercard Incorporated",
@@ -1759,12 +1845,16 @@
       "aaoifiTradabilityBookProxyPercent": 4.4044998353296005,
       "aaoifiMissingEvidence": "Reconcile interest-bearing borrowing, deposit classification and gross prohibited income from issuer notes; obtain eligible underlying rights documentation and independent market-value evidence to resolve SS21…",
       "aaoifiBreakdownUpdatedAt": "2026-11-13T03:39:39Z",
-      "ethicalStatus": "UNVERIFIED",
-      "ethicalBdsListed": null,
+      "ethicalStatus": "NEUTRAL",
+      "ethicalBdsListed": false,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Neutral; BDS badge not shown. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/MA?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Neutral"
     },
     {
       "company": "Chevron Corporation",
@@ -1816,12 +1906,16 @@
       "aaoifiTradabilityBookProxyPercent": 68.59587744407591,
       "aaoifiMissingEvidence": "Reconcile interest-bearing borrowing, deposit classification and gross prohibited income from issuer notes; obtain eligible underlying rights documentation and independent market-value evidence to resolve SS21…",
       "aaoifiBreakdownUpdatedAt": "2026-11-13T03:39:39Z",
-      "ethicalStatus": "BDS_LISTED",
-      "ethicalBdsListed": true,
+      "ethicalStatus": "UNETHICAL",
+      "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "RizqInvests homepage lists CVX among assets it describes as ethically flagged by BDS watchdog organisations. This is a provider/watchdog flag, not verified inclusion in an official BDS Movement priority target campaign; issuer-specific assessment date and original incident docum…",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/"
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Unethical; BDS badge not shown. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/CVX?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Unethical"
     },
     {
       "company": "Applied Materials, Inc.",
@@ -1873,12 +1967,16 @@
       "aaoifiTradabilityBookProxyPercent": 29.835485501585406,
       "aaoifiMissingEvidence": "Reconcile interest-bearing borrowing, deposit classification and gross prohibited income from issuer notes; obtain eligible underlying rights documentation and independent market-value evidence to resolve SS21…",
       "aaoifiBreakdownUpdatedAt": "2026-11-13T03:39:39Z",
-      "ethicalStatus": "UNVERIFIED",
-      "ethicalBdsListed": null,
+      "ethicalStatus": "NEUTRAL",
+      "ethicalBdsListed": false,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Neutral; BDS badge not shown. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/AMAT?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Neutral"
     },
     {
       "company": "Tesla, Inc.",
@@ -1921,12 +2019,16 @@
       "aaoifiTradabilityBookProxyPercent": null,
       "aaoifiMissingEvidence": null,
       "aaoifiBreakdownUpdatedAt": null,
-      "ethicalStatus": null,
+      "ethicalStatus": "UNETHICAL",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": null,
-      "ethicalReason": null,
-      "ethicalSourceUrl": null
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Unethical; BDS badge not shown. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/TSLA?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Unethical"
     },
     {
       "company": "Merck & Co., Inc.",
@@ -1978,12 +2080,16 @@
       "aaoifiTradabilityBookProxyPercent": 24.152500884969083,
       "aaoifiMissingEvidence": "Reconcile interest-bearing borrowing, deposit classification and gross prohibited income from issuer notes; obtain eligible underlying rights documentation and independent market-value evidence to resolve SS21…",
       "aaoifiBreakdownUpdatedAt": "2026-11-13T03:39:39Z",
-      "ethicalStatus": "UNVERIFIED",
-      "ethicalBdsListed": null,
+      "ethicalStatus": "NEUTRAL",
+      "ethicalBdsListed": false,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Neutral; BDS badge not shown. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/MRK?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Neutral"
     },
     {
       "company": "Fortune Electric Co., Ltd.",
@@ -2029,9 +2135,12 @@
       "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": "2026-11-13T03:39:39Z",
-      "ethicalReason": "Issuer-specific RizqInvests classification unavailable or not verified; absence from featured names is not a negative-screen clearance. Additional exact-issuer provider/NGO verification required.",
-      "ethicalSourceUrl": "https://www.rizqinvests.com/ethical"
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
     }
   ]
 }
