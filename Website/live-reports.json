@@ -1,12 +1,93 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-13T05:56:24Z",
-  "htmlReportCount": 64,
+  "latestHtmlReportAt": "2026-11-13T10:48:18Z",
+  "htmlReportCount": 65,
   "uniqueTickers": 28,
   "aaoifiReportCount": 30,
-  "revision": "760e2d520a9fe1f4f84ce659bceac218",
+  "revision": "0d2d6c92cdf76476e91fc8fc8442406a",
   "rows": [
+    {
+      "company": "King Yuan Electronics Co., Ltd.",
+      "ticker": "2449.TWSE",
+      "exchange": "TWSE",
+      "bucket": "halal",
+      "timestamp": "2026-11-13T10:48:18Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "63/100",
+      "entry": "43/100",
+      "musaffa": "HALAL · 2026-09 (month) · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": "2026-09",
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "VERIFIED_HALAL",
+      "musaffaReason": "Exact-instrument indexed official Musaffa first-party result says HALAL as of September 2026. An older separately cached 2024-annual detailed report shows HALAL C+ April 2 2025; t…",
+      "earnings": "4 Mar 2027 estimated",
+      "zones": "TWD 207–217 / TWD 218–228",
+      "stops": "TWD 194 / TWD 248",
+      "nativeCurrency": "TWD",
+      "marketSchedule": {
+        "exchange": "TWSE",
+        "mic": "XTAI",
+        "market_time_zone": "Asia/Taipei",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "13:30"
+          }
+        ],
+        "yahoo_ticker": "2449.TW",
+        "hours_source": "https://www.twse.com.tw/en/products/system/trading.html",
+        "hours_checked_utc": "2026-11-13T10:48:18Z"
+      },
+      "sourceMarketTicker": "2449.TW",
+      "zoneBands": [
+        [
+          207,
+          217
+        ],
+        [
+          218,
+          228
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/2449.TWSE/2449.TWSE_2026-11-13_10-48-18Z.html",
+      "reportPath": "/view-report?path=halal%2F2449.TWSE%2F2449.TWSE_2026-11-13_10-48-18Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": true,
+      "aaoifiStatus": "INSUFFICIENT DATA",
+      "aaoifiConfidence": "Medium",
+      "aaoifiScreenedAt": "2026-11-12T10:35:29Z",
+      "aaoifiReason": "King Yuan Electronics' semiconductor testing business is generally permissible. Its 30 September 2026 reporting-date conventional borrowing is approximately 11.38% of market capitalization, and identified cash and other financial assets are only 5.04% even when conservatively gr…",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2F2449.TWSE.html",
+      "aaoifiFinancialStatus": null,
+      "aaoifiTradabilityStatus": null,
+      "aaoifiTradabilityBookProxyPercent": null,
+      "aaoifiMissingEvidence": null,
+      "aaoifiBreakdownUpdatedAt": null,
+      "ethicalStatus": "UNVERIFIED",
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
+    },
     {
       "company": "Merck & Co., Inc.",
       "ticker": "MRK",
@@ -646,87 +727,6 @@
       "aaoifiTradabilityBookProxyPercent": null,
       "aaoifiMissingEvidence": "Reconcile interest-bearing borrowing, deposit classification and gross prohibited income from issuer notes; obtain eligible underlying rights documentation and independent market-value evidence to resolve SS21…",
       "aaoifiBreakdownUpdatedAt": "2026-11-13T03:39:39Z",
-      "ethicalStatus": "UNVERIFIED",
-      "ethicalBdsListed": null,
-      "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": null,
-      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
-      "ethicalSourceUrl": null,
-      "ethicalSourceKind": "USER_SNAPSHOT",
-      "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13"
-    },
-    {
-      "company": "King Yuan Electronics Co., Ltd.",
-      "ticker": "2449.TWSE",
-      "exchange": "TWSE",
-      "bucket": "nonhalal",
-      "timestamp": "2026-11-11T13:05:07Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "63/100",
-      "entry": "32/100",
-      "musaffa": "HALAL · 2026-09 (month) · UNVERIFIED",
-      "musaffaClassification": "HALAL",
-      "musaffaGate": "UNVERIFIED",
-      "musaffaScreeningDate": null,
-      "musaffaScreeningPeriod": "2026-09",
-      "musaffaScreeningMonthConflict": false,
-      "musaffaAssessment": "INCONCLUSIVE",
-      "musaffaReason": "Indexed Musaffa search shows HALAL as of September 2026, while a separately retrieved detailed page shows HALAL C+ dated 2025-04-02; recent screening date and grade conflict.",
-      "earnings": "4 Mar 2027 estimated",
-      "zones": "TWD 207–217 / TWD 218–228",
-      "stops": "TWD 194 / TWD 248",
-      "nativeCurrency": "TWD",
-      "marketSchedule": {
-        "exchange": "TWSE",
-        "mic": "XTAI",
-        "market_time_zone": "Asia/Taipei",
-        "sydney_time_zone": "Australia/Sydney",
-        "weekdays": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "sessions": [
-          {
-            "start": "09:00",
-            "end": "13:30"
-          }
-        ],
-        "yahoo_ticker": "2449.TW",
-        "hours_source": "https://www.twse.com.tw/en/products/system/trading.html",
-        "hours_checked_utc": "2026-11-11T13:05:07Z"
-      },
-      "sourceMarketTicker": "2449.TW",
-      "zoneBands": [
-        [
-          207,
-          217
-        ],
-        [
-          218,
-          228
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/2449.TWSE/2449.TWSE_2026-11-11_13-05-07Z.html",
-      "reportPath": "/view-report?path=nonhalal%2F2449.TWSE%2F2449.TWSE_2026-11-11_13-05-07Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false,
-      "aaoifiStatus": "INSUFFICIENT DATA",
-      "aaoifiConfidence": "Medium",
-      "aaoifiScreenedAt": "2026-11-12T10:35:29Z",
-      "aaoifiReason": "King Yuan Electronics' semiconductor testing business is generally permissible. Its 30 September 2026 reporting-date conventional borrowing is approximately 11.38% of market capitalization, and identified cash and other financial assets are only 5.04% even when conservatively gr…",
-      "aaoifiReportPath": "/view-report?path=AAOIFI%2F2449.TWSE.html",
-      "aaoifiFinancialStatus": null,
-      "aaoifiTradabilityStatus": null,
-      "aaoifiTradabilityBookProxyPercent": null,
-      "aaoifiMissingEvidence": null,
-      "aaoifiBreakdownUpdatedAt": null,
       "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
