@@ -85,7 +85,7 @@ test("regular and overnight have distinct columns and signed price/percentage co
  assert(source.includes("quoteDirection(valid?c.regularChangePercent:null)"));
  assert(source.includes("quote-value overnight-value"));
  assert(source.includes("No recent verified overnight indication"));
- assert(source.includes('colspan="12"'));
+ assert(source.includes('colspan="13"'));
 });
 
 
@@ -158,16 +158,16 @@ test("dashboard columns match specified new order and remove duplicate report co
  assert(list);
  const headings=JSON.parse(list[1]);
  assert.deepEqual(headings,[
- "Company / ticker","Regular / latest price","Overnight / vs close",
+ "Company / ticker","Regular / latest price","Overnight / vs close","Live chart · 1M",
  "Action / Risk","Investment / Entry","Last report (AEDT/AEST)",
  "Preferred / acceptable buy zone","Initial stop / no_chase",
  "Musaffa status / grade / screening date","AAOIFI","Ethical / BDS","Next earnings / confirmation"]);
- assert.equal(headings.length,12);
+ assert.equal(headings.length,13);
  assert(!source.includes('Original GitHub</a>'));
  assert(source.includes("'<td>'+scoreCell(r)+'</td>'"));
  assert(source.includes("'<td>'+zoneCell(r,context)+'</td>'"));
  assert(source.includes("'<td>'+stopsCell(r)+'</td>'"));
- assert(source.includes('colspan="12"'));
+ assert(source.includes('colspan="13"'));
  assert(source.includes("class=\"ticker'+active+'\" href="));
 });
 test("a preferred or acceptable match lights only its own buy-zone card",()=>{
@@ -349,7 +349,7 @@ test("AAOIFI dashboard column uses separate green red yellow semantics",()=>{
  assert(source.includes("'<td>'+aaoifiCell(r)+'</td>'"));
 });
 
-test("dashboard restores 11-column table with one page scrollbar and only table horizontal panning",()=>{
+test("dashboard restores 13-column table with one page scrollbar and only table horizontal panning",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
  const section=css.slice(css.indexOf("ORIGINAL FULL-WIDTH STOCK TABLE WITH CONTAINED HORIZONTAL OVERFLOW"),
    css.indexOf("/* FLUID VIEWPORT WIDTH"));
@@ -381,7 +381,7 @@ test("vertical separators match horizontal row borders at every viewport width",
  }
  assert(table.includes("th:first-child,\n.table-wrap td:first-child {border-left:1px solid #27394d}"));
  assert(table.includes(".table-wrap th:last-child,\n.table-wrap td:last-child {border-right:0}"));
- assert(table.includes("min-width:1680px!important;"));
+ assert(table.includes("min-width:1900px!important;"));
  assert(!table.includes("min-width:1400px!important;"));
  assert(!table.includes("min-width:1350px!important;"));
  assert(table.includes("overflow-wrap:break-word;"));
@@ -405,13 +405,13 @@ test("table headings and first column no longer cover rows when page scrolls",()
  assert(table.includes("border-bottom:1px solid #27394d;"),
   "Keep the row separators");
 });
-test("all twelve stock headings are visible in the restored table",()=>{
+test("all thirteen stock headings are visible in the restored table",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
  const section=css.slice(css.indexOf("ORIGINAL FULL-WIDTH STOCK TABLE WITH CONTAINED HORIZONTAL OVERFLOW"),
    css.indexOf("/* FLUID VIEWPORT WIDTH"));
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  const headings=JSON.parse(build.split("\n").find(l=>l.includes("const labels=")).split("const labels=")[1].trim().replace(/;$/, ""));
- assert.equal(headings.length,12);
+ assert.equal(headings.length,13);
  assert(section.includes("display:table-header-group"));
  assert(section.includes("td::before {content:none!important;display:none!important}"));
  for(let i=1;i<=headings.length;i++)
@@ -427,7 +427,7 @@ test("narrow screens cannot horizontally shift the website header or filters",()
  const fluid=css.slice(css.indexOf("/* FLUID VIEWPORT WIDTH"));
  assert(table.includes("max-width:100%;"));
  assert(table.includes("overflow-x:auto!important;"));
- assert(table.includes("min-width:1680px!important;"));
+ assert(table.includes("min-width:1900px!important;"));
  assert(fluid.includes("html,body{max-width:100%;overflow-x:hidden}"));
  assert(fluid.includes("main:not(.report-layout)>.panel .toolbar,"));
  assert(fluid.includes("main:not(.report-layout)>.panel .notice,"));
@@ -502,5 +502,17 @@ test("AAOIFI table keeps overall badge but shows separate financial and tradabil
  assert(source.includes('Missing: '));
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  const headings=JSON.parse(build.split("\n").find(l=>l.includes("const labels=")).split("const labels=")[1].trim().replace(/;$/, ""));
- assert.equal(headings.length,12);
+ assert.equal(headings.length,13);
+});
+
+test("one-month IEX chart is sourced, responsive and polled with every quote cycle",()=>{
+  assert(source.includes("function monthChartCell(r)"));
+  assert(source.includes("state.history={...state.history,...month};"));
+  assert(source.includes('"/api/price-history?symbols="'));
+  assert(source.includes("monthChartCell(r)"));
+  assert(source.includes('IEX closes'));
+  assert(source.includes('colspan="13"'));
+  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+  assert(css.includes(".mini-chart-svg"));
+  assert(css.includes(".mini-chart-legend"));
 });

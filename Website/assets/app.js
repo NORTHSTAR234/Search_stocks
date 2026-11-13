@@ -1,7 +1,7 @@
 (() => {
   "use strict";
   const $ = id => document.getElementById(id);
-  const state={rows:[],quotes:{},markets:{},loading:false,generatedAt:null,providerReady:true,githubTreeSha:null,syncing:false,cycleBusy:false};
+  const state={rows:[],quotes:{},history:{},markets:{},loading:false,generatedAt:null,providerReady:true,githubTreeSha:null,syncing:false,cycleBusy:false};
   const escape=s=>String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
   const fmt=iso=>{try{return new Intl.DateTimeFormat("en-AU",{timeZone:"Australia/Sydney",day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",timeZoneName:"short"}).format(new Date(iso));}catch{return iso||"Unknown";}};
   const norm=s=>String(s??"").toUpperCase().replace(/[^A-Z0-9 ]/g," ").trim();
@@ -470,6 +470,51 @@
       (r.ethicalReason?'<small>'+escape(cap(r.ethicalReason,160))+'</small>':"")+
       (link?'<small>'+link+'</small>':"")+'</div>';
   }
+
+  // One calendar month of actual IEX daily closes, plus the separately
+  // timestamped latest IEX trade. Both use RAW prices: no fabricated bars.
+  function monthChartCell(r){
+    if(r.exchange!=="US")return '<div class="mini-chart-empty">US IEX only<small>Non-US month history unavailable from this feed</small></div>';
+    const bars=state.history[r.ticker]?.bars;
+    if(!Array.isArray(bars)||bars.length<2)return '<div class="mini-chart-empty">1M history unavailable<small>No verified IEX daily bars</small></div>';
+    const daily=bars.map(b=>({t:Date.parse(b.asOf),p:Number(b.close),date:b.date}))
+      .filter(b=>Number.isFinite(b.t)&&Number.isFinite(b.p)&&b.p>0).sort((a,b)=>a.t-b.t);
+    if(daily.length<2)return '<div class="mini-chart-empty">1M history unavailable<small>Insufficient daily bars</small></div>';
+    const q=state.quotes[r.ticker],t=Date.parse(q?.asOf),p=Number(q?.price);
+    const latest=q?.feed==="IEX"&&q?.currency==="USD"&&Number.isFinite(t)&&Number.isFinite(p)&&p>0&&
+      t>daily.at(-1).t&&t<Date.now()+120000&&Date.now()-t<10*86400000?{t,p,live:true}:null;
+    const points=latest?[...daily,latest]:daily;
+    const levels=Array.isArray(r.zoneBands)?r.zoneBands.slice(0,2).map(b=>
+      Array.isArray(b)&&b.length===2&&Number.isFinite(Number(b[0]))&&Number.isFinite(Number(b[1]))&&Number(b[0])>0&&Number(b[0])<=Number(b[1])?
+      (Number(b[0])+Number(b[1]))/2:null):[];
+    const values=points.map(b=>b.p).concat(levels.filter(v=>v!=null));
+    const lower=Math.min(...values),upper=Math.max(...values);
+    const pad=Math.max((upper-lower)*.12,upper*.008,.2);
+    const y=v=>(105-(v-lower+pad)/(upper-lower+2*pad)*95).toFixed(1);
+    const left=points[0].t,right=points.at(-1).t,span=Math.max(1,right-left);
+    const x=v=>(6+(v-left)/span*248).toFixed(1);
+    const d=points.map((b,i)=>(i?"L":"M")+x(b.t)+","+y(b.p)).join(" ");
+    const ref=(v,color)=>v==null?"":'<line x1="6" x2="254" y1="'+y(v)+'" y2="'+y(v)+'" stroke="'+color+'" stroke-width="1.7" stroke-dasharray="5 3"/>';
+    const last=points.at(-1);
+    const tooltip="Actual Alpaca IEX 1-month daily raw closes (not consolidated)."+
+      (latest?" Latest IEX raw trade "+p+" at "+q.asOf+".":"")+
+      (levels[0]!=null?" Preferred midpoint "+levels[0]+".":"")+
+      (levels[1]!=null?" Acceptable midpoint "+levels[1]+".":"");
+    const lastLabel=latest?'<small class="mini-chart-latest">Latest IEX '+escape(quoteMoney("USD",p))+' · '+escape(fmt(q.asOf))+'</small>':
+      '<small class="mini-chart-latest">Last daily IEX '+escape(quoteMoney("USD",last.p))+' · '+escape(bars.at(-1).date)+'</small>';
+    return '<div class="mini-chart"><svg class="mini-chart-svg" viewBox="0 0 260 112" role="img" aria-label="'+escape(tooltip)+'">'+
+      '<title>'+escape(tooltip)+'</title>'+
+      '<line x1="6" x2="254" y1="58" y2="58" stroke="#425671" stroke-dasharray="3 5" opacity=".5"/>'+
+      ref(levels[0]??null,"#31d0b8")+ref(levels[1]??null,"#ffd05e")+
+      '<path d="'+d+'" fill="none" stroke="#8dabff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>'+
+      '<circle cx="'+x(last.t)+'" cy="'+y(last.p)+'" r="4" fill="#8dabff" stroke="#132136" stroke-width="1.5"/>'+
+      '</svg><div class="mini-chart-axis"><span>'+escape(String(daily[0].date).slice(5))+'</span><span>'+escape(String(bars.at(-1).date).slice(5))+'</span></div>'+
+      lastLabel+'<small class="mini-chart-legend"><span class="blue-dot">IEX closes</span>'+
+      (levels[0]!=null?'<span class="preferred-dot">Preferred '+escape(quoteMoney("USD",levels[0]))+'</span>':"")+
+      (levels[1]!=null?'<span class="acceptable-dot">Acceptable '+escape(quoteMoney("USD",levels[1]))+'</span>':"")+
+      '</small></div>';
+  }
+
   function tr(r){
     const action=cap(r.action,96);
     const context=zoneContext(r);
@@ -484,6 +529,7 @@
       '<small>'+escape(r.company)+'</small>'+status+'</td>'+
     '<td>'+quoteCell(r)+'</td>'+
     '<td>'+overnightCell(r)+'</td>'+
+    '<td>'+monthChartCell(r)+'</td>'+
     '<td>'+badge(action,actionKind(action))+'<small>Risk: '+escape(cap(r.risk,78))+'</small>'+
       '<small>Own: '+escape(cap(r.ownerAction,75))+'</small>'+zoneInsight(context)+'</td>'+
     '<td>'+scoreCell(r)+'</td>'+
@@ -521,7 +567,7 @@
       order==="entry"?score(b.entry)-score(a.entry)||b.timestamp.localeCompare(a.timestamp):
       order==="investment"?score(b.investment)-score(a.investment)||b.timestamp.localeCompare(a.timestamp):
       b.timestamp.localeCompare(a.timestamp)||a.ticker.localeCompare(b.ticker));
-    $("rows").innerHTML=filtered.length?filtered.map(tr).join(""):'<tr><td colspan="12">No reports match your filters.</td></tr>';
+    $("rows").innerHTML=filtered.length?filtered.map(tr).join(""):'<tr><td colspan="13">No reports match your filters.</td></tr>';
     $("count").textContent=all.length;
     $("halalCount").textContent=all.filter(r=>r.bucket==="halal").length;
     $("quoteCount").textContent=Object.keys(state.quotes).length;
@@ -547,16 +593,34 @@
       }
       return collected;
     }
+    async function retrieveHistory(symbols){
+      const result={};
+      for(let i=0;i<symbols.length;i+=40){
+        const part=symbols.slice(i,i+40);
+        try{
+          const response=await fetch("/api/price-history?symbols="+encodeURIComponent(part.join(",")),{credentials:"same-origin",cache:"no-store"});
+          const data=await response.json().catch(()=>({}));
+          if(!response.ok||!data.series||typeof data.series!=="object")
+            throw Error("HTTP "+response.status+(data.error?" · "+String(data.error):""));
+          Object.assign(result,data.series);
+        }catch(e){failures.push("Alpaca IEX 1M history: "+String(e?.message||e));}
+      }
+      return result;
+    }
     try{
-      const usQuotes=await retrieve("/api/prices",us,"Alpaca");
       const international=state.rows.filter(r=>r.exchange!=="US").map(r=>r.ticker);
-      const intlQuotes=await retrieve("/api/international-prices",international,"Personal Yahoo cache");
+      const [usQuotes,intlQuotes,month]=await Promise.all([
+        retrieve("/api/prices",us,"Alpaca"),
+        retrieve("/api/international-prices",international,"Personal Yahoo cache"),
+        retrieveHistory(us)
+      ]);
       state.quotes={...usQuotes,...intlQuotes};
+      state.history={...state.history,...month};
       const usCount=Object.keys(usQuotes).length,intlCount=Object.keys(intlQuotes).length;
       $("marketNotice").textContent="Quote observations: "+usCount+
         " US tickers via Alpaca · "+intlCount+" non-US delayed Yahoo quotes (private cache) · Updated "+
         fmt(new Date().toISOString())+
-        " · US Alpaca IEX latest trades checked every 5 minutes while visible (not consolidated). "+
+        " · US Alpaca IEX prices and one-month charts checked every 5 minutes while visible (IEX-only, not consolidated). "+
         "Non-US quotes are collected on GitHub Actions every 20 minutes during regular market hours, subject to data-feed and scheduler delays."+
         (failures.length?" Provider issues: "+failures.join("; "):"");
       state.providerReady=true;
@@ -652,7 +716,7 @@
       document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkAll();});
     }catch(e){
       $("marketNotice").textContent="Could not load archive: "+e.message;
-      $("rows").innerHTML='<tr><td colspan="12">Archive unavailable.</td></tr>';
+      $("rows").innerHTML='<tr><td colspan="13">Archive unavailable.</td></tr>';
     }
   }
   ["search","bucket","exchange","order"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",render));
