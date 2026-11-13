@@ -338,7 +338,7 @@ test("active-session columns show IEX first and hide old pre-market indications"
  assert(source.includes("Current-session IEX comparison unavailable"));
  assert(source.includes("90*60000"));
  assert(source.includes("session.fresh?{label:\"Latest IEX\",price:Number(q.price)}"));
- assert(source.includes("non-US delayed Yahoo hourly month charts checked from private caches every 5 minutes while visible"));
+ assert(source.includes("non-US delayed Yahoo hourly month charts checked every 5 minutes while visible from private caches"));
 });
 
 test("AAOIFI dashboard column uses separate green red yellow semantics",()=>{

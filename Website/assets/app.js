@@ -618,7 +618,7 @@
       $("marketNotice").textContent="Quote observations: "+usCount+
         " US tickers via Alpaca · "+intlCount+" non-US delayed Yahoo quotes (private cache) · Updated "+
         fmt(new Date().toISOString())+
-        " · US IEX daily and non-US delayed Yahoo hourly month charts checked from private caches every 5 minutes while visible. "+
+        " · US IEX daily and non-US delayed Yahoo hourly month charts checked every 5 minutes while visible from private caches. "+
         "Non-US quotes are collected on GitHub Actions every 20 minutes during regular market hours, subject to data-feed and scheduler delays."+
         (failures.length?" Provider issues: "+failures.join("; "):"");
       state.providerReady=true;
