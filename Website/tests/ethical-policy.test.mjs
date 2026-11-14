@@ -70,7 +70,10 @@ test("Source link defect remains a red source concern with no invented URL",()=>
 });
 test("Both frozen source sets remain unchanged and 19 Rizq Neutral US companies have Investigate concerns",()=>{
  const matches=rizq.data.rows.filter(x=>x.ethical_label==="Neutral"&&x.bds_badge===false)
-   .filter(x=>resolve(stock(x.ticker,x.company)).ethicalFinalSource==="INVESTIGATE");
+   .filter(x=>{
+     const listed=investigate.data.rows.find(y=>y.ticker===x.ticker&&["NYSE","NASDAQ","AMEX"].includes(y.exchange));
+     return listed&&resolve(stock(x.ticker,x.company,listed.exchange)).ethicalFinalSource==="INVESTIGATE";
+   });
  assert.equal(matches.length,19);
  assert.equal(rizq.data.rows.length,491);
  assert.equal(investigate.data.rows.length,255);
