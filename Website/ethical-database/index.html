@@ -43,14 +43,17 @@
         <div><strong>Historical snapshot, not a live screening.</strong> November 2026 RizqInvests findings are separate from July 2025 Investigate concerns. A RizqInvests Neutral label does not erase an Investigate concern, and an Investigate listing alone is not an official BDS designation or verified misconduct. Both are historical user-supplied snapshots, not live assessments.</div>
       </div>
 
+      <p class="combined-rule-summary"><strong>Final ethical decision:</strong> Check RizqInvests first. A RizqInvests Unethical / BDS finding stays <strong class="combined-red">RED</strong>. Otherwise check Investigate: a matched concern becomes <strong class="combined-red">RED · Unethical</strong> even if RizqInvests says Neutral. Only Neutral without an Investigate match is <strong class="combined-green">GREEN · Neutral</strong>. <strong id="combinedOverlapCount">—</strong> originally Neutral entries have an exact Investigate match. Original provider labels remain visible.</p>
+      <p id="combinedNotice" class="combined-source-alert" role="status"></p>
       <section class="panel" id="database" aria-labelledby="tableTitle">
         <div class="panel-top">
-          <div><div class="section-kicker">Source 1 · November 2026 · RizqInvests</div><h2 id="tableTitle">RizqInvests screening · 491 entries</h2><p>Original provider labels and links. Filters operate entirely on the saved file.</p></div>
+          <div><div class="section-kicker">Source 1 · November 2026 · RizqInvests</div><h2 id="tableTitle">RizqInvests screening · 491 entries</h2><p>Original RizqInvests labels and final two-source classifications appear together. The Ethical filter selects the original provider label; the Final filter selects the combined decision.</p></div>
           <button class="download" id="csv" type="button" disabled title="Export the currently filtered table as CSV">↓ Export visible rows</button>
         </div>
         <div class="filters">
           <label class="search-field"><span>Search symbol, company or sector</span><input id="search" type="search" placeholder="Try MU, NVIDIA, Healthcare…" autocomplete="off" spellcheck="false"></label>
-          <label><span>Ethical</span><select id="ethical"><option value="">All ethical statuses</option><option value="Neutral">Neutral</option><option value="Unethical">Unethical</option><option value="Ethical">Ethical</option></select></label>
+          <label><span>RizqInvests ethical</span><select id="ethical"><option value="">All ethical statuses</option><option value="Neutral">Neutral</option><option value="Unethical">Unethical</option><option value="Ethical">Ethical</option></select></label>
+          <label><span>Final ethical result</span><select id="final"><option value="">All final statuses</option><option value="Neutral">Neutral</option><option value="Ethical">Ethical</option><option value="Unethical">Unethical</option><option value="BDS flagged">BDS flagged</option><option value="Unverified">Unverified</option></select></label>
           <label><span>BDS indicator</span><select id="bds"><option value="">All BDS indicators</option><option value="yes">Badge shown</option><option value="no">No badge shown</option></select></label>
           <label><span>Provider halal</span><select id="halal"><option value="">All halal labels</option><option value="Halal">Halal</option><option value="Not Halal">Not Halal</option><option value="Uncertain">Uncertain</option></select></label>
           <label><span>Security type</span><select id="type"><option value="">Stocks &amp; ETFs</option><option value="STOCK">Stock</option><option value="ETF">ETF</option></select></label>
