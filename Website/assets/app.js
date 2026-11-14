@@ -572,6 +572,20 @@
       existing.add(exchange);
     }
   }
+  // Split display only: preserve source-locked, independently computed
+  // RizqInvests-first -> Investigate ethical precedence and the original
+  // Musaffa badge logic. Never use administrative GitHub buckets as status.
+  function isFlaggedForSecondTable(r){
+    const finalStatus=String(r.ethicalFinalStatus||"").toUpperCase();
+    const ethicalNegative=String(r.ethicalFinalColor||"").toUpperCase()==="RED"||
+      finalStatus==="UNETHICAL"||finalStatus==="BDS_LISTED";
+    // An explicit historical Musaffa NOT HALAL remains in table two even
+    // when the existing date-sensitive badge correctly becomes INCONCLUSIVE.
+    const classification=String(r.musaffaClassification||
+      String(r.musaffa||"").split(" · ")[0]||"").trim().toUpperCase();
+    const musaffaNegative=/(?:NOT\\s+HALAL|NON[\\s-]?COMPLIANT|NON[\\s-]?HALAL|HARAM)/.test(classification);
+    return ethicalNegative||musaffaNegative||musaffaVisual(r).tone==="bad";
+  }
   function render(){
     syncExchangeFilters();
     const query=norm($("search").value),bucket=$("bucket").value,exchange=$("exchange").value,order=$("order").value;
@@ -582,11 +596,18 @@
       order==="entry"?score(b.entry)-score(a.entry)||b.timestamp.localeCompare(a.timestamp):
       order==="investment"?score(b.investment)-score(a.investment)||b.timestamp.localeCompare(a.timestamp):
       b.timestamp.localeCompare(a.timestamp)||a.ticker.localeCompare(b.ticker));
-    $("rows").innerHTML=filtered.length?filtered.map(tr).join(""):'<tr><td colspan="9">No reports match your filters.</td></tr>';
+    // Shared search, category, exchange and order controls sort once,
+    // then partition. No row is duplicated and both tables use identical tr().
+    const primary=filtered.filter(r=>!isFlaggedForSecondTable(r));
+    const flagged=filtered.filter(isFlaggedForSecondTable);
+    $("rows").innerHTML=primary.length?primary.map(tr).join(""):'<tr><td colspan="9">No other stocks match your filters.</td></tr>';
+    $("flaggedRows").innerHTML=flagged.length?flagged.map(tr).join(""):'<tr><td colspan="9">No unethical or Musaffa non-halal stocks match your filters.</td></tr>';
+    $("primaryShown").textContent=primary.length+" stock"+(primary.length===1?"":"s");
+    $("flaggedShown").textContent=flagged.length+" stock"+(flagged.length===1?"":"s");
     $("count").textContent=all.length;
     $("halalCount").textContent=all.filter(r=>r.bucket==="halal").length;
     $("quoteCount").textContent=Object.keys(state.quotes).length;
-    $("shown").textContent="Showing "+filtered.length+" of "+all.length+" latest reports";
+    $("shown").textContent="Showing "+filtered.length+" of "+all.length+" latest reports · "+primary.length+" other / "+flagged.length+" flagged";
   }
   async function refresh(){
     if(state.loading||!state.rows.length)return;
@@ -731,7 +752,8 @@
       document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkAll();});
     }catch(e){
       $("marketNotice").textContent="Could not load archive: "+e.message;
-      $("rows").innerHTML='<tr><td colspan="11">Archive unavailable.</td></tr>';
+      $("rows").innerHTML='<tr><td colspan="9">Archive unavailable.</td></tr>';
+      $("flaggedRows").innerHTML='<tr><td colspan="9">Archive unavailable.</td></tr>';
     }
   }
   ["search","bucket","exchange","order"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",render));
