@@ -21,7 +21,7 @@
   // exact issuer/exchange matching against the second archived source.
   const aliasSuffixes=new Set(["THE","INC","INCORPORATED","CORP","CORPORATION","CO","COMPANY","LTD","LIMITED","PLC","AG","SA","NV","SE","LLC"]);
   const issuerKey=x=>String(x||"").toUpperCase().replace(/&/g," AND ").replace(/[^A-Z0-9]+/g," ")
-    .split(/\\s+/).filter(x=>x&&!aliasSuffixes.has(x)).join(" ");
+    .split(/\s+/).filter(x=>x&&!aliasSuffixes.has(x)).join(" ");
   function sameIssuer(a,b){
     const x=issuerKey(a),y=issuerKey(b);
     return Boolean(x&&y&&(x===y||x.startsWith(y+" ")||y.startsWith(x+" ")));
