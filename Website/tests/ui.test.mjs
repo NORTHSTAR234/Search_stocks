@@ -428,60 +428,35 @@ test("dashboard fills available window width without creating a second scrollbar
    "Report pages must preserve their readable width independently");
 });
 
-test("RizqInvests ethical/BDS column colors neutral green, flags red, unknown yellow",()=>{
+test("RizqInvests snapshot green/red cards live within the first column only",()=>{
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
- assert(build.includes('"Ethical / BDS"'));
- assert(source.includes("function ethicalVisual(r,now=new Date())"));
- assert(source.includes("'<td>'+ethicalCell(r)+'</td>'"));
- const m=source.match(/function ethicalVisual\(r,now=new Date\(\)\)\{([\s\S]*?)\n  \}/);
- assert(m);
- const rate=new Function("r","now",m[1]);
- const evidence={ethicalSourceUrl:"https://www.rizqinvests.com/ethical",ethicalAssessmentDate:"2026-11-12"};
- const now=new Date("2026-11-13T01:00:00Z");
- assert.equal(rate({...evidence,ethicalStatus:"NEUTRAL",ethicalBdsListed:false},now).tone,"good");
- assert.equal(rate({...evidence,ethicalStatus:"ETHICAL",ethicalBdsListed:false},now).tone,"good");
- assert.equal(rate({...evidence,ethicalStatus:"NEUTRAL",ethicalBdsListed:true},now).tone,"bad");
- assert.equal(rate({...evidence,ethicalStatus:"UNETHICAL",ethicalBdsListed:false},now).tone,"bad");
- assert.equal(rate({...evidence,ethicalStatus:"NEUTRAL",ethicalBdsListed:null},now).tone,"good");
- assert.equal(rate({ethicalStatus:"NEUTRAL",ethicalBdsListed:false},now).tone,"warn");
- assert.equal(rate({...evidence,ethicalAssessmentDate:"2026-03-01",ethicalStatus:"NEUTRAL",ethicalBdsListed:false},now).tone,"warn");
+ const dataset=JSON.parse(readFileSync(new URL("../data/rizqinvests-ethical-bds-2026-11.json",import.meta.url),"utf8"));
+ assert.equal(dataset.rows.length,491);
+ assert(!build.includes('"AAOIFI","Ethical / BDS"'));
+ assert(!build.includes('"AAOIFI"'));
+ assert(source.includes("function ethicalFirstColumn(r)"));
+ assert(source.includes("'+status+ethicalFirstColumn(r)+'</td>'"));
+ const match=source.match(/function ethicalFirstColumn\(r\)\{([\s\S]*?)\n  \}/);
+ assert(match,"Inline ethical card helper should be independently testable");
+ const card=new Function("r","escape",match[1]);
+ const esc=x=>String(x).replaceAll("&","&amp;").replaceAll("<","&lt;");
+ const row=(ticker,status,bds)=>({ticker,ethicalStatus:status,ethicalBdsListed:bds,ethicalSourceKind:"USER_SNAPSHOT",ethicalSourceUrl:"https://www.rizqinvests.com/halal/stock/"+ticker+"?view=both"});
+ assert.match(card(row("MU","NEUTRAL",false),esc),/ethical-inline-card good/);
+ assert.match(card(row("MU","NEUTRAL",false),esc),/halal\/stock\/MU\?view=both/);
+ assert.match(card(row("NVDA","BDS_LISTED",true),esc),/ethical-inline-card bad/);
+ assert.match(card(row("TSLA","UNETHICAL",null),esc),/Unethical/);
+ assert.equal(card(row("2449.TWSE","UNVERIFIED",null),esc),"");
+ assert.equal(card({...row("MU","NEUTRAL",false),ethicalSourceUrl:null},esc),"");
+ assert.equal(card({...row("MU","NEUTRAL",false),ethicalSourceKind:"LIVE"},esc),"");
 });
-
-test("RizqInvests source-backed Neutral remains green with BDS unknown and provider date unpublished",()=>{
- const m=source.match(/function ethicalVisual\(r,now=new Date\(\)\)\{([\s\S]*?)\n  \}/);
- assert(m);
- const classify=new Function("r","now",m[1]);
- const now=new Date("2026-11-13T02:00:00Z");
- const evidence={ethicalStatus:"NEUTRAL",ethicalBdsListed:null,
-   ethicalAssessmentDate:null,ethicalCheckedAt:"2026-11-13T00:55:00Z",
-   ethicalSourceUrl:"https://www.rizqinvests.com/ethical"};
- assert.equal(classify(evidence,now).tone,"good");
- assert.equal(classify({...evidence,ethicalBdsListed:true},now).tone,"bad");
- assert.equal(classify({...evidence,ethicalStatus:"UNVERIFIED"},now).tone,"warn");
- assert.equal(classify({...evidence,ethicalSourceUrl:null},now).tone,"warn");
- assert.equal(classify({...evidence,ethicalCheckedAt:"2026-03-01T00:00:00Z"},now).tone,"warn");
-});
-
-test("AMD RizqInvests Neutral explicitly maps to provider-only BDS not flagged",()=>{
- const fs=readFileSync(new URL("../../AAOIFI/AMD.NASDAQ.html",import.meta.url),"utf8");
- const block=fs.split('id="aaoifi-report-snapshot">')[1]?.split('</script>')[0];
- assert(block,"AMD source must retain machine-readable snapshot");
- const obj=JSON.parse(block);
- assert.equal(obj.ethical.status,"NEUTRAL");
- assert.equal(obj.ethical.bds_listed,false);
- assert.equal(obj.ethical.bds_scope,"RIZQINVESTS_TABLE_2026_11");
- assert.equal(obj.status,"SHARIAH REVIEW REQUIRED");
- assert(source.includes("function ethicalCell(r)"));
-});
-
-test("AAOIFI keeps the classified badge and linked full report without inline financial commentary",()=>{
- assert(source.includes("function aaoifiCell(r)"));
- assert(source.includes("aaoifiReportPath"));
- const block=source.split("  function aaoifiCell(r){")[1].split("  // Independent ethical/BDS screening")[0];
- assert(!block.includes("<small"),"Do not render financial and tradability writeups");
- const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
- const headings=JSON.parse(build.split("\n").find(l=>l.includes("const labels=")).split("const labels=")[1].trim().replace(/;$/, ""));
- assert.equal(headings.length,9);
+test("RizqInvests frozen dataset keeps BDS badge distinct from generic unethical",()=>{
+ const dataset=JSON.parse(readFileSync(new URL("../data/rizqinvests-ethical-bds-2026-11.json",import.meta.url),"utf8"));
+ const amd=dataset.rows.find(x=>x.ticker==="AMD");
+ const nvda=dataset.rows.find(x=>x.ticker==="NVDA");
+ assert.equal(amd.ethical_label,"Neutral");
+ assert.equal(amd.bds_badge,false);
+ assert.equal(nvda.bds_badge,true);
+ assert.equal(amd.source_url,"https://www.rizqinvests.com/halal/stock/AMD?view=both");
 });
 
 test("one-month IEX chart is sourced, responsive and polled with every quote cycle",()=>{
@@ -518,24 +493,23 @@ test("Markers remains 3 paired rows with all six existing values and behaviors",
  assert(css.includes(".table-wrap .markers-stack .score-label"));
 });
 
-test("all three screening status columns display only badges and compact source links",()=>{
- const block=(start,end)=>source.split("  function "+start+"(r){")[1]?.split(end)[0];
- const musaffa=block("screeningCell","  function aaoifiVisual(r){");
- const aa=block("aaoifiCell","  // Independent ethical/BDS screening");
- const ethical=block("ethicalCell","  // One calendar month");
- for(const item of [musaffa,aa,ethical]){
-   assert(item&&item.includes("status-only-cell"));
-   assert(!item.includes("<small"),"Status cells must not show multiline prose");
- }
- assert(musaffa.includes("musaffaVisual(r)"),"Musaffa classification stays independent");
- assert(aa.includes("aaoifiVisual(r)"),"AAOIFI classification stays independent");
- assert(aa.includes("aaoifiReportPath"),"AAOIFI report link remains accessible");
- assert(ethical.includes("ethicalVisual(r)"),"Ethical/BDS classification stays independent");
- assert(ethical.includes("ethicalSourceUrl"),"RizqInvests provider URL remains accessible");
- assert(ethical.includes("ethical-source-link"),"Compact provider link remains accessible");
- assert(source.includes("markersCell(r,context)"),"Six buy/stop score boxes remain unchanged");
+test("Musaffa remains the only screening column and RizqInvests box is inline",()=>{
+ const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
+ const labels=JSON.parse(build.split("\n").find(l=>l.includes("const labels=")).split("const labels=")[1].trim().replace(/;$/,""));
+ assert.equal(labels.length,9);
+ assert(labels.includes("Musaffa status / grade / screening date"));
+ assert(!labels.includes("AAOIFI"));
+ assert(!labels.includes("Ethical / BDS"));
+ assert(source.includes("const result=musaffaVisual(r);"));
+ assert(source.includes("musaffa-cell status-only-cell"));
+ assert(source.includes("ethicalFirstColumn(r)"));
+ assert(!source.includes("aaoifiCell(r)"));
+ assert(!source.includes("ethicalCell(r)"));
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+ assert(css.includes(".ethical-inline-card.good"));
+ assert(css.includes(".ethical-inline-card.bad"));
  assert(css.includes(".table-wrap .status-only-cell"));
+ assert(source.includes("markersCell(r,context)"));
 });
 
 test("non-US chart draws actual hourly bars only for an exact verified source/currency and preserves IEX",()=>{
