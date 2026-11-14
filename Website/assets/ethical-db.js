@@ -2,7 +2,7 @@
   "use strict";
   const $ = (id) => document.getElementById(id);
   const ids=["search","ethical","bds","halal","type","sector","sort","pageSize"];
-  let all=[],filtered=[],page=1;
+  let all=[],filtered=[],page=1,investigateLoaded=false,investigateByTicker=new Map();
   const cell=(row,value,cls)=>{
     const el=document.createElement("td");
     if(cls)el.className=cls;
@@ -16,6 +16,47 @@
     badge.textContent=value;
     el.append(badge);
   };
+
+  // Preserve raw RizqInvests provider label, but display the FINAL decision after
+  // exact issuer/exchange matching against the second archived source.
+  const aliasSuffixes=new Set(["THE","INC","INCORPORATED","CORP","CORPORATION","CO","COMPANY","LTD","LIMITED","PLC","AG","SA","NV","SE","LLC"]);
+  const issuerKey=x=>String(x||"").toUpperCase().replace(/&/g," AND ").replace(/[^A-Z0-9]+/g," ")
+    .split(/\\s+/).filter(x=>x&&!aliasSuffixes.has(x)).join(" ");
+  function sameIssuer(a,b){
+    const x=issuerKey(a),y=issuerKey(b);
+    return Boolean(x&&y&&(x===y||x.startsWith(y+" ")||y.startsWith(x+" ")));
+  }
+  function investigateMatch(r){
+    const candidates=investigateByTicker.get(String(r.ticker||"").toUpperCase())||[];
+    const eligible=candidates.filter(x=>["NYSE","NASDAQ","AMEX"].includes(x.exchange)&&sameIssuer(r.company,x.company));
+    return eligible.length===1?eligible[0]:null;
+  }
+  function combinedStatus(r){
+    if(r.bds_badge===true)return {status:"BDS flagged",tone:"unethical",source:"RizqInvests",url:r.source_url};
+    if(r.ethical_label==="Unethical")return {status:"Unethical",tone:"unethical",source:"RizqInvests",url:r.source_url};
+    if(!investigateLoaded)return {status:"Unverified",tone:"uncertain",source:"Investigate source unavailable",url:null};
+    const hit=investigateMatch(r);
+    if(hit)return {status:"Unethical",tone:"unethical",source:"Investigate",url:hit.source_link_warning?null:hit.source_url};
+    if(r.ethical_label==="Neutral"||r.ethical_label==="Ethical")
+      return {status:r.ethical_label,tone:"halal",source:"RizqInvests + no Investigate match",url:r.source_url};
+    return {status:"Unverified",tone:"uncertain",source:"Unsupported label",url:null};
+  }
+  function showCombined(cellElement,r){
+    const v=combinedStatus(r);
+    const line=document.createElement("div");line.className="combined-ethics";
+    const prefix=document.createElement("span");prefix.className="combined-caption";prefix.textContent="Final:";
+    line.append(prefix);
+    const pill=document.createElement("span");pill.className="badge "+v.tone;pill.textContent=v.status;
+    line.append(pill);
+    const origin=document.createElement("small");origin.className="combined-ethics-source";
+    origin.textContent=v.source;line.append(origin);
+    if(v.source==="Investigate"&&v.url){
+      const link=document.createElement("a");link.href=v.url;link.target="_blank";link.rel="noopener noreferrer";
+      link.className="combined-ethics-link";link.textContent="Evidence ↗";line.append(link);
+    }
+    cellElement.append(line);
+  }
+
   const capNumber=(x)=>{
     const match=String(x||"").match(/([\d,.]+)\s*([T B M K])?/i);
     if(!match)return -1;
@@ -49,6 +90,7 @@
     cell(tr,r.company,"company");
     const ethical=cell(tr,"");
     label(ethical,r.ethical_label,r.ethical_label==="Unethical"?"unethical":"neutral");
+    showCombined(ethical,r);
     const bds=cell(tr,"");
     label(bds,r.bds_badge?"BDS badge":"Not shown",r.bds_badge?"bds":"none");
     const halal=cell(tr,"");
@@ -167,6 +209,31 @@
       $("neutralMetric").textContent=String(counts.neutral);
       $("unethicalMetric").textContent=String(counts.unethical);
       $("bdsMetric").textContent=String(counts.bds);
+      try{
+        const res=await fetch("/data/investigate-ethical-concerns-2025-07.json",{cache:"no-store",credentials:"same-origin"});
+        if(!res.ok)throw Error("Investigate database HTTP "+res.status);
+        const inv=await res.json();
+        if(inv.source_period!=="2025-07"||inv.source_kind!=="user_supplied_snapshot"||
+          inv.ticker_count!==255||!Array.isArray(inv.rows)||inv.rows.length!==255)
+          throw Error("Investigate dataset failed validation");
+        investigateByTicker=new Map();
+        for(const rec of inv.rows){
+          const key=String(rec.ticker||"").toUpperCase();
+          if(!investigateByTicker.has(key))investigateByTicker.set(key,[]);
+          investigateByTicker.get(key).push(rec);
+        }
+        investigateLoaded=true;
+      }catch(e){
+        investigateLoaded=false;
+        // Fail closed: a missing second source must never produce a green final label.
+        const note=$("combinedNotice");
+        if(note)note.textContent="Combined screening unavailable: Investigate snapshot could not be loaded. RizqInvests labels below are still shown as original provider data; no final Neutral verdict is issued.";
+      }
+      if(investigateLoaded){
+        const neutral=all.filter(x=>x.ethical_label==="Neutral"&&x.bds_badge===false&&investigateMatch(x)).length;
+        const count=$("combinedOverlapCount");
+        if(count)count.textContent=String(neutral);
+      }
       const sectors=[...new Set(all.map(r=>r.sector))].sort((a,b)=>a.localeCompare(b));
       for(const sector of sectors){
         const option=document.createElement("option");
