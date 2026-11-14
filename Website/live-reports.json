@@ -4,6 +4,17 @@
   "latestHtmlReportAt": "2026-11-14T00:39:06Z",
   "htmlReportCount": 79,
   "uniqueTickers": 29,
+  "ethicalSources": {
+    "rizqinvests": {
+      "snapshot": "2026-11",
+      "records": 491
+    },
+    "investigate": {
+      "snapshot": "2025-07",
+      "records": 255,
+      "matchedReports": 5
+    }
+  },
   "revision": "fa4db6d176024e729ed1433427ed5c82",
   "rows": [
     {
