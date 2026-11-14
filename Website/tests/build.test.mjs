@@ -239,11 +239,11 @@ test("newer screening-only HTML never backfills earlier investment scores",async
  assert(v.musaffa.includes("RECENCY UNVERIFIED"));
 });
 
-test("main dashboard has eleven headings, with reports opened by ticker",()=>{
+test("main dashboard has nine headings, with reports opened by ticker",()=>{
  const src=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  const labels=src.match(/const labels=(\[[^\n]+\]);/);
  assert(labels);
- assert.equal(JSON.parse(labels[1]).length,11);
+ assert.equal(JSON.parse(labels[1]).length,9);
  assert(!JSON.parse(labels[1]).includes("Report"));
  assert(src.includes('colspan="9"'));
 });
