@@ -396,3 +396,11 @@ main:not(.report-layout)>.panel .table-footer{
 /* Musaffa remains the only dedicated screening-status column. */
 .table-wrap .status-only-cell{display:flex;align-items:flex-start;justify-content:flex-start;flex-wrap:wrap;gap:7px;max-width:100%}
 .table-wrap .status-only-cell>.badge{margin:0;max-width:100%;white-space:normal;overflow-wrap:normal;word-break:normal}
+
+
+/* Separate source attribution when the July 2025 Investigate concern takes
+   priority over the November 2026 RizqInvests indicator in ticker column. */
+.table-wrap .ethical-inline-followup{display:block;margin-top:4px;font-size:.67rem;color:#a9bad0;
+ line-height:1.4;overflow-wrap:anywhere}
+.table-wrap .ethical-inline-followup a{color:#9dd5ff;text-decoration:underline;text-underline-offset:2px}
+.table-wrap .ethical-inline-card.bad .ethical-inline-note{color:#ffb3b9}
