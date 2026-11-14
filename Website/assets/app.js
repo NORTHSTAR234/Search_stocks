@@ -402,22 +402,40 @@
     const result=musaffaVisual(r);
     return '<div class="musaffa-cell status-only-cell">'+badge(result.label,result.tone)+'</div>';
   }
-  // RizqInvests ethical/BDS data is an owner-supplied November 2026 snapshot.
-  // The server-side index has already resolved exact ticker, exchange and issuer.
+  // Keep both source-locked ethical datasets separate, matching exact issuers.
+  // A historical Investigate concern outranks a Rizq green display, without
+  // changing the independent, explicitly attributed RizqInvests assessment.
   function ethicalFirstColumn(r){
-    const status=String(r.ethicalStatus||"").toUpperCase();
-    const red=r.ethicalBdsListed===true||status==="BDS_LISTED"||status==="UNETHICAL";
-    const green=(status==="ETHICAL"||status==="NEUTRAL")&&r.ethicalBdsListed===false;
-    if(!red&&!green)return "";
     const ticker=String(r.ticker||"");
-    const url="https://www.rizqinvests.com/halal/stock/"+encodeURIComponent(ticker)+"?view=both";
-    if(r.ethicalSourceKind!=="USER_SNAPSHOT"||r.ethicalSourceUrl!==url)return "";
-    const label=red?(r.ethicalBdsListed===true?"BDS flagged":"Unethical"):(status==="ETHICAL"?"Ethical":"Neutral");
-    const tone=red?"bad":"good";
-    return '<a class="ethical-inline-card '+tone+'" href="'+escape(url)+'" target="_blank" rel="noopener noreferrer"'+
-      ' aria-label="RizqInvests '+escape(label)+' for '+escape(ticker)+', Nov 2026 snapshot">'+
+    const status=String(r.ethicalStatus||"").toUpperCase();
+    const rizqRed=r.ethicalBdsListed===true||status==="BDS_LISTED"||status==="UNETHICAL";
+    const rizqGreen=(status==="ETHICAL"||status==="NEUTRAL")&&r.ethicalBdsListed===false;
+    const rizqUrl="https://www.rizqinvests.com/halal/stock/"+encodeURIComponent(ticker)+"?view=both";
+    const rizqVerified=r.ethicalSourceKind==="USER_SNAPSHOT"&&r.ethicalSourceUrl===rizqUrl&&(rizqRed||rizqGreen);
+    const rizqLabel=r.ethicalBdsListed===true?"BDS flagged":status==="UNETHICAL"?"Unethical":
+      status==="ETHICAL"?"Ethical":"Neutral";
+    if(r.investigateListed===true&&r.investigateSourceKind==="USER_SNAPSHOT"){
+      const flags=Array.isArray(r.investigateCategories)?r.investigateCategories.join(" · "):"";
+      const note="Investigate · Jul 2025"+(flags?" · "+flags.slice(0,80):"");
+      const url=String(r.investigateSourceUrl||"");
+      const linked=/^https:\/\/investigate\.info\//.test(url);
+      const head='<span class="ethical-inline-title"><span class="ethical-inline-dot" aria-hidden="true"></span>'+
+        'Investigate · ethical concern '+(linked?'<span aria-hidden="true">↗</span>':"")+'</span>'+
+        '<span class="ethical-inline-note">'+escape(note)+'</span>';
+      const primary=linked?'<a class="ethical-inline-card bad" href="'+escape(url)+'" target="_blank" rel="noopener noreferrer"'+
+        ' aria-label="Open July 2025 Investigate concern for '+escape(ticker)+'">'+head+'</a>':
+        '<span class="ethical-inline-card bad">'+head+
+        '<span class="ethical-inline-note">Source link needs verification</span></span>';
+      const secondary=rizqVerified?'<small class="ethical-inline-followup">RizqInvests · '+
+        '<a href="'+escape(rizqUrl)+'" target="_blank" rel="noopener noreferrer">'+escape(rizqLabel)+' · Nov 2026 ↗</a></small>':"";
+      return primary+secondary;
+    }
+    if(!rizqVerified)return "";
+    const tone=rizqRed?"bad":"good";
+    return '<a class="ethical-inline-card '+tone+'" href="'+escape(rizqUrl)+'" target="_blank" rel="noopener noreferrer"'+
+      ' aria-label="RizqInvests '+escape(rizqLabel)+' for '+escape(ticker)+', Nov 2026 snapshot">'+
       '<span class="ethical-inline-title"><span class="ethical-inline-dot" aria-hidden="true"></span>'+
-      'RizqInvests · '+escape(label)+' <span aria-hidden="true">↗</span></span>'+
+      'RizqInvests · '+escape(rizqLabel)+' <span aria-hidden="true">↗</span></span>'+
       '<span class="ethical-inline-note">Ethical / BDS · Nov 2026 snapshot</span></a>';
   }
 
