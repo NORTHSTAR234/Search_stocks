@@ -1,12 +1,93 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-13T23:00:38Z",
-  "htmlReportCount": 77,
+  "latestHtmlReportAt": "2026-11-14T00:37:08Z",
+  "htmlReportCount": 78,
   "uniqueTickers": 29,
   "aaoifiReportCount": 30,
-  "revision": "84569e97abf5dcd0e2c7accc26301586",
+  "revision": "2ad71028fef97693c1cb0a96d9e14d8d",
   "rows": [
+    {
+      "company": "Schneider Electric SE",
+      "ticker": "SU.PA",
+      "exchange": "XPAR",
+      "bucket": "halal",
+      "timestamp": "2026-11-14T00:37:08Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "72/100",
+      "entry": "47/100",
+      "musaffa": "HALAL · 2026-10 (month) · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": "2026-10",
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "VERIFIED_HALAL",
+      "musaffaReason": "Official exact SU.PA page says HALAL as of October 2026. Month only, no verifiable day or grade.",
+      "earnings": "18 Feb 2027 confirmed",
+      "zones": "EUR 220–228 / EUR 229–236",
+      "stops": "EUR 210 / EUR 248",
+      "nativeCurrency": "EUR",
+      "marketSchedule": {
+        "exchange": "XPAR",
+        "mic": "XPAR",
+        "market_time_zone": "Europe/Paris",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "17:30"
+          }
+        ],
+        "yahoo_ticker": "SU.PA",
+        "hours_source": "https://www.euronext.com/en/trading/trading-hours-holidays",
+        "hours_checked_utc": "2026-11-14T00:37:08Z"
+      },
+      "sourceMarketTicker": "SU.PA",
+      "zoneBands": [
+        [
+          220,
+          228
+        ],
+        [
+          229,
+          236
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/SU.PA/SU.PA_2026-11-14_00-37-08Z.html",
+      "reportPath": "/view-report?path=halal%2FSU.PA%2FSU.PA_2026-11-14_00-37-08Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false,
+      "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
+      "aaoifiConfidence": "Medium for prior tested items; Low for…",
+      "aaoifiScreenedAt": "2026-11-13T03:39:39Z",
+      "aaoifiReason": "Batch reassessment of Schneider Electric SE: business/financial REVIEW_REQUIRED; share tradability NOT_CALCULABLE; overall SHARIAH REVIEW REQUIRED. RizqInvests/ethical UNVERIFIED. Not an AAOIFI certification or a stock-trading recommendation.",
+      "aaoifiReportPath": "/view-report?path=AAOIFI%2FSU.XPAR.html",
+      "aaoifiFinancialStatus": "REVIEW_REQUIRED",
+      "aaoifiTradabilityStatus": "NOT_CALCULABLE",
+      "aaoifiTradabilityBookProxyPercent": null,
+      "aaoifiMissingEvidence": "Reconcile interest-bearing borrowing, deposit classification and gross prohibited income from issuer notes; obtain eligible underlying rights documentation and independent market-value evidence to resolve SS21…",
+      "aaoifiBreakdownUpdatedAt": "2026-11-13T03:39:39Z",
+      "ethicalStatus": "UNVERIFIED",
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13"
+    },
     {
       "company": "Micron Technology, Inc.",
       "ticker": "MU",
@@ -1331,87 +1412,6 @@
       "aaoifiScreenedAt": "2026-11-13T03:39:39Z",
       "aaoifiReason": "Batch reassessment of MediaTek Inc.: business/financial REVIEW_REQUIRED; share tradability NOT_CALCULABLE; overall SHARIAH REVIEW REQUIRED. RizqInvests/ethical UNVERIFIED. Not an AAOIFI certification or a stock-trading recommendation.",
       "aaoifiReportPath": "/view-report?path=AAOIFI%2F2454.TWSE.html",
-      "aaoifiFinancialStatus": "REVIEW_REQUIRED",
-      "aaoifiTradabilityStatus": "NOT_CALCULABLE",
-      "aaoifiTradabilityBookProxyPercent": null,
-      "aaoifiMissingEvidence": "Reconcile interest-bearing borrowing, deposit classification and gross prohibited income from issuer notes; obtain eligible underlying rights documentation and independent market-value evidence to resolve SS21…",
-      "aaoifiBreakdownUpdatedAt": "2026-11-13T03:39:39Z",
-      "ethicalStatus": "UNVERIFIED",
-      "ethicalBdsListed": null,
-      "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": null,
-      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
-      "ethicalSourceUrl": null,
-      "ethicalSourceKind": "USER_SNAPSHOT",
-      "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13"
-    },
-    {
-      "company": "Schneider Electric SE",
-      "ticker": "SU.PA",
-      "exchange": "XPAR",
-      "bucket": "halal",
-      "timestamp": "2026-11-11T13:04:43Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "72/100",
-      "entry": "50/100",
-      "musaffa": "HALAL · 2026-10 (month) · PASS",
-      "musaffaClassification": "HALAL",
-      "musaffaGate": "PASS",
-      "musaffaScreeningDate": null,
-      "musaffaScreeningPeriod": "2026-10",
-      "musaffaScreeningMonthConflict": false,
-      "musaffaAssessment": "VERIFIED_HALAL",
-      "musaffaReason": "Musaffa exact SU.PA HALAL as of October 2026, grade/day not independently available; older cached August also eligible",
-      "earnings": "18 Feb 2027 confirmed",
-      "zones": "EUR 220–228 / EUR 229–236",
-      "stops": "EUR 210 / EUR 248",
-      "nativeCurrency": "EUR",
-      "marketSchedule": {
-        "exchange": "XPAR",
-        "mic": "XPAR",
-        "market_time_zone": "Europe/Paris",
-        "sydney_time_zone": "Australia/Sydney",
-        "weekdays": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "sessions": [
-          {
-            "start": "09:00",
-            "end": "17:30"
-          }
-        ],
-        "yahoo_ticker": "SU.PA",
-        "hours_source": "https://www.euronext.com/sites/default/files/2025-05/ENX_AVD_Two-pager_060525%20%281%29.pdf",
-        "hours_checked_utc": "2026-11-11T13:04:43Z"
-      },
-      "sourceMarketTicker": "SU.PA",
-      "zoneBands": [
-        [
-          220,
-          228
-        ],
-        [
-          229,
-          236
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/SU.PA/SU.PA_2026-11-11_13-04-43Z.html",
-      "reportPath": "/view-report?path=halal%2FSU.PA%2FSU.PA_2026-11-11_13-04-43Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false,
-      "aaoifiStatus": "SHARIAH REVIEW REQUIRED",
-      "aaoifiConfidence": "Medium for prior tested items; Low for…",
-      "aaoifiScreenedAt": "2026-11-13T03:39:39Z",
-      "aaoifiReason": "Batch reassessment of Schneider Electric SE: business/financial REVIEW_REQUIRED; share tradability NOT_CALCULABLE; overall SHARIAH REVIEW REQUIRED. RizqInvests/ethical UNVERIFIED. Not an AAOIFI certification or a stock-trading recommendation.",
-      "aaoifiReportPath": "/view-report?path=AAOIFI%2FSU.XPAR.html",
       "aaoifiFinancialStatus": "REVIEW_REQUIRED",
       "aaoifiTradabilityStatus": "NOT_CALCULABLE",
       "aaoifiTradabilityBookProxyPercent": null,
