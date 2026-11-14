@@ -15,7 +15,7 @@
       "matchedReports": 5
     }
   },
-  "revision": "fa4db6d176024e729ed1433427ed5c82",
+  "revision": "aa272102441f38970ee88560ea62e4ee",
   "rows": [
     {
       "company": "Applied Materials, Inc.",
@@ -76,7 +76,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "NEUTRAL",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/AMAT?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 says Neutral; no exact issuer listing in the uploaded Investigate July 2025 dataset. Not universal ethical clearance.",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "GREEN",
+      "ethicalRizqOriginalLabel": "Neutral"
     },
     {
       "company": "Schneider Electric SE",
@@ -157,7 +164,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
     },
     {
       "company": "Micron Technology, Inc.",
@@ -218,7 +232,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "NEUTRAL",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/MU?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 says Neutral; no exact issuer listing in the uploaded Investigate July 2025 dataset. Not universal ethical clearance.",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "GREEN",
+      "ethicalRizqOriginalLabel": "Neutral"
     },
     {
       "company": "Mastercard Incorporated",
@@ -279,7 +300,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "NEUTRAL",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/MA?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 says Neutral; no exact issuer listing in the uploaded Investigate July 2025 dataset. Not universal ethical clearance.",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "GREEN",
+      "ethicalRizqOriginalLabel": "Neutral"
     },
     {
       "company": "ABB Ltd",
@@ -362,7 +390,14 @@
       "investigateCompany": "ABB Ltd",
       "investigateIsin": "CH0012221716",
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNETHICAL",
+      "ethicalFinalSource": "INVESTIGATE",
+      "ethicalFinalSourceUrl": "https://investigate.info/company/abb",
+      "ethicalFinalReason": "RizqInvests exact-match status is unavailable; Investigate lists this issuer. Investigate July 2025 source categories: Occupations. Historical source concern, not independently established wrongdoing or an official BDS listing.",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "RED",
+      "ethicalRizqOriginalLabel": null
     },
     {
       "company": "Cisco Systems, Inc.",
@@ -425,7 +460,14 @@
       "investigateCompany": "Cisco Systems Inc",
       "investigateIsin": "US17275R1023",
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "BDS_LISTED",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/CSCO?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 snapshot explicitly shows BDS badge.",
+      "ethicalFinalBdsListed": true,
+      "ethicalFinalColor": "RED",
+      "ethicalRizqOriginalLabel": "Unethical"
     },
     {
       "company": "The Home Depot, Inc.",
@@ -486,7 +528,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "NEUTRAL",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/HD?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 says Neutral; no exact issuer listing in the uploaded Investigate July 2025 dataset. Not universal ethical clearance.",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "GREEN",
+      "ethicalRizqOriginalLabel": "Neutral"
     },
     {
       "company": "Chevron Corporation",
@@ -550,7 +599,14 @@
       "investigateCompany": "Chevron Corp",
       "investigateIsin": "US1667641005",
       "investigateDivestmentShortlist": true,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNETHICAL",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/CVX?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 snapshot explicitly says Unethical.",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "RED",
+      "ethicalRizqOriginalLabel": "Unethical"
     },
     {
       "company": "ASM International N.V.",
@@ -631,7 +687,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
     },
     {
       "company": "NVIDIA Corporation",
@@ -694,7 +757,14 @@
       "investigateCompany": "NVIDIA Corp",
       "investigateIsin": "US67066G1040",
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "BDS_LISTED",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/NVDA?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 snapshot explicitly shows BDS badge.",
+      "ethicalFinalBdsListed": true,
+      "ethicalFinalColor": "RED",
+      "ethicalRizqOriginalLabel": "Unethical"
     },
     {
       "company": "Tesla, Inc.",
@@ -755,7 +825,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNETHICAL",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/TSLA?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 snapshot explicitly says Unethical.",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "RED",
+      "ethicalRizqOriginalLabel": "Unethical"
     },
     {
       "company": "Realtek Semiconductor Corporation",
@@ -836,7 +913,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
     },
     {
       "company": "King Yuan Electronics Co., Ltd.",
@@ -917,7 +1001,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
     },
     {
       "company": "Merck & Co., Inc.",
@@ -978,7 +1069,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "NEUTRAL",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/MRK?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 says Neutral; no exact issuer listing in the uploaded Investigate July 2025 dataset. Not universal ethical clearance.",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "GREEN",
+      "ethicalRizqOriginalLabel": "Neutral"
     },
     {
       "company": "Fortune Electric Co., Ltd.",
@@ -1059,7 +1157,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
     },
     {
       "company": "Taiwan Semiconductor Manufacturing Company Limited",
@@ -1140,7 +1245,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
     },
     {
       "company": "Advanced Micro Devices, Inc.",
@@ -1201,7 +1313,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "NEUTRAL",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/AMD?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 says Neutral; no exact issuer listing in the uploaded Investigate July 2025 dataset. Not universal ethical clearance.",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "GREEN",
+      "ethicalRizqOriginalLabel": "Neutral"
     },
     {
       "company": "Elite Material Co., Ltd.",
@@ -1282,7 +1401,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
     },
     {
       "company": "Micro-Star International Co., Ltd.",
@@ -1363,7 +1489,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
     },
     {
       "company": "MediaTek Inc.",
@@ -1444,7 +1577,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
     },
     {
       "company": "Eli Lilly and Company",
@@ -1505,7 +1645,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "NEUTRAL",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/LLY?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 says Neutral; no exact issuer listing in the uploaded Investigate July 2025 dataset. Not universal ethical clearance.",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "GREEN",
+      "ethicalRizqOriginalLabel": "Neutral"
     },
     {
       "company": "Visa Inc.",
@@ -1566,7 +1713,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNETHICAL",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/V?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 snapshot explicitly says Unethical.",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "RED",
+      "ethicalRizqOriginalLabel": "Unethical"
     },
     {
       "company": "Johnson & Johnson",
@@ -1627,7 +1781,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "NEUTRAL",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/JNJ?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 says Neutral; no exact issuer listing in the uploaded Investigate July 2025 dataset. Not universal ethical clearance.",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "GREEN",
+      "ethicalRizqOriginalLabel": "Neutral"
     },
     {
       "company": "The Procter & Gamble Company",
@@ -1688,7 +1849,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "BDS_LISTED",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/PG?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 snapshot explicitly shows BDS badge.",
+      "ethicalFinalBdsListed": true,
+      "ethicalFinalColor": "RED",
+      "ethicalRizqOriginalLabel": "Unethical"
     },
     {
       "company": "Apple Inc.",
@@ -1749,7 +1917,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNETHICAL",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/AAPL?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 snapshot explicitly says Unethical.",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "RED",
+      "ethicalRizqOriginalLabel": "Unethical"
     },
     {
       "company": "ExxonMobil Holdings Corporation",
@@ -1809,7 +1984,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
     },
     {
       "company": "Novatek Microelectronics Corporation",
@@ -1890,7 +2072,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
     },
     {
       "company": "Origin Energy Limited",
@@ -1971,7 +2160,14 @@
       "investigateCompany": null,
       "investigateIsin": null,
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
     },
     {
       "company": "The Coca-Cola Company",
@@ -2034,7 +2230,14 @@
       "investigateCompany": "Coca-Cola Co",
       "investigateIsin": "US1912161007",
       "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "BDS_LISTED",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/KO?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 snapshot explicitly shows BDS badge.",
+      "ethicalFinalBdsListed": true,
+      "ethicalFinalColor": "RED",
+      "ethicalRizqOriginalLabel": "Unethical"
     }
   ]
 }
