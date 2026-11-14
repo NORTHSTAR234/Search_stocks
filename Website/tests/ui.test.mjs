@@ -592,3 +592,35 @@ test("all exchanges share exactly one green/amber highlight or none",()=>{
   assert.equal(count(render(row,above),"preferred")+count(render(row,above),"acceptable"),0);
  }finally{Date.now=realNow;}
 });
+
+test("two stock tables share the same search/category/exchange/order and row markup",()=>{
+  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
+  for(const id of ["mainTableTitle","flaggedTableTitle","primaryShown","flaggedShown","rows"])
+    assert(build.includes('id="'+id+'"'),id);
+  assert.equal((build.match(/<table aria-labelledby=/g)||[]).length,2,"two native accessible tables");
+  assert(build.includes("'<thead><tr>'+head+'</tr></thead><tbody id=\"flaggedRows\""));
+  assert(source.includes('const primary=filtered.filter(r=>!isFlaggedForSecondTable(r));'));
+  assert(source.includes('const flagged=filtered.filter(isFlaggedForSecondTable);'));
+  assert(source.includes("primary.map(tr)")&&source.includes("flagged.map(tr)"));
+  assert(source.indexOf("filtered.sort(")<source.indexOf("const primary=filtered.filter("));
+  assert(source.includes('["search","bucket","exchange","order"].forEach'));
+  assert(source.includes('"Showing "+filtered.length+" of "+all.length'));
+});
+
+test("second table routing uses FINAL combined ethical red OR Musaffa non-halal, not folder or AAOIFI",()=>{
+  const match=source.match(/function isFlaggedForSecondTable\(r\)\{([\s\S]*?)\n  \}/);
+  assert(match,"dual-table classifier");
+  const classify=new Function("musaffaVisual",
+    "return function(r){"+match[1]+"\n}")(r=>({tone:r.testTone||"warn"}));
+  const row={bucket:"nonhalal",musaffaClassification:"HALAL",
+    musaffaGate:"STALE",ethicalFinalStatus:"UNVERIFIED",ethicalFinalColor:"NONE"};
+  assert.equal(classify(row),false,"folder alone does not route to negative table");
+  assert.equal(classify({...row,ethicalFinalStatus:"UNETHICAL",ethicalFinalColor:"RED"}),true);
+  assert.equal(classify({...row,ethicalFinalStatus:"BDS_LISTED",ethicalFinalColor:"RED"}),true);
+  assert.equal(classify({...row,musaffaClassification:"NOT HALAL",musaffaGate:"FAIL"}),true);
+  assert.equal(classify({...row,musaffaClassification:"NON-COMPLIANT"}),true);
+  assert.equal(classify({...row,musaffaClassification:"HARAM"}),true);
+  assert.equal(classify({...row,musaffaClassification:"HALAL",testTone:"bad"}),true);
+  assert.equal(classify({...row,ethicalFinalStatus:"NEUTRAL",ethicalFinalColor:"GREEN"}),false);
+  assert.equal(classify({...row,musaffaClassification:"INCONCLUSIVE"}),false);
+});
