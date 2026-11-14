@@ -7,6 +7,7 @@ import {createHash} from "node:crypto";
 import {archiveInfo,latestArchive,parseHtmlReport} from "../lib/report-archive.mjs";
 import {loadEthicalDataset,applyEthicalDataset} from "../lib/ethical-dataset.mjs";
 import {loadInvestigateDataset,applyInvestigateDataset} from "../lib/investigate-dataset.mjs";
+import {applyCombinedEthicalScreening} from "../lib/ethical-policy.mjs";
 const here=path.dirname(fileURLToPath(import.meta.url));
 const root=path.resolve(here,"../..");
 const target=path.resolve(here,"../live-reports.json");
@@ -41,8 +42,8 @@ for(const file of chosen){
  rows.push(parsed);
 }
 for(const row of rows){
-  // Current ethics is exclusively the owner-provided November 2026 table.
-  Object.assign(row,applyInvestigateDataset(applyEthicalDataset(row,ethicalRegistry),investigateRegistry));
+  // Source-locked RizqInvests-first decision; Investigate may override only non-red findings.
+  Object.assign(row,applyCombinedEthicalScreening(applyInvestigateDataset(applyEthicalDataset(row,ethicalRegistry),investigateRegistry)));
   for(const key of Object.keys(row))if(/^aaoifi/i.test(key))delete row[key];
 }
 const content=JSON.stringify(rows);
