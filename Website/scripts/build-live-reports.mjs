@@ -53,6 +53,11 @@ const document={
  latestHtmlReportAt:chosen[0]?.timestamp||null,
  htmlReportCount:archives.length,
  uniqueTickers:rows.length,
+ ethicalSources:{
+   rizqinvests:{snapshot:"2026-11",records:ethicalRegistry.data.rows.length},
+   investigate:{snapshot:"2025-07",records:investigateRegistry.data.rows.length,
+     matchedReports:rows.filter(row=>row.investigateListed===true).length}
+ },
  revision,
  rows
 };
