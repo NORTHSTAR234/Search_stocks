@@ -12,7 +12,6 @@
 .table-wrap th:nth-child(7){min-width:185px}
 .table-wrap th:nth-child(8){min-width:190px}
 .table-wrap th:nth-child(9){min-width:185px}
-.table-wrap th:nth-child(10){min-width:155px}
 .table-wrap th:last-child,.table-wrap td:last-child{min-width:100px}
 .badge{line-height:1.45;max-width:none;display:inline-block;word-break:normal}
 .notice{line-height:1.5}
@@ -41,8 +40,6 @@
 .table-wrap th:nth-child(6){min-width:225px}
 .table-wrap th:nth-child(8){min-width:185px}
 .table-wrap th:nth-child(9){min-width:190px}
-.table-wrap th:nth-child(10){min-width:185px}
-.table-wrap th:nth-child(11){min-width:155px}
 .table-wrap td .quote-value{font-size:1rem;line-height:1.3;font-weight:800;display:block}
 .table-wrap td .quote-value.gain{color:#66dcaa}
 .table-wrap td .quote-value.loss{color:#ff8a95}
@@ -70,11 +67,7 @@
 
 /* Match the Investment / Entry two-card design in the two right-hand
    recommendation columns. Preserve all original values and wrapping. */
-.table-wrap th:nth-child(10),.table-wrap td:nth-child(10),
-.table-wrap th:nth-child(11),.table-wrap td:nth-child(11){
-  min-width:250px;
-  max-width:320px;
-}
+.table-wrap th:nth-child(9),.table-wrap td:nth-child(9){min-width:180px;max-width:260px}
 .range-pair{gap:7px;align-items:stretch}
 .range-box{gap:7px;min-height:65px;justify-content:flex-start}
 .range-value{
@@ -90,29 +83,24 @@
 .range-value.warn{color:#ffc377}
 .range-value.bad{color:#ff8a95}
 .range-value.neutral{color:#d2e0ee;font-size:.75rem}
-.table-wrap td:nth-child(10) .gain{font-weight:750}
+.table-wrap td:nth-child(9) .gain{font-weight:750}
 @media(max-width:680px){
-  .table-wrap th:nth-child(10),.table-wrap td:nth-child(10),
-  .table-wrap th:nth-child(11),.table-wrap td:nth-child(11){
-    min-width:235px;
-  }
+  .table-wrap th:nth-child(9),.table-wrap td:nth-child(9){min-width:190px}
 }
 
 
-/* Dashboard 10-column order: ticker, regular, overnight, action, scores,
-   report date, preferred/acceptable, stop/no-chase, Musaffa, earnings.
-   These selectors override legacy positions from the 11-column layout. */
-.table-wrap table{min-width:1940px}
-.table-wrap th:nth-child(1),.table-wrap td:nth-child(1){min-width:150px;max-width:190px}
+/* Nine columns: company + ethics, regular, overnight, chart, action, markers,
+ report date, Musaffa and next earnings. */
+.table-wrap table{min-width:1560px}
+.table-wrap th:nth-child(1),.table-wrap td:nth-child(1){min-width:220px;max-width:280px}
 .table-wrap th:nth-child(2),.table-wrap td:nth-child(2){min-width:205px;max-width:265px}
 .table-wrap th:nth-child(3),.table-wrap td:nth-child(3){min-width:210px;max-width:265px}
+.table-wrap th:nth-child(4),.table-wrap td:nth-child(4){min-width:215px;max-width:290px}
 .table-wrap th:nth-child(5),.table-wrap td:nth-child(5){min-width:230px;max-width:285px}
-.table-wrap th:nth-child(6),.table-wrap td:nth-child(6){min-width:194px;max-width:235px}
+.table-wrap th:nth-child(6),.table-wrap td:nth-child(6){min-width:194px;max-width:265px}
 .table-wrap th:nth-child(7),.table-wrap td:nth-child(7){min-width:154px;max-width:190px}
-.table-wrap th:nth-child(8),.table-wrap td:nth-child(8){min-width:260px;max-width:330px}
-.table-wrap th:nth-child(9),.table-wrap td:nth-child(9){min-width:250px;max-width:325px}
-.table-wrap th:nth-child(10),.table-wrap td:nth-child(10){min-width:180px;max-width:240px}
-.table-wrap th:nth-child(11),.table-wrap td:nth-child(11){min-width:180px;max-width:245px}
+.table-wrap th:nth-child(8),.table-wrap td:nth-child(8){min-width:200px;max-width:250px}
+.table-wrap th:nth-child(9),.table-wrap td:nth-child(9){min-width:180px;max-width:240px}
 
 /* Single active entry ceiling: preferred green or acceptable amber, never both. */
 .table-wrap .range-box.zone-hit{
@@ -195,15 +183,6 @@
 .musaffa-cell>.badge.bad{color:#ffabb0;background:#612832;border:1px solid #b45764}
 .musaffa-details{font-size:.78rem;line-height:1.45;overflow-wrap:anywhere}
 
-/* AAOIFI Stock_screener status is independent of Musaffa and investment actions. */
-.aaoifi-cell{display:flex;flex-direction:column;align-items:flex-start;gap:4px;max-width:280px}
-.aaoifi-cell>.badge{font-weight:800;letter-spacing:.015em;white-space:normal;max-width:100%}
-.aaoifi-cell>.badge.good{color:#83f5c2;background:#174f40;border:1px solid #368a69}
-.aaoifi-cell>.badge.warn{color:#ffe19a;background:#594624;border:1px solid #ab843c}
-.aaoifi-cell>.badge.bad{color:#ffabb0;background:#612832;border:1px solid #b45764}
-.aaoifi-details{font-size:.78rem;line-height:1.45;overflow-wrap:anywhere}
-.aaoifi-link{text-decoration:none}
-.aaoifi-link:hover{text-decoration:none;filter:brightness(1.08)}
 
 
 /* One combined Markers field: scores → price zones → stop/no-chase.
@@ -252,7 +231,7 @@
   display:table;
   width:100%!important;
   /* Wide desktops fit naturally; narrow screens pan the table, not the page. */
-  min-width:1840px!important;
+  min-width:1560px!important;
   max-width:none;
   table-layout:fixed;
   border-collapse:separate;
@@ -315,17 +294,15 @@
 .table-wrap td:first-child {position:static;left:auto;top:auto;z-index:auto;background:#132136;box-shadow:none}
 .table-wrap tbody tr:hover td {background:#192b42}
 .table-wrap tbody tr:hover td:first-child {background:#192b42}
-.table-wrap th:nth-child(1) {width:7%}
-.table-wrap th:nth-child(2) {width:9%}
-.table-wrap th:nth-child(3) {width:9%}
+.table-wrap th:nth-child(1) {width:14%}
+.table-wrap th:nth-child(2) {width:11%}
+.table-wrap th:nth-child(3) {width:11%}
 .table-wrap th:nth-child(4) {width:12%}
-.table-wrap th:nth-child(5) {width:11%}
-.table-wrap th:nth-child(6) {width:18%}
-.table-wrap th:nth-child(7) {width:7%}
-.table-wrap th:nth-child(8) {width:9%}
-.table-wrap th:nth-child(9) {width:7%}
-.table-wrap th:nth-child(10){width:7%}
-.table-wrap th:nth-child(11){width:4%}
+.table-wrap th:nth-child(5) {width:12%}
+.table-wrap th:nth-child(6) {width:19%}
+.table-wrap th:nth-child(7) {width:8%}
+.table-wrap th:nth-child(8) {width:8%}
+.table-wrap th:nth-child(9) {width:6%}
 .table-wrap .score-pair {min-width:0;gap:5px}
 .table-wrap .score-box {min-width:0;padding:7px 5px}
 .table-wrap .range-value {font-size:.83rem}
@@ -333,14 +310,14 @@
 .table-wrap td[colspan] {display:table-cell;text-align:center}
 @media(max-width:850px){
   .table-wrap th,.table-wrap td {padding:11px 7px}
-  .table-wrap table {min-width:1680px!important}
+  .table-wrap table {min-width:1560px!important}
 }
 @media(max-width:560px){
-  .table-wrap table {min-width:1680px!important}
+  .table-wrap table {min-width:1560px!important}
   .table-wrap th,.table-wrap td {font-size:.76rem}
 }
 /* No clipped hero, navbar, filters or horizontal page shifts.
-   A horizontal table scrollbar is necessary for 11 legible columns on mobile,
+   A horizontal table scrollbar is necessary for 9 legible columns on mobile,
    but the page itself remains the only vertical scrolling surface. */
 
 /* FLUID VIEWPORT WIDTH
@@ -390,13 +367,15 @@ main:not(.report-layout)>.panel .table-footer{
 }
 /* On desktop the table is still a real table with normal column headers. */
 
-/* Separate RizqInvests ethical/BDS status, preserving existing AAOIFI styling. */
-.ethical-cell{display:flex;flex-direction:column;align-items:flex-start;gap:5px;max-width:275px}
-.ethical-cell>.badge{max-width:100%;font-weight:800;white-space:normal}
-.ethical-cell small{overflow-wrap:anywhere;line-height:1.45}
-.table-wrap th:nth-child(10),.table-wrap td:nth-child(10){min-width:155px;max-width:225px}
-.table-wrap th:nth-child(11),.table-wrap td:nth-child(11){min-width:130px;max-width:215px}
-
+/* Soft rounded linked ethical/BDS box beneath company text in first column. */
+.table-wrap .ethical-inline-card{display:flex;flex-direction:column;gap:3px;max-width:100%;margin-top:9px;padding:8px 10px;border-radius:10px;border:1px solid;text-decoration:none;line-height:1.35;white-space:normal;transition:filter .15s ease}
+.table-wrap .ethical-inline-card.good{color:#95eac3;background:rgba(20,109,76,.18);border-color:rgba(102,225,166,.36)}
+.table-wrap .ethical-inline-card.bad{color:#ffafb5;background:rgba(128,35,53,.18);border-color:rgba(245,112,132,.35)}
+.table-wrap .ethical-inline-card:hover,.table-wrap .ethical-inline-card:focus-visible{text-decoration:none;filter:brightness(1.16);outline-offset:2px}
+.table-wrap .ethical-inline-title{display:flex;align-items:center;flex-wrap:wrap;gap:5px;font-size:.74rem;font-weight:760}
+.table-wrap .ethical-inline-dot{width:7px;height:7px;border-radius:50%;flex:none;background:currentColor}
+.table-wrap .ethical-inline-note{font-size:.63rem;color:#9fb5c7}
+@media(prefers-reduced-motion:reduce){.table-wrap .ethical-inline-card{transition:none}}
 /* Responsive one-month IEX chart: keep the native table, equal row/column
    dividers, single page vertical scrollbar and table-only horizontal pan. */
 .table-wrap th:nth-child(4),.table-wrap td:nth-child(4){min-width:225px}
@@ -414,8 +393,6 @@ main:not(.report-layout)>.panel .table-footer{
 .mini-chart-empty small{color:#8297af}
 
 
-/* Badge-only screening columns: the source reports still contain full evidence. */
+/* Musaffa remains the only dedicated screening-status column. */
 .table-wrap .status-only-cell{display:flex;align-items:flex-start;justify-content:flex-start;flex-wrap:wrap;gap:7px;max-width:100%}
 .table-wrap .status-only-cell>.badge{margin:0;max-width:100%;white-space:normal;overflow-wrap:normal;word-break:normal}
-.table-wrap .ethical-source-link{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:26px;padding:2px 5px;border:1px solid #456780;border-radius:7px;background:#1c3449;color:#8ad4ff;font-size:1rem;font-weight:750;text-decoration:none}
-.table-wrap .ethical-source-link:hover,.table-wrap .ethical-source-link:focus-visible{border-color:#77c7ff;background:#284860}
