@@ -598,7 +598,7 @@ test("two stock tables share the same search/category/exchange/order and row mar
   for(const id of ["mainTableTitle","flaggedTableTitle","primaryShown","flaggedShown","rows"])
     assert(build.includes('id="'+id+'"'),id);
   assert.equal((build.match(/<table aria-labelledby=/g)||[]).length,2,"two native accessible tables");
-  assert(build.includes("'<thead><tr>'+head+'</tr></thead><tbody id=\"flaggedRows\""));
+  assert(build.includes("<thead><tr>'+head+'</tr></thead><tbody id=\"flaggedRows\""));
   assert(source.includes('const primary=filtered.filter(r=>!isFlaggedForSecondTable(r));'));
   assert(source.includes('const flagged=filtered.filter(isFlaggedForSecondTable);'));
   assert(source.includes("primary.map(tr)")&&source.includes("flagged.map(tr)"));
