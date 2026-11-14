@@ -583,7 +583,7 @@
     // when the existing date-sensitive badge correctly becomes INCONCLUSIVE.
     const classification=String(r.musaffaClassification||
       String(r.musaffa||"").split(" · ")[0]||"").trim().toUpperCase();
-    const musaffaNegative=/(?:NOT\\s+HALAL|NON[\\s-]?COMPLIANT|NON[\\s-]?HALAL|HARAM)/.test(classification);
+    const musaffaNegative=/(?:NOT\s+HALAL|NON[\s-]?COMPLIANT|NON[\s-]?HALAL|HARAM)/.test(classification);
     return ethicalNegative||musaffaNegative||musaffaVisual(r).tone==="bad";
   }
   function render(){
