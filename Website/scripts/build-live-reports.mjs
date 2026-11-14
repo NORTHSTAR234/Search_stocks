@@ -6,6 +6,7 @@ import {fileURLToPath} from "node:url";
 import {createHash} from "node:crypto";
 import {archiveInfo,latestArchive,parseHtmlReport} from "../lib/report-archive.mjs";
 import {loadEthicalDataset,applyEthicalDataset} from "../lib/ethical-dataset.mjs";
+import {loadInvestigateDataset,applyInvestigateDataset} from "../lib/investigate-dataset.mjs";
 const here=path.dirname(fileURLToPath(import.meta.url));
 const root=path.resolve(here,"../..");
 const target=path.resolve(here,"../live-reports.json");
@@ -26,6 +27,7 @@ for(const bucket of ["halal","nonhalal"]){
 const chosen=latestArchive(archives);
 const rows=[];
 const ethicalRegistry=loadEthicalDataset();
+const investigateRegistry=loadInvestigateDataset();
 const byBucket=new Map();
 for(const report of archives){
  const key=report.ticker.toUpperCase();
@@ -40,7 +42,7 @@ for(const file of chosen){
 }
 for(const row of rows){
   // Current ethics is exclusively the owner-provided November 2026 table.
-  Object.assign(row,applyEthicalDataset(row,ethicalRegistry));
+  Object.assign(row,applyInvestigateDataset(applyEthicalDataset(row,ethicalRegistry),investigateRegistry));
   for(const key of Object.keys(row))if(/^aaoifi/i.test(key))delete row[key];
 }
 const content=JSON.stringify(rows);
