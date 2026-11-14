@@ -159,17 +159,14 @@ test("AAOIFI overwrite report snapshot parses into dashboard status fields",()=>
  assert.match(row.reportPath,/AAOIFI%2FNVDA.NASDAQ.html/);
 });
 
-test("AMD independent AAOIFI screen retains tested financial pass, conditional rights and overall review",()=>{
- const source=readFileSync(new URL("../../AAOIFI/AMD.NASDAQ.html",import.meta.url),"utf8");
- const out=parseAaoifiHtml(aaoifiInfo("AAOIFI/AMD.NASDAQ.html"),source);
- assert.equal(out.ticker,"AMD");
- assert.equal(out.status,"SHARIAH REVIEW REQUIRED");
- assert.equal(out.aaoifiFinancialStatus,"PASS_ON_TESTED_EVIDENCE");
- assert.equal(out.aaoifiTradabilityStatus,"CONDITIONAL_BOOK_PROXY_ABOVE");
- assert(Math.abs(out.aaoifiTradabilityBookProxyPercent-32.162)<0.001);
- assert(out.aaoifiMissingEvidence.includes("market value"));
- assert.equal(out.ethicalStatus,"NEUTRAL");
- assert.equal(out.ethicalBdsListed,false);
+test("AMD ethical/BDS status comes from retained 491-row November 2026 database, not removed AAOIFI report",()=>{
+ const source=JSON.parse(readFileSync(new URL("../data/rizqinvests-ethical-bds-2026-11.json",import.meta.url),"utf8"));
+ assert.equal(source.rows.length,491);
+ const amd=source.rows.find(x=>x.ticker==="AMD");
+ assert(amd);
+ assert.equal(amd.ethical_label,"Neutral");
+ assert.equal(amd.bds_badge,false);
+ assert.equal(amd.source_url,"https://www.rizqinvests.com/halal/stock/AMD?view=both");
 });
 
 test("unmatched frozen-table issuer stays unverified and never invents a provider URL",()=>{
