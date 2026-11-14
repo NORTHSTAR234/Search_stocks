@@ -20,7 +20,7 @@ test("GitHub newest HTML scan includes new tickers and excludes unrelated reposi
 });
 test("HTML archive path validation blocks traversal, unexpected hosts and file types",()=>{
  assert(validGitHubArchivePath("halal/NEW/NEW_2026-11-09_01-02-03Z.html"));
- assert(validGitHubArchivePath("AAOIFI/NVDA.NASDAQ.html"));
+ assert.equal(validGitHubArchivePath("AAOIFI/NVDA.NASDAQ.html"),false);
  for(const bad of ["../secrets","halal/A/A_2026-11-09_01-02-03Z.md",
   "halal/A/../A_2026-11-09_01-02-03Z.html","halal/A/A_2026-11-09_01-02-03Z.html?raw",
   "halal/B/A_2026-11-09_01-02-03Z.html"])assert.equal(validGitHubArchivePath(bad)&&!!archiveInfo(bad),false);
