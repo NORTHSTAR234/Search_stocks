@@ -6,6 +6,7 @@ import { createHash } from "node:crypto";
 import {parseHtmlReport,safeHtmlDocument} from "./lib/report-archive.mjs";
 import {loadEthicalDataset,applyEthicalDataset} from "./lib/ethical-dataset.mjs";
 import {loadInvestigateDataset,applyInvestigateDataset} from "./lib/investigate-dataset.mjs";
+import {applyCombinedEthicalScreening} from "./lib/ethical-policy.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
@@ -155,7 +156,7 @@ function mainPage() {
   '<button id="refresh" type="button">Refresh data</button></div><div class="notice" id="marketNotice" role="status">Loading archived reports…</div><div class="notice report-sync" id="reportSyncNotice" role="status">Checking GitHub for newer HTML reports…</div>'+
   '<div class="table-wrap"><table><thead><tr>'+head+'</tr></thead><tbody id="rows"><tr><td colspan="9">Loading…</td></tr></tbody></table></div>'+
   '<div class="table-footer"><span id="shown"></span><span>Prices and GitHub HTML archives checked every 5 minutes while open</span></div></section>'+
-  '<p class="note">Scores: 70–100 green, 40–69 amber, below 40 red. Score colors show relative report ratings, not trading signals. Musaffa screening: green = recently verified halal; yellow = inconclusive/stale/unverified; red = recently verified non-compliant. These statuses are independent of financial Buy/Watch/Hold/Sell decisions. Storage buckets are administrative, not Shariah determinations. Unverified or stale screening does not mean haram. Ethical/BDS status appears only as a linked soft-edged box beneath issuer information in the first column for exact issuer matches in the user-supplied November 2026 RizqInvests database. Green = ethical or neutral with no database BDS flag; red = unethical or expressly BDS-flagged. A separately attributed July 2025 Investigate listing shows a red concern box with its company-specific source link, even when RizqInvests has a different label; this is not automatically an official BDS listing. Missing or mismatched tickers have no colour box, not an implied clearance. Both datasets are historical user-provided snapshots, not live provider reassessments. A 24h percentage is shown only when a comparable observation approximately 24 elapsed hours earlier exists. Non-US prices come from a private personal-use delayed Yahoo cache, subject to source terms.</p></main>'+
+  '<p class="note">Scores: 70–100 green, 40–69 amber, below 40 red. Score colors show relative report ratings, not trading signals. Musaffa screening: green = recently verified halal; yellow = inconclusive/stale/unverified; red = recently verified non-compliant. These statuses are independent of financial Buy/Watch/Hold/Sell decisions. Storage buckets are administrative, not Shariah determinations. Unverified or stale screening does not mean haram. Ethical/BDS status appears only as a linked soft-edged box beneath issuer information in the first column for exact issuer matches in the user-supplied November 2026 RizqInvests database. Green = RizqInvests Neutral/Ethical AND no exact Investigate concern; red = RizqInvests Unethical/BDS first, or an Investigate concern second. RizqInvests red results have priority. If RizqInvests is Neutral/Ethical, an exact July 2025 Investigate listing makes the FINAL status red Unethical with its company-specific source link. An Investigate concern is not automatically an official BDS designation. Missing or mismatched tickers have no colour box, not an implied clearance. Both datasets are historical user-provided snapshots, not live provider reassessments. A 24h percentage is shown only when a comparable observation approximately 24 elapsed hours earlier exists. Non-US prices come from a private personal-use delayed Yahoo cache, subject to source terms.</p></main>'+
   '<script src="/assets/app.js?v='+scriptVersion+'" defer></script>';
   return page("Latest Research Reports",body);
 }
@@ -197,7 +198,7 @@ export function build() {
     const raw=fs.readFileSync(path.join(root,info.path),"utf8");
     const row=info.format==="html"?parseHtmlReport(info,raw):parseReport(info,raw);
     row.conflictingBuckets=bucketsByTicker.get(info.ticker.toUpperCase()).size>1;
-    rows.push(applyInvestigateDataset(applyEthicalDataset(row,ethicalRegistry),investigateRegistry));
+    rows.push(applyCombinedEthicalScreening(applyInvestigateDataset(applyEthicalDataset(row,ethicalRegistry),investigateRegistry)));
     const target=path.join(output,"reports",info.ticker,"index.html");
     fs.mkdirSync(path.dirname(target),{recursive:true});
     fs.writeFileSync(target,info.format==="html"?safeHtmlDocument(info,raw):reportPage(row,markdown.render(raw)));
