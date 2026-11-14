@@ -5,6 +5,7 @@ import MarkdownIt from "markdown-it";
 import { createHash } from "node:crypto";
 import {parseHtmlReport,safeHtmlDocument} from "./lib/report-archive.mjs";
 import {loadEthicalDataset,applyEthicalDataset} from "./lib/ethical-dataset.mjs";
+import {loadInvestigateDataset,applyInvestigateDataset} from "./lib/investigate-dataset.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
@@ -145,7 +146,7 @@ function mainPage() {
   const labels=["Company / ticker","Regular / latest price","Overnight / vs close","Live chart · 1M","Action / Risk","Markers","Last report (AEDT/AEST)","Musaffa status / grade / screening date","Next earnings / confirmation"];
   const head=labels.map(label=>'<th scope="col">'+esc(label)+'</th>').join("");
   const body='<header class="top"><a class="brand" href="/">◈ Stock Research</a><span class="top-note">HISTORICAL REPORTS</span></header>'+
-  '<main><section class="hero"><p class="eyebrow">SEARCH_STOCK · GITHUB ARCHIVE</p><h1>Latest Research Reports</h1><p>One latest archived report per exact ticker, with separate time-stamped market observations when available.</p><a class="ethical-database-link" href="/ethical-database/">Browse the Ethical / BDS database · 491 securities ↗</a>'+
+  '<main><section class="hero"><p class="eyebrow">SEARCH_STOCK · GITHUB ARCHIVE</p><h1>Latest Research Reports</h1><p>One latest archived report per exact ticker, with separate time-stamped market observations when available.</p><a class="ethical-database-link" href="/ethical-database/">Browse ethical sources · RizqInvests 491 + Investigate 255 ↗</a>'+
   '<div class="metrics"><div><span id="count">—</span><small>Latest reports</small></div><div><span id="halalCount">—</span><small>Halal-folder reports</small></div><div><span id="quoteCount">—</span><small>Verified quotes</small></div></div></section>'+
   '<section class="panel"><div class="toolbar"><label class="search"><span>Search</span><input id="search" type="search" placeholder="Ticker or company" aria-label="Search ticker or company"></label>'+
   '<label><span>Category</span><select id="bucket"><option value="all">All</option><option value="halal">Halal folder</option><option value="nonhalal">Nonhalal / unverified folder</option></select></label>'+
@@ -154,7 +155,7 @@ function mainPage() {
   '<button id="refresh" type="button">Refresh data</button></div><div class="notice" id="marketNotice" role="status">Loading archived reports…</div><div class="notice report-sync" id="reportSyncNotice" role="status">Checking GitHub for newer HTML reports…</div>'+
   '<div class="table-wrap"><table><thead><tr>'+head+'</tr></thead><tbody id="rows"><tr><td colspan="9">Loading…</td></tr></tbody></table></div>'+
   '<div class="table-footer"><span id="shown"></span><span>Prices and GitHub HTML archives checked every 5 minutes while open</span></div></section>'+
-  '<p class="note">Scores: 70–100 green, 40–69 amber, below 40 red. Score colors show relative report ratings, not trading signals. Musaffa screening: green = recently verified halal; yellow = inconclusive/stale/unverified; red = recently verified non-compliant. These statuses are independent of financial Buy/Watch/Hold/Sell decisions. Storage buckets are administrative, not Shariah determinations. Unverified or stale screening does not mean haram. Ethical/BDS status appears only as a linked soft-edged box beneath issuer information in the first column for exact issuer matches in the user-supplied November 2026 RizqInvests database. Green = ethical or neutral with no database BDS flag; red = unethical or expressly BDS-flagged. Missing or mismatched tickers have no colour box, not an implied clearance. Not a live provider reassessment. A 24h percentage is shown only when a comparable observation approximately 24 elapsed hours earlier exists. Non-US prices come from a private personal-use delayed Yahoo cache, subject to source terms.</p></main>'+
+  '<p class="note">Scores: 70–100 green, 40–69 amber, below 40 red. Score colors show relative report ratings, not trading signals. Musaffa screening: green = recently verified halal; yellow = inconclusive/stale/unverified; red = recently verified non-compliant. These statuses are independent of financial Buy/Watch/Hold/Sell decisions. Storage buckets are administrative, not Shariah determinations. Unverified or stale screening does not mean haram. Ethical/BDS status appears only as a linked soft-edged box beneath issuer information in the first column for exact issuer matches in the user-supplied November 2026 RizqInvests database. Green = ethical or neutral with no database BDS flag; red = unethical or expressly BDS-flagged. A separately attributed July 2025 Investigate listing shows a red concern box with its company-specific source link, even when RizqInvests has a different label; this is not automatically an official BDS listing. Missing or mismatched tickers have no colour box, not an implied clearance. Both datasets are historical user-provided snapshots, not live provider reassessments. A 24h percentage is shown only when a comparable observation approximately 24 elapsed hours earlier exists. Non-US prices come from a private personal-use delayed Yahoo cache, subject to source terms.</p></main>'+
   '<script src="/assets/app.js?v='+scriptVersion+'" defer></script>';
   return page("Latest Research Reports",body);
 }
@@ -179,6 +180,7 @@ export function build() {
     return;
   }
   const ethicalRegistry=loadEthicalDataset();
+  const investigateRegistry=loadInvestigateDataset();
   const archives=[...scan("halal"),...scan("nonhalal")];
   if(!archives.length) throw new Error("No valid archived stock reports were found. Build stopped.");
   fs.rmSync(output,{recursive:true,force:true});
@@ -195,7 +197,7 @@ export function build() {
     const raw=fs.readFileSync(path.join(root,info.path),"utf8");
     const row=info.format==="html"?parseHtmlReport(info,raw):parseReport(info,raw);
     row.conflictingBuckets=bucketsByTicker.get(info.ticker.toUpperCase()).size>1;
-    rows.push(applyEthicalDataset(row,ethicalRegistry));
+    rows.push(applyInvestigateDataset(applyEthicalDataset(row,ethicalRegistry),investigateRegistry));
     const target=path.join(output,"reports",info.ticker,"index.html");
     fs.mkdirSync(path.dirname(target),{recursive:true});
     fs.writeFileSync(target,info.format==="html"?safeHtmlDocument(info,raw):reportPage(row,markdown.render(raw)));
@@ -206,10 +208,11 @@ export function build() {
   fs.copyFileSync(path.join(here,"market-exchanges.json"),path.join(jsonDir,"market-exchanges.json"));
   // Frozen user-supplied November 2026 ethical/BDS snapshot — no provider fetch.
   fs.copyFileSync(path.join(here,"data","rizqinvests-ethical-bds-2026-11.json"),path.join(jsonDir,"rizqinvests-ethical-bds-2026-11.json"));
+  fs.copyFileSync(path.join(here,"data","investigate-ethical-concerns-2025-07.json"),path.join(jsonDir,"investigate-ethical-concerns-2025-07.json"));
   fs.writeFileSync(path.join(jsonDir,"reports.json"),JSON.stringify({generatedAt:new Date().toISOString(),totalFiles:archives.length,rows},null,2));
   fs.writeFileSync(path.join(output,"index.html"),mainPage());
   fs.mkdirSync(path.join(output,"assets"),{recursive:true});
-  for (const name of ["app.js","style.css","ethical-db.css","ethical-db.js"]) fs.copyFileSync(path.join(here,"assets",name),path.join(output,"assets",name));
+  for (const name of ["app.js","style.css","ethical-db.css","ethical-db.js","investigate-db.js"]) fs.copyFileSync(path.join(here,"assets",name),path.join(output,"assets",name));
   const ethicalPage=path.join(output,"ethical-database");
   fs.mkdirSync(ethicalPage,{recursive:true});
   fs.copyFileSync(path.join(here,"ethical-database","index.html"),path.join(ethicalPage,"index.html"));
