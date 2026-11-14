@@ -85,7 +85,7 @@ test("regular and overnight have distinct columns and signed price/percentage co
  assert(source.includes("quoteDirection(valid?c.regularChangePercent:null)"));
  assert(source.includes("quote-value overnight-value"));
  assert(source.includes("No recent verified overnight indication"));
- assert(source.includes('colspan="11"'));
+ assert(source.includes('colspan="9"'));
 });
 
 
@@ -162,13 +162,13 @@ test("dashboard columns match specified new order and remove duplicate report co
  assert.deepEqual(headings,[
  "Company / ticker","Regular / latest price","Overnight / vs close","Live chart · 1M",
  "Action / Risk","Markers","Last report (AEDT/AEST)",
- "Musaffa status / grade / screening date","AAOIFI","Ethical / BDS","Next earnings / confirmation"]);
- assert.equal(headings.length,11);
+ "Musaffa status / grade / screening date","Next earnings / confirmation"]);
+ assert.equal(headings.length,9);
  assert(!source.includes('Original GitHub</a>'));
  assert(source.includes("'<td class=\"markers-cell\">'+markersCell(r,context)+'</td>'"));
  assert(source.includes("zoneCell(r,context)+"));
  assert(source.includes("stopsCell(r)+"));
- assert(source.includes('colspan="11"'));
+ assert(source.includes('colspan="9"'));
  assert(source.includes("class=\"ticker'+active+'\" href="));
 });
 test("entry caps use preferred-first inclusive thresholds and Action/Risk ignores above ceilings",()=>{
@@ -318,16 +318,16 @@ test("active-session columns show IEX first and hide old pre-market indications"
  assert(source.includes("non-US delayed Yahoo hourly month charts checked every 5 minutes while visible from private caches"));
 });
 
-test("AAOIFI dashboard column uses separate green red yellow semantics",()=>{
- assert(source.includes("function aaoifiVisual(r)"));
- assert(source.includes("function aaoifiCell(r)"));
- assert(source.includes('status==="AAOIFI-COMPLIANT"'));
- assert(source.includes('status==="AAOIFI-NON-COMPLIANT"'));
- assert(source.includes('status==="SHARIAH REVIEW REQUIRED"'));
- assert(source.includes("'<td>'+aaoifiCell(r)+'</td>'"));
+test("Ethical or BDS red/green link is under company name, with no extra screening columns",()=>{
+ assert(source.includes("function ethicalFirstColumn(r)"));
+ assert(source.includes("'+status+ethicalFirstColumn(r)+'</td>'"));
+ assert(!source.includes("function aaoifiCell(r)"));
+ assert(!source.includes("function ethicalCell(r)"));
+ assert(!source.includes("'<td>'+aaoifiCell(r)+'</td>'"));
+ assert(!source.includes("'<td>'+ethicalCell(r)+'</td>'"));
 });
 
-test("dashboard restores 11-column table with one page scrollbar and only table horizontal panning",()=>{
+test("dashboard restores 9-column table with one page scrollbar and only table horizontal panning",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
  const section=css.slice(css.indexOf("ORIGINAL FULL-WIDTH STOCK TABLE WITH CONTAINED HORIZONTAL OVERFLOW"),
    css.indexOf("/* FLUID VIEWPORT WIDTH"));
@@ -359,7 +359,7 @@ test("vertical separators match horizontal row borders at every viewport width",
  }
  assert(table.includes("th:first-child,\n.table-wrap td:first-child {border-left:1px solid #27394d}"));
  assert(table.includes(".table-wrap th:last-child,\n.table-wrap td:last-child {border-right:0}"));
- assert(table.includes("min-width:1840px!important;"));
+ assert(table.includes("min-width:1560px!important;"));
  assert(!table.includes("min-width:1400px!important;"));
  assert(!table.includes("min-width:1350px!important;"));
  assert(table.includes("overflow-wrap:break-word;"));
@@ -368,7 +368,7 @@ test("vertical separators match horizontal row borders at every viewport width",
  assert(table.includes("overflow-y:hidden!important;"),
    "Keep page-level vertical scrolling");
  assert(table.includes("overflow-x:auto!important;"),
-   "Use only horizontal overflow for 11 columns on narrow windows");
+   "Use only horizontal overflow for 9 columns on narrow windows");
 });
 test("table headings and first column no longer cover rows when page scrolls",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
@@ -383,13 +383,13 @@ test("table headings and first column no longer cover rows when page scrolls",()
  assert(table.includes("border-bottom:1px solid #27394d;"),
   "Keep the row separators");
 });
-test("all eleven stock headings are visible in the restored table",()=>{
+test("all nine stock headings are visible in the restored table",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
  const section=css.slice(css.indexOf("ORIGINAL FULL-WIDTH STOCK TABLE WITH CONTAINED HORIZONTAL OVERFLOW"),
    css.indexOf("/* FLUID VIEWPORT WIDTH"));
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  const headings=JSON.parse(build.split("\n").find(l=>l.includes("const labels=")).split("const labels=")[1].trim().replace(/;$/, ""));
- assert.equal(headings.length,11);
+ assert.equal(headings.length,9);
  assert(section.includes("display:table-header-group"));
  assert(section.includes("td::before {content:none!important;display:none!important}"));
  for(let i=1;i<=headings.length;i++)
@@ -405,7 +405,7 @@ test("narrow screens cannot horizontally shift the website header or filters",()
  const fluid=css.slice(css.indexOf("/* FLUID VIEWPORT WIDTH"));
  assert(table.includes("max-width:100%;"));
  assert(table.includes("overflow-x:auto!important;"));
- assert(table.includes("min-width:1840px!important;"));
+ assert(table.includes("min-width:1560px!important;"));
  assert(fluid.includes("html,body{max-width:100%;overflow-x:hidden}"));
  assert(fluid.includes("main:not(.report-layout)>.panel .toolbar,"));
  assert(fluid.includes("main:not(.report-layout)>.panel .notice,"));
@@ -481,7 +481,7 @@ test("AAOIFI keeps the classified badge and linked full report without inline fi
  assert(!block.includes("<small"),"Do not render financial and tradability writeups");
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  const headings=JSON.parse(build.split("\n").find(l=>l.includes("const labels=")).split("const labels=")[1].trim().replace(/;$/, ""));
- assert.equal(headings.length,11);
+ assert.equal(headings.length,9);
 });
 
 test("one-month IEX chart is sourced, responsive and polled with every quote cycle",()=>{
@@ -494,7 +494,7 @@ test("one-month IEX chart is sourced, responsive and polled with every quote cyc
    assert(source.includes('YFINANCE_YAHOO_1H_BAR_DELAYED'));
    assert(source.includes('hourly?.currency===q.currency'));
    assert(source.includes('new RegExp("\\\\b"+currency+"\\\\b","i")'));
-  assert(source.includes('colspan="11"'));
+  assert(source.includes('colspan="9"'));
   const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
   assert(css.includes(".mini-chart-svg"));
   assert(css.includes(".mini-chart-legend"));
