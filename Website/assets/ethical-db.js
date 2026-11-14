@@ -1,7 +1,7 @@
 (() => {
   "use strict";
   const $ = (id) => document.getElementById(id);
-  const ids=["search","ethical","bds","halal","type","sector","sort","pageSize"];
+  const ids=["search","ethical","final","bds","halal","type","sector","sort","pageSize"];
   let all=[],filtered=[],page=1,investigateLoaded=false,investigateByTicker=new Map();
   const cell=(row,value,cls)=>{
     const el=document.createElement("td");
@@ -65,11 +65,12 @@
   const priceNumber=(x)=>Number(String(x||"").replace(/[^0-9.]/g,""))||0;
   const clean=(x)=>String(x||"").toLocaleLowerCase("en").trim();
   function matching(){
-    const query=clean($("search").value),ethical=$("ethical").value,bds=$("bds").value,
+    const query=clean($("search").value),ethical=$("ethical").value,final=$("final").value,bds=$("bds").value,
       halal=$("halal").value,type=$("type").value,sector=$("sector").value;
     filtered=all.filter(r=>
       (!query||clean(r.ticker+" "+r.company+" "+r.sector).includes(query))&&
       (!ethical||r.ethical_label===ethical)&&
+      (!final||combinedStatus(r).status===final)&&
       (!bds||(bds==="yes"&&r.bds_badge===true)||(bds==="no"&&r.bds_badge===false))&&
       (!halal||r.provider_halal_label===halal)&&
       (!type||r.security_type===type)&&(!sector||r.sector===sector));
@@ -158,7 +159,8 @@
   }
   function exportCsv(){
     const columns=[
-      ["Ticker","ticker"],["Company","company"],["Ethical label","ethical_label"],
+      ["Ticker","ticker"],["Company","company"],["RizqInvests ethical label","ethical_label"],
+      ["Final ethical assessment","__FINAL__"],["Final ethical source URL","__FINAL_URL__"],
       ["BDS badge shown","bds_badge"],["Provider halal label","provider_halal_label"],
       ["Sector","sector"],["Type","security_type"],["Score","score_display"],
       ["Market cap (archived)","market_cap_display"],["Price (archived)","price_display"],
@@ -170,7 +172,7 @@
       return '"'+s.replaceAll('"','""')+'"';
     };
     const lines=[columns.map(x=>csvCell(x[0])).join(",")];
-    for(const record of filtered)lines.push(columns.map(c=>csvCell(record[c[1]])).join(","));
+    for(const record of filtered)lines.push(columns.map(c=>csvCell(c[1]==="__FINAL__"?combinedStatus(record).status:c[1]==="__FINAL_URL__"?(combinedStatus(record).url||""):record[c[1]])).join(","));
     const blob=new Blob(["\ufeff"+lines.join("\r\n")],{type:"text/csv;charset=utf-8"});
     const href=URL.createObjectURL(blob),a=document.createElement("a");
     a.href=href;a.download="rizqinvests-ethical-bds-nov-2026-filtered.csv";
