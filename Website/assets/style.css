@@ -404,3 +404,14 @@ main:not(.report-layout)>.panel .table-footer{
  line-height:1.4;overflow-wrap:anywhere}
 .table-wrap .ethical-inline-followup a{color:#9dd5ff;text-decoration:underline;text-underline-offset:2px}
 .table-wrap .ethical-inline-card.bad .ethical-inline-note{color:#ffb3b9}
+
+/* Split stock-list sections — one toolbar above two native, horizontally
+   pannable tables. Preserve the single browser vertical scroll surface. */
+.stock-section-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:15px 18px 12px;background:#17283e;border-top:1px solid #354960;border-bottom:1px solid #2c4158}
+.stock-section-heading h2{font-size:1.08rem;color:#f1f7ff;margin:0 0 4px;line-height:1.4}
+.stock-section-heading p{font-size:.76rem;line-height:1.5;color:#aabdd0;margin:0;max-width:940px}
+.stock-section-heading .stock-section-count{font-size:.78rem;font-weight:800;white-space:nowrap;border:1px solid #4b657e;border-radius:999px;color:#daebfa;background:#21364c;padding:4px 10px}
+.stock-section-flagged{margin-top:21px;background:#2a2636;border-top:2px solid #b65d68;border-bottom-color:#684352}
+.stock-section-flagged h2{color:#ffc3c8}
+.stock-section-flagged .stock-section-count{border-color:#9c6070;color:#ffc3c8;background:#422d3b}
+@media(max-width:600px){.stock-section-heading{align-items:flex-start;padding:12px 12px 10px;gap:9px}.stock-section-heading h2{font-size:1rem}.stock-section-heading p{font-size:.7rem;line-height:1.5}.stock-section-flagged{margin-top:17px}}
