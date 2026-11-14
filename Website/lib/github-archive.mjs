@@ -41,8 +41,7 @@ async function gitBlob(sha,token,fetcher,max){
 }
 export function validGitHubArchivePath(path){
  const value=String(path||"");
- return /^(?:halal|nonhalal)\/[A-Za-z0-9.-]+\/[A-Za-z0-9.-]+_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}Z(?:_chat_response)?\.html$/i.test(value)||
-   /^AAOIFI\/[A-Za-z0-9.-]+\.html$/i.test(value);
+ return /^(?:halal|nonhalal)\/[A-Za-z0-9.-]+\/[A-Za-z0-9.-]+_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}Z(?:_chat_response)?\.html$/i.test(value);
 }
 export function latestHtmlPaths(tree,parseArchiveInfo,chooseLatest){
  if(!Array.isArray(tree)||tree.length>30000)throw Error("Invalid or unbounded GitHub tree");
