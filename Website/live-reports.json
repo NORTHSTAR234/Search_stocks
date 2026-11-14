@@ -4,7 +4,7 @@
   "latestHtmlReportAt": "2026-11-14T00:39:06Z",
   "htmlReportCount": 79,
   "uniqueTickers": 29,
-  "revision": "b6cc895ff615f41893f8511197aea873",
+  "revision": "fa4db6d176024e729ed1433427ed5c82",
   "rows": [
     {
       "company": "Applied Materials, Inc.",
@@ -55,7 +55,17 @@
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
       "ethicalSnapshotImportedOn": "2026-11-13",
-      "ethicalProviderLabel": "Neutral"
+      "ethicalProviderLabel": "Neutral",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Schneider Electric SE",
@@ -126,7 +136,17 @@
       "ethicalSourceUrl": null,
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13"
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Micron Technology, Inc.",
@@ -177,7 +197,17 @@
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
       "ethicalSnapshotImportedOn": "2026-11-13",
-      "ethicalProviderLabel": "Neutral"
+      "ethicalProviderLabel": "Neutral",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Mastercard Incorporated",
@@ -228,7 +258,17 @@
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
       "ethicalSnapshotImportedOn": "2026-11-13",
-      "ethicalProviderLabel": "Neutral"
+      "ethicalProviderLabel": "Neutral",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "ABB Ltd",
@@ -299,7 +339,19 @@
       "ethicalSourceUrl": null,
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13"
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": true,
+      "investigateCategories": [
+        "Occupations"
+      ],
+      "investigateSourceUrl": "https://investigate.info/company/abb",
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": "A Swedish-Swiss multinational corporation that manufactures robotics, electrification equipment, and automation technology. Its equipment has been used at solar energy fields in the occupied West Bank.",
+      "investigateCompany": "ABB Ltd",
+      "investigateIsin": "CH0012221716",
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Cisco Systems, Inc.",
@@ -350,7 +402,19 @@
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
       "ethicalSnapshotImportedOn": "2026-11-13",
-      "ethicalProviderLabel": "Unethical"
+      "ethicalProviderLabel": "Unethical",
+      "investigateListed": true,
+      "investigateCategories": [
+        "Occupations"
+      ],
+      "investigateSourceUrl": "https://investigate.info/company/cisco-systems",
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": "A US-based digital communications company that provides technologies to the Israeli military, police, and prisons, and to illegal Israeli settlements in the occupied Palestinian territory.",
+      "investigateCompany": "Cisco Systems Inc",
+      "investigateIsin": "US17275R1023",
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "The Home Depot, Inc.",
@@ -401,7 +465,17 @@
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
       "ethicalSnapshotImportedOn": "2026-11-13",
-      "ethicalProviderLabel": "Neutral"
+      "ethicalProviderLabel": "Neutral",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Chevron Corporation",
@@ -452,7 +526,20 @@
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
       "ethicalSnapshotImportedOn": "2026-11-13",
-      "ethicalProviderLabel": "Unethical"
+      "ethicalProviderLabel": "Unethical",
+      "investigateListed": true,
+      "investigateCategories": [
+        "Divestment shortlist",
+        "Occupations"
+      ],
+      "investigateSourceUrl": "https://investigate.info/company/chevron",
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": "One of the world's largest oil and gas companies. Its subsidiary Noble Energy extracts gas off the shores of the Gaza Strip, exacerbating the Gaza blockade and potentially involved in pillaging.",
+      "investigateCompany": "Chevron Corp",
+      "investigateIsin": "US1667641005",
+      "investigateDivestmentShortlist": true,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "ASM International N.V.",
@@ -523,7 +610,17 @@
       "ethicalSourceUrl": null,
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13"
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "NVIDIA Corporation",
@@ -574,7 +671,19 @@
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
       "ethicalSnapshotImportedOn": "2026-11-13",
-      "ethicalProviderLabel": "Unethical"
+      "ethicalProviderLabel": "Unethical",
+      "investigateListed": true,
+      "investigateCategories": [
+        "Occupations"
+      ],
+      "investigateSourceUrl": "https://investigate.info/company/nvidia",
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": "Provides products and services to the Israeli military and has a large presence in Israel.",
+      "investigateCompany": "NVIDIA Corp",
+      "investigateIsin": "US67066G1040",
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Tesla, Inc.",
@@ -625,7 +734,17 @@
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
       "ethicalSnapshotImportedOn": "2026-11-13",
-      "ethicalProviderLabel": "Unethical"
+      "ethicalProviderLabel": "Unethical",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Realtek Semiconductor Corporation",
@@ -696,7 +815,17 @@
       "ethicalSourceUrl": null,
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13"
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "King Yuan Electronics Co., Ltd.",
@@ -767,7 +896,17 @@
       "ethicalSourceUrl": null,
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13"
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Merck & Co., Inc.",
@@ -818,7 +957,17 @@
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
       "ethicalSnapshotImportedOn": "2026-11-13",
-      "ethicalProviderLabel": "Neutral"
+      "ethicalProviderLabel": "Neutral",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Fortune Electric Co., Ltd.",
@@ -889,7 +1038,17 @@
       "ethicalSourceUrl": null,
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13"
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Taiwan Semiconductor Manufacturing Company Limited",
@@ -960,7 +1119,17 @@
       "ethicalSourceUrl": null,
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13"
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Advanced Micro Devices, Inc.",
@@ -1011,7 +1180,17 @@
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
       "ethicalSnapshotImportedOn": "2026-11-13",
-      "ethicalProviderLabel": "Neutral"
+      "ethicalProviderLabel": "Neutral",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Elite Material Co., Ltd.",
@@ -1082,7 +1261,17 @@
       "ethicalSourceUrl": null,
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13"
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Micro-Star International Co., Ltd.",
@@ -1153,7 +1342,17 @@
       "ethicalSourceUrl": null,
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13"
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "MediaTek Inc.",
@@ -1224,7 +1423,17 @@
       "ethicalSourceUrl": null,
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13"
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Eli Lilly and Company",
@@ -1275,7 +1484,17 @@
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
       "ethicalSnapshotImportedOn": "2026-11-13",
-      "ethicalProviderLabel": "Neutral"
+      "ethicalProviderLabel": "Neutral",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Visa Inc.",
@@ -1326,7 +1545,17 @@
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
       "ethicalSnapshotImportedOn": "2026-11-13",
-      "ethicalProviderLabel": "Unethical"
+      "ethicalProviderLabel": "Unethical",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Johnson & Johnson",
@@ -1377,7 +1606,17 @@
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
       "ethicalSnapshotImportedOn": "2026-11-13",
-      "ethicalProviderLabel": "Neutral"
+      "ethicalProviderLabel": "Neutral",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "The Procter & Gamble Company",
@@ -1428,7 +1667,17 @@
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
       "ethicalSnapshotImportedOn": "2026-11-13",
-      "ethicalProviderLabel": "Unethical"
+      "ethicalProviderLabel": "Unethical",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Apple Inc.",
@@ -1479,7 +1728,17 @@
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
       "ethicalSnapshotImportedOn": "2026-11-13",
-      "ethicalProviderLabel": "Unethical"
+      "ethicalProviderLabel": "Unethical",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "ExxonMobil Holdings Corporation",
@@ -1529,7 +1788,17 @@
       "ethicalSourceUrl": null,
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13"
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Novatek Microelectronics Corporation",
@@ -1600,7 +1869,17 @@
       "ethicalSourceUrl": null,
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13"
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "Origin Energy Limited",
@@ -1671,7 +1950,17 @@
       "ethicalSourceUrl": null,
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13"
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     },
     {
       "company": "The Coca-Cola Company",
@@ -1722,7 +2011,19 @@
       "ethicalSourceKind": "USER_SNAPSHOT",
       "ethicalDataAsOf": "2026-11",
       "ethicalSnapshotImportedOn": "2026-11-13",
-      "ethicalProviderLabel": "Unethical"
+      "ethicalProviderLabel": "Unethical",
+      "investigateListed": true,
+      "investigateCategories": [
+        "Occupations"
+      ],
+      "investigateSourceUrl": "https://investigate.info/company/coca-cola",
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": "A US multinational beverage company. Its Israeli licensee has a logistics center in an illegal settlement in the occupied West Bank, and it makes wine from grapes that are grown in illegal settlements in the West Bank and Syrian Golan.",
+      "investigateCompany": "Coca-Cola Co",
+      "investigateIsin": "US1912161007",
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null
     }
   ]
 }
