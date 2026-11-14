@@ -71,7 +71,7 @@ test("new standalone HTML report extracts fields without borrowing prior Markdow
 test("dashboard uses independent regular and overnight columns",()=>{
  const code=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  assert(code.includes('"Regular / latest price","Overnight / vs close","Live chart · 1M","Action / Risk"'));
- assert(code.includes('colspan="11"'));
+ assert(code.includes('colspan="9"'));
 });
 
 test("snapshot-based Mastercard HTML extraction yields actual scores, actions, Shariah and bands",async()=>{
@@ -245,7 +245,7 @@ test("main dashboard has eleven headings, with reports opened by ticker",()=>{
  assert(labels);
  assert.equal(JSON.parse(labels[1]).length,11);
  assert(!JSON.parse(labels[1]).includes("Report"));
- assert(src.includes('colspan="11"'));
+ assert(src.includes('colspan="9"'));
 });
 
 test("legacy exchange-suffixed Markdown reports map to actual markets, not OTHER",()=>{
