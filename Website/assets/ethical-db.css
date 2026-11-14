@@ -31,3 +31,18 @@ thead th{position:sticky;top:0;background:#eaf0f5;color:#3d556e;font-size:10.5px
 .investigate-panel .table-scroll{max-height:none;overflow-x:auto;overflow-y:hidden}
 @media(max-width:720px){.source-tabs{gap:7px}.source-tabs a{padding:8px 11px;font-size:11px}
  .investigate-table{min-width:1200px}.investigate-source-note{line-height:1.6}}
+
+
+/* Read-only two-source decision next to the unmodified RizqInvests provider label. */
+.combined-rule-summary{background:#fff;border:1px solid #d8e4e8;border-radius:12px;
+ padding:14px 18px;color:#2f4e65;font-size:13px;line-height:1.7;margin:0 0 17px}
+.combined-red{color:#b5223c}.combined-green{color:#107855}
+.combined-source-alert{color:#9c5618;font-size:13px;line-height:1.5;margin:0 0 12px}
+.combined-source-alert:empty{display:none}
+.combined-ethics{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:7px}
+.combined-caption{font-size:10px;font-weight:750;color:#536d84}
+.combined-ethics-source{font-size:10px;color:#5e7087;font-weight:550}
+.combined-ethics-link{font-size:10px;color:#136ba4;font-weight:800;text-decoration:underline}
+.combined-ethics .badge.halal{background:#e7f8ef;color:#0e7550;border:1px solid #baebd1}
+.combined-ethics .badge.unethical{background:#fff0f0;color:#aa2435;border:1px solid #f3c7cd}
+.combined-ethics .badge.uncertain{background:#fff5df;color:#8d5e13;border:1px solid #f5ddb0}
