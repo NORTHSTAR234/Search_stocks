@@ -402,51 +402,23 @@
     const result=musaffaVisual(r);
     return '<div class="musaffa-cell status-only-cell">'+badge(result.label,result.tone)+'</div>';
   }
-  function aaoifiVisual(r){
-    const status=String(r.aaoifiStatus||"").trim().toUpperCase();
-    if(status==="AAOIFI-COMPLIANT")return {tone:"good",label:"COMPLIANT"};
-    if(status==="AAOIFI-NON-COMPLIANT")return {tone:"bad",label:"NON-COMPLIANT"};
-    if(status==="SHARIAH REVIEW REQUIRED")return {tone:"warn",label:"REVIEW REQUIRED"};
-    if(status==="INSUFFICIENT DATA")return {tone:"warn",label:"INSUFFICIENT DATA"};
-    return {tone:"warn",label:"NOT SCREENED"};
-  }
-  function aaoifiCell(r){
-    const result=aaoifiVisual(r);
-    // Preserve the AAOIFI report hyperlink and the independent verdict.
-    const statusBadge=r.aaoifiReportPath?
-      '<a class="badge '+result.tone+' aaoifi-link" href="'+escape(r.aaoifiReportPath)+'">'+escape(result.label)+'</a>':
-      badge(result.label,result.tone);
-    return '<div class="aaoifi-cell status-only-cell">'+statusBadge+'</div>';
-  }
-  // Independent ethical/BDS screening. Only evidence-backed recent neutral is green.
-  function ethicalVisual(r,now=new Date()){
-    const status=String(r.ethicalStatus||"").trim().toUpperCase();
-    const bds=r.ethicalBdsListed;
-    const source=typeof r.ethicalSourceUrl==="string"&&
-      /^https:\/\/(?:www\.)?rizqinvests\.com\//i.test(r.ethicalSourceUrl);
-    const date=String(r.ethicalAssessmentDate||"");
-    const observed=String(r.ethicalCheckedAt||"");
-    const dated=/^\d{4}-\d{2}-\d{2}$/.test(date)&&Number.isFinite(Date.parse(date))?Date.parse(date):null;
-    const checked=/^\d{4}-\d{2}-\d{2}T/.test(observed)&&Number.isFinite(Date.parse(observed))?Date.parse(observed):null;
-    const evidenceAt=dated??checked;
-    if(!source||evidenceAt===null||evidenceAt>now.getTime())return {tone:"warn",label:"NOT VERIFIED"};
-    const older=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth()-4,now.getUTCDate()));
-    const stale=evidenceAt<older.getTime();
-    if(bds===true||status==="UNETHICAL"||status==="BDS_LISTED")
-      return {tone:"bad",label:bds===true||status==="BDS_LISTED"?"BDS FLAGGED":"UNETHICAL",stale};
-    // NEUTRAL means no RizqInvests BDS flag under the owner policy; external lists remain separate.
-    if(!stale&&(status==="NEUTRAL"||status==="ETHICAL"))
-      return {tone:"good",label:status==="NEUTRAL"?"NEUTRAL":"ETHICAL",stale:false};
-    return {tone:"warn",label:stale?"STALE / RECHECK":"NOT VERIFIED",stale};
-  }
-  function ethicalCell(r){
-    const view=ethicalVisual(r),path=r.aaoifiReportPath;
-    // Keep existing link from status badge to AAOIFI; provide the original
-    // RizqInvests provider link using an adjacent icon instead of prose.
-    const pill=path?'<a href="'+escape(path)+'" class="badge '+view.tone+' aaoifi-link">'+escape(view.label)+'</a>':badge(view.label,view.tone);
-    const provider=r.ethicalSourceUrl&&/^https:\/\/www\.rizqinvests\.com\/halal\/stock\/[A-Z0-9.-]+\?view=both$/i.test(r.ethicalSourceUrl)?
-      '<a class="ethical-source-link" href="'+escape(r.ethicalSourceUrl)+'" target="_blank" rel="noopener noreferrer" title="View '+escape(r.ticker)+' on RizqInvests" aria-label="View '+escape(r.ticker)+' on RizqInvests">↗</a>':"";
-    return '<div class="ethical-cell status-only-cell">'+pill+provider+'</div>';
+  // RizqInvests ethical/BDS data is an owner-supplied November 2026 snapshot.
+  // The server-side index has already resolved exact ticker, exchange and issuer.
+  function ethicalFirstColumn(r){
+    const status=String(r.ethicalStatus||"").toUpperCase();
+    const red=r.ethicalBdsListed===true||status==="BDS_LISTED"||status==="UNETHICAL";
+    const green=(status==="ETHICAL"||status==="NEUTRAL")&&r.ethicalBdsListed===false;
+    if(!red&&!green)return "";
+    const ticker=String(r.ticker||"");
+    const url="https://www.rizqinvests.com/halal/stock/"+encodeURIComponent(ticker)+"?view=both";
+    if(r.ethicalSourceKind!=="USER_SNAPSHOT"||r.ethicalSourceUrl!==url)return "";
+    const label=red?(r.ethicalBdsListed===true?"BDS flagged":"Unethical"):(status==="ETHICAL"?"Ethical":"Neutral");
+    const tone=red?"bad":"good";
+    return '<a class="ethical-inline-card '+tone+'" href="'+escape(url)+'" target="_blank" rel="noopener noreferrer"'+
+      ' aria-label="RizqInvests '+escape(label)+' for '+escape(ticker)+', Nov 2026 snapshot">'+
+      '<span class="ethical-inline-title"><span class="ethical-inline-dot" aria-hidden="true"></span>'+
+      'RizqInvests · '+escape(label)+' <span aria-hidden="true">↗</span></span>'+
+      '<span class="ethical-inline-note">Ethical / BDS · Nov 2026 snapshot</span></a>';
   }
 
   // One calendar month of verified actual observations from independent feeds:
@@ -540,7 +512,7 @@
       '<small class="market-session muted">Market hours not configured</small>';
     return '<tr><td><a class="ticker'+active+'" href="'+escape(r.reportPath)+'"'+
       (market?.open?' title="Market in regular weekday session"':'')+'>'+escape(r.ticker)+'</a>'+
-      '<small>'+escape(r.company)+'</small>'+status+'</td>'+
+      '<small>'+escape(r.company)+'</small>'+status+ethicalFirstColumn(r)+'</td>'+
     '<td>'+quoteCell(r)+'</td>'+
     '<td>'+overnightCell(r)+'</td>'+
     '<td>'+monthChartCell(r)+'</td>'+
@@ -549,8 +521,7 @@
     '<td class="markers-cell">'+markersCell(r,context)+'</td>'+
     '<td>'+escape(fmt(r.timestamp))+(r.conflictingBuckets?'<small class="warning">Both buckets contain this ticker</small>':"")+'</td>'+
     '<td>'+screeningCell(r)+'</td>'+
-    '<td>'+aaoifiCell(r)+'</td>'+
-    '<td>'+ethicalCell(r)+'</td>'+
+
     '<td>'+escape(cap(r.earnings,110))+'</td></tr>';
   }
   function syncExchangeFilters(){
@@ -579,7 +550,7 @@
       order==="entry"?score(b.entry)-score(a.entry)||b.timestamp.localeCompare(a.timestamp):
       order==="investment"?score(b.investment)-score(a.investment)||b.timestamp.localeCompare(a.timestamp):
       b.timestamp.localeCompare(a.timestamp)||a.ticker.localeCompare(b.ticker));
-    $("rows").innerHTML=filtered.length?filtered.map(tr).join(""):'<tr><td colspan="11">No reports match your filters.</td></tr>';
+    $("rows").innerHTML=filtered.length?filtered.map(tr).join(""):'<tr><td colspan="9">No reports match your filters.</td></tr>';
     $("count").textContent=all.length;
     $("halalCount").textContent=all.filter(r=>r.bucket==="halal").length;
     $("quoteCount").textContent=Object.keys(state.quotes).length;
