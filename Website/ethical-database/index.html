@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="Private November 2026 snapshot of 491 RizqInvests ethical and halal screener entries, with separate BDS badges.">
-  <title>Ethical & BDS Database · November 2026 · Stock Research</title>
+  <meta name="description" content="Historical ethics sources: November 2026 RizqInvests 491-entry snapshot and July 2025 Investigate 255-company concerns, with distinct source links.">
+  <title>Ethical & BDS Source Database · Stock Research</title>
   <link rel="stylesheet" href="/assets/ethical-db.css">
   <script src="/assets/ethical-db.js" defer></script>
+  <script src="/assets/investigate-db.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#database">Skip to table</a>
@@ -24,10 +25,11 @@
   <main>
     <section class="hero">
       <div class="shell">
-        <div class="eyebrow"><span class="dot"></span> USER-SUPPLIED DATASET · NOVEMBER 2026</div>
+        <div class="eyebrow"><span class="dot"></span> HISTORICAL USER DATA · NOV 2026 + JUL 2025</div>
         <h1>Ethical &amp; BDS <span>screening database</span></h1>
-        <p class="hero-lead">Explore the archived RizqInvests screening table. Search all 491 stocks and ETFs, filter ethical classifications and BDS badges, and open each original ticker page.</p>
-        <div class="summary" aria-label="Snapshot overview">
+        <p class="hero-lead">Two independent archived sources on one page: 491 RizqInvests records (November 2026) and 255 Investigate company concerns (July 2025 filename). Search the tables, compare historical classifications, and open original company links.</p>
+        <div class="source-tabs"><a href="#database">RizqInvests · 491 securities</a><a href="#investigate">Investigate · 255 company concerns</a></div>
+        <div class="summary" aria-label="RizqInvests November 2026 snapshot overview">
           <div class="metric"><div class="metric-label">Total securities</div><div class="metric-value" id="totalMetric">491</div><div class="metric-detail">490 stocks · 1 ETF</div></div>
           <div class="metric"><div class="metric-label">Neutral</div><div class="metric-value neutral-color" id="neutralMetric">431</div><div class="metric-detail">Provider ethical label</div></div>
           <div class="metric"><div class="metric-label">Unethical</div><div class="metric-value red-color" id="unethicalMetric">60</div><div class="metric-detail">Provider ethical label</div></div>
@@ -38,12 +40,12 @@
     <div class="shell content">
       <div class="notice" role="note">
         <span class="notice-symbol" aria-hidden="true">i</span>
-        <div><strong>Historical snapshot, not a live screening.</strong> Imported 13 November 2026 from the user-provided RizqInvests screener. All halal labels and scores are <em>RizqInvests values only</em>, not independent AAOIFI conclusions. A missing BDS badge is not universal BDS clearance. Prices and market caps are archived, not current.</div>
+        <div><strong>Historical snapshot, not a live screening.</strong> November 2026 RizqInvests findings are separate from July 2025 Investigate concerns. A RizqInvests Neutral label does not erase an Investigate concern, and an Investigate listing alone is not an official BDS designation or verified misconduct. Both are historical user-supplied snapshots, not live assessments.</div>
       </div>
 
       <section class="panel" id="database" aria-labelledby="tableTitle">
         <div class="panel-top">
-          <div><div class="section-kicker">Securities explorer</div><h2 id="tableTitle">Full screening table</h2><p>Filters operate entirely on the stored database. No ethical/BDS websites are queried.</p></div>
+          <div><div class="section-kicker">Source 1 · November 2026 · RizqInvests</div><h2 id="tableTitle">RizqInvests screening · 491 entries</h2><p>Original provider labels and links. Filters operate entirely on the saved file.</p></div>
           <button class="download" id="csv" type="button" disabled title="Export the currently filtered table as CSV">↓ Export visible rows</button>
         </div>
         <div class="filters">
@@ -67,9 +69,36 @@
         </div>
         <div class="table-bottom"><div class="pagination" aria-label="Table pagination"><button type="button" id="prev" disabled>← Previous</button><span id="pageInfo">—</span><button type="button" id="next" disabled>Next →</button></div><span id="rowRange"></span></div>
       </section>
+      <section class="panel investigate-panel" id="investigate" aria-labelledby="investigateTitle">
+        <div class="panel-top">
+          <div><div class="section-kicker">Source 2 · July 2025 (uploaded filename) · Investigate</div>
+            <h2 id="investigateTitle">Investigate company concerns · <span id="investigateTotal">255</span></h2>
+            <p>Source-attributed company summaries, industry, exchanges, four concern categories and original links. Inclusion is not proof of misconduct or an official BDS designation.</p>
+            <p class="investigate-source-note">Divestment shortlist: <strong id="investigateShortlistCount">103</strong> · Occupations: <strong id="investigateOccupationCount">187</strong> · Other categories: prisons and borders. Categories can overlap.</p>
+          </div>
+          <button class="download" type="button" id="investigateExport" disabled>↓ Export filtered Investigate rows</button>
+        </div>
+        <div class="filters investigate-filters">
+          <label class="search-field"><span>Search company, symbol, summary or concern</span><input id="investigateSearch" type="search" placeholder="Try NVDA, 3M, occupations…" autocomplete="off"></label>
+          <label><span>Concern category</span><select id="investigateTheme"><option value="">All categories</option><option value="divestment_shortlist">Divestment shortlist</option><option value="prisons">Prisons</option><option value="occupations">Occupations</option><option value="borders">Borders</option></select></label>
+          <label><span>Divestment shortlist</span><select id="investigateShortlist"><option value="">All</option><option value="yes">Listed</option><option value="no">Not marked</option></select></label>
+          <label><span>Exchange</span><select id="investigateExchange"><option value="">All exchanges</option></select></label>
+          <div class="filters-action"><button class="reset" type="button" id="investigateReset">Reset filters</button></div>
+        </div>
+        <div class="results-bar"><div><strong id="investigateMatches">Loading</strong> companies</div>
+          <label class="page-size">Rows per page <select id="investigatePageSize"><option value="25" selected>25</option><option value="50">50</option><option value="100">100</option><option value="255">All 255</option></select></label>
+        </div>
+        <div class="table-scroll" tabindex="0" aria-label="Investigate July 2025 historical company records">
+          <table class="investigate-table"><caption>Historical Investigate company source records (July 2025 upload)</caption>
+            <thead><tr><th scope="col">Ticker</th><th scope="col">Company</th><th scope="col">Exchange</th><th scope="col">Source categories</th><th scope="col">Source summary</th><th scope="col">RizqInvests, if matched</th><th scope="col">Evidence link</th></tr></thead>
+            <tbody id="investigateRows"><tr><td colspan="7" class="empty-state">Loading archived data…</td></tr></tbody>
+          </table>
+        </div>
+        <div class="table-bottom"><div class="pagination"><button id="investigatePrev" type="button" disabled>← Previous</button><span id="investigatePager">—</span><button id="investigateNext" type="button" disabled>Next →</button></div><span id="investigateShown"></span></div>
+      </section>
       <div class="footnote"><strong>Source &amp; scope:</strong> This page reproduces the uploaded screener snapshot. “Unethical” without a BDS badge does not imply a formal BDS listing. Likewise, “Neutral” refers to RizqInvests' label only. <a href="/">Return to research dashboard</a>.</div>
     </div>
   </main>
-  <footer class="footer"><div class="shell">Stock Research · Archived third-party labels for personal reference · November 2026</div></footer>
+  <footer class="footer"><div class="shell">Stock Research · User-supplied historical sources · RizqInvests 2026 + Investigate 2025</div></footer>
 </body>
 </html>
