@@ -110,34 +110,14 @@ async function load(){
    if(!Array.isArray(json.rows))throw new Error("Ticker feed missing rows");
    rows=[...new Map(json.rows.filter(r=>r&&r.ticker).map(r=>[String(r.ticker),r])).values()];
    assignOrders();
-   $("bulkInstall").hidden=true;
-   $("bulkDownload").hidden=true;
-   $("bulkStatus").textContent="Checking the bulk installer...";
+   // Keep individual links in the Count table; offer the bulk installer only in chat.
    try{
      const result=await fetch("/droidmacro-tickers/links.json",{cache:"no-store"});
      if(result.ok){
        const mapping=await result.json();
        links=new Map((mapping.links||[]).map(record=>[String(record.ticker),record]));
-       const bulk=mapping.bulkInstaller;
-       const rosterValid=mapping.total===rows.length&&links.size===rows.length&&rows.every(row=>{
-         const link=links.get(String(row.ticker));
-         return link&&link.order===row.myOrder&&link.total===rows.length&&
-           link.flagged===false&&Date.now()<Date.parse(link.expiresAt);
-       });
-       const validBulk=Boolean(bulk&&bulk.total===rows.length&&rosterValid&&
-         /^https:\/\/macrodroidlink\.com\/m\/[A-Za-z0-9_-]+$/.test(String(bulk.url||""))&&
-         Date.now()<Date.parse(bulk.expiresAt));
-       if(validBulk){
-         $("bulkInstall").href=bulk.url;
-         $("bulkInstall").hidden=false;
-         $("bulkDownload").hidden=false;
-         $("bulkStatus").textContent="Installer for "+rows.length+" macros · one-tap link expires "+
-           new Date(bulk.expiresAt).toLocaleDateString()+". Keep the phone unlocked, portrait, and grant MacroDroid accessibility permission.";
-       }else{
-         $("bulkStatus").textContent="Bulk installer is out of date or expired. Run @DroidMacro Tickers to regenerate it before installing.";
-       }
-     }else {links=new Map();$("bulkStatus").textContent="Bulk installer manifest unavailable";}
-   }catch(err){links=new Map();$("bulkStatus").textContent="Could not check the bulk installer; retry refresh";}
+     }else links=new Map();
+   }catch(err){links=new Map();}
    updateExchange();render();
    $("notice").textContent="Latest first-table tickers loaded. Unethical and Musaffa non-halal tickers are excluded before numbering.";
    const date=json.generatedAt?new Date(json.generatedAt):null;
