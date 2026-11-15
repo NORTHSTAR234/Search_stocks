@@ -148,5 +148,16 @@
       "url": "https://macrodroidlink.com/m/78DHz3T1g1gQ",
       "expiresAt": "2026-11-22T07:30:14.344Z"
     }
-  ]
+  ],
+  "bulkInstaller": {
+    "url": "https://macrodroidlink.com/m/DrhWH7-OcyIW",
+    "expiresAt": "2026-11-22T07:31:05.007Z",
+    "total": 18,
+    "macroPath": "/droidmacro-tickers/bulk-installer.macro",
+    "saveButton": {
+      "xPercent": 87,
+      "yPercent": 86
+    },
+    "mode": "guarded-ui"
+  }
 }
