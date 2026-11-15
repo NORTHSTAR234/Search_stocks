@@ -85,15 +85,17 @@ function updateExchange(){
  select.replaceChildren(new Option("All exchanges","all"),...exchanges.map(x=>new Option(x,x)));
  select.value=exchanges.includes(chosen)?chosen:"all";
 }
+function assignOrders(){
+ const other=rows.filter(r=>!flagged(r)).sort(tickerAZ);
+ const bad=rows.filter(flagged).sort(tickerAZ);
+ rows=[...other,...bad].map((r,i)=>({...r,myOrder:i+1}));
+}
 function render(){
  objectUrls.forEach(x=>URL.revokeObjectURL(x));objectUrls=[];
- const query=norm($("search").value),ex=$("exchange").value,order=$("order").value;
- const visible=rows.filter(r=>(ex==="all"||String(r.exchange||"OTHER")===ex)&&
+ const query=norm($("search").value),exchange=$("exchange").value;
+ // Filters never renumber: sequence IDs are based on the entire current inventory.
+ const visible=rows.filter(r=>(exchange==="all"||String(r.exchange||"OTHER")===exchange)&&
    (!query||norm(r.ticker+" "+r.company).includes(query)));
- visible.sort((a,b)=>order==="newest"?String(b.timestamp).localeCompare(String(a.timestamp))||
-     String(a.ticker).localeCompare(String(b.ticker)):
-   order==="company"?String(a.company).localeCompare(String(b.company)):
-   String(a.ticker).localeCompare(String(b.ticker)));
  const other=visible.filter(r=>!flagged(r)),bad=visible.filter(flagged);
  fill("otherRows",other,"No other stocks match your filters.");
  fill("flaggedRows",bad,"No flagged stocks match your filters.");
@@ -102,7 +104,7 @@ function render(){
  $("allCount").textContent=rows.length;
  $("otherCount").textContent=rows.filter(r=>!flagged(r)).length;
  $("flagCount").textContent=rows.filter(flagged).length;
- $("shown").textContent="Showing "+visible.length+" of "+rows.length+" tickers · "+other.length+" other / "+bad.length+" flagged";
+ $("shown").textContent="Orders 1–"+rows.length+" · "+other.length+" other / "+bad.length+" flagged shown";
 }
 async function load(){
  $("refresh").disabled=true;
@@ -112,6 +114,14 @@ async function load(){
    const json=await response.json();
    if(!Array.isArray(json.rows))throw new Error("Ticker feed missing rows");
    rows=[...new Map(json.rows.filter(r=>r&&r.ticker).map(r=>[String(r.ticker),r])).values()];
+   assignOrders();
+   try{
+     const result=await fetch("/droidmacro-tickers/links.json",{cache:"no-store"});
+     if(result.ok){
+       const mapping=await result.json();
+       links=new Map((mapping.links||[]).map(record=>[String(record.ticker),record]));
+     }else links=new Map();
+   }catch(err){links=new Map();}
    updateExchange();render();
    $("notice").textContent="Latest site report data loaded. Macros follow the final homepage ethical/Musaffa classification.";
    const date=json.generatedAt?new Date(json.generatedAt):null;
@@ -123,7 +133,6 @@ async function load(){
 }
 $("search").addEventListener("input",render);
 $("exchange").addEventListener("change",render);
-$("order").addEventListener("change",render);
 $("refresh").addEventListener("click",load);
 load();
 })();
