@@ -6,8 +6,8 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="color-scheme" content="dark light">
   <title>DroidMacro Tickers · Stock Research</title>
-  <link rel="stylesheet" href="/droidmacro-tickers/style.css?v=20261115fit3col">
-  <script src="/droidmacro-tickers/app.js?v=20261115fit3col" defer></script>
+  <link rel="stylesheet" href="/droidmacro-tickers/style.css?v=20261115numbered">
+  <script src="/droidmacro-tickers/app.js?v=20261115numbered" defer></script>
 </head>
 <body class="droidmacro-page">
   <header class="top">
@@ -29,7 +29,7 @@
       <div class="toolbar">
         <label class="search"><span>Search</span><input id="search" type="search" placeholder="Ticker or company" aria-label="Find ticker or company"></label>
         <label><span>Exchange</span><select id="exchange"><option value="all">All exchanges</option></select></label>
-        <label><span>Order</span><select id="order"><option value="ticker">Ticker A–Z</option><option value="newest">Newest report</option><option value="company">Company A–Z</option></select></label>
+        
         <button id="refresh" type="button">Refresh tickers</button>
       </div>
       <div class="notice" role="status" id="notice">Loading latest ticker list from the website…</div>
@@ -39,8 +39,8 @@
       </div>
       <div class="table-wrap">
         <table aria-labelledby="otherHeading">
-          <thead><tr><th scope="col">Ticker</th><th scope="col">Macro</th><th scope="col">Install / Download</th></tr></thead>
-          <tbody id="otherRows"><tr><td colspan="3">Loading…</td></tr></tbody>
+          <thead><tr><th scope="col">#</th><th scope="col">Ticker</th><th scope="col">Macro name</th><th scope="col">Install / Download</th></tr></thead>
+          <tbody id="otherRows"><tr><td colspan="4">Loading…</td></tr></tbody>
         </table>
       </div>
       <div class="stock-section-heading stock-section-flagged" aria-labelledby="flaggedHeading">
@@ -49,13 +49,13 @@
       </div>
       <div class="table-wrap">
         <table aria-labelledby="flaggedHeading">
-          <thead><tr><th scope="col">Ticker</th><th scope="col">Macro</th><th scope="col">Install / Download</th></tr></thead>
-          <tbody id="flaggedRows"><tr><td colspan="3">Loading…</td></tr></tbody>
+          <thead><tr><th scope="col">#</th><th scope="col">Ticker</th><th scope="col">Macro name</th><th scope="col">Install / Download</th></tr></thead>
+          <tbody id="flaggedRows"><tr><td colspan="4">Loading…</td></tr></tbody>
         </table>
       </div>
       <div class="table-footer"><span id="shown">—</span><span id="updated">—</span></div>
     </section>
-    <p class="note">Tap <strong>Install in MacroDroid</strong> on an Android device while the one-tap link is available. Shared links expire seven days after creation; after that, use <strong>Download .macro</strong>, then in MacroDroid choose <strong>Macros → Import</strong>. The permanent download is generated for each ticker using the same eight-action ChatGPT macro template. MacroDroid 6.0+ and accessibility permissions are needed; test a shortcut on your phone. No trades are placed by these macros. The ethical and halal statuses are independent historical screening records, not live compliance certifications.</p>
+    <p class="note">Tap <strong>Install in MacroDroid</strong> on an Android device while the one-tap link is available. Shared links expire seven days after creation; after that, use <strong>Download .macro</strong>, then in MacroDroid choose <strong>Macros → Import</strong>. The permanent download is generated for each ticker using the same eight-action ChatGPT macro template. MacroDroid 6.0+ and accessibility permissions are needed; test a shortcut on your phone. No trades are placed by these macros. The ethical and halal statuses are independent historical screening records, not live compliance certifications. When adding/removing tickers, reimport the affected numbered macros (and update the global Total_ChatGPT_Macros) before running the sequence.</p>
   </main>
   <footer>Macro links do not place orders. Confirm screening and market data before acting on research.</footer>
 </body>
