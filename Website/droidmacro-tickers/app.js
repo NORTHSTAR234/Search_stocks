@@ -67,13 +67,25 @@ function macroFor(r){
  ]}};
 }
 function tdWith(...nodes){const cell=make("td");nodes.forEach(n=>cell.append(n));return cell;}
+function showMacroName(fullName){
+ const dialog=$("macroNameDialog");
+ const value=$("fullMacroName");
+ if(!dialog || !value)return;
+ value.textContent=fullName;
+ if(!dialog.open)dialog.showModal();
+}
 function renderRow(r){
  const tr=make("tr"),ticker=String(r.ticker);
  const company=make("span","company",r.company||ticker);
  const tickerLink=make("a","ticker",ticker);
  tickerLink.href="/reports/"+encodeURIComponent(ticker)+"/";
- const name=make("span","macro-name",(flagged(r)?"#NH-":"")+ticker+" searchstock");
- name.title=name.textContent;
+ const fullMacroName=(flagged(r)?"#NH-":"")+ticker+" searchstock";
+ const name=make("span","macro-name",fullMacroName);
+ name.title=fullMacroName;
+ const reveal=make("button","macro-name-reveal","View");
+ reveal.type="button";
+ reveal.setAttribute("aria-label","View full MacroDroid macro name for "+ticker);
+ reveal.addEventListener("click",()=>showMacroName(fullMacroName));
  const linkArea=make("div","link-actions");
  const current=links.get(ticker);
  if(current&&current.flagged===flagged(r)&&Date.now()<Date.parse(current.expires)){
@@ -96,7 +108,7 @@ function renderRow(r){
   current.flagged!==flagged(r)?"Classification changed: use the updated .macro download":
   Date.now()>=Date.parse(current.expires)?"One-tap link expired; use Download .macro":
   "One-tap sharing is temporary; the .macro download does not expire");
- tr.append(tdWith(company,tickerLink),tdWith(name),tdWith(linkArea,hint));
+ tr.append(tdWith(company,tickerLink),tdWith(name,reveal),tdWith(linkArea,hint));
  return tr;
 }
 function fill(tableId,items,emptyText){
@@ -153,5 +165,9 @@ $("search").addEventListener("input",render);
 $("exchange").addEventListener("change",render);
 $("order").addEventListener("change",render);
 $("refresh").addEventListener("click",load);
+$("macroNameClose").addEventListener("click",()=>$("macroNameDialog").close());
+$("macroNameDialog").addEventListener("click",event=>{
+ if(event.target===$("macroNameDialog"))event.target.close();
+});
 load();
 })();
