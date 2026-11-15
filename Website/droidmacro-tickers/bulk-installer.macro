@@ -2,7 +2,7 @@
   "macroExportVersion": 1,
   "globalVariables": [
     {
-      "m_name": "DroidMacro_BulkNext_Confirmed",
+      "m_name": "DroidMacro_BulkNext_DirectSave",
       "m_type": 1,
       "isLocalVar": false,
       "m_intValue": 1,
@@ -16,64 +16,47 @@
       "isSecure": false,
       "supportsInput": false,
       "supportsOutput": true,
-      "description": ""
+      "description": "",
+      "m_decimalValue": 1
     }
   ],
   "macro": {
-    "m_GUID": -917450000,
-    "m_name": "DroidMacro Bulk Installer — 20 stocks (Verified Save Click)",
+    "m_GUID": -919200001,
+    "m_name": "DroidMacro Bulk Installer — 20 stocks (Direct Save)",
     "m_category": "Uncategorized",
-    "m_description": "Imports 20 currently eligible first-table ticker macros. Uses working phone-tested full Click action inside EVERY guarded ticker step: wait 3s, verify name, wait 500ms, Click Save (87%,86%), then advance independent progress variable. The Save action remains explicit in MacroDroid editor.",
+    "m_description": "No text checks; for each ticker open link, wait 3 seconds, wait 500ms, click Save at (87%,86%) using phone-tested full UIInteractionAction, then advance progress. Blind-click risk if link loads late.",
     "m_completed": true,
     "m_enabled": true,
     "m_triggerList": [
       {
         "m_classType": "ShortcutTrigger",
-        "m_SIGUID": -917460000
+        "m_SIGUID": -919500001
       }
     ],
     "m_constraintList": [
       {
         "m_classType": "DeviceLockedConstraint",
-        "m_SIGUID": -917470000,
+        "m_SIGUID": -919600001,
         "m_locked": false
       }
     ],
-    "localVariables": [
-      {
-        "m_name": "DroidMacro_ExpectedVisible",
-        "m_type": 0,
-        "isLocalVar": true,
-        "m_booleanValue": false,
-        "dictionary": {
-          "entries": [],
-          "isArray": false,
-          "variableType": 4,
-          "type": "Dictionary"
-        },
-        "isActionBlockWorkingVar": true,
-        "isSecure": false,
-        "supportsInput": false,
-        "supportsOutput": true,
-        "description": ""
-      }
-    ],
+    "localVariables": [],
     "m_actionList": [
       {
         "m_classType": "NotificationAction",
-        "m_SIGUID": -917400000,
+        "m_SIGUID": -919300000,
         "m_notificationSubject": "DroidMacro installer",
-        "m_notificationText": "Validated-save bulk importer: 20 current first-table tickers. Keep phone unlocked/portrait. This uses the UI Click format that worked on your phone."
+        "m_notificationText": "Direct Save importer: 20 first-table stocks. Screen checks removed; keep phone unlocked and watch first import. Save click happens after 3.5 sec even if editor is blank."
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400001,
+        "m_SIGUID": -919300001,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400003,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -87,7 +70,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 1
           }
@@ -95,58 +79,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400002,
+        "m_SIGUID": -919300002,
         "m_urlToOpen": "https://macrodroidlink.com/m/Hp5HmjigQ8cY",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400003,
+        "m_SIGUID": -919300003,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400004,
-        "textToCheck": "1519.TWSE searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400005,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400006,
+        "m_SIGUID": -919300004,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -174,18 +120,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400007,
+        "m_SIGUID": -919300005,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported 1519.TWSE — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE 1519.TWSE (1/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400008,
+        "m_SIGUID": -919300006,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -199,41 +145,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 2
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400009
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400010,
-        "m_notificationSubject": "Bulk importer stopped at 1519.TWSE",
-        "m_notificationText": "Expected 1519.TWSE searchstock was NOT visible at order 1. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400011
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400012
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400013
+        "m_SIGUID": -919300007
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400014,
+        "m_SIGUID": -919300008,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400024,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -247,7 +176,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 2
           }
@@ -255,58 +185,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400015,
+        "m_SIGUID": -919300009,
         "m_urlToOpen": "https://macrodroidlink.com/m/Hg8Qwuh7FjlP",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400016,
+        "m_SIGUID": -919300010,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400017,
-        "textToCheck": "2330.TWSE searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400018,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400019,
+        "m_SIGUID": -919300011,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -334,18 +226,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400020,
+        "m_SIGUID": -919300012,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported 2330.TWSE — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE 2330.TWSE (2/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400021,
+        "m_SIGUID": -919300013,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -359,41 +251,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 3
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400022
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400023,
-        "m_notificationSubject": "Bulk importer stopped at 2330.TWSE",
-        "m_notificationText": "Expected 2330.TWSE searchstock was NOT visible at order 2. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400024
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400025
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400026
+        "m_SIGUID": -919300014
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400027,
+        "m_SIGUID": -919300015,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400045,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -407,7 +282,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 3
           }
@@ -415,58 +291,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400028,
+        "m_SIGUID": -919300016,
         "m_urlToOpen": "https://macrodroidlink.com/m/NMc55R_SB0dt",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400029,
+        "m_SIGUID": -919300017,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400030,
-        "textToCheck": "2377.TWSE searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400031,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400032,
+        "m_SIGUID": -919300018,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -494,18 +332,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400033,
+        "m_SIGUID": -919300019,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported 2377.TWSE — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE 2377.TWSE (3/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400034,
+        "m_SIGUID": -919300020,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -519,41 +357,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 4
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400035
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400036,
-        "m_notificationSubject": "Bulk importer stopped at 2377.TWSE",
-        "m_notificationText": "Expected 2377.TWSE searchstock was NOT visible at order 3. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400037
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400038
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400039
+        "m_SIGUID": -919300021
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400040,
+        "m_SIGUID": -919300022,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400066,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -567,7 +388,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 4
           }
@@ -575,58 +397,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400041,
+        "m_SIGUID": -919300023,
         "m_urlToOpen": "https://macrodroidlink.com/m/MLWoR8IFJikV",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400042,
+        "m_SIGUID": -919300024,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400043,
-        "textToCheck": "2379.TWSE searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400044,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400045,
+        "m_SIGUID": -919300025,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -654,18 +438,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400046,
+        "m_SIGUID": -919300026,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported 2379.TWSE — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE 2379.TWSE (4/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400047,
+        "m_SIGUID": -919300027,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -679,41 +463,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 5
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400048
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400049,
-        "m_notificationSubject": "Bulk importer stopped at 2379.TWSE",
-        "m_notificationText": "Expected 2379.TWSE searchstock was NOT visible at order 4. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400050
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400051
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400052
+        "m_SIGUID": -919300028
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400053,
+        "m_SIGUID": -919300029,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400087,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -727,7 +494,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 5
           }
@@ -735,58 +503,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400054,
+        "m_SIGUID": -919300030,
         "m_urlToOpen": "https://macrodroidlink.com/m/rpCcs-FO5Nru",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400055,
+        "m_SIGUID": -919300031,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400056,
-        "textToCheck": "2383.TWSE searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400057,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400058,
+        "m_SIGUID": -919300032,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -814,18 +544,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400059,
+        "m_SIGUID": -919300033,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported 2383.TWSE — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE 2383.TWSE (5/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400060,
+        "m_SIGUID": -919300034,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -839,41 +569,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 6
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400061
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400062,
-        "m_notificationSubject": "Bulk importer stopped at 2383.TWSE",
-        "m_notificationText": "Expected 2383.TWSE searchstock was NOT visible at order 5. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400063
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400064
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400065
+        "m_SIGUID": -919300035
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400066,
+        "m_SIGUID": -919300036,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400108,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -887,7 +600,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 6
           }
@@ -895,58 +609,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400067,
+        "m_SIGUID": -919300037,
         "m_urlToOpen": "https://macrodroidlink.com/m/e6HMdWbCVAn0",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400068,
+        "m_SIGUID": -919300038,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400069,
-        "textToCheck": "2449.TWSE searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400070,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400071,
+        "m_SIGUID": -919300039,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -974,18 +650,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400072,
+        "m_SIGUID": -919300040,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported 2449.TWSE — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE 2449.TWSE (6/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400073,
+        "m_SIGUID": -919300041,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -999,41 +675,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 7
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400074
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400075,
-        "m_notificationSubject": "Bulk importer stopped at 2449.TWSE",
-        "m_notificationText": "Expected 2449.TWSE searchstock was NOT visible at order 6. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400076
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400077
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400078
+        "m_SIGUID": -919300042
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400079,
+        "m_SIGUID": -919300043,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400129,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -1047,7 +706,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 7
           }
@@ -1055,58 +715,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400080,
+        "m_SIGUID": -919300044,
         "m_urlToOpen": "https://macrodroidlink.com/m/M6iqVJcu91hB",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400081,
+        "m_SIGUID": -919300045,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400082,
-        "textToCheck": "2454.TWSE searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400083,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400084,
+        "m_SIGUID": -919300046,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -1134,18 +756,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400085,
+        "m_SIGUID": -919300047,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported 2454.TWSE — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE 2454.TWSE (7/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400086,
+        "m_SIGUID": -919300048,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -1159,41 +781,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 8
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400087
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400088,
-        "m_notificationSubject": "Bulk importer stopped at 2454.TWSE",
-        "m_notificationText": "Expected 2454.TWSE searchstock was NOT visible at order 7. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400089
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400090
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400091
+        "m_SIGUID": -919300049
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400092,
+        "m_SIGUID": -919300050,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400150,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -1207,7 +812,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 8
           }
@@ -1215,58 +821,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400093,
+        "m_SIGUID": -919300051,
         "m_urlToOpen": "https://macrodroidlink.com/m/sfQp13Sfk6Ti",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400094,
+        "m_SIGUID": -919300052,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400095,
-        "textToCheck": "3034.TWSE searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400096,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400097,
+        "m_SIGUID": -919300053,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -1294,18 +862,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400098,
+        "m_SIGUID": -919300054,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported 3034.TWSE — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE 3034.TWSE (8/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400099,
+        "m_SIGUID": -919300055,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -1319,41 +887,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 9
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400100
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400101,
-        "m_notificationSubject": "Bulk importer stopped at 3034.TWSE",
-        "m_notificationText": "Expected 3034.TWSE searchstock was NOT visible at order 8. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400102
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400103
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400104
+        "m_SIGUID": -919300056
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400105,
+        "m_SIGUID": -919300057,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400171,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -1367,7 +918,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 9
           }
@@ -1375,58 +927,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400106,
+        "m_SIGUID": -919300058,
         "m_urlToOpen": "https://macrodroidlink.com/m/M3Q3f14zfYNN",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400107,
+        "m_SIGUID": -919300059,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400108,
-        "textToCheck": "AMAT searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400109,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400110,
+        "m_SIGUID": -919300060,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -1454,18 +968,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400111,
+        "m_SIGUID": -919300061,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported AMAT — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE AMAT (9/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400112,
+        "m_SIGUID": -919300062,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -1479,41 +993,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 10
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400113
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400114,
-        "m_notificationSubject": "Bulk importer stopped at AMAT",
-        "m_notificationText": "Expected AMAT searchstock was NOT visible at order 9. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400115
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400116
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400117
+        "m_SIGUID": -919300063
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400118,
+        "m_SIGUID": -919300064,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400192,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -1527,7 +1024,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 10
           }
@@ -1535,58 +1033,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400119,
+        "m_SIGUID": -919300065,
         "m_urlToOpen": "https://macrodroidlink.com/m/9mTS0eclC7Dr",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400120,
+        "m_SIGUID": -919300066,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400121,
-        "textToCheck": "AMD searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400122,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400123,
+        "m_SIGUID": -919300067,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -1614,18 +1074,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400124,
+        "m_SIGUID": -919300068,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported AMD — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE AMD (10/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400125,
+        "m_SIGUID": -919300069,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -1639,41 +1099,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 11
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400126
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400127,
-        "m_notificationSubject": "Bulk importer stopped at AMD",
-        "m_notificationText": "Expected AMD searchstock was NOT visible at order 10. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400128
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400129
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400130
+        "m_SIGUID": -919300070
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400131,
+        "m_SIGUID": -919300071,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400213,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -1687,7 +1130,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 11
           }
@@ -1695,58 +1139,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400132,
+        "m_SIGUID": -919300072,
         "m_urlToOpen": "https://macrodroidlink.com/m/3BooTcgqLS8F",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400133,
+        "m_SIGUID": -919300073,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400134,
-        "textToCheck": "ASM.XAMS searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400135,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400136,
+        "m_SIGUID": -919300074,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -1774,18 +1180,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400137,
+        "m_SIGUID": -919300075,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported ASM.XAMS — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE ASM.XAMS (11/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400138,
+        "m_SIGUID": -919300076,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -1799,41 +1205,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 12
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400139
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400140,
-        "m_notificationSubject": "Bulk importer stopped at ASM.XAMS",
-        "m_notificationText": "Expected ASM.XAMS searchstock was NOT visible at order 11. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400141
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400142
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400143
+        "m_SIGUID": -919300077
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400144,
+        "m_SIGUID": -919300078,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400234,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -1847,7 +1236,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 12
           }
@@ -1855,58 +1245,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400145,
+        "m_SIGUID": -919300079,
         "m_urlToOpen": "https://macrodroidlink.com/m/c5eTIpCuf9BR",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400146,
+        "m_SIGUID": -919300080,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400147,
-        "textToCheck": "HD searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400148,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400149,
+        "m_SIGUID": -919300081,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -1934,18 +1286,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400150,
+        "m_SIGUID": -919300082,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported HD — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE HD (12/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400151,
+        "m_SIGUID": -919300083,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -1959,41 +1311,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 13
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400152
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400153,
-        "m_notificationSubject": "Bulk importer stopped at HD",
-        "m_notificationText": "Expected HD searchstock was NOT visible at order 12. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400154
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400155
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400156
+        "m_SIGUID": -919300084
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400157,
+        "m_SIGUID": -919300085,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400255,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -2007,7 +1342,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 13
           }
@@ -2015,58 +1351,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400158,
+        "m_SIGUID": -919300086,
         "m_urlToOpen": "https://macrodroidlink.com/m/aAQrFsIW7pP_",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400159,
+        "m_SIGUID": -919300087,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400160,
-        "textToCheck": "JNJ searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400161,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400162,
+        "m_SIGUID": -919300088,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -2094,18 +1392,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400163,
+        "m_SIGUID": -919300089,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported JNJ — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE JNJ (13/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400164,
+        "m_SIGUID": -919300090,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -2119,41 +1417,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 14
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400165
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400166,
-        "m_notificationSubject": "Bulk importer stopped at JNJ",
-        "m_notificationText": "Expected JNJ searchstock was NOT visible at order 13. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400167
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400168
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400169
+        "m_SIGUID": -919300091
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400170,
+        "m_SIGUID": -919300092,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400276,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -2167,7 +1448,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 14
           }
@@ -2175,58 +1457,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400171,
+        "m_SIGUID": -919300093,
         "m_urlToOpen": "https://macrodroidlink.com/m/kUv-yl9zjMCL",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400172,
+        "m_SIGUID": -919300094,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400173,
-        "textToCheck": "LLY searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400174,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400175,
+        "m_SIGUID": -919300095,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -2254,18 +1498,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400176,
+        "m_SIGUID": -919300096,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported LLY — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE LLY (14/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400177,
+        "m_SIGUID": -919300097,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -2279,41 +1523,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 15
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400178
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400179,
-        "m_notificationSubject": "Bulk importer stopped at LLY",
-        "m_notificationText": "Expected LLY searchstock was NOT visible at order 14. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400180
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400181
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400182
+        "m_SIGUID": -919300098
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400183,
+        "m_SIGUID": -919300099,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400297,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -2327,7 +1554,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 15
           }
@@ -2335,58 +1563,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400184,
+        "m_SIGUID": -919300100,
         "m_urlToOpen": "https://macrodroidlink.com/m/Ge8Q45KJc_v3",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400185,
+        "m_SIGUID": -919300101,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400186,
-        "textToCheck": "MA searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400187,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400188,
+        "m_SIGUID": -919300102,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -2414,18 +1604,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400189,
+        "m_SIGUID": -919300103,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported MA — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE MA (15/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400190,
+        "m_SIGUID": -919300104,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -2439,41 +1629,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 16
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400191
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400192,
-        "m_notificationSubject": "Bulk importer stopped at MA",
-        "m_notificationText": "Expected MA searchstock was NOT visible at order 15. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400193
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400194
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400195
+        "m_SIGUID": -919300105
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400196,
+        "m_SIGUID": -919300106,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400318,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -2487,7 +1660,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 16
           }
@@ -2495,58 +1669,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400197,
+        "m_SIGUID": -919300107,
         "m_urlToOpen": "https://macrodroidlink.com/m/St1vU9ujF09o",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400198,
+        "m_SIGUID": -919300108,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400199,
-        "textToCheck": "MRK searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400200,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400201,
+        "m_SIGUID": -919300109,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -2574,18 +1710,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400202,
+        "m_SIGUID": -919300110,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported MRK — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE MRK (16/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400203,
+        "m_SIGUID": -919300111,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -2599,41 +1735,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 17
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400204
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400205,
-        "m_notificationSubject": "Bulk importer stopped at MRK",
-        "m_notificationText": "Expected MRK searchstock was NOT visible at order 16. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400206
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400207
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400208
+        "m_SIGUID": -919300112
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400209,
+        "m_SIGUID": -919300113,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400339,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -2647,7 +1766,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 17
           }
@@ -2655,58 +1775,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400210,
+        "m_SIGUID": -919300114,
         "m_urlToOpen": "https://macrodroidlink.com/m/pXRAJOuHoAiQ",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400211,
+        "m_SIGUID": -919300115,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400212,
-        "textToCheck": "MU searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400213,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400214,
+        "m_SIGUID": -919300116,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -2734,18 +1816,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400215,
+        "m_SIGUID": -919300117,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported MU — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE MU (17/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400216,
+        "m_SIGUID": -919300118,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -2759,41 +1841,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 18
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400217
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400218,
-        "m_notificationSubject": "Bulk importer stopped at MU",
-        "m_notificationText": "Expected MU searchstock was NOT visible at order 17. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400219
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400220
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400221
+        "m_SIGUID": -919300119
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400222,
+        "m_SIGUID": -919300120,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400360,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -2807,7 +1872,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 18
           }
@@ -2815,58 +1881,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400223,
+        "m_SIGUID": -919300121,
         "m_urlToOpen": "https://macrodroidlink.com/m/zITnzR8FrlB-",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400224,
+        "m_SIGUID": -919300122,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400225,
-        "textToCheck": "ORG.ASX searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400226,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400227,
+        "m_SIGUID": -919300123,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -2894,18 +1922,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400228,
+        "m_SIGUID": -919300124,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported ORG.ASX — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE ORG.ASX (18/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400229,
+        "m_SIGUID": -919300125,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -2919,41 +1947,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 19
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400230
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400231,
-        "m_notificationSubject": "Bulk importer stopped at ORG.ASX",
-        "m_notificationText": "Expected ORG.ASX searchstock was NOT visible at order 18. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400232
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400233
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400234
+        "m_SIGUID": -919300126
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400235,
+        "m_SIGUID": -919300127,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400381,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -2967,7 +1978,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 19
           }
@@ -2975,58 +1987,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400236,
+        "m_SIGUID": -919300128,
         "m_urlToOpen": "https://macrodroidlink.com/m/_9RMOeMLJz4T",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400237,
+        "m_SIGUID": -919300129,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400238,
-        "textToCheck": "SU.PA searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400239,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400240,
+        "m_SIGUID": -919300130,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -3054,18 +2028,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400241,
+        "m_SIGUID": -919300131,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported SU.PA — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE SU.PA (19/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400242,
+        "m_SIGUID": -919300132,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -3079,41 +2053,24 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 20
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400243
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400244,
-        "m_notificationSubject": "Bulk importer stopped at SU.PA",
-        "m_notificationText": "Expected SU.PA searchstock was NOT visible at order 19. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400245
-      },
-      {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -917400246
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400247
+        "m_SIGUID": -919300133
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400248,
+        "m_SIGUID": -919300134,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
+            "m_SIGUID": -919400402,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_Confirmed",
+              "m_name": "DroidMacro_BulkNext_DirectSave",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -3127,7 +2084,8 @@
               "isSecure": false,
               "supportsInput": false,
               "supportsOutput": true,
-              "description": ""
+              "description": "",
+              "m_decimalValue": 1
             },
             "m_intValue": 20
           }
@@ -3135,58 +2093,20 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -917400249,
+        "m_SIGUID": -919300135,
         "m_urlToOpen": "https://macrodroidlink.com/m/BHUjc1L-Yu-O",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400250,
+        "m_SIGUID": -919300136,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
-        "m_classType": "CheckTextOnScreenAction",
-        "m_SIGUID": -917400251,
-        "textToCheck": "XOM searchstock",
-        "booleanVariableName": "DroidMacro_ExpectedVisible",
-        "matchOption": 1,
-        "ignoreCase": true,
-        "ignoreHiddenText": true,
-        "forceScreenRefresh": true
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -917400252,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": 0,
-            "m_variable": {
-              "m_name": "DroidMacro_ExpectedVisible",
-              "m_type": 0,
-              "isLocalVar": true,
-              "m_booleanValue": false,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": ""
-            },
-            "m_booleanValue": true
-          }
-        ]
-      },
-      {
         "m_classType": "PauseAction",
-        "m_SIGUID": -917400253,
+        "m_SIGUID": -919300137,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
@@ -3214,18 +2134,18 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -917400254,
+        "m_SIGUID": -919300138,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE imported XOM — proven Click configuration at (87%,86%)",
+        "m_comment": "SAVE XOM (20/20) — full phone-tested Click at 87%,86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -917400255,
+        "m_SIGUID": -919300139,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_Confirmed",
+          "m_name": "DroidMacro_BulkNext_DirectSave",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -3239,37 +2159,20 @@
           "isSecure": false,
           "supportsInput": false,
           "supportsOutput": true,
-          "description": ""
+          "description": "",
+          "m_decimalValue": 1
         },
         "m_newIntValue": 21
       },
       {
-        "m_classType": "ElseAction",
-        "m_SIGUID": -917400256
+        "m_classType": "EndIfAction",
+        "m_SIGUID": -919300140
       },
       {
         "m_classType": "NotificationAction",
-        "m_SIGUID": -917400257,
-        "m_notificationSubject": "Bulk importer stopped at XOM",
-        "m_notificationText": "Expected XOM searchstock was NOT visible at order 20. Save NOT tapped. Inspect MacroDroid and resume by setting DroidMacro_BulkNext_Confirmed to this Count."
-      },
-      {
-        "m_classType": "TerminateRunningAction",
-        "m_SIGUID": -917400258
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400259
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -917400260
-      },
-      {
-        "m_classType": "NotificationAction",
-        "m_SIGUID": -917400261,
-        "m_notificationSubject": "DroidMacro importer processed 20 links",
-        "m_notificationText": "Attempted Save for 20 ticker macros. Verify macros actually saved, including each My_order. Do not count processed links as confirmed installations."
+        "m_SIGUID": -919300141,
+        "m_notificationSubject": "DroidMacro: 20 Save taps attempted",
+        "m_notificationText": "Save taps requested for 20 ticker macros. Verify installed macros and My_order; successful tap is not proof of save. Screen checks are disabled."
       }
     ]
   }
