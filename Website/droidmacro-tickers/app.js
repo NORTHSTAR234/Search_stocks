@@ -63,7 +63,7 @@ function renderRow(r){
  const download=make("a","macro-link download","Download");
  download.setAttribute("aria-label","Download "+ticker+" macro, My_order "+r.myOrder);
  download.href=fileURL;
- download.download=((flagged(r)?"#NH-":"")+ticker+"_searchstock").replace(/[^#\\w.-]/g,"_")+".macro";
+ download.download=((flagged(r)?"#NH-":"")+ticker+"_searchstock").replace(/[^A-Za-z0-9.#_-]/g,"_")+".macro";
  linkArea.append(download);
  const hint=make("small","status-copy"+(!currentValid?" expired":""),
    currentValid?"One-tap link expires "+new Date(current.expiresAt).toLocaleDateString():
