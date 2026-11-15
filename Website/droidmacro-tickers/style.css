@@ -1,24 +1,50 @@
-/* DroidMacro Tickers: align visually with the stock dashboard without its 1740px price table. */
+/* DroidMacro Tickers: compact layout, independent of the dashboard's wide price table. */
 .droidmacro-page main{max-width:1520px}
 .droidmacro-page .hero{padding-bottom:25px}
-.droidmacro-page .table-wrap{max-height:none;overflow-x:auto;overflow-y:visible;scrollbar-width:thin}
-.droidmacro-page .table-wrap table{min-width:790px;width:100%;table-layout:auto}
-.droidmacro-page .table-wrap th,.droidmacro-page .table-wrap td{min-width:0;max-width:none;border-right:1px solid #30455b;border-bottom:1px solid #30455b;white-space:normal}
-.droidmacro-page .table-wrap th:nth-child(1),.droidmacro-page .table-wrap td:nth-child(1){min-width:185px;width:24%;position:static;box-shadow:none}
-.droidmacro-page .table-wrap th:nth-child(2),.droidmacro-page .table-wrap td:nth-child(2){min-width:136px;width:16%}
-.droidmacro-page .table-wrap th:nth-child(3),.droidmacro-page .table-wrap td:nth-child(3){min-width:125px;width:14%}
-.droidmacro-page .table-wrap th:nth-child(4),.droidmacro-page .table-wrap td:nth-child(4){min-width:166px;width:20%}
-.droidmacro-page .table-wrap th:nth-child(5),.droidmacro-page .table-wrap td:nth-child(5){min-width:210px;width:26%}
-.droidmacro-page .company{display:block;font-weight:690;color:#eef5fc}
-.droidmacro-page .ticker{display:block;margin-top:5px}
-.droidmacro-page .macro-name{color:#e9f5ff;font-weight:700;overflow-wrap:anywhere}
-.droidmacro-page .link-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.droidmacro-page .macro-link{display:inline-flex;align-items:center;justify-content:center;padding:8px 11px;border:1px solid #438c80;border-radius:9px;background:#1d574e;color:#e9fff7;font-weight:750;font-size:.75rem;white-space:nowrap}
+.droidmacro-page .table-wrap{width:100%;max-height:none;overflow-x:visible;overflow-y:visible;scrollbar-width:thin}
+.droidmacro-page .table-wrap table{min-width:0;width:100%;table-layout:fixed}
+.droidmacro-page .table-wrap th,.droidmacro-page .table-wrap td{
+  min-width:0;max-width:none;padding:12px 10px;white-space:normal;
+  vertical-align:middle;overflow-wrap:anywhere;
+  border-right:1px solid #30455b;border-bottom:1px solid #30455b;
+}
+.droidmacro-page .table-wrap th:first-child,.droidmacro-page .table-wrap td:first-child{
+  position:static;left:auto;z-index:auto;width:30%;min-width:0;max-width:none;
+  box-shadow:none
+}
+.droidmacro-page .table-wrap th:first-child{background:#21344b}
+.droidmacro-page .table-wrap td:first-child{background:#132136}
+.droidmacro-page .table-wrap th:nth-child(2),.droidmacro-page .table-wrap td:nth-child(2){width:12%;min-width:0;max-width:none}
+.droidmacro-page .table-wrap th:nth-child(3),.droidmacro-page .table-wrap td:nth-child(3){width:58%;min-width:0;max-width:none}
+.droidmacro-page .company{display:block;font-size:.82rem;font-weight:690;color:#eef5fc;line-height:1.35;overflow-wrap:anywhere}
+.droidmacro-page .ticker{display:block;margin-top:5px;font-size:1rem;font-weight:800;overflow-wrap:anywhere}
+.droidmacro-page .macro-name{display:-webkit-box;color:#e9f5ff;font-size:.78rem;font-weight:700;overflow-wrap:anywhere;overflow:hidden;-webkit-line-clamp:3;-webkit-box-orient:vertical;line-height:1.35}
+.droidmacro-page .link-actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.droidmacro-page .macro-link{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:36px;padding:8px 11px;border:1px solid #438c80;
+  border-radius:9px;background:#1d574e;color:#e9fff7;
+  font-weight:750;font-size:.75rem;white-space:normal;text-align:center
+}
 .droidmacro-page .macro-link:hover{background:#2d7566;color:#fff;text-decoration:none}
 .droidmacro-page .macro-link.download{background:#1e3852;color:#c8e5ff;border-color:#47637f}
 .droidmacro-page .macro-link.download:hover{background:#2d5170}
-.droidmacro-page .status-copy{display:block;margin-top:5px;color:#a8b9ca;font-size:.73rem;line-height:1.45}
+.droidmacro-page .status-copy{display:block;margin-top:5px;color:#a8b9ca;font-size:.7rem;line-height:1.38}
 .droidmacro-page .status-copy.expired{color:#ffd29a}
 .droidmacro-page .stock-section-heading code{font-size:.81rem;color:#ffd2d6}
 .droidmacro-page .table-wrap tr:hover td:first-child{background:#192b42}
-@media(max-width:660px){.droidmacro-page .table-wrap table{min-width:740px}.droidmacro-page .table-wrap th,.droidmacro-page .table-wrap td{padding:11px 9px;font-size:.77rem}.droidmacro-page .link-actions{gap:6px}}
+@media(max-width:660px){
+  .droidmacro-page .table-wrap table{width:100%;min-width:0}
+  .droidmacro-page .table-wrap th,.droidmacro-page .table-wrap td{
+    padding:9px 5px;font-size:.71rem;line-height:1.28
+  }
+  .droidmacro-page .table-wrap th:first-child,.droidmacro-page .table-wrap td:first-child{width:30%}
+  .droidmacro-page .table-wrap th:nth-child(2),.droidmacro-page .table-wrap td:nth-child(2){width:12%}
+  .droidmacro-page .table-wrap th:nth-child(3),.droidmacro-page .table-wrap td:nth-child(3){width:58%}
+  .droidmacro-page .company{display:none}
+  .droidmacro-page .ticker{font-size:.8rem;line-height:1.24;margin:0;overflow-wrap:anywhere}
+  .droidmacro-page .macro-name{font-size:.62rem;line-height:1.2;-webkit-line-clamp:3}
+  .droidmacro-page .link-actions{gap:5px;flex-direction:column;align-items:stretch}
+  .droidmacro-page .macro-link{width:100%;padding:7px 6px;font-size:.69rem;min-height:33px}
+  .droidmacro-page .status-copy{font-size:.6rem;line-height:1.3}
+}
