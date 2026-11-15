@@ -66,27 +66,6 @@ function macroFor(r){
   pause(),{m_classType:"LaunchHomeScreenAction",m_SIGUID:0,useAccessibilityService:false}
  ]}};
 }
-function ethicalBadge(r){
- const value=String(r.ethicalFinalStatus||"UNVERIFIED").toUpperCase();
- const red=String(r.ethicalFinalColor||"").toUpperCase()==="RED";
- const green=String(r.ethicalFinalColor||"").toUpperCase()==="GREEN";
- const badge=make("span","badge "+(red?"bad":green?"good":"warn"),
-   value==="BDS_LISTED"?"BDS flagged":value==="UNETHICAL"?"Unethical":
-   value==="NEUTRAL"?"Neutral":value==="ETHICAL"?"Ethical":"Unverified");
- const source=String(r.ethicalFinalSource||"NONE");
- const note=make("small","status-copy",source==="RIZQINVESTS"?"RizqInvests · Nov 2026":
-   source==="INVESTIGATE"?"Investigate · Jul 2025":"No exact ethical match");
- return [badge,note];
-}
-function musaffaBadge(r){
- const classification=String(r.musaffaClassification||"UNVERIFIED").toUpperCase();
- const negative=negativeMusaffa.test(classification);
- const bad=negative&&String(r.musaffaGate||"").toUpperCase()==="PASS";
- const ok=!negative&&classification==="HALAL"&&String(r.musaffaGate||"").toUpperCase()==="PASS"&&
-   String(r.musaffaAssessment||"").toUpperCase()!=="INCONCLUSIVE";
- const badge=make("span","badge "+(bad?"bad":ok?"good":"warn"),bad?"Non-halal":ok?"Halal":"Inconclusive");
- return [badge,make("small","status-copy",String(r.musaffa||"Screening not verified"))];
-}
 function tdWith(...nodes){const cell=make("td");nodes.forEach(n=>cell.append(n));return cell;}
 function renderRow(r){
  const tr=make("tr"),ticker=String(r.ticker);
@@ -97,7 +76,8 @@ function renderRow(r){
  const linkArea=make("div","link-actions");
  const current=links.get(ticker);
  if(current&&current.flagged===flagged(r)&&Date.now()<Date.parse(current.expires)){
-   const link=make("a","macro-link","Install in MacroDroid");
+   const link=make("a","macro-link","Install");
+   link.setAttribute("aria-label","Install "+ticker+" macro in MacroDroid");
    link.href=current.url;link.target="_blank";link.rel="noopener noreferrer";
    linkArea.append(link);
  }
@@ -106,6 +86,7 @@ function renderRow(r){
    {type:"application/json"}));
  objectUrls.push(fileURL);
  const download=make("a","macro-link download","Download .macro");
+ download.setAttribute("aria-label","Download "+ticker+" MacroDroid macro file");
  download.href=fileURL;
  download.download=((flagged(r)?"#NH-":"")+ticker+"_searchstock").replace(/[^#\w.-]/g,"_")+".macro";
  linkArea.append(download);
@@ -114,14 +95,13 @@ function renderRow(r){
   current.flagged!==flagged(r)?"Classification changed: use the updated .macro download":
   Date.now()>=Date.parse(current.expires)?"One-tap link expired; use Download .macro":
   "One-tap sharing is temporary; the .macro download does not expire");
- tr.append(tdWith(company,tickerLink),tdWith(...ethicalBadge(r)),
-   tdWith(...musaffaBadge(r)),tdWith(name),tdWith(linkArea,hint));
+ tr.append(tdWith(company,tickerLink),tdWith(name),tdWith(linkArea,hint));
  return tr;
 }
 function fill(tableId,items,emptyText){
  const tbody=$(tableId);
  tbody.replaceChildren();
- if(!items.length){const tr=make("tr"),td=make("td","",emptyText);td.colSpan=5;tr.append(td);tbody.append(tr);return;}
+ if(!items.length){const tr=make("tr"),td=make("td","",emptyText);td.colSpan=3;tr.append(td);tbody.append(tr);return;}
  const fragment=document.createDocumentFragment();
  for(const row of items)fragment.append(renderRow(row));
  tbody.append(fragment);
