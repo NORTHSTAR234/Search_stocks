@@ -21,9 +21,9 @@
   ],
   "macro": {
     "m_GUID": 0,
-    "m_name": "DroidMacro Bulk Installer — 18 first-table stocks",
+    "m_name": "DroidMacro Bulk Installer — 20 first-table stocks FAST",
     "m_category": "Uncategorized",
-    "m_description": "Opens 18 current MacroDroid links, checks expected macro name in UI, clicks white bottom-right Add/Save at 87% x / 86% y, and resumes from the last attempted number using global DroidMacro_BulkNext. Manual calibration may be required; do not run twice without reviewing.",
+    "m_description": "FAST: open link → wait 3s → check ticker title → wait 500ms → advance DroidMacro_BulkNext → click Save at x87% y86%. 20 eligible tickers. Verify first saved macro.",
     "m_completed": true,
     "m_enabled": true,
     "m_triggerList": [
@@ -63,7 +63,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "DroidMacro installer",
-        "m_notificationText": "Starting the numbered 18-ticker installer. Keep phone unlocked, portrait, accessibility enabled. It stops if an expected macro name is not visible."
+        "m_notificationText": "Starting the fast 20-stock installer. Keep phone unlocked and portrait. Check the first saved macro before unattended use."
       },
       {
         "m_classType": "IfConditionAction",
@@ -96,13 +96,13 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/KozRWTAf9uqd",
+        "m_urlToOpen": "https://macrodroidlink.com/m/Hp5HmjigQ8cY",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
@@ -145,29 +145,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -193,6 +174,25 @@
         "m_newIntValue": 2
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -200,7 +200,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected 1519.TWSE searchstock at step 1 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected 1519.TWSE searchstock at step 1 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -245,13 +245,13 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/YuSaTeK0mXFm",
+        "m_urlToOpen": "https://macrodroidlink.com/m/Hg8Qwuh7FjlP",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
@@ -294,29 +294,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -342,6 +323,25 @@
         "m_newIntValue": 3
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -349,7 +349,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected 2330.TWSE searchstock at step 2 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected 2330.TWSE searchstock at step 2 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -394,20 +394,20 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/RHIJDu3H1MBg",
+        "m_urlToOpen": "https://macrodroidlink.com/m/NMc55R_SB0dt",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
         "m_classType": "CheckTextOnScreenAction",
         "m_SIGUID": 0,
-        "textToCheck": "2379.TWSE searchstock",
+        "textToCheck": "2377.TWSE searchstock",
         "booleanVariableName": "DroidMacro_ExpectedVisible",
         "matchOption": 1,
         "ignoreCase": true,
@@ -443,29 +443,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -491,6 +472,25 @@
         "m_newIntValue": 4
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -498,7 +498,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected 2379.TWSE searchstock at step 3 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected 2377.TWSE searchstock at step 3 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -543,20 +543,20 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/AkFethwJDWeW",
+        "m_urlToOpen": "https://macrodroidlink.com/m/MLWoR8IFJikV",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
         "m_classType": "CheckTextOnScreenAction",
         "m_SIGUID": 0,
-        "textToCheck": "2383.TWSE searchstock",
+        "textToCheck": "2379.TWSE searchstock",
         "booleanVariableName": "DroidMacro_ExpectedVisible",
         "matchOption": 1,
         "ignoreCase": true,
@@ -592,29 +592,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -640,6 +621,25 @@
         "m_newIntValue": 5
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -647,7 +647,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected 2383.TWSE searchstock at step 4 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected 2379.TWSE searchstock at step 4 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -692,20 +692,20 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/Jxmi1p8ZxT4m",
+        "m_urlToOpen": "https://macrodroidlink.com/m/rpCcs-FO5Nru",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
         "m_classType": "CheckTextOnScreenAction",
         "m_SIGUID": 0,
-        "textToCheck": "2454.TWSE searchstock",
+        "textToCheck": "2383.TWSE searchstock",
         "booleanVariableName": "DroidMacro_ExpectedVisible",
         "matchOption": 1,
         "ignoreCase": true,
@@ -741,29 +741,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -789,6 +770,25 @@
         "m_newIntValue": 6
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -796,7 +796,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected 2454.TWSE searchstock at step 5 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected 2383.TWSE searchstock at step 5 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -841,20 +841,20 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/2TKcj85IIumz",
+        "m_urlToOpen": "https://macrodroidlink.com/m/e6HMdWbCVAn0",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
         "m_classType": "CheckTextOnScreenAction",
         "m_SIGUID": 0,
-        "textToCheck": "3034.TWSE searchstock",
+        "textToCheck": "2449.TWSE searchstock",
         "booleanVariableName": "DroidMacro_ExpectedVisible",
         "matchOption": 1,
         "ignoreCase": true,
@@ -890,29 +890,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -938,6 +919,25 @@
         "m_newIntValue": 7
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -945,7 +945,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected 3034.TWSE searchstock at step 6 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected 2449.TWSE searchstock at step 6 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -990,20 +990,20 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/PmZfNqXW55ow",
+        "m_urlToOpen": "https://macrodroidlink.com/m/M6iqVJcu91hB",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
         "m_classType": "CheckTextOnScreenAction",
         "m_SIGUID": 0,
-        "textToCheck": "AMAT searchstock",
+        "textToCheck": "2454.TWSE searchstock",
         "booleanVariableName": "DroidMacro_ExpectedVisible",
         "matchOption": 1,
         "ignoreCase": true,
@@ -1039,29 +1039,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -1087,6 +1068,25 @@
         "m_newIntValue": 8
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -1094,7 +1094,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected AMAT searchstock at step 7 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected 2454.TWSE searchstock at step 7 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -1139,20 +1139,20 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/TauZZT1GzrhY",
+        "m_urlToOpen": "https://macrodroidlink.com/m/sfQp13Sfk6Ti",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
         "m_classType": "CheckTextOnScreenAction",
         "m_SIGUID": 0,
-        "textToCheck": "AMD searchstock",
+        "textToCheck": "3034.TWSE searchstock",
         "booleanVariableName": "DroidMacro_ExpectedVisible",
         "matchOption": 1,
         "ignoreCase": true,
@@ -1188,29 +1188,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -1236,6 +1217,25 @@
         "m_newIntValue": 9
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -1243,7 +1243,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected AMD searchstock at step 8 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected 3034.TWSE searchstock at step 8 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -1288,20 +1288,20 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/LiQ6O_eGbexM",
+        "m_urlToOpen": "https://macrodroidlink.com/m/M3Q3f14zfYNN",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
         "m_classType": "CheckTextOnScreenAction",
         "m_SIGUID": 0,
-        "textToCheck": "ASM.XAMS searchstock",
+        "textToCheck": "AMAT searchstock",
         "booleanVariableName": "DroidMacro_ExpectedVisible",
         "matchOption": 1,
         "ignoreCase": true,
@@ -1337,29 +1337,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -1385,6 +1366,25 @@
         "m_newIntValue": 10
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -1392,7 +1392,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected ASM.XAMS searchstock at step 9 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected AMAT searchstock at step 9 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -1437,20 +1437,20 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/l5FcDmU1Roh1",
+        "m_urlToOpen": "https://macrodroidlink.com/m/9mTS0eclC7Dr",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
         "m_classType": "CheckTextOnScreenAction",
         "m_SIGUID": 0,
-        "textToCheck": "HD searchstock",
+        "textToCheck": "AMD searchstock",
         "booleanVariableName": "DroidMacro_ExpectedVisible",
         "matchOption": 1,
         "ignoreCase": true,
@@ -1486,29 +1486,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -1534,6 +1515,25 @@
         "m_newIntValue": 11
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -1541,7 +1541,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected HD searchstock at step 10 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected AMD searchstock at step 10 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -1586,20 +1586,20 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/g7B6e3eB_H5l",
+        "m_urlToOpen": "https://macrodroidlink.com/m/3BooTcgqLS8F",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
         "m_classType": "CheckTextOnScreenAction",
         "m_SIGUID": 0,
-        "textToCheck": "JNJ searchstock",
+        "textToCheck": "ASM.XAMS searchstock",
         "booleanVariableName": "DroidMacro_ExpectedVisible",
         "matchOption": 1,
         "ignoreCase": true,
@@ -1635,29 +1635,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -1683,6 +1664,25 @@
         "m_newIntValue": 12
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -1690,7 +1690,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected JNJ searchstock at step 11 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected ASM.XAMS searchstock at step 11 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -1735,20 +1735,20 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/G49ZAJW6DEll",
+        "m_urlToOpen": "https://macrodroidlink.com/m/c5eTIpCuf9BR",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
         "m_classType": "CheckTextOnScreenAction",
         "m_SIGUID": 0,
-        "textToCheck": "LLY searchstock",
+        "textToCheck": "HD searchstock",
         "booleanVariableName": "DroidMacro_ExpectedVisible",
         "matchOption": 1,
         "ignoreCase": true,
@@ -1784,29 +1784,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -1832,6 +1813,25 @@
         "m_newIntValue": 13
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -1839,7 +1839,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected LLY searchstock at step 12 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected HD searchstock at step 12 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -1884,20 +1884,20 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/j7WKztinWb0D",
+        "m_urlToOpen": "https://macrodroidlink.com/m/aAQrFsIW7pP_",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
         "m_classType": "CheckTextOnScreenAction",
         "m_SIGUID": 0,
-        "textToCheck": "MA searchstock",
+        "textToCheck": "JNJ searchstock",
         "booleanVariableName": "DroidMacro_ExpectedVisible",
         "matchOption": 1,
         "ignoreCase": true,
@@ -1933,29 +1933,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -1981,6 +1962,25 @@
         "m_newIntValue": 14
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -1988,7 +1988,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected MA searchstock at step 13 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected JNJ searchstock at step 13 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -2033,20 +2033,20 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/hZ2FDnRP55Ba",
+        "m_urlToOpen": "https://macrodroidlink.com/m/kUv-yl9zjMCL",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
         "m_classType": "CheckTextOnScreenAction",
         "m_SIGUID": 0,
-        "textToCheck": "MRK searchstock",
+        "textToCheck": "LLY searchstock",
         "booleanVariableName": "DroidMacro_ExpectedVisible",
         "matchOption": 1,
         "ignoreCase": true,
@@ -2082,29 +2082,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -2130,6 +2111,25 @@
         "m_newIntValue": 15
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -2137,7 +2137,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected MRK searchstock at step 14 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected LLY searchstock at step 14 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -2182,20 +2182,20 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/JUSHqrLFONyl",
+        "m_urlToOpen": "https://macrodroidlink.com/m/Ge8Q45KJc_v3",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
         "m_classType": "CheckTextOnScreenAction",
         "m_SIGUID": 0,
-        "textToCheck": "MU searchstock",
+        "textToCheck": "MA searchstock",
         "booleanVariableName": "DroidMacro_ExpectedVisible",
         "matchOption": 1,
         "ignoreCase": true,
@@ -2231,29 +2231,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -2279,6 +2260,25 @@
         "m_newIntValue": 16
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -2286,7 +2286,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected MU searchstock at step 15 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected MA searchstock at step 15 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -2331,20 +2331,20 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/Ki_kHQNYGh1w",
+        "m_urlToOpen": "https://macrodroidlink.com/m/St1vU9ujF09o",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
         "m_classType": "CheckTextOnScreenAction",
         "m_SIGUID": 0,
-        "textToCheck": "ORG.ASX searchstock",
+        "textToCheck": "MRK searchstock",
         "booleanVariableName": "DroidMacro_ExpectedVisible",
         "matchOption": 1,
         "ignoreCase": true,
@@ -2380,29 +2380,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -2428,6 +2409,25 @@
         "m_newIntValue": 17
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -2435,7 +2435,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected ORG.ASX searchstock at step 16 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected MRK searchstock at step 16 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -2480,20 +2480,20 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/giXVzvRskfIq",
+        "m_urlToOpen": "https://macrodroidlink.com/m/pXRAJOuHoAiQ",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
       {
         "m_classType": "CheckTextOnScreenAction",
         "m_SIGUID": 0,
-        "textToCheck": "SU.PA searchstock",
+        "textToCheck": "MU searchstock",
         "booleanVariableName": "DroidMacro_ExpectedVisible",
         "matchOption": 1,
         "ignoreCase": true,
@@ -2529,29 +2529,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -2577,6 +2558,25 @@
         "m_newIntValue": 18
       },
       {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
         "m_classType": "ElseAction",
         "m_SIGUID": 0
       },
@@ -2584,7 +2584,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected SU.PA searchstock at step 17 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected MU searchstock at step 17 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -2629,13 +2629,311 @@
       {
         "m_classType": "OpenWebPageAction",
         "m_SIGUID": 0,
-        "m_urlToOpen": "https://macrodroidlink.com/m/78DHz3T1g1gQ",
+        "m_urlToOpen": "https://macrodroidlink.com/m/zITnzR8FrlB-",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 7,
+        "m_delayInSeconds": 3,
+        "m_delayInMilliSeconds": 0,
+        "m_useAlarm": false
+      },
+      {
+        "m_classType": "CheckTextOnScreenAction",
+        "m_SIGUID": 0,
+        "textToCheck": "ORG.ASX searchstock",
+        "booleanVariableName": "DroidMacro_ExpectedVisible",
+        "matchOption": 1,
+        "ignoreCase": true,
+        "ignoreHiddenText": true,
+        "forceScreenRefresh": true
+      },
+      {
+        "m_classType": "IfConditionAction",
+        "m_SIGUID": 0,
+        "m_constraintList": [
+          {
+            "m_classType": "MacroDroidVariableConstraint",
+            "m_SIGUID": 0,
+            "m_variable": {
+              "m_name": "DroidMacro_ExpectedVisible",
+              "m_type": 0,
+              "isLocalVar": true,
+              "m_booleanValue": false,
+              "dictionary": {
+                "entries": [],
+                "isArray": false,
+                "variableType": 4,
+                "type": "Dictionary"
+              },
+              "isActionBlockWorkingVar": true,
+              "isSecure": false,
+              "supportsInput": false,
+              "supportsOutput": true,
+              "description": ""
+            },
+            "m_booleanValue": true
+          }
+        ]
+      },
+      {
+        "m_classType": "PauseAction",
+        "m_SIGUID": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
+        "m_useAlarm": false
+      },
+      {
+        "m_classType": "SetVariableAction",
+        "m_SIGUID": 0,
+        "m_variable": {
+          "m_name": "DroidMacro_BulkNext",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 1,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": ""
+        },
+        "m_newIntValue": 19
+      },
+      {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
+        "m_classType": "ElseAction",
+        "m_SIGUID": 0
+      },
+      {
+        "m_classType": "NotificationAction",
+        "m_SIGUID": 0,
+        "m_notificationSubject": "Bulk installer stopped",
+        "m_notificationText": "Expected ORG.ASX searchstock at step 18 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
+      },
+      {
+        "m_classType": "TerminateRunningAction",
+        "m_SIGUID": 0
+      },
+      {
+        "m_classType": "EndIfAction",
+        "m_SIGUID": 0
+      },
+      {
+        "m_classType": "EndIfAction",
+        "m_SIGUID": 0
+      },
+      {
+        "m_classType": "IfConditionAction",
+        "m_SIGUID": 0,
+        "m_constraintList": [
+          {
+            "m_classType": "MacroDroidVariableConstraint",
+            "m_SIGUID": 0,
+            "m_variable": {
+              "m_name": "DroidMacro_BulkNext",
+              "m_type": 1,
+              "isLocalVar": false,
+              "m_intValue": 1,
+              "dictionary": {
+                "entries": [],
+                "isArray": false,
+                "variableType": 4,
+                "type": "Dictionary"
+              },
+              "isActionBlockWorkingVar": true,
+              "isSecure": false,
+              "supportsInput": false,
+              "supportsOutput": true,
+              "description": ""
+            },
+            "m_intValue": 19
+          }
+        ]
+      },
+      {
+        "m_classType": "OpenWebPageAction",
+        "m_SIGUID": 0,
+        "m_urlToOpen": "https://macrodroidlink.com/m/_9RMOeMLJz4T",
+        "m_httpGet": false
+      },
+      {
+        "m_classType": "PauseAction",
+        "m_SIGUID": 0,
+        "m_delayInSeconds": 3,
+        "m_delayInMilliSeconds": 0,
+        "m_useAlarm": false
+      },
+      {
+        "m_classType": "CheckTextOnScreenAction",
+        "m_SIGUID": 0,
+        "textToCheck": "SU.PA searchstock",
+        "booleanVariableName": "DroidMacro_ExpectedVisible",
+        "matchOption": 1,
+        "ignoreCase": true,
+        "ignoreHiddenText": true,
+        "forceScreenRefresh": true
+      },
+      {
+        "m_classType": "IfConditionAction",
+        "m_SIGUID": 0,
+        "m_constraintList": [
+          {
+            "m_classType": "MacroDroidVariableConstraint",
+            "m_SIGUID": 0,
+            "m_variable": {
+              "m_name": "DroidMacro_ExpectedVisible",
+              "m_type": 0,
+              "isLocalVar": true,
+              "m_booleanValue": false,
+              "dictionary": {
+                "entries": [],
+                "isArray": false,
+                "variableType": 4,
+                "type": "Dictionary"
+              },
+              "isActionBlockWorkingVar": true,
+              "isSecure": false,
+              "supportsInput": false,
+              "supportsOutput": true,
+              "description": ""
+            },
+            "m_booleanValue": true
+          }
+        ]
+      },
+      {
+        "m_classType": "PauseAction",
+        "m_SIGUID": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
+        "m_useAlarm": false
+      },
+      {
+        "m_classType": "SetVariableAction",
+        "m_SIGUID": 0,
+        "m_variable": {
+          "m_name": "DroidMacro_BulkNext",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 1,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": ""
+        },
+        "m_newIntValue": 20
+      },
+      {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
+      },
+      {
+        "m_classType": "ElseAction",
+        "m_SIGUID": 0
+      },
+      {
+        "m_classType": "NotificationAction",
+        "m_SIGUID": 0,
+        "m_notificationSubject": "Bulk installer stopped",
+        "m_notificationText": "Expected SU.PA searchstock at step 19 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
+      },
+      {
+        "m_classType": "TerminateRunningAction",
+        "m_SIGUID": 0
+      },
+      {
+        "m_classType": "EndIfAction",
+        "m_SIGUID": 0
+      },
+      {
+        "m_classType": "EndIfAction",
+        "m_SIGUID": 0
+      },
+      {
+        "m_classType": "IfConditionAction",
+        "m_SIGUID": 0,
+        "m_constraintList": [
+          {
+            "m_classType": "MacroDroidVariableConstraint",
+            "m_SIGUID": 0,
+            "m_variable": {
+              "m_name": "DroidMacro_BulkNext",
+              "m_type": 1,
+              "isLocalVar": false,
+              "m_intValue": 1,
+              "dictionary": {
+                "entries": [],
+                "isArray": false,
+                "variableType": 4,
+                "type": "Dictionary"
+              },
+              "isActionBlockWorkingVar": true,
+              "isSecure": false,
+              "supportsInput": false,
+              "supportsOutput": true,
+              "description": ""
+            },
+            "m_intValue": 20
+          }
+        ]
+      },
+      {
+        "m_classType": "OpenWebPageAction",
+        "m_SIGUID": 0,
+        "m_urlToOpen": "https://macrodroidlink.com/m/BHUjc1L-Yu-O",
+        "m_httpGet": false
+      },
+      {
+        "m_classType": "PauseAction",
+        "m_SIGUID": 0,
+        "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
       },
@@ -2678,29 +2976,10 @@
         ]
       },
       {
-        "m_classType": "UIInteractionAction",
-        "m_SIGUID": 0,
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "clickOption": 2,
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "showTouchLocation": true,
-          "blocking": true,
-          "longClick": false,
-          "contextClick": false,
-          "textContent": "",
-          "textMatchOption": 0
-        }
-      },
-      {
         "m_classType": "PauseAction",
         "m_SIGUID": 0,
-        "m_delayInSeconds": 4,
-        "m_delayInMilliSeconds": 0,
+        "m_delayInSeconds": 0,
+        "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
@@ -2723,7 +3002,26 @@
           "supportsOutput": true,
           "description": ""
         },
-        "m_newIntValue": 19
+        "m_newIntValue": 21
+      },
+      {
+        "m_classType": "UIInteractionAction",
+        "m_SIGUID": 0,
+        "action": 0,
+        "uiInteractionConfiguration": {
+          "clickOption": 2,
+          "xyPercentages": true,
+          "xyPoint": {
+            "x": 87,
+            "y": 86
+          },
+          "showTouchLocation": true,
+          "blocking": true,
+          "longClick": false,
+          "contextClick": false,
+          "textContent": "",
+          "textMatchOption": 0
+        }
       },
       {
         "m_classType": "ElseAction",
@@ -2733,7 +3031,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "Bulk installer stopped",
-        "m_notificationText": "Expected XOM searchstock at step 18 of 18 was not visible. Nothing else was tapped. Check the link, MacroDroid UI, and Accessibility; progress remains at this step."
+        "m_notificationText": "Expected XOM searchstock at step 20 of 20 was not visible; save was NOT tapped. Check link/permissions before resuming."
       },
       {
         "m_classType": "TerminateRunningAction",
@@ -2751,7 +3049,7 @@
         "m_classType": "NotificationAction",
         "m_SIGUID": 0,
         "m_notificationSubject": "DroidMacro installer finished",
-        "m_notificationText": "All 18 numbered links were processed. Open MacroDroid > Macros and verify all 18 entries and their My_order. This does not verify saved entries automatically."
+        "m_notificationText": "All 20 links were processed. Please verify 20 saved macros in MacroDroid; clicks are not independent installation confirmation."
       }
     ]
   }
