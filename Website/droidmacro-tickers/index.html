@@ -6,8 +6,8 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="color-scheme" content="dark light">
   <title>DroidMacro Tickers · Stock Research</title>
-  <link rel="stylesheet" href="/droidmacro-tickers/style.css?v=20261115isolated">
-  <script src="/droidmacro-tickers/app.js?v=20261115isolated" defer></script>
+  <link rel="stylesheet" href="/droidmacro-tickers/style.css?v=20261115nametap">
+  <script src="/droidmacro-tickers/app.js?v=20261115nametap" defer></script>
 </head>
 <body class="droidmacro-page">
   <header class="top">
@@ -57,6 +57,11 @@
     </section>
     <p class="note">Tap <strong>Install in MacroDroid</strong> on an Android device while the one-tap link is available. Shared links expire seven days after creation; after that, use <strong>Download .macro</strong>, then in MacroDroid choose <strong>Macros → Import</strong>. The permanent download is generated for each ticker using the same eight-action ChatGPT macro template. MacroDroid 6.0+ and accessibility permissions are needed; test a shortcut on your phone. No trades are placed by these macros. The ethical and halal statuses are independent historical screening records, not live compliance certifications.</p>
   </main>
+  <dialog id="macroNameDialog" class="macro-name-dialog" aria-labelledby="macroNameDialogTitle">
+    <h2 id="macroNameDialogTitle">Macro name</h2>
+    <p id="fullMacroName" class="macro-name-full"></p>
+    <button type="button" id="macroNameClose">Close</button>
+  </dialog>
   <footer>Macro links do not place orders. Confirm screening and market data before acting on research.</footer>
 </body>
 </html>
