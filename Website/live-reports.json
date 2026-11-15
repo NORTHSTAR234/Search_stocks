@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-15T07:52:36Z",
-  "htmlReportCount": 94,
+  "latestHtmlReportAt": "2026-11-15T20:55:33Z",
+  "htmlReportCount": 95,
   "uniqueTickers": 29,
   "ethicalSources": {
     "rizqinvests": {
@@ -15,8 +15,96 @@
       "matchedReports": 5
     }
   },
-  "revision": "205ee5f3882ea3c3253176a7674cb4ff",
+  "revision": "a7e40c6f47e3f5d218927528bf0d3787",
   "rows": [
+    {
+      "company": "King Yuan Electronics Co., Ltd.",
+      "ticker": "2449.TWSE",
+      "exchange": "TWSE",
+      "bucket": "halal",
+      "timestamp": "2026-11-15T20:55:33Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD / REVIEW RISK",
+      "risk": "HIGH",
+      "investment": "61/100",
+      "entry": "34/100",
+      "musaffa": "HALAL · 2026-09 (month) · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": "2026-09",
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "VERIFIED_HALAL",
+      "musaffaReason": "Exact first-party Musaffa 2449.TW indexed page reports HALAL as of September 2026, with page updated Sep 04; current direct web cache still shows legacy 2025 contents. Prefer newe…",
+      "earnings": "NOT VERIFIED",
+      "zones": "TWD 207–217 / TWD 218–228",
+      "stops": "TWD 194 / TWD 248",
+      "nativeCurrency": "TWD",
+      "marketSchedule": {
+        "exchange": "TWSE",
+        "mic": "XTAI",
+        "market_time_zone": "Asia/Taipei",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "13:30"
+          }
+        ],
+        "yahoo_ticker": "2449.TW",
+        "hours_source": "https://www.twse.com.tw/en/products/system/trading.html",
+        "hours_checked_utc": "2026-11-15T20:55:33Z"
+      },
+      "sourceMarketTicker": "2449.TW",
+      "zoneBands": [
+        [
+          207,
+          217
+        ],
+        [
+          218,
+          228
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/2449.TWSE/2449.TWSE_2026-11-15_20-55-33Z.html",
+      "reportPath": "/view-report?path=halal%2F2449.TWSE%2F2449.TWSE_2026-11-15_20-55-33Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false,
+      "ethicalStatus": "UNVERIFIED",
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
+    },
     {
       "company": "Tesla, Inc.",
       "ticker": "TSLA",
@@ -105,94 +193,6 @@
       "ethicalFinalBdsListed": false,
       "ethicalFinalColor": "RED",
       "ethicalRizqOriginalLabel": "Unethical"
-    },
-    {
-      "company": "King Yuan Electronics Co., Ltd.",
-      "ticker": "2449.TWSE",
-      "exchange": "TWSE",
-      "bucket": "halal",
-      "timestamp": "2026-11-15T07:48:52Z",
-      "statusOnly": false,
-      "action": "BUY GRADUALLY",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "68/100",
-      "entry": "54/100",
-      "musaffa": "HALAL · 2026-09 (month) · PASS",
-      "musaffaClassification": "HALAL",
-      "musaffaGate": "PASS",
-      "musaffaScreeningDate": null,
-      "musaffaScreeningPeriod": "2026-09",
-      "musaffaScreeningMonthConflict": false,
-      "musaffaAssessment": "VERIFIED_HALAL",
-      "musaffaReason": "Official first-party exact 2449.TW Musaffa record indexed HALAL as of September 2026 (page updated 4 Sep); use first of September for conservative 4-month freshness, not the older…",
-      "earnings": "NOT VERIFIED",
-      "zones": "TWD 207–217 / TWD 218–228",
-      "stops": "TWD 194 / TWD 248",
-      "nativeCurrency": "TWD",
-      "marketSchedule": {
-        "exchange": "TWSE",
-        "mic": "XTAI",
-        "market_time_zone": "Asia/Taipei",
-        "sydney_time_zone": "Australia/Sydney",
-        "weekdays": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "sessions": [
-          {
-            "start": "09:00",
-            "end": "13:30"
-          }
-        ],
-        "yahoo_ticker": "2449.TW",
-        "hours_source": "https://www.twse.com.tw/en/products/system/trading.html",
-        "hours_checked_utc": "2026-11-15T07:48:52Z"
-      },
-      "sourceMarketTicker": "2449.TW",
-      "zoneBands": [
-        [
-          207,
-          217
-        ],
-        [
-          218,
-          228
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/2449.TWSE/2449.TWSE_2026-11-15_07-48-52Z.html",
-      "reportPath": "/view-report?path=halal%2F2449.TWSE%2F2449.TWSE_2026-11-15_07-48-52Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false,
-      "ethicalStatus": "UNVERIFIED",
-      "ethicalBdsListed": null,
-      "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": null,
-      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
-      "ethicalSourceUrl": null,
-      "ethicalSourceKind": "USER_SNAPSHOT",
-      "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13",
-      "investigateListed": false,
-      "investigateCategories": [],
-      "investigateSourceUrl": null,
-      "investigateSourceKind": "USER_SNAPSHOT",
-      "investigateDataAsOf": "2025-07",
-      "investigateSummary": null,
-      "investigateCompany": null,
-      "investigateIsin": null,
-      "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null,
-      "ethicalFinalStatus": "UNVERIFIED",
-      "ethicalFinalSource": "NONE",
-      "ethicalFinalSourceUrl": null,
-      "ethicalFinalReason": "No matching archived ethical record",
-      "ethicalFinalBdsListed": false,
-      "ethicalFinalColor": "NONE",
-      "ethicalRizqOriginalLabel": null
     },
     {
       "company": "Micro-Star International Co., Ltd.",
