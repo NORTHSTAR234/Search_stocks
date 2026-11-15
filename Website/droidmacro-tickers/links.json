@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "NORTHSTAR234/Search_stocks live ticker index",
-  "generatedAt": "2026-11-15T04:00:19.565Z",
+  "generatedAt": "2026-11-15T04:00:46.199Z",
   "total": 20,
   "links": [
     {
@@ -123,6 +123,46 @@
       "flagged": false,
       "url": "https://macrodroidlink.com/m/BjduMGpszQTP",
       "expiresAt": "2026-11-22T04:00:13.266Z"
+    },
+    {
+      "ticker": "MRK",
+      "order": 16,
+      "total": 20,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/3BjvdUcb8uqz",
+      "expiresAt": "2026-11-22T04:00:38.831Z"
+    },
+    {
+      "ticker": "MU",
+      "order": 17,
+      "total": 20,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/mEmdj7ZFqF2O",
+      "expiresAt": "2026-11-22T04:00:40.627Z"
+    },
+    {
+      "ticker": "ORG.ASX",
+      "order": 18,
+      "total": 20,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/nztA6gYeAX_w",
+      "expiresAt": "2026-11-22T04:00:42.038Z"
+    },
+    {
+      "ticker": "SU.PA",
+      "order": 19,
+      "total": 20,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/jB8fsdbTWZKJ",
+      "expiresAt": "2026-11-22T04:00:43.966Z"
+    },
+    {
+      "ticker": "XOM",
+      "order": 20,
+      "total": 20,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/A5QD5SgT1qxT",
+      "expiresAt": "2026-11-22T04:00:46.039Z"
     }
   ]
 }
