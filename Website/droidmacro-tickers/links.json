@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "NORTHSTAR234/Search_stocks live ticker index",
-  "generatedAt": "2026-11-15T03:59:27.465Z",
+  "generatedAt": "2026-11-15T03:59:54.481Z",
   "total": 20,
   "links": [
     {
@@ -43,6 +43,46 @@
       "flagged": false,
       "url": "https://macrodroidlink.com/m/Mxi8fhC5H4jk",
       "expiresAt": "2026-11-22T03:59:27.298Z"
+    },
+    {
+      "ticker": "2449.TWSE",
+      "order": 6,
+      "total": 20,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/ri0IdPOApIH7",
+      "expiresAt": "2026-11-22T03:59:47.107Z"
+    },
+    {
+      "ticker": "2454.TWSE",
+      "order": 7,
+      "total": 20,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/vqsrfH8OurW1",
+      "expiresAt": "2026-11-22T03:59:44.967Z"
+    },
+    {
+      "ticker": "3034.TWSE",
+      "order": 8,
+      "total": 20,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/56em5tIxj_0b",
+      "expiresAt": "2026-11-22T03:59:51.585Z"
+    },
+    {
+      "ticker": "AMAT",
+      "order": 9,
+      "total": 20,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/ENUJ-BAImRMR",
+      "expiresAt": "2026-11-22T03:59:54.308Z"
+    },
+    {
+      "ticker": "AMD",
+      "order": 10,
+      "total": 20,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/qXCYY980GVEj",
+      "expiresAt": "2026-11-22T03:59:49.119Z"
     }
   ]
 }
