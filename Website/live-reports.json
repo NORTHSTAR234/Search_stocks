@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-15T06:11:46Z",
-  "htmlReportCount": 75,
+  "latestHtmlReportAt": "2026-11-15T06:13:12Z",
+  "htmlReportCount": 76,
   "uniqueTickers": 26,
   "ethicalSources": {
     "rizqinvests": {
@@ -15,8 +15,96 @@
       "matchedReports": 5
     }
   },
-  "revision": "d46544bc06ee211cc46febca29662094",
+  "revision": "43d9ce67cfb6710829a0e8fdc42919f5",
   "rows": [
+    {
+      "company": "Realtek Semiconductor Corporation",
+      "ticker": "2379.TWSE",
+      "exchange": "TWSE",
+      "bucket": "halal",
+      "timestamp": "2026-11-15T06:13:12Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "73/100",
+      "entry": "45/100",
+      "musaffa": "HALAL · 2026-10 (month) · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": "2026-10",
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "VERIFIED_HALAL",
+      "musaffaReason": "Exact 2379.TW official Musaffa first-party indexed page explicitly HALAL as of October 2026, AAOIFI methodology; date month only. Direct page cache miss does not revoke first-part…",
+      "earnings": "NOT VERIFIED",
+      "zones": "TWD 705–730 / TWD 735–750",
+      "stops": "TWD 655 / TWD 785",
+      "nativeCurrency": "TWD",
+      "marketSchedule": {
+        "exchange": "TWSE",
+        "mic": "XTAI",
+        "market_time_zone": "Asia/Taipei",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "13:30"
+          }
+        ],
+        "yahoo_ticker": "2379.TW",
+        "hours_source": "https://www.twse.com.tw/en/products/system/trading.html",
+        "hours_checked_utc": "2026-11-13T20:06:53Z"
+      },
+      "sourceMarketTicker": "2379.TW",
+      "zoneBands": [
+        [
+          705,
+          730
+        ],
+        [
+          735,
+          750
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/2379.TWSE/2379.TWSE_2026-11-15_06-13-12Z.html",
+      "reportPath": "/view-report?path=halal%2F2379.TWSE%2F2379.TWSE_2026-11-15_06-13-12Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false,
+      "ethicalStatus": "UNVERIFIED",
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
+    },
     {
       "company": "Elite Material Co., Ltd.",
       "ticker": "2383.TWSE",
@@ -931,94 +1019,6 @@
       "ethicalFinalBdsListed": true,
       "ethicalFinalColor": "RED",
       "ethicalRizqOriginalLabel": "Unethical"
-    },
-    {
-      "company": "Realtek Semiconductor Corporation",
-      "ticker": "2379.TWSE",
-      "exchange": "TWSE",
-      "bucket": "halal",
-      "timestamp": "2026-11-13T20:06:53Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "73/100",
-      "entry": "45/100",
-      "musaffa": "HALAL · 2026-10 (month) · PASS",
-      "musaffaClassification": "HALAL",
-      "musaffaGate": "PASS",
-      "musaffaScreeningDate": null,
-      "musaffaScreeningPeriod": "2026-10",
-      "musaffaScreeningMonthConflict": false,
-      "musaffaAssessment": "VERIFIED_HALAL",
-      "musaffaReason": "Exact 2379.TW official Musaffa first-party indexed page explicitly HALAL as of October 2026, AAOIFI methodology; date month only. Direct page cache miss does not revoke first-part…",
-      "earnings": "NOT VERIFIED",
-      "zones": "TWD 705–730 / TWD 735–750",
-      "stops": "TWD 655 / TWD 785",
-      "nativeCurrency": "TWD",
-      "marketSchedule": {
-        "exchange": "TWSE",
-        "mic": "XTAI",
-        "market_time_zone": "Asia/Taipei",
-        "sydney_time_zone": "Australia/Sydney",
-        "weekdays": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "sessions": [
-          {
-            "start": "09:00",
-            "end": "13:30"
-          }
-        ],
-        "yahoo_ticker": "2379.TW",
-        "hours_source": "https://www.twse.com.tw/en/products/system/trading.html",
-        "hours_checked_utc": "2026-11-13T20:06:53Z"
-      },
-      "sourceMarketTicker": "2379.TW",
-      "zoneBands": [
-        [
-          705,
-          730
-        ],
-        [
-          735,
-          750
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/2379.TWSE/2379.TWSE_2026-11-13_20-06-53Z.html",
-      "reportPath": "/view-report?path=halal%2F2379.TWSE%2F2379.TWSE_2026-11-13_20-06-53Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": false,
-      "ethicalStatus": "UNVERIFIED",
-      "ethicalBdsListed": null,
-      "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": null,
-      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
-      "ethicalSourceUrl": null,
-      "ethicalSourceKind": "USER_SNAPSHOT",
-      "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13",
-      "investigateListed": false,
-      "investigateCategories": [],
-      "investigateSourceUrl": null,
-      "investigateSourceKind": "USER_SNAPSHOT",
-      "investigateDataAsOf": "2025-07",
-      "investigateSummary": null,
-      "investigateCompany": null,
-      "investigateIsin": null,
-      "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null,
-      "ethicalFinalStatus": "UNVERIFIED",
-      "ethicalFinalSource": "NONE",
-      "ethicalFinalSourceUrl": null,
-      "ethicalFinalReason": "No matching archived ethical record",
-      "ethicalFinalBdsListed": false,
-      "ethicalFinalColor": "NONE",
-      "ethicalRizqOriginalLabel": null
     },
     {
       "company": "Merck & Co., Inc.",
