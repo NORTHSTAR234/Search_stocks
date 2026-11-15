@@ -1,168 +1,56 @@
 {
   "schemaVersion": 1,
   "source": "NORTHSTAR234/Search_stocks live ticker index",
-  "generatedAt": "2026-11-15T04:00:46.199Z",
-  "total": 20,
+  "generatedAt": "2026-11-15T05:50:30.853Z",
+  "total": 17,
   "links": [
     {
-      "ticker": "1519.TWSE",
-      "order": 1,
-      "total": 20,
-      "flagged": false,
-      "url": "https://macrodroidlink.com/m/gHXU8pAyaHZj",
-      "expiresAt": "2026-11-22T03:59:19.775Z"
-    },
-    {
       "ticker": "2330.TWSE",
-      "order": 2,
-      "total": 20,
+      "order": 1,
+      "total": 17,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/xnSu-x75uc8N",
-      "expiresAt": "2026-11-22T03:59:22.065Z"
-    },
-    {
-      "ticker": "2377.TWSE",
-      "order": 3,
-      "total": 20,
-      "flagged": false,
-      "url": "https://macrodroidlink.com/m/83xDLGnqGar5",
-      "expiresAt": "2026-11-22T03:59:23.583Z"
+      "url": "https://macrodroidlink.com/m/ZHPyPt5pKhMs",
+      "expiresAt": "2026-11-22T05:50:22.726Z"
     },
     {
       "ticker": "2379.TWSE",
-      "order": 4,
-      "total": 20,
+      "order": 2,
+      "total": 17,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/FjhAs0iOdhW9",
-      "expiresAt": "2026-11-22T03:59:25.401Z"
+      "url": "https://macrodroidlink.com/m/B-Wd8GWmM8Qv",
+      "expiresAt": "2026-11-22T05:50:18.317Z"
     },
     {
       "ticker": "2383.TWSE",
-      "order": 5,
-      "total": 20,
+      "order": 3,
+      "total": 17,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/Mxi8fhC5H4jk",
-      "expiresAt": "2026-11-22T03:59:27.298Z"
-    },
-    {
-      "ticker": "2449.TWSE",
-      "order": 6,
-      "total": 20,
-      "flagged": false,
-      "url": "https://macrodroidlink.com/m/ri0IdPOApIH7",
-      "expiresAt": "2026-11-22T03:59:47.107Z"
+      "url": "https://macrodroidlink.com/m/wMo0CUMRhbt3",
+      "expiresAt": "2026-11-22T05:50:20.379Z"
     },
     {
       "ticker": "2454.TWSE",
-      "order": 7,
-      "total": 20,
+      "order": 4,
+      "total": 17,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/vqsrfH8OurW1",
-      "expiresAt": "2026-11-22T03:59:44.967Z"
+      "url": "https://macrodroidlink.com/m/bNJm2zOe2Uww",
+      "expiresAt": "2026-11-22T05:50:25.614Z"
     },
     {
       "ticker": "3034.TWSE",
-      "order": 8,
-      "total": 20,
+      "order": 5,
+      "total": 17,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/56em5tIxj_0b",
-      "expiresAt": "2026-11-22T03:59:51.585Z"
+      "url": "https://macrodroidlink.com/m/_ugkw5wzN815",
+      "expiresAt": "2026-11-22T05:50:27.601Z"
     },
     {
       "ticker": "AMAT",
-      "order": 9,
-      "total": 20,
+      "order": 6,
+      "total": 17,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/ENUJ-BAImRMR",
-      "expiresAt": "2026-11-22T03:59:54.308Z"
-    },
-    {
-      "ticker": "AMD",
-      "order": 10,
-      "total": 20,
-      "flagged": false,
-      "url": "https://macrodroidlink.com/m/qXCYY980GVEj",
-      "expiresAt": "2026-11-22T03:59:49.119Z"
-    },
-    {
-      "ticker": "ASM.XAMS",
-      "order": 11,
-      "total": 20,
-      "flagged": false,
-      "url": "https://macrodroidlink.com/m/CllmeLvYUcLF",
-      "expiresAt": "2026-11-22T04:00:17.105Z"
-    },
-    {
-      "ticker": "HD",
-      "order": 12,
-      "total": 20,
-      "flagged": false,
-      "url": "https://macrodroidlink.com/m/QO3SLHHLOtDy",
-      "expiresAt": "2026-11-22T04:00:19.400Z"
-    },
-    {
-      "ticker": "JNJ",
-      "order": 13,
-      "total": 20,
-      "flagged": false,
-      "url": "https://macrodroidlink.com/m/pXMuykononnR",
-      "expiresAt": "2026-11-22T04:00:15.309Z"
-    },
-    {
-      "ticker": "LLY",
-      "order": 14,
-      "total": 20,
-      "flagged": false,
-      "url": "https://macrodroidlink.com/m/R1RRg4fRRBq1",
-      "expiresAt": "2026-11-22T04:00:11.866Z"
-    },
-    {
-      "ticker": "MA",
-      "order": 15,
-      "total": 20,
-      "flagged": false,
-      "url": "https://macrodroidlink.com/m/BjduMGpszQTP",
-      "expiresAt": "2026-11-22T04:00:13.266Z"
-    },
-    {
-      "ticker": "MRK",
-      "order": 16,
-      "total": 20,
-      "flagged": false,
-      "url": "https://macrodroidlink.com/m/3BjvdUcb8uqz",
-      "expiresAt": "2026-11-22T04:00:38.831Z"
-    },
-    {
-      "ticker": "MU",
-      "order": 17,
-      "total": 20,
-      "flagged": false,
-      "url": "https://macrodroidlink.com/m/mEmdj7ZFqF2O",
-      "expiresAt": "2026-11-22T04:00:40.627Z"
-    },
-    {
-      "ticker": "ORG.ASX",
-      "order": 18,
-      "total": 20,
-      "flagged": false,
-      "url": "https://macrodroidlink.com/m/nztA6gYeAX_w",
-      "expiresAt": "2026-11-22T04:00:42.038Z"
-    },
-    {
-      "ticker": "SU.PA",
-      "order": 19,
-      "total": 20,
-      "flagged": false,
-      "url": "https://macrodroidlink.com/m/jB8fsdbTWZKJ",
-      "expiresAt": "2026-11-22T04:00:43.966Z"
-    },
-    {
-      "ticker": "XOM",
-      "order": 20,
-      "total": 20,
-      "flagged": false,
-      "url": "https://macrodroidlink.com/m/A5QD5SgT1qxT",
-      "expiresAt": "2026-11-22T04:00:46.039Z"
+      "url": "https://macrodroidlink.com/m/muf1_UJ_BVRw",
+      "expiresAt": "2026-11-22T05:50:30.694Z"
     }
   ]
 }
