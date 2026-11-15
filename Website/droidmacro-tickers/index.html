@@ -6,8 +6,8 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="color-scheme" content="dark light">
   <title>DroidMacro Tickers · Stock Research</title>
-  <link rel="stylesheet" href="/droidmacro-tickers/style.css?v=20261115countsync">
-  <script src="/droidmacro-tickers/app.js?v=20261115countsync" defer></script>
+  <link rel="stylesheet" href="/droidmacro-tickers/style.css?v=20261115bulkinstaller">
+  <script src="/droidmacro-tickers/app.js?v=20261115bulkinstaller" defer></script>
 </head>
 <body class="droidmacro-page">
   <header class="top">
@@ -20,6 +20,17 @@
       <h1>DroidMacro Tickers</h1>
       <p>Install a numbered MacroDroid macro for each stock in the homepage’s <strong>first table only</strong>. Stocks flagged as unethical or Musaffa non-halal are excluded. Remaining unverified statuses are not confirmed ethical clearance.</p>
       <div class="metrics"><div><span id="allCount">—</span><small>Included tickers</small></div></div>
+      <div class="bulk-install-panel">
+        <div>
+          <strong>Install all stock macros with one installer</strong>
+          <p>Install and save the bulk-installer macro once, then run its shortcut. It opens each stock's link and tries the bottom-right Save/Add control. The installer stops if the expected stock name is not visible. Keep your phone unlocked and test the first step before trusting unattended installation.</p>
+        </div>
+        <div class="bulk-install-actions">
+          <a id="bulkInstall" class="bulk-primary" hidden aria-disabled="true">Install bulk importer</a>
+          <a id="bulkDownload" class="bulk-secondary" href="/droidmacro-tickers/bulk-installer.macro" download>Download importer .macro</a>
+        </div>
+        <small id="bulkStatus" role="status">Checking that the bulk installer matches the latest first-table ticker count…</small>
+      </div>
     </section>
     <section class="panel">
       <div class="toolbar">
