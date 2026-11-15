@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "NORTHSTAR234/Search_stocks live ticker index",
-  "generatedAt": "2026-11-15T08:17:05.153Z",
+  "generatedAt": "2026-11-15T08:27:33.599Z",
   "total": 20,
   "links": [
     {
@@ -166,16 +166,19 @@
     }
   ],
   "bulkInstaller": {
-    "url": "https://macrodroidlink.com/m/8H8FNHDektaj",
-    "expiresAt": "2026-11-22T08:16:48.808Z",
+    "url": "https://macrodroidlink.com/m/iolnDyIuyeAX",
+    "expiresAt": "2026-11-22T08:27:16.224Z",
     "total": 20,
     "macroPath": "/droidmacro-tickers/bulk-installer.macro",
     "saveButton": {
       "xPercent": 87,
       "yPercent": 86
     },
-    "mode": "guarded-ui-fast",
+    "mode": "guarded-ui-phone-tested-click",
     "openWaitSeconds": 3,
-    "saveWaitMilliseconds": 500
+    "saveWaitMilliseconds": 500,
+    "progressVariable": "DroidMacro_BulkNext_Confirmed",
+    "clickConfiguration": "full-tested-UIInteractionAction-type-Click",
+    "saveClickCount": 20
   }
 }
