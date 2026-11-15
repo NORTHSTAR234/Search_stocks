@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "NORTHSTAR234/Search_stocks live ticker index",
-  "generatedAt": "2026-11-15T05:50:30.853Z",
+  "generatedAt": "2026-11-15T05:51:06.331Z",
   "total": 17,
   "links": [
     {
@@ -51,6 +51,54 @@
       "flagged": false,
       "url": "https://macrodroidlink.com/m/muf1_UJ_BVRw",
       "expiresAt": "2026-11-22T05:50:30.694Z"
+    },
+    {
+      "ticker": "AMD",
+      "order": 7,
+      "total": 17,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/6iclFLnK2ZMR",
+      "expiresAt": "2026-11-22T05:51:03.219Z"
+    },
+    {
+      "ticker": "ASM.XAMS",
+      "order": 8,
+      "total": 17,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/hQY0VHq7ysWn",
+      "expiresAt": "2026-11-22T05:50:56.259Z"
+    },
+    {
+      "ticker": "HD",
+      "order": 9,
+      "total": 17,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/7JogwJNcHUhr",
+      "expiresAt": "2026-11-22T05:50:58.422Z"
+    },
+    {
+      "ticker": "JNJ",
+      "order": 10,
+      "total": 17,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/jEihZEOCJ2Ve",
+      "expiresAt": "2026-11-22T05:50:53.972Z"
+    },
+    {
+      "ticker": "LLY",
+      "order": 11,
+      "total": 17,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/LANIMwX_aJ8E",
+      "expiresAt": "2026-11-22T05:51:00.729Z"
+    },
+    {
+      "ticker": "MA",
+      "order": 12,
+      "total": 17,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/_oatjdkfMQGQ",
+      "expiresAt": "2026-11-22T05:51:06.142Z"
     }
   ]
 }
