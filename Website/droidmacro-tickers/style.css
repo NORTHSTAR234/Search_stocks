@@ -102,8 +102,8 @@ footer{text-align:center;padding:22px 15px;color:#8098b2;border-top:1px solid #2
 .table-wrap th:nth-child(4),.table-wrap td:nth-child(4){width:44%}
 @media(max-width:660px){
  .table-wrap table{min-width:0;width:100%;table-layout:fixed}
- .table-wrap th:nth-child(1),.table-wrap td:nth-child(1){width:9%;text-align:center;padding:7px 2px}
- .table-wrap th:nth-child(2),.table-wrap td:nth-child(2){width:41%}
+ .table-wrap th:nth-child(1),.table-wrap td:nth-child(1){width:13%;text-align:center;padding:7px 2px}
+ .table-wrap th:nth-child(2),.table-wrap td:nth-child(2){width:37%}
  .table-wrap th:nth-child(3),.table-wrap td:nth-child(3){display:none}
  .table-wrap th:nth-child(4),.table-wrap td:nth-child(4){width:50%}
  .sequence-number{font-size:.73rem}
@@ -113,8 +113,8 @@ footer{text-align:center;padding:22px 15px;color:#8098b2;border-top:1px solid #2
  .macro-link{font-size:.65rem;min-height:31px;padding:6px}
 }
 @media(max-width:355px){
- .table-wrap th:nth-child(1),.table-wrap td:nth-child(1){width:9%}
- .table-wrap th:nth-child(2),.table-wrap td:nth-child(2){width:43%}
+ .table-wrap th:nth-child(1),.table-wrap td:nth-child(1){width:14%}
+ .table-wrap th:nth-child(2),.table-wrap td:nth-child(2){width:38%}
  .table-wrap th:nth-child(4),.table-wrap td:nth-child(4){width:48%}
  .mobile-macro-name{font-size:.56rem}
  .macro-link{font-size:.59rem;padding:6px 4px}
