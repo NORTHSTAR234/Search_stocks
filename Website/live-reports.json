@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-14T00:39:06Z",
-  "htmlReportCount": 79,
+  "latestHtmlReportAt": "2026-11-15T02:30:46Z",
+  "htmlReportCount": 80,
   "uniqueTickers": 29,
   "ethicalSources": {
     "rizqinvests": {
@@ -15,8 +15,96 @@
       "matchedReports": 5
     }
   },
-  "revision": "aa272102441f38970ee88560ea62e4ee",
+  "revision": "eb6c07a09c4c719b05c531c1829403a9",
   "rows": [
+    {
+      "company": "King Yuan Electronics Co., Ltd.",
+      "ticker": "2449.TWSE",
+      "exchange": "TWSE",
+      "bucket": "halal",
+      "timestamp": "2026-11-15T02:30:46Z",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "63/100",
+      "entry": "43/100",
+      "musaffa": "HALAL · 2026-09 (month) · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": "2026-09",
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "VERIFIED_HALAL",
+      "musaffaReason": "Exact-instrument indexed official Musaffa first-party result says HALAL as of September 2026. An older separately cached 2024-annual detailed report shows HALAL C+ April 2 2025; t…",
+      "earnings": "NOT VERIFIED",
+      "zones": "TWD 207–217 / TWD 218–228",
+      "stops": "TWD 194 / TWD 248",
+      "nativeCurrency": "TWD",
+      "marketSchedule": {
+        "exchange": "TWSE",
+        "mic": "XTAI",
+        "market_time_zone": "Asia/Taipei",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "13:30"
+          }
+        ],
+        "yahoo_ticker": "2449.TW",
+        "hours_source": "https://www.twse.com.tw/en/products/system/trading.html",
+        "hours_checked_utc": "2026-11-15T02:30:46Z"
+      },
+      "sourceMarketTicker": "2449.TW",
+      "zoneBands": [
+        [
+          207,
+          217
+        ],
+        [
+          218,
+          228
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/2449.TWSE/2449.TWSE_2026-11-15_02-30-46Z.html",
+      "reportPath": "/view-report?path=halal%2F2449.TWSE%2F2449.TWSE_2026-11-15_02-30-46Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": true,
+      "ethicalStatus": "UNVERIFIED",
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
+    },
     {
       "company": "Applied Materials, Inc.",
       "ticker": "AMAT",
@@ -895,94 +983,6 @@
       "reportPath": "/view-report?path=halal%2F2379.TWSE%2F2379.TWSE_2026-11-13_20-06-53Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
-      "ethicalStatus": "UNVERIFIED",
-      "ethicalBdsListed": null,
-      "ethicalAssessmentDate": null,
-      "ethicalCheckedAt": null,
-      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
-      "ethicalSourceUrl": null,
-      "ethicalSourceKind": "USER_SNAPSHOT",
-      "ethicalDataAsOf": "2026-11",
-      "ethicalSnapshotImportedOn": "2026-11-13",
-      "investigateListed": false,
-      "investigateCategories": [],
-      "investigateSourceUrl": null,
-      "investigateSourceKind": "USER_SNAPSHOT",
-      "investigateDataAsOf": "2025-07",
-      "investigateSummary": null,
-      "investigateCompany": null,
-      "investigateIsin": null,
-      "investigateDivestmentShortlist": false,
-      "investigateSourceLinkWarning": null,
-      "ethicalFinalStatus": "UNVERIFIED",
-      "ethicalFinalSource": "NONE",
-      "ethicalFinalSourceUrl": null,
-      "ethicalFinalReason": "No matching archived ethical record",
-      "ethicalFinalBdsListed": false,
-      "ethicalFinalColor": "NONE",
-      "ethicalRizqOriginalLabel": null
-    },
-    {
-      "company": "King Yuan Electronics Co., Ltd.",
-      "ticker": "2449.TWSE",
-      "exchange": "TWSE",
-      "bucket": "halal",
-      "timestamp": "2026-11-13T10:48:18Z",
-      "statusOnly": false,
-      "action": "WATCH",
-      "ownerAction": "HOLD",
-      "risk": "HIGH",
-      "investment": "63/100",
-      "entry": "43/100",
-      "musaffa": "HALAL · 2026-09 (month) · PASS",
-      "musaffaClassification": "HALAL",
-      "musaffaGate": "PASS",
-      "musaffaScreeningDate": null,
-      "musaffaScreeningPeriod": "2026-09",
-      "musaffaScreeningMonthConflict": false,
-      "musaffaAssessment": "VERIFIED_HALAL",
-      "musaffaReason": "Exact-instrument indexed official Musaffa first-party result says HALAL as of September 2026. An older separately cached 2024-annual detailed report shows HALAL C+ April 2 2025; t…",
-      "earnings": "4 Mar 2027 estimated",
-      "zones": "TWD 207–217 / TWD 218–228",
-      "stops": "TWD 194 / TWD 248",
-      "nativeCurrency": "TWD",
-      "marketSchedule": {
-        "exchange": "TWSE",
-        "mic": "XTAI",
-        "market_time_zone": "Asia/Taipei",
-        "sydney_time_zone": "Australia/Sydney",
-        "weekdays": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "sessions": [
-          {
-            "start": "09:00",
-            "end": "13:30"
-          }
-        ],
-        "yahoo_ticker": "2449.TW",
-        "hours_source": "https://www.twse.com.tw/en/products/system/trading.html",
-        "hours_checked_utc": "2026-11-13T10:48:18Z"
-      },
-      "sourceMarketTicker": "2449.TW",
-      "zoneBands": [
-        [
-          207,
-          217
-        ],
-        [
-          218,
-          228
-        ]
-      ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/2449.TWSE/2449.TWSE_2026-11-13_10-48-18Z.html",
-      "reportPath": "/view-report?path=halal%2F2449.TWSE%2F2449.TWSE_2026-11-13_10-48-18Z.html",
-      "sourceFormat": "html",
-      "conflictingBuckets": true,
       "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
