@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "NORTHSTAR234/Search_stocks live ticker index",
-  "generatedAt": "2026-11-15T08:46:06.256Z",
+  "generatedAt": "2026-11-15T08:50:47.500Z",
   "total": 20,
   "links": [
     {
@@ -166,8 +166,8 @@
     }
   ],
   "bulkInstaller": {
-    "url": "https://macrodroidlink.com/m/wCclO0xFHAMI",
-    "expiresAt": "2026-11-22T08:45:48.611Z",
+    "url": "https://macrodroidlink.com/m/R6K79HnWrXvM",
+    "expiresAt": "2026-11-22T08:50:47.300Z",
     "total": 20,
     "macroPath": "/droidmacro-tickers/bulk-installer.macro",
     "saveButton": {
