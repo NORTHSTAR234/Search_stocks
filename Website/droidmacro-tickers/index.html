@@ -6,8 +6,8 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="color-scheme" content="dark light">
   <title>DroidMacro Tickers · Stock Research</title>
-  <link rel="stylesheet" href="/droidmacro-tickers/style.css?v=20261115numbered">
-  <script src="/droidmacro-tickers/app.js?v=20261115numbered" defer></script>
+  <link rel="stylesheet" href="/droidmacro-tickers/style.css?v=20261115firstonly">
+  <script src="/droidmacro-tickers/app.js?v=20261115firstonly" defer></script>
 </head>
 <body class="droidmacro-page">
   <header class="top">
@@ -18,12 +18,8 @@
     <section class="hero">
       <p class="eyebrow">SEARCH_STOCK · ANDROID AUTOMATION</p>
       <h1>DroidMacro Tickers</h1>
-      <p>Install a separate MacroDroid shortcut for each stock ticker. The two tables mirror the homepage's final ethical/BDS and Musaffa screening split; unverified does not mean ethical clearance or non-halal.</p>
-      <div class="metrics">
-        <div><span id="allCount">—</span><small>Tickers</small></div>
-        <div><span id="otherCount">—</span><small>Other stocks</small></div>
-        <div><span id="flagCount">—</span><small>Flagged stocks</small></div>
-      </div>
+      <p>Install a numbered MacroDroid macro for each stock in the homepage’s <strong>first table only</strong>. Stocks flagged as unethical or Musaffa non-halal are excluded. Remaining unverified statuses are not confirmed ethical clearance.</p>
+      <div class="metrics"><div><span id="allCount">—</span><small>Included tickers</small></div></div>
     </section>
     <section class="panel">
       <div class="toolbar">
@@ -34,7 +30,7 @@
       </div>
       <div class="notice" role="status" id="notice">Loading latest ticker list from the website…</div>
       <div class="stock-section-heading" aria-labelledby="otherHeading">
-        <div><h2 id="otherHeading">Other stocks</h2><p>Halal, neutral or unverified listings without an identified unethical or non-halal finding.</p></div>
+        <div><h2 id="otherHeading">First-table stocks only</h2><p>Alphabetical 1–N order matches the first homepage table. Unethical and non-halal stocks are excluded.</p></div>
         <span class="stock-section-count" id="otherShown">—</span>
       </div>
       <div class="table-wrap">
@@ -43,19 +39,9 @@
           <tbody id="otherRows"><tr><td colspan="4">Loading…</td></tr></tbody>
         </table>
       </div>
-      <div class="stock-section-heading stock-section-flagged" aria-labelledby="flaggedHeading">
-        <div><h2 id="flaggedHeading">Unethical / Musaffa non-halal</h2><p>Any red final RizqInvests → Investigate ethical result or an explicit Musaffa non-halal classification. Macros in this table have the <code>#NH-</code> prefix.</p></div>
-        <span class="stock-section-count" id="flaggedShown">—</span>
-      </div>
-      <div class="table-wrap">
-        <table aria-labelledby="flaggedHeading">
-          <thead><tr><th scope="col">#</th><th scope="col">Ticker</th><th scope="col">Macro name</th><th scope="col">Install / Download</th></tr></thead>
-          <tbody id="flaggedRows"><tr><td colspan="4">Loading…</td></tr></tbody>
-        </table>
-      </div>
       <div class="table-footer"><span id="shown">—</span><span id="updated">—</span></div>
     </section>
-    <p class="note">Tap <strong>Install in MacroDroid</strong> on an Android device while the one-tap link is available. Shared links expire seven days after creation; after that, use <strong>Download .macro</strong>, then in MacroDroid choose <strong>Macros → Import</strong>. The permanent download is generated for each ticker using the same eight-action ChatGPT macro template. MacroDroid 6.0+ and accessibility permissions are needed; test a shortcut on your phone. No trades are placed by these macros. The ethical and halal statuses are independent historical screening records, not live compliance certifications. When adding/removing tickers, reimport the affected numbered macros (and update the global Total_ChatGPT_Macros) before running the sequence.</p>
+    <p class="note">Tap <strong>Install in MacroDroid</strong> on an Android device while the one-tap link is available. Shared links expire seven days after creation; after that, use <strong>Download .macro</strong>, then in MacroDroid choose <strong>Macros → Import</strong>. The permanent download uses your 15-action variable-triggered ChatGPT macro and an updated local My_order. MacroDroid 6.0+ and accessibility permissions are needed; test a shortcut on your phone. No trades are placed by these macros. The ethical and halal statuses are independent historical screening records, not live compliance certifications. When adding/removing tickers, reimport the affected numbered macros (and update the global Total_ChatGPT_Macros) before running the sequence.</p>
   </main>
   <footer>Macro links do not place orders. Confirm screening and market data before acting on research.</footer>
 </body>
