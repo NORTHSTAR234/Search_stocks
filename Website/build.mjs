@@ -147,7 +147,7 @@ function mainPage() {
   const labels=["Company / ticker","Regular / latest price","Overnight / vs close","Live chart · 1M","Action / Risk","Markers","Last report (AEDT/AEST)","Musaffa status / grade / screening date","Next earnings / confirmation"];
   const head=labels.map(label=>'<th scope="col">'+esc(label)+'</th>').join("");
   const body='<header class="top"><a class="brand" href="/">◈ Stock Research</a><span class="top-note">HISTORICAL REPORTS</span></header>'+
-  '<main><section class="hero"><p class="eyebrow">SEARCH_STOCK · GITHUB ARCHIVE</p><h1>Latest Research Reports</h1><p>One latest archived report per exact ticker, with separate time-stamped market observations when available.</p><a class="ethical-database-link" href="/ethical-database/">Browse ethical sources · RizqInvests 491 + Investigate 255 ↗</a>'+
+  '<main><section class="hero"><p class="eyebrow">SEARCH_STOCK · GITHUB ARCHIVE</p><h1>Latest Research Reports</h1><p>One latest archived report per exact ticker, with separate time-stamped market observations when available.</p><a class="ethical-database-link" href="/ethical-database/">Browse ethical sources · RizqInvests 491 + Investigate 255 ↗</a> <a class="ethical-database-link" href="/droidmacro-tickers/">DroidMacro Tickers · Install stock macros ↗</a>'+
   '<div class="metrics"><div><span id="count">—</span><small>Latest reports</small></div><div><span id="halalCount">—</span><small>Halal-folder reports</small></div><div><span id="quoteCount">—</span><small>Verified quotes</small></div></div></section>'+
   '<section class="panel"><div class="toolbar"><label class="search"><span>Search</span><input id="search" type="search" placeholder="Ticker or company" aria-label="Search ticker or company"></label>'+
   '<label><span>Category</span><select id="bucket"><option value="all">All</option><option value="halal">Halal folder</option><option value="nonhalal">Nonhalal / unverified folder</option></select></label>'+
@@ -220,6 +220,10 @@ export function build() {
   const ethicalPage=path.join(output,"ethical-database");
   fs.mkdirSync(ethicalPage,{recursive:true});
   fs.copyFileSync(path.join(here,"ethical-database","index.html"),path.join(ethicalPage,"index.html"));
+  const droidPage=path.join(output,"droidmacro-tickers");
+  fs.mkdirSync(droidPage,{recursive:true});
+  for(const name of ["index.html","app.js","style.css"])
+    fs.copyFileSync(path.join(here,"droidmacro-tickers",name),path.join(droidPage,name));
   fs.copyFileSync(path.join(here,"_headers"),path.join(output,"_headers"));
   fs.writeFileSync(path.join(output,"robots.txt"),"User-agent: *\nDisallow: /\n");
   console.log("Built "+rows.length+" current ticker reports from "+archives.length+" archived HTML/Markdown files.");
