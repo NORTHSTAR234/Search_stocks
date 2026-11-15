@@ -39,41 +39,42 @@ function macroFor(r){
 function tdWith(...nodes){const cell=make("td");nodes.forEach(n=>cell.append(n));return cell;}
 function renderRow(r){
  const tr=make("tr"),ticker=String(r.ticker);
+ const number=make("span","sequence-number",r.myOrder);
  const company=make("span","company",r.company||ticker);
  const tickerLink=make("a","ticker",ticker);
  tickerLink.href="/reports/"+encodeURIComponent(ticker)+"/";
- const fullMacroName=(flagged(r)?"#NH-":"")+ticker+" searchstock";
- const name=make("span","macro-name",fullMacroName);
- name.title=fullMacroName;
+ const macroName=(flagged(r)?"#NH-":"")+ticker+" searchstock";
+ const name=make("span","macro-name",macroName);
+ name.title=macroName;
+ const mobileName=make("small","mobile-macro-name",macroName);
  const linkArea=make("div","link-actions");
  const current=links.get(ticker);
- if(current&&current.flagged===flagged(r)&&Date.now()<Date.parse(current.expires)){
+ const currentValid=Boolean(current&&current.order===r.myOrder&&current.total===rows.length&&
+   current.flagged===flagged(r)&&Date.now()<Date.parse(current.expiresAt));
+ if(currentValid){
    const link=make("a","macro-link","Install");
-   link.setAttribute("aria-label","Install "+ticker+" macro in MacroDroid");
+   link.setAttribute("aria-label","Install "+ticker+" macro, order "+r.myOrder);
    link.href=current.url;link.target="_blank";link.rel="noopener noreferrer";
    linkArea.append(link);
  }
  const macro=macroFor(r);
- const fileURL=URL.createObjectURL(new Blob([JSON.stringify(macro,null,2)],
-   {type:"application/json"}));
+ const fileURL=URL.createObjectURL(new Blob([JSON.stringify(macro,null,2)],{type:"application/json"}));
  objectUrls.push(fileURL);
  const download=make("a","macro-link download","Download");
- download.setAttribute("aria-label","Download "+ticker+" MacroDroid macro file");
+ download.setAttribute("aria-label","Download "+ticker+" macro, My_order "+r.myOrder);
  download.href=fileURL;
- download.download=((flagged(r)?"#NH-":"")+ticker+"_searchstock").replace(/[^#\w.-]/g,"_")+".macro";
+ download.download=((flagged(r)?"#NH-":"")+ticker+"_searchstock").replace(/[^#\\w.-]/g,"_")+".macro";
  linkArea.append(download);
- const hint=make("small","status-copy"+(current&&Date.now()>=Date.parse(current.expires)?" expired":""),
-  !current?"Permanent download available; no one-tap share link yet":
-  current.flagged!==flagged(r)?"Classification changed: use the updated .macro download":
-  Date.now()>=Date.parse(current.expires)?"One-tap link expired; use Download .macro":
-  "One-tap sharing is temporary; the .macro download does not expire");
- tr.append(tdWith(company,tickerLink),tdWith(name),tdWith(linkArea,hint));
+ const hint=make("small","status-copy"+(!currentValid?" expired":""),
+   currentValid?"One-tap link expires "+new Date(current.expiresAt).toLocaleDateString():
+   "Updated numbered macro available as a .macro download");
+ tr.append(tdWith(number),tdWith(company,tickerLink,mobileName),tdWith(name),tdWith(linkArea,hint));
  return tr;
 }
 function fill(tableId,items,emptyText){
  const tbody=$(tableId);
  tbody.replaceChildren();
- if(!items.length){const tr=make("tr"),td=make("td","",emptyText);td.colSpan=3;tr.append(td);tbody.append(tr);return;}
+ if(!items.length){const tr=make("tr"),td=make("td","",emptyText);td.colSpan=4;tr.append(td);tbody.append(tr);return;}
  const fragment=document.createDocumentFragment();
  for(const row of items)fragment.append(renderRow(row));
  tbody.append(fragment);
