@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-15T02:42:22Z",
-  "htmlReportCount": 81,
+  "latestHtmlReportAt": "2026-11-15T02:43:15Z",
+  "htmlReportCount": 82,
   "uniqueTickers": 29,
   "ethicalSources": {
     "rizqinvests": {
@@ -15,14 +15,14 @@
       "matchedReports": 5
     }
   },
-  "revision": "78ceb27b14a146b97f10782d53221e64",
+  "revision": "a01f07a2dff50da1e617d083a9da20f6",
   "rows": [
     {
       "company": "Elite Material Co., Ltd.",
       "ticker": "2383.TWSE",
       "exchange": "TWSE",
       "bucket": "halal",
-      "timestamp": "2026-11-15T02:42:22Z",
+      "timestamp": "2026-11-15T02:43:15Z",
       "statusOnly": false,
       "action": "WATCH",
       "ownerAction": "HOLD",
@@ -61,7 +61,7 @@
         ],
         "yahoo_ticker": "2383.TW",
         "hours_source": "https://wwwc.twse.com.tw/en/products/system/trading.html",
-        "hours_checked_utc": "2026-11-15T02:42:22Z"
+        "hours_checked_utc": "2026-11-15T02:43:15Z"
       },
       "sourceMarketTicker": "2383.TW",
       "zoneBands": [
@@ -74,8 +74,8 @@
           4350
         ]
       ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/2383.TWSE/2383.TWSE_2026-11-15_02-42-22Z.html",
-      "reportPath": "/view-report?path=halal%2F2383.TWSE%2F2383.TWSE_2026-11-15_02-42-22Z.html",
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/2383.TWSE/2383.TWSE_2026-11-15_02-43-15Z.html",
+      "reportPath": "/view-report?path=halal%2F2383.TWSE%2F2383.TWSE_2026-11-15_02-43-15Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
       "ethicalStatus": "UNVERIFIED",
