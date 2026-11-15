@@ -73,6 +73,7 @@ function renderRow(r){
  const tickerLink=make("a","ticker",ticker);
  tickerLink.href="/reports/"+encodeURIComponent(ticker)+"/";
  const name=make("span","macro-name",(flagged(r)?"#NH-":"")+ticker+" searchstock");
+ name.title=name.textContent;
  const linkArea=make("div","link-actions");
  const current=links.get(ticker);
  if(current&&current.flagged===flagged(r)&&Date.now()<Date.parse(current.expires)){
