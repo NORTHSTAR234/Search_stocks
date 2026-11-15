@@ -18,39 +18,23 @@ function flagged(r){
    String(r.musaffa||"").split(" · ")[0]||"").trim().toUpperCase();
  return red||negativeMusaffa.test(classification);
 }
+// Faithful to the owner's uploaded 1519.TWSE variable-triggered 15-action macro.
+function stableId(text){let h=2166136261;for(const ch of text)h=Math.imul(h^ch.charCodeAt(0),16777619)>>>0;return -1000000000-(h%900000000);}
+function integerVar(name,local,value=0){return {description:"",dictionary:{entries:[],isArray:false,variableType:4,type:"Dictionary"},isActionBlockWorkingVar:true,isLocalVar:local,isSecure:false,m_booleanValue:false,m_decimalValue:value,m_intValue:value,m_name:name,m_stringValue:"",m_type:1,supportsInput:false,supportsOutput:true};}
 function macroFor(r){
- const ticker=String(r.ticker);
- const macroName=(flagged(r)?"#NH-":"")+ticker+" searchstock";
- const delayVar={description:"Time delay for execution of chatGPT search actions",
-  dictionary:{entries:[],isArray:false,variableType:4,type:"Dictionary"},
-  isActionBlockWorkingVar:true,isLocalVar:false,isSecure:false,m_booleanValue:false,
-  m_decimalValue:0.5,m_intValue:0,m_name:"Chatgpt_timedelay_Sec",
-  m_stringValue:"",m_type:3,supportsInput:false,supportsOutput:true};
- const pause=()=>({m_classType:"PauseAction",m_SIGUID:0,
-  m_delayInMilliSeconds:0,m_delayInSeconds:1,m_useAlarm:false,
-  m_variable:{...delayVar,m_decimalValue:0},unitForVariables:0});
- const ui=(action,uiInteractionConfiguration)=>({m_classType:"UIInteractionAction",m_SIGUID:0,action,uiInteractionConfiguration});
- return {macroExportVersion:1,globalVariables:[delayVar],macro:{
-  aiGenerated:1,m_GUID:0,m_name:macroName,
-  m_description:"Launch ChatGPT and replace composer text with @search_stock "+ticker+
-    ", tap send at 91% x / 55% y, then return Home. Launch via shortcut while device is unlocked.",
-  m_category:"Uncategorized",m_completed:true,m_enabled:true,
-  m_triggerList:[{m_classType:"ShortcutTrigger",m_SIGUID:0}],
-  m_constraintList:[{m_classType:"DeviceLockedConstraint",m_SIGUID:0,m_locked:false}],
-  localVariables:[],m_actionList:[
-  {m_classType:"LaunchActivityAction",m_SIGUID:0,m_applicationName:"ChatGPT",
-   m_packageToLaunch:"com.openai.chatgpt",m_startNew:true,m_excludeFromRecents:false,
-   m_userSerial:-1,m_workProfile:false,option:0},
-  pause(),pause(),
-  ui(4,{forceClear:true,text:"@search_stock "+ticker,useClipboard:false,
-    useNewClipboardPasteMechanism:false,type:"Paste"}),
-  pause(),
-  ui(0,{blocking:false,checkOverlays:false,clickOption:2,contentDescription:"",
-    contextClick:false,longClick:false,showTouchLocation:true,skipCount:"0",
-    textContent:"",textMatchOption:0,useRegex:false,viewId:"",xyPercentages:true,
-    xyPoint:{x:91,y:55},type:"Click"}),
-  pause(),{m_classType:"LaunchHomeScreenAction",m_SIGUID:0,useAccessibilityService:false}
- ]}};
+ const ticker=String(r.ticker),order=Number(r.myOrder),total=rows.length;
+ if(!Number.isInteger(order)||order<1||order>total)throw Error("Missing My_order for "+ticker);
+ const g=integerVar("chatgpt order",false,1),n=integerVar("Total_ChatGPT_Macros",false,total),l=integerVar("My_order",true,order);
+ const delay={...integerVar("Chatgpt_timedelay_Sec",false,0),description:"Time delay for execution of chatGPT search actions",m_type:3,m_decimalValue:0.5};
+ const wait=()=>({m_classType:"PauseAction",m_delayInMilliSeconds:0,m_delayInSeconds:1,m_useAlarm:false,m_variable:{...delay,m_decimalValue:0},unitForVariables:0});
+ const launch=(name,pkg,start)=>({m_classType:"LaunchActivityAction",m_applicationName:name,m_packageToLaunch:pkg,m_startNew:start,m_excludeFromRecents:false,m_userSerial:-1,m_workProfile:false,option:0});
+ const paste={m_classType:"UIInteractionAction",action:4,uiInteractionConfiguration:{forceClear:true,text:"@search_stock "+ticker,useClipboard:false,useNewClipboardPasteMechanism:false,type:"Paste"}};
+ const click={m_classType:"UIInteractionAction",action:0,uiInteractionConfiguration:{blocking:false,checkOverlays:false,clickOption:2,contentDescription:"",contextClick:false,longClick:false,showTouchLocation:true,skipCount:"0",textContent:"",textMatchOption:0,useRegex:false,viewId:"",xyPercentages:true,xyPoint:{x:91,y:55},type:"Click"}};
+ const set=(num,inc)=>({m_classType:"SetVariableAction",m_variable:g,m_newIntValue:num,m_intValueIncrement:inc,m_intValueDecrement:false,m_intExpression:false,m_intRandom:false,m_userPrompt:false});
+ const ifLast={m_classType:"IfConditionAction",m_isOrCondition:false,m_constraintList:[{m_classType:"MacroDroidVariableConstraint",m_variable:g,m_intCompareVariable:true,m_otherValueToCompare:n,m_intValue:100,m_intGreaterThan:false,m_intLessThan:false,m_intNotEqual:false}]};
+ const trigger={m_classType:"VariableTrigger",m_variable:g,m_intCompareVariable:true,m_otherValueToCompare:l,m_intValue:0,m_intGreaterThan:false,m_intLessThan:false,m_intNotEqual:false,m_anyValueChange:false,m_SIGUID:stableId(ticker+":trigger")};
+ const actions=[wait(),launch("ChatGPT","com.openai.chatgpt",true),wait(),wait(),paste,wait(),click,wait(),launch("MacroDroid","com.arlosoft.macrodroid",false),wait(),ifLast,set(0,false),{m_classType:"TerminateRunningAction"},{m_classType:"EndIfAction"},set(0,true)].map((action,i)=>({...action,m_SIGUID:stableId(ticker+":action:"+i)}));
+ return {globalVariables:[g,delay,n],macro:{aiGenerated:2,m_GUID:stableId("droidmacro:"+ticker),m_name:(flagged(r)?"#NH-":"")+ticker+" searchstock",m_description:"Runs @search_stock "+ticker+" when My_order is "+order+" of "+total+"; returns to MacroDroid; resets counter after last ticker.",m_category:"Uncategorized",m_completed:true,m_enabled:true,m_triggerList:[trigger],m_constraintList:[{m_classType:"DeviceLockedConstraint",m_locked:false,m_SIGUID:stableId(ticker+":constraint")}],localVariables:[l],m_actionList:actions},macroExportVersion:1};
 }
 function tdWith(...nodes){const cell=make("td");nodes.forEach(n=>cell.append(n));return cell;}
 function renderRow(r){
