@@ -222,7 +222,7 @@ export function build() {
   fs.copyFileSync(path.join(here,"ethical-database","index.html"),path.join(ethicalPage,"index.html"));
   const droidPage=path.join(output,"droidmacro-tickers");
   fs.mkdirSync(droidPage,{recursive:true});
-  for(const name of ["index.html","app.js","style.css"])
+  for(const name of ["index.html","app.js","style.css","links.json"])
     fs.copyFileSync(path.join(here,"droidmacro-tickers",name),path.join(droidPage,name));
   fs.copyFileSync(path.join(here,"_headers"),path.join(output,"_headers"));
   fs.writeFileSync(path.join(output,"robots.txt"),"User-agent: *\nDisallow: /\n");
