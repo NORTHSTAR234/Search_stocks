@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "NORTHSTAR234/Search_stocks live ticker index",
-  "generatedAt": "2026-11-15T03:22:59.602Z",
+  "generatedAt": "2026-11-15T03:23:31.486Z",
   "total": 29,
   "links": [
     {
@@ -115,6 +115,70 @@
       "flagged": false,
       "url": "https://macrodroidlink.com/m/0yMXVueyuPnY",
       "expiresAt": "2026-11-22T03:22:56.894Z"
+    },
+    {
+      "ticker": "MA",
+      "order": 15,
+      "total": 29,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/MN1Xf7er3WmK",
+      "expiresAt": "2026-11-22T03:23:24.051Z"
+    },
+    {
+      "ticker": "MRK",
+      "order": 16,
+      "total": 29,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/Xzll0_dtwBKK",
+      "expiresAt": "2026-11-22T03:23:21.684Z"
+    },
+    {
+      "ticker": "MU",
+      "order": 17,
+      "total": 29,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/lkdvDm2lwYn-",
+      "expiresAt": "2026-11-22T03:23:27.457Z"
+    },
+    {
+      "ticker": "ORG.ASX",
+      "order": 18,
+      "total": 29,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/qPofOaPgkEK9",
+      "expiresAt": "2026-11-22T03:23:19.354Z"
+    },
+    {
+      "ticker": "SU.PA",
+      "order": 19,
+      "total": 29,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/G3se12OUAB2D",
+      "expiresAt": "2026-11-22T03:23:18.008Z"
+    },
+    {
+      "ticker": "XOM",
+      "order": 20,
+      "total": 29,
+      "flagged": false,
+      "url": "https://macrodroidlink.com/m/v-I5pSJ_ZifP",
+      "expiresAt": "2026-11-22T03:23:25.722Z"
+    },
+    {
+      "ticker": "AAPL",
+      "order": 21,
+      "total": 29,
+      "flagged": true,
+      "url": "https://macrodroidlink.com/m/XWzY26AyPZcE",
+      "expiresAt": "2026-11-22T03:23:29.390Z"
+    },
+    {
+      "ticker": "ABBN.SIX",
+      "order": 22,
+      "total": 29,
+      "flagged": true,
+      "url": "https://macrodroidlink.com/m/V0HPt6sE7FjK",
+      "expiresAt": "2026-11-22T03:23:31.328Z"
     }
   ]
 }
