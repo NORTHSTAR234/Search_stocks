@@ -89,14 +89,14 @@ test("the single superseded historical defect is immutable and has a complete su
     const legacy=readFileSync(path.join(root,relative),"utf8");
     assert.equal(gitBlobSha(legacy),expected,
       "Historical exempted file changed; investigate instead of bypassing QA: "+relative);
-    const legacySnapshot=legacy.match(/<script\\b[^>]*id=["']aya-report-snapshot["'][^>]*>([\\s\\S]*?)<\\/script>/i);
+    const legacySnapshot=legacy.match(/<script\b[^>]*id=["']aya-report-snapshot["'][^>]*>([\s\S]*?)<\/script>/i);
     assert(legacySnapshot,"Preserved historical file lacks its original canonical snapshot: "+relative);
     assert.equal(JSON.parse(legacySnapshot[1]).report_type,"full");
     assert(missingDepthSlots(legacy).length>0,
       "If the historical record no longer violates QA, eliminate the obsolete exemption.");
     assert(successor>relative,"Superseding report must be newer than the historical defect");
     const replacement=readFileSync(path.join(root,successor),"utf8");
-    const replacementSnapshot=replacement.match(/<script\\b[^>]*id=["']aya-report-snapshot["'][^>]*>([\\s\\S]*?)<\\/script>/i);
+    const replacementSnapshot=replacement.match(/<script\b[^>]*id=["']aya-report-snapshot["'][^>]*>([\s\S]*?)<\/script>/i);
     assert(replacementSnapshot,"Replacement missing canonical snapshot: "+successor);
     const snap=JSON.parse(replacementSnapshot[1]);
     assert.equal(snap.report_type,"full");
