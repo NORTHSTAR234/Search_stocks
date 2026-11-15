@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "NORTHSTAR234/Search_stocks live ticker index",
-  "generatedAt": "2026-11-15T03:23:31.486Z",
+  "generatedAt": "2026-11-15T03:24:02.388Z",
   "total": 29,
   "links": [
     {
@@ -179,6 +179,62 @@
       "flagged": true,
       "url": "https://macrodroidlink.com/m/V0HPt6sE7FjK",
       "expiresAt": "2026-11-22T03:23:31.328Z"
+    },
+    {
+      "ticker": "CSCO",
+      "order": 23,
+      "total": 29,
+      "flagged": true,
+      "url": "https://macrodroidlink.com/m/CjwF9FniTsSv",
+      "expiresAt": "2026-11-22T03:23:48.861Z"
+    },
+    {
+      "ticker": "CVX",
+      "order": 24,
+      "total": 29,
+      "flagged": true,
+      "url": "https://macrodroidlink.com/m/TqlXmmoUG0To",
+      "expiresAt": "2026-11-22T03:23:50.256Z"
+    },
+    {
+      "ticker": "KO",
+      "order": 25,
+      "total": 29,
+      "flagged": true,
+      "url": "https://macrodroidlink.com/m/5e3r3vR_PrYh",
+      "expiresAt": "2026-11-22T03:23:52.181Z"
+    },
+    {
+      "ticker": "NVDA",
+      "order": 26,
+      "total": 29,
+      "flagged": true,
+      "url": "https://macrodroidlink.com/m/THCf0aB0WKRI",
+      "expiresAt": "2026-11-22T03:23:54.372Z"
+    },
+    {
+      "ticker": "PG",
+      "order": 27,
+      "total": 29,
+      "flagged": true,
+      "url": "https://macrodroidlink.com/m/GGR0rlo0MkDE",
+      "expiresAt": "2026-11-22T03:23:57.302Z"
+    },
+    {
+      "ticker": "TSLA",
+      "order": 28,
+      "total": 29,
+      "flagged": true,
+      "url": "https://macrodroidlink.com/m/QkT4mJWANhAO",
+      "expiresAt": "2026-11-22T03:24:00.235Z"
+    },
+    {
+      "ticker": "V",
+      "order": 29,
+      "total": 29,
+      "flagged": true,
+      "url": "https://macrodroidlink.com/m/YkUXEyPOKEoK",
+      "expiresAt": "2026-11-22T03:24:02.211Z"
     }
   ]
 }
