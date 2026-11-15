@@ -23,6 +23,7 @@ function stableId(text){let h=2166136261;for(const ch of text)h=Math.imul(h^ch.c
 function integerVar(name,local,value=0){return {description:"",dictionary:{entries:[],isArray:false,variableType:4,type:"Dictionary"},isActionBlockWorkingVar:true,isLocalVar:local,isSecure:false,m_booleanValue:false,m_decimalValue:value,m_intValue:value,m_name:name,m_stringValue:"",m_type:1,supportsInput:false,supportsOutput:true};}
 function macroFor(r){
  const ticker=String(r.ticker),order=Number(r.myOrder),total=rows.length;
+ if(flagged(r))throw Error("Excluded unethical/non-halal ticker: "+ticker);
  if(!Number.isInteger(order)||order<1||order>total)throw Error("Missing My_order for "+ticker);
  const g=integerVar("chatgpt order",false,1),n=integerVar("Total_ChatGPT_Macros",false,total),l=integerVar("My_order",true,order);
  const delay={...integerVar("Chatgpt_timedelay_Sec",false,0),description:"Time delay for execution of chatGPT search actions",m_type:3,m_decimalValue:0.5};
@@ -34,7 +35,7 @@ function macroFor(r){
  const ifLast={m_classType:"IfConditionAction",m_isOrCondition:false,m_constraintList:[{m_classType:"MacroDroidVariableConstraint",m_variable:g,m_intCompareVariable:true,m_otherValueToCompare:n,m_intValue:100,m_intGreaterThan:false,m_intLessThan:false,m_intNotEqual:false}]};
  const trigger={m_classType:"VariableTrigger",m_variable:g,m_intCompareVariable:true,m_otherValueToCompare:l,m_intValue:0,m_intGreaterThan:false,m_intLessThan:false,m_intNotEqual:false,m_anyValueChange:false,m_SIGUID:stableId(ticker+":trigger")};
  const actions=[wait(),launch("ChatGPT","com.openai.chatgpt",true),wait(),wait(),paste,wait(),click,wait(),launch("MacroDroid","com.arlosoft.macrodroid",false),wait(),ifLast,set(0,false),{m_classType:"TerminateRunningAction"},{m_classType:"EndIfAction"},set(0,true)].map((action,i)=>({...action,m_SIGUID:stableId(ticker+":action:"+i)}));
- return {globalVariables:[g,delay,n],macro:{aiGenerated:2,m_GUID:stableId("droidmacro:"+ticker),m_name:(flagged(r)?"#NH-":"")+ticker+" searchstock",m_description:"Runs @search_stock "+ticker+" when My_order is "+order+" of "+total+"; returns to MacroDroid; resets counter after last ticker.",m_category:"Uncategorized",m_completed:true,m_enabled:true,m_triggerList:[trigger],m_constraintList:[{m_classType:"DeviceLockedConstraint",m_locked:false,m_SIGUID:stableId(ticker+":constraint")}],localVariables:[l],m_actionList:actions},macroExportVersion:1};
+ return {globalVariables:[g,delay,n],macro:{aiGenerated:2,m_GUID:stableId("droidmacro:"+ticker),m_name:ticker+" searchstock",m_description:"Runs @search_stock "+ticker+" when My_order is "+order+" of "+total+"; returns to MacroDroid; resets counter after last ticker.",m_category:"Uncategorized",m_completed:true,m_enabled:true,m_triggerList:[trigger],m_constraintList:[{m_classType:"DeviceLockedConstraint",m_locked:false,m_SIGUID:stableId(ticker+":constraint")}],localVariables:[l],m_actionList:actions},macroExportVersion:1};
 }
 function tdWith(...nodes){const cell=make("td");nodes.forEach(n=>cell.append(n));return cell;}
 function renderRow(r){
@@ -43,7 +44,7 @@ function renderRow(r){
  const company=make("span","company",r.company||ticker);
  const tickerLink=make("a","ticker",ticker);
  tickerLink.href="/reports/"+encodeURIComponent(ticker)+"/";
- const macroName=(flagged(r)?"#NH-":"")+ticker+" searchstock";
+ const macroName=ticker+" searchstock";
  const name=make("span","macro-name",macroName);
  name.title=macroName;
  const mobileName=make("small","mobile-macro-name",macroName);
@@ -63,7 +64,7 @@ function renderRow(r){
  const download=make("a","macro-link download","Download");
  download.setAttribute("aria-label","Download "+ticker+" macro, My_order "+r.myOrder);
  download.href=fileURL;
- download.download=((flagged(r)?"#NH-":"")+ticker+"_searchstock").replace(/[^A-Za-z0-9.#_-]/g,"_")+".macro";
+ download.download=(ticker+"_searchstock").replace(/[^A-Za-z0-9.#_-]/g,"_")+".macro";
  linkArea.append(download);
  const hint=make("small","status-copy"+(!currentValid?" expired":""),
    currentValid?"One-tap link expires "+new Date(current.expiresAt).toLocaleDateString():
@@ -86,25 +87,19 @@ function updateExchange(){
  select.value=exchanges.includes(chosen)?chosen:"all";
 }
 function assignOrders(){
- const other=rows.filter(r=>!flagged(r)).sort(tickerAZ);
- const bad=rows.filter(flagged).sort(tickerAZ);
- rows=[...other,...bad].map((r,i)=>({...r,myOrder:i+1}));
+ // The homepage's first table is the ONLY source of DroidMacro tickers.
+ // Always filter flagged names BEFORE counting, sorting or numbering.
+ rows=rows.filter(r=>!flagged(r)).sort(tickerAZ).map((r,i)=>({...r,myOrder:i+1}));
 }
 function render(){
  objectUrls.forEach(x=>URL.revokeObjectURL(x));objectUrls=[];
  const query=norm($("search").value),exchange=$("exchange").value;
- // Filters never renumber: sequence IDs are based on the entire current inventory.
  const visible=rows.filter(r=>(exchange==="all"||String(r.exchange||"OTHER")===exchange)&&
    (!query||norm(r.ticker+" "+r.company).includes(query)));
- const other=visible.filter(r=>!flagged(r)),bad=visible.filter(flagged);
- fill("otherRows",other,"No other stocks match your filters.");
- fill("flaggedRows",bad,"No flagged stocks match your filters.");
- $("otherShown").textContent=other.length+" stock"+(other.length===1?"":"s");
- $("flaggedShown").textContent=bad.length+" stock"+(bad.length===1?"":"s");
+ fill("otherRows",visible,"No first-table stocks match your filters.");
+ $("otherShown").textContent=visible.length+" stock"+(visible.length===1?"":"s");
  $("allCount").textContent=rows.length;
- $("otherCount").textContent=rows.filter(r=>!flagged(r)).length;
- $("flagCount").textContent=rows.filter(flagged).length;
- $("shown").textContent="Orders 1–"+rows.length+" · "+other.length+" other / "+bad.length+" flagged shown";
+ $("shown").textContent="Orders 1–"+rows.length+" · "+visible.length+" included stock"+(visible.length===1?"":"s")+" shown";
 }
 async function load(){
  $("refresh").disabled=true;
@@ -123,7 +118,7 @@ async function load(){
      }else links=new Map();
    }catch(err){links=new Map();}
    updateExchange();render();
-   $("notice").textContent="Latest site report data loaded. Macros follow the final homepage ethical/Musaffa classification.";
+   $("notice").textContent="Latest first-table tickers loaded. Unethical and Musaffa non-halal tickers are excluded before numbering.";
    const date=json.generatedAt?new Date(json.generatedAt):null;
    $("updated").textContent="Website report index "+(date&&!Number.isNaN(date.valueOf())?date.toLocaleString():"loaded");
  }catch(e){
