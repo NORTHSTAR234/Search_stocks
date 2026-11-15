@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="color-scheme" content="dark light">
+  <title>DroidMacro Tickers · Stock Research</title>
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/droidmacro-tickers/style.css">
+  <script src="/droidmacro-tickers/app.js" defer></script>
+</head>
+<body class="droidmacro-page">
+  <header class="top">
+    <a class="brand" href="/">◈ Stock Research</a>
+    <a class="back" href="/">← Back to dashboard</a>
+  </header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">SEARCH_STOCK · ANDROID AUTOMATION</p>
+      <h1>DroidMacro Tickers</h1>
+      <p>Install a separate MacroDroid shortcut for each stock ticker. The two tables mirror the homepage's final ethical/BDS and Musaffa screening split; unverified does not mean ethical clearance or non-halal.</p>
+      <div class="metrics">
+        <div><span id="allCount">—</span><small>Tickers</small></div>
+        <div><span id="otherCount">—</span><small>Other stocks</small></div>
+        <div><span id="flagCount">—</span><small>Flagged stocks</small></div>
+      </div>
+    </section>
+    <section class="panel">
+      <div class="toolbar">
+        <label class="search"><span>Search</span><input id="search" type="search" placeholder="Ticker or company" aria-label="Find ticker or company"></label>
+        <label><span>Exchange</span><select id="exchange"><option value="all">All exchanges</option></select></label>
+        <label><span>Order</span><select id="order"><option value="ticker">Ticker A–Z</option><option value="newest">Newest report</option><option value="company">Company A–Z</option></select></label>
+        <button id="refresh" type="button">Refresh tickers</button>
+      </div>
+      <div class="notice" role="status" id="notice">Loading latest ticker list from the website…</div>
+      <div class="stock-section-heading" aria-labelledby="otherHeading">
+        <div><h2 id="otherHeading">Other stocks</h2><p>Halal, neutral or unverified listings without an identified unethical or non-halal finding.</p></div>
+        <span class="stock-section-count" id="otherShown">—</span>
+      </div>
+      <div class="table-wrap">
+        <table aria-labelledby="otherHeading">
+          <thead><tr><th scope="col">Company / ticker</th><th scope="col">Ethical assessment</th><th scope="col">Musaffa</th><th scope="col">Macro name</th><th scope="col">Add MacroDroid macro</th></tr></thead>
+          <tbody id="otherRows"><tr><td colspan="5">Loading…</td></tr></tbody>
+        </table>
+      </div>
+      <div class="stock-section-heading stock-section-flagged" aria-labelledby="flaggedHeading">
+        <div><h2 id="flaggedHeading">Unethical / Musaffa non-halal</h2><p>Any red final RizqInvests → Investigate ethical result or an explicit Musaffa non-halal classification. Macros in this table have the <code>#NH-</code> prefix.</p></div>
+        <span class="stock-section-count" id="flaggedShown">—</span>
+      </div>
+      <div class="table-wrap">
+        <table aria-labelledby="flaggedHeading">
+          <thead><tr><th scope="col">Company / ticker</th><th scope="col">Ethical assessment</th><th scope="col">Musaffa</th><th scope="col">Macro name</th><th scope="col">Add MacroDroid macro</th></tr></thead>
+          <tbody id="flaggedRows"><tr><td colspan="5">Loading…</td></tr></tbody>
+        </table>
+      </div>
+      <div class="table-footer"><span id="shown">—</span><span id="updated">—</span></div>
+    </section>
+    <p class="note">Tap <strong>Install in MacroDroid</strong> on an Android device while the one-tap link is available. Shared links expire seven days after creation; after that, use <strong>Download .macro</strong>, then in MacroDroid choose <strong>Macros → Import</strong>. The permanent download is generated for each ticker using the same eight-action ChatGPT macro template. MacroDroid 6.0+ and accessibility permissions are needed; test a shortcut on your phone. No trades are placed by these macros. The ethical and halal statuses are independent historical screening records, not live compliance certifications.</p>
+  </main>
+  <footer>Macro links do not place orders. Confirm screening and market data before acting on research.</footer>
+</body>
+</html>
