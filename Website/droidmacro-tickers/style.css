@@ -1,50 +1,93 @@
-/* DroidMacro Tickers: compact layout, independent of the dashboard's wide price table. */
-.droidmacro-page main{max-width:1520px}
-.droidmacro-page .hero{padding-bottom:25px}
-.droidmacro-page .table-wrap{width:100%;max-height:none;overflow-x:visible;overflow-y:visible;scrollbar-width:thin}
-.droidmacro-page .table-wrap table{min-width:0;width:100%;table-layout:fixed}
-.droidmacro-page .table-wrap th,.droidmacro-page .table-wrap td{
-  min-width:0;max-width:none;padding:12px 10px;white-space:normal;
-  vertical-align:middle;overflow-wrap:anywhere;
-  border-right:1px solid #30455b;border-bottom:1px solid #30455b;
-}
-.droidmacro-page .table-wrap th:first-child,.droidmacro-page .table-wrap td:first-child{
-  position:static;left:auto;z-index:auto;width:30%;min-width:0;max-width:none;
-  box-shadow:none
-}
-.droidmacro-page .table-wrap th:first-child{background:#21344b}
-.droidmacro-page .table-wrap td:first-child{background:#132136}
-.droidmacro-page .table-wrap th:nth-child(2),.droidmacro-page .table-wrap td:nth-child(2){width:12%;min-width:0;max-width:none}
-.droidmacro-page .table-wrap th:nth-child(3),.droidmacro-page .table-wrap td:nth-child(3){width:58%;min-width:0;max-width:none}
-.droidmacro-page .company{display:block;font-size:.82rem;font-weight:690;color:#eef5fc;line-height:1.35;overflow-wrap:anywhere}
-.droidmacro-page .ticker{display:block;margin-top:5px;font-size:1rem;font-weight:800;overflow-wrap:anywhere}
-.droidmacro-page .macro-name{display:-webkit-box;color:#e9f5ff;font-size:.78rem;font-weight:700;overflow-wrap:anywhere;overflow:hidden;-webkit-line-clamp:3;-webkit-box-orient:vertical;line-height:1.35}
-.droidmacro-page .link-actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
-.droidmacro-page .macro-link{
-  display:inline-flex;align-items:center;justify-content:center;
-  min-height:36px;padding:8px 11px;border:1px solid #438c80;
-  border-radius:9px;background:#1d574e;color:#e9fff7;
-  font-weight:750;font-size:.75rem;white-space:normal;text-align:center
-}
-.droidmacro-page .macro-link:hover{background:#2d7566;color:#fff;text-decoration:none}
-.droidmacro-page .macro-link.download{background:#1e3852;color:#c8e5ff;border-color:#47637f}
-.droidmacro-page .macro-link.download:hover{background:#2d5170}
-.droidmacro-page .status-copy{display:block;margin-top:5px;color:#a8b9ca;font-size:.7rem;line-height:1.38}
-.droidmacro-page .status-copy.expired{color:#ffd29a}
-.droidmacro-page .stock-section-heading code{font-size:.81rem;color:#ffd2d6}
-.droidmacro-page .table-wrap tr:hover td:first-child{background:#192b42}
+/* Self-contained DroidMacro Tickers styles. Do NOT load the dashboard's
+   /assets/style.css: it enforces a 1560px minimum on every .table-wrap table. */
+:root{font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#dce7f2;background:#0d1626;font-synthesis:none}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{margin:0;min-height:100vh;overflow-x:clip;background:radial-gradient(circle at 85% -10%,#1d3954 0%,transparent 33%),#0d1626}
+a{color:#77c7ff;text-decoration:none}
+a:hover{text-decoration:underline}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:17px clamp(12px,2vw,32px);border-bottom:1px solid #27384d;background:#101c2ef0}
+.brand{font-size:1.06rem;font-weight:750;color:#f3f8ff;letter-spacing:.02em}
+.back{font-size:.79rem;color:#a5bbd2;white-space:nowrap}
+main{display:block;width:100%;max-width:1520px;min-width:0;margin:0 auto;padding:clamp(12px,2vw,30px) clamp(9px,2vw,24px) 52px}
+.hero{padding:12px 5px 20px}
+.eyebrow{text-transform:uppercase;color:#61d7b0;letter-spacing:.13em;font-size:.7rem;font-weight:750}
+.hero h1{font-size:clamp(1.65rem,4vw,2.6rem);letter-spacing:-.035em;margin:8px 0}
+.hero p{color:#aec1d4;max-width:900px;line-height:1.55;font-size:.91rem}
+.metrics{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.metrics div{min-width:102px;flex:1;padding:10px 14px;background:#15243a;border:1px solid #2c3d50;border-radius:10px}
+.metrics span{display:block;font-size:1.4rem;font-weight:800;font-variant-numeric:tabular-nums}
+.metrics small{display:block;color:#9ab0c8;margin-top:2px;font-size:.76rem}
+.panel{min-width:0;width:100%;background:#132136;border:1px solid #2a3c52;border-radius:13px;overflow:hidden;box-shadow:0 14px 50px #0002}
+.toolbar{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;padding:14px}
+.toolbar label{display:flex;flex-direction:column;gap:5px;font-size:.76rem;color:#a8bfd2;min-width:120px}
+.toolbar label.search{flex:1;min-width:185px}
+.toolbar input,.toolbar select{width:100%;height:38px;background:#0e192b;color:#e7f2ff;border:1px solid #3a5169;border-radius:8px;padding:7px 10px;font:inherit;font-size:.85rem}
+button{height:38px;background:#2d695e;color:#fff;border:1px solid #4e9687;border-radius:8px;font-size:.82rem;font-weight:650;padding:7px 13px;cursor:pointer}
+button:disabled{opacity:.55;cursor:wait}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #61d7b0;outline-offset:2px}
+.notice{padding:10px 14px;color:#bed0e2;background:#1b2e45;border-top:1px solid #2a3c52;font-size:.78rem;line-height:1.5}
+.stock-section-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 14px;background:#17283e;border-top:1px solid #354960;border-bottom:1px solid #2c4158}
+.stock-section-heading h2{font-size:1rem;color:#f1f7ff;margin:0 0 3px}
+.stock-section-heading p{font-size:.74rem;line-height:1.45;color:#aabdd0;margin:0;max-width:920px}
+.stock-section-heading .stock-section-count{font-size:.72rem;font-weight:800;border:1px solid #4b657e;border-radius:999px;color:#daebfa;background:#21364c;padding:4px 9px;white-space:nowrap}
+.stock-section-flagged{margin-top:13px;background:#2a2636;border-top:2px solid #b65d68;border-bottom-color:#684352}
+.stock-section-flagged h2{color:#ffc3c8}
+.stock-section-flagged .stock-section-count{border-color:#9c6070;color:#ffc3c8;background:#422d3b}
+.stock-section-heading code{font-size:.76rem;color:#ffd2d6}
+.table-wrap{display:block;width:100%;min-width:0;max-width:100%;max-height:none;overflow:visible}
+.table-wrap table{display:table;width:100%;min-width:0;max-width:100%;table-layout:fixed;border-collapse:collapse;border-spacing:0;font-size:.82rem;line-height:1.35}
+.table-wrap th,.table-wrap td{min-width:0;max-width:none;overflow-wrap:anywhere;word-break:normal;white-space:normal;border-right:1px solid #30455b;border-bottom:1px solid #30455b}
+.table-wrap th{padding:10px 9px;text-align:left;vertical-align:middle;background:#21344b;color:#d5e4f4;font-weight:750}
+.table-wrap td{padding:10px 9px;vertical-align:middle;color:#d1e0f0;background:#132136}
+.table-wrap tbody tr:hover td{background:#192b42}
+.table-wrap th:last-child,.table-wrap td:last-child{border-right:none}
+.table-wrap th:nth-child(1),.table-wrap td:nth-child(1){width:30%}
+.table-wrap th:nth-child(2),.table-wrap td:nth-child(2){width:12%}
+.table-wrap th:nth-child(3),.table-wrap td:nth-child(3){width:58%}
+.table-wrap td[colspan]{text-align:center;color:#9fb6cd}
+.company{display:block;font-size:.82rem;font-weight:690;color:#eef5fc;line-height:1.3}
+.ticker{display:block;margin-top:4px;font-size:.96rem;font-weight:800;color:#f2f8ff;overflow-wrap:anywhere}
+.macro-name{display:block;color:#e9f5ff;font-size:.73rem;font-weight:700;line-height:1.26;overflow-wrap:anywhere}
+.link-actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.macro-link{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:7px 10px;border:1px solid #438c80;border-radius:8px;background:#1d574e;color:#e9fff7;font-weight:750;font-size:.73rem;text-align:center}
+.macro-link:hover{background:#2d7566;color:#fff;text-decoration:none}
+.macro-link.download{background:#1e3852;color:#c8e5ff;border-color:#47637f}
+.macro-link.download:hover{background:#2d5170}
+.status-copy{display:block;margin-top:5px;color:#a8b9ca;font-size:.69rem;line-height:1.3}
+.status-copy.expired{color:#ffd29a}
+.table-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 14px;color:#a5b9ce;font-size:.75rem}
+.note{margin:14px 7px;color:#a1b5c9;font-size:.79rem;line-height:1.65}
+footer{text-align:center;padding:22px 15px;color:#8098b2;border-top:1px solid #25364d;font-size:.74rem}
 @media(max-width:660px){
-  .droidmacro-page .table-wrap table{width:100%;min-width:0}
-  .droidmacro-page .table-wrap th,.droidmacro-page .table-wrap td{
-    padding:9px 5px;font-size:.71rem;line-height:1.28
-  }
-  .droidmacro-page .table-wrap th:first-child,.droidmacro-page .table-wrap td:first-child{width:30%}
-  .droidmacro-page .table-wrap th:nth-child(2),.droidmacro-page .table-wrap td:nth-child(2){width:12%}
-  .droidmacro-page .table-wrap th:nth-child(3),.droidmacro-page .table-wrap td:nth-child(3){width:58%}
-  .droidmacro-page .company{display:none}
-  .droidmacro-page .ticker{font-size:.8rem;line-height:1.24;margin:0;overflow-wrap:anywhere}
-  .droidmacro-page .macro-name{font-size:.62rem;line-height:1.2;-webkit-line-clamp:3}
-  .droidmacro-page .link-actions{gap:5px;flex-direction:column;align-items:stretch}
-  .droidmacro-page .macro-link{width:100%;padding:7px 6px;font-size:.69rem;min-height:33px}
-  .droidmacro-page .status-copy{font-size:.6rem;line-height:1.3}
+  .top{padding:13px 10px}
+  .brand{font-size:.92rem}
+  .back{font-size:.69rem}
+  main{padding:10px 8px 44px}
+  .hero{padding:8px 4px 16px}
+  .hero p{font-size:.8rem}
+  .toolbar{gap:8px;padding:10px}
+  .toolbar label.search{min-width:100%;flex:1}
+  .toolbar label{min-width:0;flex:1}
+  .toolbar button{flex:1;font-size:.75rem}
+  .stock-section-heading{padding:10px}
+  .stock-section-heading p{font-size:.68rem}
+  .table-wrap table{width:100%;min-width:0;font-size:.73rem}
+  .table-wrap th,.table-wrap td{padding:8px 5px}
+  .table-wrap th:nth-child(1),.table-wrap td:nth-child(1){width:30%}
+  .table-wrap th:nth-child(2),.table-wrap td:nth-child(2){width:12%}
+  .table-wrap th:nth-child(3),.table-wrap td:nth-child(3){width:58%}
+  .company{display:none}
+  .ticker{font-size:.77rem;margin:0;line-height:1.18;overflow-wrap:anywhere}
+  .macro-name{font-size:.61rem;line-height:1.15;max-height:2.4em;overflow:hidden;overflow-wrap:anywhere}
+  .link-actions{display:flex;flex-wrap:nowrap;gap:5px;align-items:stretch}
+  .macro-link{flex:0 1 auto;min-width:0;min-height:31px;padding:6px 8px;font-size:.66rem;white-space:nowrap}
+  .status-copy{display:none}
+  .table-footer{font-size:.7rem}
+}
+@media(max-width:355px){
+  .table-wrap th,.table-wrap td{padding:7px 4px}
+  .ticker{font-size:.70rem}
+  .macro-name{font-size:.57rem}
+  .macro-link{font-size:.61rem;padding:6px 5px}
 }
