@@ -91,3 +91,17 @@ footer{text-align:center;padding:22px 15px;color:#8098b2;border-top:1px solid #2
   .macro-name{font-size:.57rem}
   .macro-link{font-size:.61rem;padding:6px 5px}
 }
+
+/* The 12%-wide Macro column cannot display the full title legibly on mobile.
+   Desktop retains the complete label; mobile uses an accessible tap-to-view dialog. */
+.macro-name-reveal{display:none}
+.macro-name-dialog{color:#e5f1fc;background:#16283e;border:1px solid #48617a;border-radius:14px;box-shadow:0 20px 65px #0008;padding:22px;max-width:min(90vw,430px)}
+.macro-name-dialog::backdrop{background:rgba(3,9,19,.7)}
+.macro-name-dialog h2{margin:0 0 10px;font-size:1.05rem}
+.macro-name-full{font-weight:750;overflow-wrap:anywhere;line-height:1.45}
+.macro-name-dialog button{margin-top:8px}
+@media(max-width:660px){
+  .macro-name{display:none}
+  .macro-name-reveal{display:block;width:100%;height:auto;min-height:30px;padding:5px 2px;font-size:.65rem;white-space:nowrap;text-align:center;border:1px solid #3b617e;border-radius:6px;background:#203a54;color:#bdddff}
+}
+@media(max-width:355px){.macro-name-reveal{font-size:.58rem;padding:4px 0}}
