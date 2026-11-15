@@ -86,7 +86,7 @@ function renderRow(r){
  const fileURL=URL.createObjectURL(new Blob([JSON.stringify(macro,null,2)],
    {type:"application/json"}));
  objectUrls.push(fileURL);
- const download=make("a","macro-link download","Download .macro");
+ const download=make("a","macro-link download","Download");
  download.setAttribute("aria-label","Download "+ticker+" MacroDroid macro file");
  download.href=fileURL;
  download.download=((flagged(r)?"#NH-":"")+ticker+"_searchstock").replace(/[^#\w.-]/g,"_")+".macro";
