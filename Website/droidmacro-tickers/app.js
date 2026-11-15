@@ -1,22 +1,8 @@
 (()=>{"use strict";
 const $=id=>document.getElementById(id);
-const baseLinks=[
-["AMAT","SI4DKeXAKEeu",0],["SU.PA","AGqRtvYQbSwe",0],["MU","kSkEYClo6Dlq",0],["MA","N7TEnTWUhH_N",0],
-["ABBN.SIX","H3zB-ZeLIiWh",1],["CSCO","isV8yq9d1K2O",1],["HD","i3HwsDQrn6eE",0],
-["CVX","Axl8msM5XSZX",1],["ASM.XAMS","o4g85Nk_N0a8",0],["NVDA","V1IujAmtkX7-",1],
-["TSLA","Td_by4w_WNSl",1],["2379.TWSE","LQOoJxRpzke6",0],["2449.TWSE","CRt2pTFpAhu6",0],
-["MRK","2ZLBnJG532DG",0],["1519.TWSE","9-AU87vCgPn9",0],["2330.TWSE","1LyIJ40PCA_V",0],
-["AMD","Otxh5DvX85KE",0],["2383.TWSE","ZUNJLUmbf6rw",0],["2377.TWSE","8PLyue6jBF33",0],
-["2454.TWSE","d8hUq2bDd3xg",0],["LLY","gbmGEF6suojh",0],["V","4W_rGien_V9k",1],
-["JNJ","EVMk-PlVmI7G",0],["PG","LoXLQm22EBVr",1],["AAPL","3aLmXgz8Td7o",1],
-["XOM","ZuJsAtynUa5m",0],["3034.TWSE","8ye57TVXhIrT",0],["ORG.ASX","bkCPHtPbvxBw",0],
-["KO","nXHPExw8dUiB",1]
-];
-const links=new Map(baseLinks.map(([ticker,token,flag])=>[ticker,{
- url:"https://macrodroidlink.com/m/"+token,
- flagged:Boolean(flag),
- expires:flag?"2026-11-22T00:00:00Z":"2026-11-21T00:00:00Z"
-}]));
+// Refreshed by the private DroidMacro Tickers plugin; never reuse an outdated ordinal.
+let links=new Map();
+const tickerAZ=(a,b)=>String(a.ticker).localeCompare(String(b.ticker),"en",{numeric:true,sensitivity:"base"});
 const negativeMusaffa=/(?:NOT\s+HALAL|NON[\s-]?COMPLIANT|NON[\s-]?HALAL|HARAM)/;
 let rows=[];
 let objectUrls=[];
