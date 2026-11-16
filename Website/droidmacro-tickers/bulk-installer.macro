@@ -22,9 +22,9 @@
   ],
   "macro": {
     "m_GUID": -939120001,
-    "m_name": "DroidMacro Bulk Installer — 20 stocks (500ms After Save)",
+    "m_name": "DroidMacro Bulk Installer — 20 stocks (17 Nov 2026)",
     "m_category": "Uncategorized",
-    "m_description": "For each eligible ticker: open its link, wait 3s, use complete tested UIInteractionAction to Save at 87%,86%, advance sequence, then wait 500ms before leaving this ticker's If. No text checks.",
+    "m_description": "First-table stocks only. Manually launch unlocked in portrait. Open each valid ticker link, wait 3 seconds, full tested white Save click at 87%,86%, increment progress, then 500ms pause inside each If. Blind click: confirm first Save manually.",
     "m_completed": true,
     "m_enabled": true,
     "m_triggerList": [
