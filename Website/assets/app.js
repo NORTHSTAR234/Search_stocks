@@ -581,12 +581,12 @@
       '<small>'+escape(r.company)+'</small>'+status+ethicalFirstColumn(r)+'</td>'+
     '<td class="industry-cell">'+industryCell(r)+'</td>'+
     '<td class="dividend-column">'+dividendCell(r)+'</td>'+
-    '<td>'+quoteCell(r)+'</td>'+
-    '<td>'+overnightCell(r)+'</td>'+
     '<td>'+monthChartCell(r)+'</td>'+
     '<td>'+badge(action,actionKind(action))+'<small>Risk: '+escape(cap(r.risk,78))+'</small>'+
       '<small>Own: '+escape(cap(r.ownerAction,75))+'</small>'+zoneInsight(context)+'</td>'+
     '<td class="markers-cell">'+markersCell(r,context)+'</td>'+
+    '<td>'+quoteCell(r)+'</td>'+
+    '<td>'+overnightCell(r)+'</td>'+
     '<td>'+escape(fmt(r.timestamp))+(r.conflictingBuckets?'<small class="warning">Both buckets contain this ticker</small>':"")+'</td>'+
     '<td>'+screeningCell(r)+'</td>'+
 
