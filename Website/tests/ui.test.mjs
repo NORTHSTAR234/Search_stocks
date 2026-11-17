@@ -160,8 +160,8 @@ test("dashboard columns match specified new order and remove duplicate report co
  assert(list);
  const headings=JSON.parse(list[1]);
  assert.deepEqual(headings,[
- "Company / ticker","Industry category","Dividend / yield","Live chart · 1M","Action / Risk","Markers",
- "Regular / latest price","Overnight / vs close","Last report (AEDT/AEST)",
+ "Company / ticker","Regular / latest price","Overnight / vs close","Live chart · 1M","Action / Risk","Markers",
+ "Industry category","Dividend / yield","Last report (AEDT/AEST)",
  "Musaffa status / grade / screening date","Next earnings / confirmation"]);
  assert.equal(headings.length,11);
  assert(!source.includes('Original GitHub</a>'));
@@ -625,23 +625,26 @@ test("second table routing uses FINAL combined ethical red OR Musaffa non-halal,
   assert.equal(classify({...row,musaffaClassification:"INCONCLUSIVE"}),false);
 });
 
-test("price and overnight columns sit after markers and before last-report date in both stock tables",()=>{
+test("eleven columns follow owner's exact order in BOTH stock tables",()=>{
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
- const labels=JSON.parse(build.match(/const labels=(\[[^\n]+\]);/)[1]);
- assert.equal(labels.length,11);
- assert.deepEqual(labels.slice(3,9),[
-   "Live chart · 1M","Action / Risk","Markers",
-   "Regular / latest price","Overnight / vs close","Last report (AEDT/AEST)"
+ const labels=JSON.parse(build.match(/const labels=(\\[[^\\n]+\\]);/)[1]);
+ assert.deepEqual(labels,[
+  "Company / ticker","Regular / latest price","Overnight / vs close",
+  "Live chart · 1M","Action / Risk","Markers","Industry category","Dividend / yield",
+  "Last report (AEDT/AEST)","Musaffa status / grade / screening date",
+  "Next earnings / confirmation"
  ]);
  const tr=source.slice(source.indexOf("  function tr(r){"),source.indexOf("  function syncExchangeFilters(){"));
- for(const token of ["monthChartCell(r)","markersCell(r,context)","quoteCell(r)","overnightCell(r)","fmt(r.timestamp)"]){
-   assert(tr.includes(token),"Missing data cell: "+token);
- }
- assert(tr.indexOf("monthChartCell(r)")<tr.indexOf("markersCell(r,context)"));
- assert(tr.indexOf("markersCell(r,context)")<tr.indexOf("quoteCell(r)"));
- assert(tr.indexOf("quoteCell(r)")<tr.indexOf("overnightCell(r)"));
- assert(tr.indexOf("overnightCell(r)")<tr.indexOf("fmt(r.timestamp)"));
- assert(build.includes("<thead><tr>'+head+'</tr></thead><tbody id=\"rows\""));
- assert(build.includes("<thead><tr>'+head+'</tr></thead><tbody id=\"flaggedRows\""));
+ const tokens=[
+  "ethicalFirstColumn(r)","quoteCell(r)","overnightCell(r)","monthChartCell(r)",
+  "badge(action,actionKind(action))","markersCell(r,context)","industryCell(r)",
+  "dividendCell(r)","fmt(r.timestamp)","screeningCell(r)","cap(r.earnings,110)"
+ ];
+ for(const token of tokens)assert(tr.includes(token),"Missing cell expression "+token);
+ for(let i=1;i<tokens.length;i++)
+  assert(tr.indexOf(tokens[i-1])<tr.indexOf(tokens[i]),
+    "Cell is out of order: "+tokens[i]);
+ assert(build.includes("<thead><tr>'+head+'</tr></thead><tbody id=\\\"rows\\\""));
+ assert(build.includes("<thead><tr>'+head+'</tr></thead><tbody id=\\\"flaggedRows\\\""));
  assert(source.includes("primary.map(tr)")&&source.includes("flagged.map(tr)"));
 });
