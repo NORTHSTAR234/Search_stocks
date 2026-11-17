@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "purpose": "Per-market deep-review rotation for Investment Checklist Screener; user-shared reports from 17 Nov 2026 are baseline history, not a claim the GitHub outputs contain audited full reports.",
+  "updated_date": "2026-11-17",
+  "policy": {
+    "default_new_deep_reviews_per_run": 3,
+    "revisit_after_days": 30,
+    "material_revisit_triggers": [
+      "price movement materially changes an audited margin of safety",
+      "new earnings or guidance materially changes the thesis",
+      "a prior missing critical evidence gate has been resolved",
+      "user explicitly requests a ticker",
+      "unreviewed qualified candidates have been exhausted"
+    ],
+    "never_auto_exclude_investment_qualified": true
+  },
+  "markets": {
+    "US": {
+      "deep_reviews": [
+        {
+          "ticker": "ADBE",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.5",
+          "stage": "deep_review",
+          "outcome": "quality_watchlist",
+          "origin": "user-provided v1.4 and v1.5 test reports"
+        },
+        {
+          "ticker": "ACN",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.4",
+          "stage": "deep_review",
+          "outcome": "quality_watchlist",
+          "origin": "user-provided v1.4 test report"
+        },
+        {
+          "ticker": "NFLX",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.4",
+          "stage": "deep_review",
+          "outcome": "quality_watchlist",
+          "origin": "user-provided v1.4 test report"
+        },
+        {
+          "ticker": "DECK",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.5",
+          "stage": "deep_review",
+          "outcome": "quality_watchlist",
+          "origin": "user-provided v1.5 test report"
+        },
+        {
+          "ticker": "EVER",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.5",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "user-provided v1.5 test report"
+        }
+      ],
+      "brief_checks": [
+        {
+          "ticker": "ADMA",
+          "date": "2026-11-17",
+          "origin": "user-provided v1.5 test report",
+          "note": "brief only; not excluded from future deep review"
+        },
+        {
+          "ticker": "EXEL",
+          "date": "2026-11-17",
+          "origin": "user-provided v1.5 test report",
+          "note": "brief only; not excluded from future deep review"
+        }
+      ]
+    },
+    "ASX": {
+      "deep_reviews": [
+        {
+          "ticker": "HSN.ASX",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.2",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "user-provided v1.2 test report"
+        },
+        {
+          "ticker": "JBH.ASX",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.2",
+          "stage": "deep_review",
+          "outcome": "quality_watchlist",
+          "origin": "user-provided v1.2 test report"
+        },
+        {
+          "ticker": "OCL.ASX",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.2",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "user-provided v1.2 test report"
+        },
+        {
+          "ticker": "AOV.ASX",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.3",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "user-provided v1.3 test report"
+        },
+        {
+          "ticker": "SUL.ASX",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.3",
+          "stage": "deep_review",
+          "outcome": "conditional_watchlist",
+          "origin": "user-provided v1.3 test report"
+        },
+        {
+          "ticker": "SHL.ASX",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.3",
+          "stage": "deep_review",
+          "outcome": "conditional_watchlist",
+          "origin": "user-provided v1.3 test report"
+        }
+      ],
+      "brief_checks": []
+    }
+  }
+}
