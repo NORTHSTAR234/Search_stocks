@@ -93,3 +93,15 @@ test("Dashboard UI and database browser use the same first-source precedence",()
  assert(build.includes("applyCombinedEthicalScreening("));
  assert(index.includes("applyCombinedEthicalScreening("));
 });
+
+test("XOM 2026 Texas redomiciliation keeps Rizq BDS and Investigate exact-issuer match",()=>{
+ const r=resolve(stock("XOM","ExxonMobil Holdings Corporation","NYSE"));
+ assert.equal(r.ethicalStatus,"BDS_LISTED");
+ assert.equal(r.ethicalBdsListed,true);
+ assert.equal(r.ethicalSourceUrl,"https://www.rizqinvests.com/halal/stock/XOM?view=both");
+ assert.equal(r.investigateListed,true);
+ assert.equal(r.investigateSourceUrl,"https://investigate.info/company/exxon-mobil");
+ assert.equal(r.ethicalFinalStatus,"BDS_LISTED");
+ assert.equal(r.ethicalFinalSource,"RIZQINVESTS");
+ assert.equal(r.ethicalFinalColor,"RED");
+});
