@@ -145,7 +145,7 @@ function page(title,body,child=false) {
   body+'<footer>Archived research is historical, not a current investment recommendation. Verify market data, Shariah screening and risk independently.</footer></body></html>';
 }
 function mainPage() {
-  const labels=["Company / ticker","Industry category","Dividend / yield","Regular / latest price","Overnight / vs close","Live chart · 1M","Action / Risk","Markers","Last report (AEDT/AEST)","Musaffa status / grade / screening date","Next earnings / confirmation"];
+  const labels=["Company / ticker","Industry category","Dividend / yield","Live chart · 1M","Action / Risk","Markers","Regular / latest price","Overnight / vs close","Last report (AEDT/AEST)","Musaffa status / grade / screening date","Next earnings / confirmation"];
   const head=labels.map(label=>'<th scope="col">'+esc(label)+'</th>').join("");
   const industryOptions=INDUSTRY_CATEGORIES.map(name=>'<option value="'+esc(name)+'">'+esc(name)+'</option>').join("");
   const body='<header class="top"><a class="brand" href="/">◈ Stock Research</a><span class="top-note">HISTORICAL REPORTS</span></header>'+
