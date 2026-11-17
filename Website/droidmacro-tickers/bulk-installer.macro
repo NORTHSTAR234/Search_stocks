@@ -21,22 +21,22 @@
     }
   ],
   "macro": {
-    "m_GUID": -939120001,
-    "m_name": "DroidMacro Bulk Installer — 20 stocks (17 Nov 2026)",
+    "m_GUID": -945150001,
+    "m_name": "DroidMacro Bulk Installer — 19 stocks (Full Search_stock Prompt)",
     "m_category": "Uncategorized",
-    "m_description": "First-table stocks only. Manually launch unlocked in portrait. Open each valid ticker link, wait 3 seconds, full tested white Save click at 87%,86%, increment progress, then 500ms pause inside each If. Blind click: confirm first Save manually.",
+    "m_description": "Installs 19 eligible ticker macros. Every macro pastes the complete Search_stock installed plugin and latest Aya_Prompt.md instruction, not @search_stock. Each ticker block: open URL, wait 3 seconds, phone-tested Save click 87%,86%, advance counter, wait 500ms inside If. No screen text checks.",
     "m_completed": true,
     "m_enabled": true,
     "m_triggerList": [
       {
         "m_classType": "ShortcutTrigger",
-        "m_SIGUID": -939400001
+        "m_SIGUID": -945400000
       }
     ],
     "m_constraintList": [
       {
         "m_classType": "DeviceLockedConstraint",
-        "m_SIGUID": -939500001,
+        "m_SIGUID": -945500000,
         "m_locked": false
       }
     ],
@@ -44,17 +44,17 @@
     "m_actionList": [
       {
         "m_classType": "NotificationAction",
-        "m_SIGUID": -939200000,
+        "m_SIGUID": -945200000,
         "m_notificationSubject": "DroidMacro installer",
-        "m_notificationText": "Saving 20 stock macros. Sequence: link → 3s → Save click → next counter → 500ms. Text checks disabled; watch first import."
+        "m_notificationText": "Importing 19 first-table ticker macros with full Search_stock plugin workflow instruction. Keep phone unlocked, verify first save."
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200001,
+        "m_SIGUID": -945200001,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300003,
+            "m_SIGUID": -945300003,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -79,13 +79,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200002,
-        "m_urlToOpen": "https://macrodroidlink.com/m/Hp5HmjigQ8cY",
+        "m_SIGUID": -945200002,
+        "m_urlToOpen": "https://macrodroidlink.com/m/SrRoOtlQanUP",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200003,
+        "m_SIGUID": -945200003,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -113,16 +113,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200004,
+        "m_SIGUID": -945200004,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 1519.TWSE (1/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE 1519.TWSE (1/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200005,
+        "m_SIGUID": -945200005,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -145,22 +145,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200006,
+        "m_SIGUID": -945200006,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200007
+        "m_SIGUID": -945200007
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200008,
+        "m_SIGUID": -945200008,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300024,
+            "m_SIGUID": -945300024,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -185,13 +185,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200009,
-        "m_urlToOpen": "https://macrodroidlink.com/m/Hg8Qwuh7FjlP",
+        "m_SIGUID": -945200009,
+        "m_urlToOpen": "https://macrodroidlink.com/m/5s6haqtY3rpV",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200010,
+        "m_SIGUID": -945200010,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -219,16 +219,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200011,
+        "m_SIGUID": -945200011,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2330.TWSE (2/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE 2330.TWSE (2/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200012,
+        "m_SIGUID": -945200012,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -251,22 +251,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200013,
+        "m_SIGUID": -945200013,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200014
+        "m_SIGUID": -945200014
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200015,
+        "m_SIGUID": -945200015,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300045,
+            "m_SIGUID": -945300045,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -291,13 +291,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200016,
-        "m_urlToOpen": "https://macrodroidlink.com/m/NMc55R_SB0dt",
+        "m_SIGUID": -945200016,
+        "m_urlToOpen": "https://macrodroidlink.com/m/7osjlXbAqUsj",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200017,
+        "m_SIGUID": -945200017,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -325,16 +325,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200018,
+        "m_SIGUID": -945200018,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2377.TWSE (3/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE 2377.TWSE (3/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200019,
+        "m_SIGUID": -945200019,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -357,22 +357,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200020,
+        "m_SIGUID": -945200020,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200021
+        "m_SIGUID": -945200021
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200022,
+        "m_SIGUID": -945200022,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300066,
+            "m_SIGUID": -945300066,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -397,13 +397,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200023,
-        "m_urlToOpen": "https://macrodroidlink.com/m/MLWoR8IFJikV",
+        "m_SIGUID": -945200023,
+        "m_urlToOpen": "https://macrodroidlink.com/m/tUVHe4oboJmj",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200024,
+        "m_SIGUID": -945200024,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -431,16 +431,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200025,
+        "m_SIGUID": -945200025,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2379.TWSE (4/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE 2379.TWSE (4/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200026,
+        "m_SIGUID": -945200026,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -463,22 +463,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200027,
+        "m_SIGUID": -945200027,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200028
+        "m_SIGUID": -945200028
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200029,
+        "m_SIGUID": -945200029,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300087,
+            "m_SIGUID": -945300087,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -503,13 +503,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200030,
-        "m_urlToOpen": "https://macrodroidlink.com/m/rpCcs-FO5Nru",
+        "m_SIGUID": -945200030,
+        "m_urlToOpen": "https://macrodroidlink.com/m/URi-2Kb1CPG9",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200031,
+        "m_SIGUID": -945200031,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -537,16 +537,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200032,
+        "m_SIGUID": -945200032,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2383.TWSE (5/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE 2383.TWSE (5/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200033,
+        "m_SIGUID": -945200033,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -569,22 +569,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200034,
+        "m_SIGUID": -945200034,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200035
+        "m_SIGUID": -945200035
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200036,
+        "m_SIGUID": -945200036,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300108,
+            "m_SIGUID": -945300108,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -609,13 +609,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200037,
-        "m_urlToOpen": "https://macrodroidlink.com/m/e6HMdWbCVAn0",
+        "m_SIGUID": -945200037,
+        "m_urlToOpen": "https://macrodroidlink.com/m/Wt2QCiL8WjiY",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200038,
+        "m_SIGUID": -945200038,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -643,16 +643,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200039,
+        "m_SIGUID": -945200039,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2449.TWSE (6/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE 2449.TWSE (6/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200040,
+        "m_SIGUID": -945200040,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -675,22 +675,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200041,
+        "m_SIGUID": -945200041,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200042
+        "m_SIGUID": -945200042
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200043,
+        "m_SIGUID": -945200043,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300129,
+            "m_SIGUID": -945300129,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -715,13 +715,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200044,
-        "m_urlToOpen": "https://macrodroidlink.com/m/M6iqVJcu91hB",
+        "m_SIGUID": -945200044,
+        "m_urlToOpen": "https://macrodroidlink.com/m/EJwxMMIXaHev",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200045,
+        "m_SIGUID": -945200045,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -749,16 +749,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200046,
+        "m_SIGUID": -945200046,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2454.TWSE (7/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE 2454.TWSE (7/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200047,
+        "m_SIGUID": -945200047,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -781,22 +781,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200048,
+        "m_SIGUID": -945200048,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200049
+        "m_SIGUID": -945200049
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200050,
+        "m_SIGUID": -945200050,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300150,
+            "m_SIGUID": -945300150,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -821,13 +821,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200051,
-        "m_urlToOpen": "https://macrodroidlink.com/m/sfQp13Sfk6Ti",
+        "m_SIGUID": -945200051,
+        "m_urlToOpen": "https://macrodroidlink.com/m/FbZBQfDIqPeV",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200052,
+        "m_SIGUID": -945200052,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -855,16 +855,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200053,
+        "m_SIGUID": -945200053,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 3034.TWSE (8/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE 3034.TWSE (8/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200054,
+        "m_SIGUID": -945200054,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -887,22 +887,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200055,
+        "m_SIGUID": -945200055,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200056
+        "m_SIGUID": -945200056
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200057,
+        "m_SIGUID": -945200057,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300171,
+            "m_SIGUID": -945300171,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -927,13 +927,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200058,
-        "m_urlToOpen": "https://macrodroidlink.com/m/M3Q3f14zfYNN",
+        "m_SIGUID": -945200058,
+        "m_urlToOpen": "https://macrodroidlink.com/m/SfFULt6QiO3P",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200059,
+        "m_SIGUID": -945200059,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -961,16 +961,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200060,
+        "m_SIGUID": -945200060,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE AMAT (9/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE AMAT (9/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200061,
+        "m_SIGUID": -945200061,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -993,22 +993,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200062,
+        "m_SIGUID": -945200062,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200063
+        "m_SIGUID": -945200063
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200064,
+        "m_SIGUID": -945200064,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300192,
+            "m_SIGUID": -945300192,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -1033,13 +1033,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200065,
-        "m_urlToOpen": "https://macrodroidlink.com/m/9mTS0eclC7Dr",
+        "m_SIGUID": -945200065,
+        "m_urlToOpen": "https://macrodroidlink.com/m/ihSfh24S0vm1",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200066,
+        "m_SIGUID": -945200066,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -1067,16 +1067,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200067,
+        "m_SIGUID": -945200067,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE AMD (10/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE AMD (10/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200068,
+        "m_SIGUID": -945200068,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -1099,22 +1099,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200069,
+        "m_SIGUID": -945200069,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200070
+        "m_SIGUID": -945200070
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200071,
+        "m_SIGUID": -945200071,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300213,
+            "m_SIGUID": -945300213,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -1139,13 +1139,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200072,
-        "m_urlToOpen": "https://macrodroidlink.com/m/3BooTcgqLS8F",
+        "m_SIGUID": -945200072,
+        "m_urlToOpen": "https://macrodroidlink.com/m/3lH1KyxJPqMe",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200073,
+        "m_SIGUID": -945200073,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -1173,16 +1173,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200074,
+        "m_SIGUID": -945200074,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE ASM.XAMS (11/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE ASM.XAMS (11/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200075,
+        "m_SIGUID": -945200075,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -1205,22 +1205,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200076,
+        "m_SIGUID": -945200076,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200077
+        "m_SIGUID": -945200077
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200078,
+        "m_SIGUID": -945200078,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300234,
+            "m_SIGUID": -945300234,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -1245,13 +1245,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200079,
-        "m_urlToOpen": "https://macrodroidlink.com/m/c5eTIpCuf9BR",
+        "m_SIGUID": -945200079,
+        "m_urlToOpen": "https://macrodroidlink.com/m/xGfO8wJo2IKq",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200080,
+        "m_SIGUID": -945200080,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -1279,16 +1279,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200081,
+        "m_SIGUID": -945200081,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE HD (12/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE HD (12/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200082,
+        "m_SIGUID": -945200082,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -1311,22 +1311,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200083,
+        "m_SIGUID": -945200083,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200084
+        "m_SIGUID": -945200084
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200085,
+        "m_SIGUID": -945200085,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300255,
+            "m_SIGUID": -945300255,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -1351,13 +1351,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200086,
-        "m_urlToOpen": "https://macrodroidlink.com/m/aAQrFsIW7pP_",
+        "m_SIGUID": -945200086,
+        "m_urlToOpen": "https://macrodroidlink.com/m/uDes52budrC2",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200087,
+        "m_SIGUID": -945200087,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -1385,16 +1385,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200088,
+        "m_SIGUID": -945200088,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE JNJ (13/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE JNJ (13/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200089,
+        "m_SIGUID": -945200089,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -1417,22 +1417,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200090,
+        "m_SIGUID": -945200090,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200091
+        "m_SIGUID": -945200091
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200092,
+        "m_SIGUID": -945200092,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300276,
+            "m_SIGUID": -945300276,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -1457,13 +1457,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200093,
-        "m_urlToOpen": "https://macrodroidlink.com/m/kUv-yl9zjMCL",
+        "m_SIGUID": -945200093,
+        "m_urlToOpen": "https://macrodroidlink.com/m/VDpGLiqYj-tn",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200094,
+        "m_SIGUID": -945200094,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -1491,16 +1491,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200095,
+        "m_SIGUID": -945200095,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE LLY (14/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE LLY (14/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200096,
+        "m_SIGUID": -945200096,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -1523,22 +1523,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200097,
+        "m_SIGUID": -945200097,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200098
+        "m_SIGUID": -945200098
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200099,
+        "m_SIGUID": -945200099,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300297,
+            "m_SIGUID": -945300297,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -1563,13 +1563,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200100,
-        "m_urlToOpen": "https://macrodroidlink.com/m/Ge8Q45KJc_v3",
+        "m_SIGUID": -945200100,
+        "m_urlToOpen": "https://macrodroidlink.com/m/rYGMOzqnbfcx",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200101,
+        "m_SIGUID": -945200101,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -1597,16 +1597,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200102,
+        "m_SIGUID": -945200102,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE MA (15/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE MA (15/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200103,
+        "m_SIGUID": -945200103,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -1629,22 +1629,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200104,
+        "m_SIGUID": -945200104,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200105
+        "m_SIGUID": -945200105
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200106,
+        "m_SIGUID": -945200106,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300318,
+            "m_SIGUID": -945300318,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -1669,13 +1669,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200107,
-        "m_urlToOpen": "https://macrodroidlink.com/m/St1vU9ujF09o",
+        "m_SIGUID": -945200107,
+        "m_urlToOpen": "https://macrodroidlink.com/m/lqv3v0aehNkO",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200108,
+        "m_SIGUID": -945200108,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -1703,16 +1703,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200109,
+        "m_SIGUID": -945200109,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE MRK (16/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE MRK (16/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200110,
+        "m_SIGUID": -945200110,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -1735,22 +1735,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200111,
+        "m_SIGUID": -945200111,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200112
+        "m_SIGUID": -945200112
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200113,
+        "m_SIGUID": -945200113,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300339,
+            "m_SIGUID": -945300339,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -1775,13 +1775,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200114,
-        "m_urlToOpen": "https://macrodroidlink.com/m/pXRAJOuHoAiQ",
+        "m_SIGUID": -945200114,
+        "m_urlToOpen": "https://macrodroidlink.com/m/zrHki9NPMJma",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200115,
+        "m_SIGUID": -945200115,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -1809,16 +1809,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200116,
+        "m_SIGUID": -945200116,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE MU (17/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE MU (17/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200117,
+        "m_SIGUID": -945200117,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -1841,22 +1841,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200118,
+        "m_SIGUID": -945200118,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200119
+        "m_SIGUID": -945200119
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200120,
+        "m_SIGUID": -945200120,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300360,
+            "m_SIGUID": -945300360,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -1881,13 +1881,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200121,
-        "m_urlToOpen": "https://macrodroidlink.com/m/zITnzR8FrlB-",
+        "m_SIGUID": -945200121,
+        "m_urlToOpen": "https://macrodroidlink.com/m/NRY2sPROiMUj",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200122,
+        "m_SIGUID": -945200122,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -1915,16 +1915,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200123,
+        "m_SIGUID": -945200123,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE ORG.ASX (18/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE ORG.ASX (18/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200124,
+        "m_SIGUID": -945200124,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -1947,22 +1947,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200125,
+        "m_SIGUID": -945200125,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200126
+        "m_SIGUID": -945200126
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200127,
+        "m_SIGUID": -945200127,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300381,
+            "m_SIGUID": -945300381,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_AfterSave",
               "m_type": 1,
@@ -1987,13 +1987,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200128,
-        "m_urlToOpen": "https://macrodroidlink.com/m/_9RMOeMLJz4T",
+        "m_SIGUID": -945200128,
+        "m_urlToOpen": "https://macrodroidlink.com/m/y4Azj65u-ARI",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200129,
+        "m_SIGUID": -945200129,
         "m_delayInSeconds": 3,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false
@@ -2021,16 +2021,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -939200130,
+        "m_SIGUID": -945200130,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE SU.PA (19/20) — full phone-tested Click at 87%,86%",
+        "m_comment": "SAVE SU.PA (19/19) — full Search_stock plugin prompt; x87% y86%",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200131,
+        "m_SIGUID": -945200131,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_AfterSave",
           "m_type": 1,
@@ -2053,126 +2053,20 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -939200132,
+        "m_SIGUID": -945200132,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -939200133
-      },
-      {
-        "m_classType": "IfConditionAction",
-        "m_SIGUID": -939200134,
-        "m_constraintList": [
-          {
-            "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -939300402,
-            "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
-              "m_type": 1,
-              "isLocalVar": false,
-              "m_intValue": 1,
-              "dictionary": {
-                "entries": [],
-                "isArray": false,
-                "variableType": 4,
-                "type": "Dictionary"
-              },
-              "isActionBlockWorkingVar": true,
-              "isSecure": false,
-              "supportsInput": false,
-              "supportsOutput": true,
-              "description": "",
-              "m_decimalValue": 1
-            },
-            "m_intValue": 20
-          }
-        ]
-      },
-      {
-        "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -939200135,
-        "m_urlToOpen": "https://macrodroidlink.com/m/BHUjc1L-Yu-O",
-        "m_httpGet": false
-      },
-      {
-        "m_classType": "PauseAction",
-        "m_SIGUID": -939200136,
-        "m_delayInSeconds": 3,
-        "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
-      },
-      {
-        "action": 0,
-        "uiInteractionConfiguration": {
-          "blocking": false,
-          "checkOverlays": false,
-          "clickOption": 2,
-          "contentDescription": "",
-          "contextClick": false,
-          "longClick": false,
-          "showTouchLocation": true,
-          "skipCount": "0",
-          "textContent": "",
-          "textMatchOption": 0,
-          "useRegex": false,
-          "viewId": "",
-          "xyPercentages": true,
-          "xyPoint": {
-            "x": 87,
-            "y": 86
-          },
-          "type": "Click"
-        },
-        "disableLogging": false,
-        "m_SIGUID": -939200137,
-        "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE XOM (20/20) — full phone-tested Click at 87%,86%",
-        "m_constraintList": [],
-        "m_isDisabled": false,
-        "m_isOrCondition": false
-      },
-      {
-        "m_classType": "SetVariableAction",
-        "m_SIGUID": -939200138,
-        "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
-          "m_type": 1,
-          "isLocalVar": false,
-          "m_intValue": 1,
-          "dictionary": {
-            "entries": [],
-            "isArray": false,
-            "variableType": 4,
-            "type": "Dictionary"
-          },
-          "isActionBlockWorkingVar": true,
-          "isSecure": false,
-          "supportsInput": false,
-          "supportsOutput": true,
-          "description": "",
-          "m_decimalValue": 1
-        },
-        "m_newIntValue": 21
-      },
-      {
-        "m_classType": "PauseAction",
-        "m_SIGUID": -939200139,
-        "m_delayInSeconds": 0,
-        "m_delayInMilliSeconds": 500,
-        "m_useAlarm": false
-      },
-      {
-        "m_classType": "EndIfAction",
-        "m_SIGUID": -939200140
+        "m_SIGUID": -945200133
       },
       {
         "m_classType": "NotificationAction",
-        "m_SIGUID": -939200141,
-        "m_notificationSubject": "DroidMacro: 20 saves attempted",
-        "m_notificationText": "All 20 ticker Save clicks attempted. Confirm macros saved and each My_order. The 500ms wait follows the counter update inside each If."
+        "m_SIGUID": -945200134,
+        "m_notificationSubject": "DroidMacro: 19 ticker Save clicks attempted",
+        "m_notificationText": "Attempted 19 Save clicks for full Search_stock instruction macros. Verify Android installations and individual My_order; clicks do not prove saves."
       }
     ]
   }
