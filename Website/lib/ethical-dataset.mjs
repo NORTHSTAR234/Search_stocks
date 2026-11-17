@@ -7,8 +7,14 @@ function issuerKey(value){
   return String(value||"").toUpperCase().replace(/&/g," AND ").replace(/[^A-Z0-9]+/g," ")
     .split(/\s+/).filter(x=>x&&!suffixes.has(x)).join(" ");
 }
+// ExxonMobil's 1 July 2026 redomiciliation replaced the listed parent
+// Exxon Mobil Corporation with ExxonMobil Holdings Corporation (NYSE:XOM).
+// See SEC 8-K: https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068d8k12b.htm
+function canonicalIssuer(value){
+  return value==="EXXONMOBIL HOLDINGS"?"EXXON MOBIL":value;
+}
 function sameIssuer(a,b){
-  const x=issuerKey(a),y=issuerKey(b);
+  const x=canonicalIssuer(issuerKey(a)),y=canonicalIssuer(issuerKey(b));
   return Boolean(x&&y&&(x===y||x.startsWith(y+" ")||y.startsWith(x+" ")));
 }
 export function loadEthicalDataset(){
