@@ -2,6 +2,11 @@
   "use strict";
   const $ = id => document.getElementById(id);
   const state={rows:[],quotes:{},history:{},markets:{},loading:false,generatedAt:null,providerReady:true,githubTreeSha:null,syncing:false,cycleBusy:false};
+  const INDUSTRY_CATEGORIES=[
+    "Technology & Communications","Healthcare & Pharmaceuticals","Financial Services",
+    "Consumer Essentials","Consumer Discretionary","Industrials, Construction & Transportation",
+    "Energy & Resources","Utilities","Real Estate"];
+  const industryRank=new Map(INDUSTRY_CATEGORIES.map((name,index)=>[name,index]));
   const escape=s=>String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
   const fmt=iso=>{try{return new Intl.DateTimeFormat("en-AU",{timeZone:"Australia/Sydney",day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",timeZoneName:"short"}).format(new Date(iso));}catch{return iso||"Unknown";}};
   const norm=s=>String(s??"").toUpperCase().replace(/[^A-Z0-9 ]/g," ").trim();
@@ -533,6 +538,35 @@
       stopsCell(r)+
       '</div>';
   }
+  function industryCell(r){
+    const c=String(r.industryCategory||"");
+    if(!industryRank.has(c))return '<span class="muted">NOT CLASSIFIED</span><small>Not in archived report</small>';
+    const provenance=r.industryCategorySource==="LEGACY_ISSUER_MAPPING"?
+      "Archive issuer mapping · rerun for report-level category":
+      r.industryCategorySource==="REPORT_TEXT"?"Report text":"Report snapshot";
+    return '<span class="industry-name">'+escape(c)+'</span>'+
+      (r.industryDetail?'<small>'+escape(cap(r.industryDetail,72))+'</small>':"")+
+      '<small class="industry-provenance">'+escape(provenance)+'</small>';
+  }
+  function dividendCell(r){
+    const kind=String(r.dividendStatus||"UNKNOWN").toUpperCase();
+    const y=Number(r.dividendYieldPercent);
+    const validYield=typeof r.dividendYieldPercent==="number"&&Number.isFinite(y)&&y>=0&&y<=100;
+    const annual=r.dividendAnnualPerShare;
+    const validAnnual=typeof annual==="number"&&Number.isFinite(annual)&&annual>=0;
+    const money=validAnnual?
+      escape((r.dividendCurrency||r.nativeCurrency||"")+" "+annual.toLocaleString("en-AU",{minimumFractionDigits:2,maximumFractionDigits:4})+" /share/year"):"";
+    const proof=r.dividendDataSource==="REPORT_SNAPSHOT"?"Report snapshot":r.dividendDataSource==="REPORT_TEXT"?"Report table":"Unverified";
+    if(kind==="NONE")return '<span class="dividend-none">No dividend</span><small>0% declared cash yield</small><small>'+escape(proof)+'</small>';
+    if(kind!=="PAYS"||!validYield&&!validAnnual)
+      return '<span class="muted">NOT VERIFIED</span><small>No comparable dividend data in latest report</small>';
+    const top=validYield?'<strong class="dividend-yield">'+escape(y.toFixed(2))+'%</strong>':
+      '<strong class="dividend-yield">Yield not verified</strong>';
+    const dates=r.dividendExDate?'<small>Ex-date: '+escape(r.dividendExDate)+'</small>':"";
+    const freq=r.dividendFrequency?'<small>'+escape(r.dividendFrequency)+'</small>':"";
+    return '<div class="dividend-cell">'+top+(money?'<small>'+money+'</small>':"")+freq+dates+
+      '<small class="dividend-provenance">'+escape(proof)+' · at report date</small></div>';
+  }
   function tr(r){
     const action=cap(r.action,96);
     const context=zoneContext(r);
@@ -545,6 +579,8 @@
     return '<tr><td><a class="ticker'+active+'" href="'+escape(r.reportPath)+'"'+
       (market?.open?' title="Market in regular weekday session"':'')+'>'+escape(r.ticker)+'</a>'+
       '<small>'+escape(r.company)+'</small>'+status+ethicalFirstColumn(r)+'</td>'+
+    '<td class="industry-cell">'+industryCell(r)+'</td>'+
+    '<td class="dividend-column">'+dividendCell(r)+'</td>'+
     '<td>'+quoteCell(r)+'</td>'+
     '<td>'+overnightCell(r)+'</td>'+
     '<td>'+monthChartCell(r)+'</td>'+
@@ -588,11 +624,18 @@
   }
   function render(){
     syncExchangeFilters();
-    const query=norm($("search").value),bucket=$("bucket").value,exchange=$("exchange").value,order=$("order").value;
+    const query=norm($("search").value),bucket=$("bucket").value,industry=$("industry").value,exchange=$("exchange").value,order=$("order").value;
     const all=state.rows;
     const filtered=all.filter(r=>(bucket==="all"||r.bucket===bucket)&&(exchange==="all"||r.exchange===exchange)&&
+      (industry==="all"||industry==="unclassified"&&!industryRank.has(r.industryCategory)||r.industryCategory===industry)&&
       (!query||norm(r.ticker+" "+r.company).includes(query)));
-    filtered.sort((a,b)=>order==="ticker"?a.ticker.localeCompare(b.ticker):
+    filtered.sort((a,b)=>order==="category"?
+      (industryRank.get(a.industryCategory)??99)-(industryRank.get(b.industryCategory)??99)||
+        a.ticker.localeCompare(b.ticker):
+      order==="dividend"?
+        (typeof b.dividendYieldPercent==="number"?b.dividendYieldPercent:-1)-
+        (typeof a.dividendYieldPercent==="number"?a.dividendYieldPercent:-1)||a.ticker.localeCompare(b.ticker):
+      order==="ticker"?a.ticker.localeCompare(b.ticker):
       order==="entry"?score(b.entry)-score(a.entry)||b.timestamp.localeCompare(a.timestamp):
       order==="investment"?score(b.investment)-score(a.investment)||b.timestamp.localeCompare(a.timestamp):
       b.timestamp.localeCompare(a.timestamp)||a.ticker.localeCompare(b.ticker));
@@ -600,8 +643,8 @@
     // then partition. No row is duplicated and both tables use identical tr().
     const primary=filtered.filter(r=>!isFlaggedForSecondTable(r));
     const flagged=filtered.filter(isFlaggedForSecondTable);
-    $("rows").innerHTML=primary.length?primary.map(tr).join(""):'<tr><td colspan="9">No other stocks match your filters.</td></tr>';
-    $("flaggedRows").innerHTML=flagged.length?flagged.map(tr).join(""):'<tr><td colspan="9">No unethical or Musaffa non-halal stocks match your filters.</td></tr>';
+    $("rows").innerHTML=primary.length?primary.map(tr).join(""):'<tr><td colspan="11">No other stocks match your filters.</td></tr>';
+    $("flaggedRows").innerHTML=flagged.length?flagged.map(tr).join(""):'<tr><td colspan="11">No unethical or Musaffa non-halal stocks match your filters.</td></tr>';
     $("primaryShown").textContent=primary.length+" stock"+(primary.length===1?"":"s");
     $("flaggedShown").textContent=flagged.length+" stock"+(flagged.length===1?"":"s");
     $("count").textContent=all.length;
@@ -752,11 +795,11 @@
       document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkAll();});
     }catch(e){
       $("marketNotice").textContent="Could not load archive: "+e.message;
-      $("rows").innerHTML='<tr><td colspan="9">Archive unavailable.</td></tr>';
-      $("flaggedRows").innerHTML='<tr><td colspan="9">Archive unavailable.</td></tr>';
+      $("rows").innerHTML='<tr><td colspan="11">Archive unavailable.</td></tr>';
+      $("flaggedRows").innerHTML='<tr><td colspan="11">Archive unavailable.</td></tr>';
     }
   }
-  ["search","bucket","exchange","order"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",render));
+  ["search","bucket","industry","exchange","order"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",render));
   $("refresh").addEventListener("click",checkAll);
   init();
 })();
