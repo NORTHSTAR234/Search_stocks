@@ -2,7 +2,7 @@
   "macroExportVersion": 1,
   "globalVariables": [
     {
-      "m_name": "DroidMacro_BulkNext_AfterSave",
+      "m_name": "DroidMacro_BulkNext_Centered",
       "m_type": 1,
       "isLocalVar": false,
       "m_intValue": 1,
@@ -18,25 +18,43 @@
       "supportsOutput": true,
       "description": "",
       "m_decimalValue": 1
+    },
+    {
+      "m_name": "DroidMacro_LinkWait_Seconds",
+      "m_type": 1,
+      "isLocalVar": false,
+      "m_intValue": 4,
+      "dictionary": {
+        "entries": [],
+        "isArray": false,
+        "variableType": 4,
+        "type": "Dictionary"
+      },
+      "isActionBlockWorkingVar": true,
+      "isSecure": false,
+      "supportsInput": false,
+      "supportsOutput": true,
+      "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+      "m_decimalValue": 4
     }
   ],
   "macro": {
-    "m_GUID": -945150001,
-    "m_name": "DroidMacro Bulk Installer — 19 stocks (Full Search_stock Prompt)",
+    "m_GUID": -987800001,
+    "m_name": "DroidMacro Bulk Installer — 19 stocks (Centred Save 90,88)",
     "m_category": "Uncategorized",
-    "m_description": "Installs 19 eligible ticker macros. Every macro pastes the complete Search_stock installed plugin and latest Aya_Prompt.md instruction, not @search_stock. Each ticker block: open URL, wait 3 seconds, phone-tested Save click 87%,86%, advance counter, wait 500ms inside If. No screen text checks.",
+    "m_description": "Installs 19 first-table stock macros. Global DroidMacro_LinkWait_Seconds = 4 initially, used by all open-link waits; never reset. Centered Save taps at 90%,88%. Progress reset to 1 on each new run, 500ms after counter update, no screen-name checks.",
     "m_completed": true,
     "m_enabled": true,
     "m_triggerList": [
       {
         "m_classType": "ShortcutTrigger",
-        "m_SIGUID": -945400000
+        "m_SIGUID": -987920000
       }
     ],
     "m_constraintList": [
       {
         "m_classType": "DeviceLockedConstraint",
-        "m_SIGUID": -945500000,
+        "m_SIGUID": -987930000,
         "m_locked": false
       }
     ],
@@ -44,19 +62,43 @@
     "m_actionList": [
       {
         "m_classType": "NotificationAction",
-        "m_SIGUID": -945200000,
+        "m_SIGUID": -987900000,
         "m_notificationSubject": "DroidMacro installer",
-        "m_notificationText": "Importing 19 first-table ticker macros with full Search_stock plugin workflow instruction. Keep phone unlocked, verify first save."
+        "m_notificationText": "Importing 19 stock macros. Taps now target the white Save centre (90%,88%). The global wait variable is editable; initial value 4 seconds. Watch the first import."
+      },
+      {
+        "m_classType": "SetVariableAction",
+        "m_SIGUID": -987900001,
+        "m_variable": {
+          "m_name": "DroidMacro_BulkNext_Centered",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 1,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "",
+          "m_decimalValue": 1
+        },
+        "m_newIntValue": 1,
+        "m_comment": "Reset only bulk counter at start, not link wait seconds"
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200001,
+        "m_SIGUID": -987900002,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300003,
+            "m_SIGUID": -987910006,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -79,16 +121,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200002,
+        "m_SIGUID": -987900003,
         "m_urlToOpen": "https://macrodroidlink.com/m/SrRoOtlQanUP",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200003,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900004,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -107,24 +169,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200004,
+        "m_SIGUID": -987900005,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 1519.TWSE (1/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save 1519.TWSE (#1) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200005,
+        "m_SIGUID": -987900006,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -145,24 +207,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200006,
+        "m_SIGUID": -987900007,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200007
+        "m_SIGUID": -987900008
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200008,
+        "m_SIGUID": -987900009,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300024,
+            "m_SIGUID": -987910027,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -185,16 +247,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200009,
+        "m_SIGUID": -987900010,
         "m_urlToOpen": "https://macrodroidlink.com/m/5s6haqtY3rpV",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200010,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900011,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -213,24 +295,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200011,
+        "m_SIGUID": -987900012,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2330.TWSE (2/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save 2330.TWSE (#2) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200012,
+        "m_SIGUID": -987900013,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -251,24 +333,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200013,
+        "m_SIGUID": -987900014,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200014
+        "m_SIGUID": -987900015
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200015,
+        "m_SIGUID": -987900016,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300045,
+            "m_SIGUID": -987910048,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -291,16 +373,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200016,
+        "m_SIGUID": -987900017,
         "m_urlToOpen": "https://macrodroidlink.com/m/7osjlXbAqUsj",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200017,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900018,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -319,24 +421,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200018,
+        "m_SIGUID": -987900019,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2377.TWSE (3/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save 2377.TWSE (#3) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200019,
+        "m_SIGUID": -987900020,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -357,24 +459,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200020,
+        "m_SIGUID": -987900021,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200021
+        "m_SIGUID": -987900022
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200022,
+        "m_SIGUID": -987900023,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300066,
+            "m_SIGUID": -987910069,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -397,16 +499,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200023,
+        "m_SIGUID": -987900024,
         "m_urlToOpen": "https://macrodroidlink.com/m/tUVHe4oboJmj",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200024,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900025,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -425,24 +547,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200025,
+        "m_SIGUID": -987900026,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2379.TWSE (4/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save 2379.TWSE (#4) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200026,
+        "m_SIGUID": -987900027,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -463,24 +585,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200027,
+        "m_SIGUID": -987900028,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200028
+        "m_SIGUID": -987900029
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200029,
+        "m_SIGUID": -987900030,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300087,
+            "m_SIGUID": -987910090,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -503,16 +625,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200030,
+        "m_SIGUID": -987900031,
         "m_urlToOpen": "https://macrodroidlink.com/m/URi-2Kb1CPG9",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200031,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900032,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -531,24 +673,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200032,
+        "m_SIGUID": -987900033,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2383.TWSE (5/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save 2383.TWSE (#5) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200033,
+        "m_SIGUID": -987900034,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -569,24 +711,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200034,
+        "m_SIGUID": -987900035,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200035
+        "m_SIGUID": -987900036
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200036,
+        "m_SIGUID": -987900037,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300108,
+            "m_SIGUID": -987910111,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -609,16 +751,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200037,
+        "m_SIGUID": -987900038,
         "m_urlToOpen": "https://macrodroidlink.com/m/Wt2QCiL8WjiY",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200038,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900039,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -637,24 +799,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200039,
+        "m_SIGUID": -987900040,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2449.TWSE (6/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save 2449.TWSE (#6) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200040,
+        "m_SIGUID": -987900041,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -675,24 +837,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200041,
+        "m_SIGUID": -987900042,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200042
+        "m_SIGUID": -987900043
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200043,
+        "m_SIGUID": -987900044,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300129,
+            "m_SIGUID": -987910132,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -715,16 +877,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200044,
+        "m_SIGUID": -987900045,
         "m_urlToOpen": "https://macrodroidlink.com/m/EJwxMMIXaHev",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200045,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900046,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -743,24 +925,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200046,
+        "m_SIGUID": -987900047,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2454.TWSE (7/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save 2454.TWSE (#7) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200047,
+        "m_SIGUID": -987900048,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -781,24 +963,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200048,
+        "m_SIGUID": -987900049,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200049
+        "m_SIGUID": -987900050
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200050,
+        "m_SIGUID": -987900051,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300150,
+            "m_SIGUID": -987910153,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -821,16 +1003,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200051,
+        "m_SIGUID": -987900052,
         "m_urlToOpen": "https://macrodroidlink.com/m/FbZBQfDIqPeV",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200052,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900053,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -849,24 +1051,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200053,
+        "m_SIGUID": -987900054,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 3034.TWSE (8/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save 3034.TWSE (#8) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200054,
+        "m_SIGUID": -987900055,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -887,24 +1089,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200055,
+        "m_SIGUID": -987900056,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200056
+        "m_SIGUID": -987900057
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200057,
+        "m_SIGUID": -987900058,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300171,
+            "m_SIGUID": -987910174,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -927,16 +1129,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200058,
+        "m_SIGUID": -987900059,
         "m_urlToOpen": "https://macrodroidlink.com/m/SfFULt6QiO3P",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200059,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900060,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -955,24 +1177,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200060,
+        "m_SIGUID": -987900061,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE AMAT (9/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save AMAT (#9) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200061,
+        "m_SIGUID": -987900062,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -993,24 +1215,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200062,
+        "m_SIGUID": -987900063,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200063
+        "m_SIGUID": -987900064
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200064,
+        "m_SIGUID": -987900065,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300192,
+            "m_SIGUID": -987910195,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -1033,16 +1255,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200065,
+        "m_SIGUID": -987900066,
         "m_urlToOpen": "https://macrodroidlink.com/m/ihSfh24S0vm1",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200066,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900067,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -1061,24 +1303,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200067,
+        "m_SIGUID": -987900068,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE AMD (10/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save AMD (#10) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200068,
+        "m_SIGUID": -987900069,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -1099,24 +1341,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200069,
+        "m_SIGUID": -987900070,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200070
+        "m_SIGUID": -987900071
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200071,
+        "m_SIGUID": -987900072,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300213,
+            "m_SIGUID": -987910216,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -1139,16 +1381,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200072,
+        "m_SIGUID": -987900073,
         "m_urlToOpen": "https://macrodroidlink.com/m/3lH1KyxJPqMe",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200073,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900074,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -1167,24 +1429,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200074,
+        "m_SIGUID": -987900075,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE ASM.XAMS (11/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save ASM.XAMS (#11) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200075,
+        "m_SIGUID": -987900076,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -1205,24 +1467,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200076,
+        "m_SIGUID": -987900077,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200077
+        "m_SIGUID": -987900078
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200078,
+        "m_SIGUID": -987900079,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300234,
+            "m_SIGUID": -987910237,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -1245,16 +1507,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200079,
+        "m_SIGUID": -987900080,
         "m_urlToOpen": "https://macrodroidlink.com/m/xGfO8wJo2IKq",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200080,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900081,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -1273,24 +1555,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200081,
+        "m_SIGUID": -987900082,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE HD (12/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save HD (#12) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200082,
+        "m_SIGUID": -987900083,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -1311,24 +1593,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200083,
+        "m_SIGUID": -987900084,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200084
+        "m_SIGUID": -987900085
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200085,
+        "m_SIGUID": -987900086,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300255,
+            "m_SIGUID": -987910258,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -1351,16 +1633,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200086,
+        "m_SIGUID": -987900087,
         "m_urlToOpen": "https://macrodroidlink.com/m/uDes52budrC2",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200087,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900088,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -1379,24 +1681,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200088,
+        "m_SIGUID": -987900089,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE JNJ (13/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save JNJ (#13) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200089,
+        "m_SIGUID": -987900090,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -1417,24 +1719,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200090,
+        "m_SIGUID": -987900091,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200091
+        "m_SIGUID": -987900092
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200092,
+        "m_SIGUID": -987900093,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300276,
+            "m_SIGUID": -987910279,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -1457,16 +1759,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200093,
+        "m_SIGUID": -987900094,
         "m_urlToOpen": "https://macrodroidlink.com/m/VDpGLiqYj-tn",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200094,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900095,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -1485,24 +1807,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200095,
+        "m_SIGUID": -987900096,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE LLY (14/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save LLY (#14) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200096,
+        "m_SIGUID": -987900097,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -1523,24 +1845,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200097,
+        "m_SIGUID": -987900098,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200098
+        "m_SIGUID": -987900099
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200099,
+        "m_SIGUID": -987900100,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300297,
+            "m_SIGUID": -987910300,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -1563,16 +1885,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200100,
+        "m_SIGUID": -987900101,
         "m_urlToOpen": "https://macrodroidlink.com/m/rYGMOzqnbfcx",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200101,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900102,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -1591,24 +1933,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200102,
+        "m_SIGUID": -987900103,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE MA (15/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save MA (#15) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200103,
+        "m_SIGUID": -987900104,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -1629,24 +1971,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200104,
+        "m_SIGUID": -987900105,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200105
+        "m_SIGUID": -987900106
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200106,
+        "m_SIGUID": -987900107,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300318,
+            "m_SIGUID": -987910321,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -1669,16 +2011,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200107,
+        "m_SIGUID": -987900108,
         "m_urlToOpen": "https://macrodroidlink.com/m/lqv3v0aehNkO",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200108,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900109,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -1697,24 +2059,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200109,
+        "m_SIGUID": -987900110,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE MRK (16/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save MRK (#16) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200110,
+        "m_SIGUID": -987900111,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -1735,24 +2097,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200111,
+        "m_SIGUID": -987900112,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200112
+        "m_SIGUID": -987900113
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200113,
+        "m_SIGUID": -987900114,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300339,
+            "m_SIGUID": -987910342,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -1775,16 +2137,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200114,
+        "m_SIGUID": -987900115,
         "m_urlToOpen": "https://macrodroidlink.com/m/zrHki9NPMJma",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200115,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900116,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -1803,24 +2185,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200116,
+        "m_SIGUID": -987900117,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE MU (17/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save MU (#17) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200117,
+        "m_SIGUID": -987900118,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -1841,24 +2223,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200118,
+        "m_SIGUID": -987900119,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200119
+        "m_SIGUID": -987900120
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200120,
+        "m_SIGUID": -987900121,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300360,
+            "m_SIGUID": -987910363,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -1881,16 +2263,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200121,
+        "m_SIGUID": -987900122,
         "m_urlToOpen": "https://macrodroidlink.com/m/NRY2sPROiMUj",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200122,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900123,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -1909,24 +2311,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200123,
+        "m_SIGUID": -987900124,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE ORG.ASX (18/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save ORG.ASX (#18) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200124,
+        "m_SIGUID": -987900125,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -1947,24 +2349,24 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200125,
+        "m_SIGUID": -987900126,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200126
+        "m_SIGUID": -987900127
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -945200127,
+        "m_SIGUID": -987900128,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -945300381,
+            "m_SIGUID": -987910384,
             "m_variable": {
-              "m_name": "DroidMacro_BulkNext_AfterSave",
+              "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
               "isLocalVar": false,
               "m_intValue": 1,
@@ -1987,16 +2389,36 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -945200128,
+        "m_SIGUID": -987900129,
         "m_urlToOpen": "https://macrodroidlink.com/m/y4Azj65u-ARI",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200129,
-        "m_delayInSeconds": 3,
+        "m_SIGUID": -987900130,
+        "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
-        "m_useAlarm": false
+        "m_useAlarm": false,
+        "m_variable": {
+          "m_name": "DroidMacro_LinkWait_Seconds",
+          "m_type": 1,
+          "isLocalVar": false,
+          "m_intValue": 4,
+          "dictionary": {
+            "entries": [],
+            "isArray": false,
+            "variableType": 4,
+            "type": "Dictionary"
+          },
+          "isActionBlockWorkingVar": true,
+          "isSecure": false,
+          "supportsInput": false,
+          "supportsOutput": true,
+          "description": "Change this global integer to adjust all ticker link wait times in seconds.",
+          "m_decimalValue": 4
+        },
+        "unitForVariables": 0,
+        "m_comment": "Global editable link load delay (seconds): DroidMacro_LinkWait_Seconds"
       },
       {
         "action": 0,
@@ -2015,24 +2437,24 @@
           "viewId": "",
           "xyPercentages": true,
           "xyPoint": {
-            "x": 87,
-            "y": 86
+            "x": 90,
+            "y": 88
           },
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -945200130,
+        "m_SIGUID": -987900131,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE SU.PA (19/19) — full Search_stock plugin prompt; x87% y86%",
+        "m_comment": "Save SU.PA (#19) — white circle center (90%,88%)",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -945200131,
+        "m_SIGUID": -987900132,
         "m_variable": {
-          "m_name": "DroidMacro_BulkNext_AfterSave",
+          "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
           "isLocalVar": false,
           "m_intValue": 1,
@@ -2053,20 +2475,20 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -945200132,
+        "m_SIGUID": -987900133,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -945200133
+        "m_SIGUID": -987900134
       },
       {
         "m_classType": "NotificationAction",
-        "m_SIGUID": -945200134,
+        "m_SIGUID": -987900135,
         "m_notificationSubject": "DroidMacro: 19 ticker Save clicks attempted",
-        "m_notificationText": "Attempted 19 Save clicks for full Search_stock instruction macros. Verify Android installations and individual My_order; clicks do not prove saves."
+        "m_notificationText": "Attempted 19 stock Save clicks using center coordinates (90%,88%). Verify the actual imported macros."
       }
     ]
   }
