@@ -67,4 +67,4 @@ Use the shortlist with Investment Checklist Screener for full due diligence; pas
 * Snapshot SHA-256: dc3652b804a82857cbb4ddfcb2ad96ce22b0554c93afd2d9f53384859a744984
 * SEC-only comparison: https://github.com/JANalytics/us-stock-universe/blob/main/us_listed_companies.csv
 * SEC-only SHA-256: 8914e35f26ec0349bc18af703aefe3f40ee20862adae5dfda38004689465d116
-* Generated UTC: 2026-11-17T06:04:14.550527+00:00
+* Generated UTC: 2026-11-17T09:13:28.825118+00:00
