@@ -20,14 +20,14 @@ class ImporterTests(unittest.TestCase):
             with fn.open('w', newline='') as f:
                 w = csv.DictWriter(f, fieldnames=[
                     'ticker','company','fy','report_currency','revenue',
-                    'ebit','cfo','capex','equity','interest_debt','cash',
+                    'ebit','cfo','capex','equity','interest_debt','lease_liabilities','cash',
                     'source_url','source_date'])
                 w.writeheader()
                 for fy in (2023, 2024, 2025, 2026):
                     w.writerow(dict(
                         ticker='ABC', company='Hypothetical Ltd', fy=fy,
                         report_currency='AUD', revenue=400, ebit=100, cfo=90,
-                        capex=10, equity=200, interest_debt=50, cash=50,
+                        capex=10, equity=200, interest_debt=50, lease_liabilities=0, cash=50,
                         source_url='https://example.test/financials',
                         source_date=f'{fy}-08-01'))
             out = main([str(fn), '--market', 'ASX', '--tax-rate', '0.30'])
