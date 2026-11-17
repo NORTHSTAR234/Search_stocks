@@ -556,7 +556,7 @@
     const validAnnual=typeof annual==="number"&&Number.isFinite(annual)&&annual>=0;
     const money=validAnnual?
       escape((r.dividendCurrency||r.nativeCurrency||"")+" "+annual.toLocaleString("en-AU",{minimumFractionDigits:2,maximumFractionDigits:4})+" /share/year"):"";
-    const proof=r.dividendDataSource==="REPORT_SNAPSHOT"?"Report snapshot":r.dividendDataSource==="REPORT_TEXT"?"Report table":"Unverified";
+    const proof=r.dividendDataSource==="REPORT_SNAPSHOT"?"Report snapshot":r.dividendDataSource==="REPORT_MIXED"?"Report snapshot + text":r.dividendDataSource==="REPORT_TEXT"?"Archived report":"Unverified";
     if(kind==="NONE")return '<span class="dividend-none">No dividend</span><small>0% declared cash yield</small><small>'+escape(proof)+'</small>';
     if(kind!=="PAYS"||!validYield&&!validAnnual)
       return '<span class="muted">NOT VERIFIED</span><small>No comparable dividend data in latest report</small>';
