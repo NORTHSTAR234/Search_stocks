@@ -1,6 +1,7 @@
 // Pure archive helpers shared by the Pages build and the live GitHub HTML check.
 const PATTERN=/^(halal|nonhalal)\/([A-Za-z0-9.-]+)\/([A-Za-z0-9.-]+)_(\d{4}-\d{2}-\d{2})_(\d{2}-\d{2}-\d{2})Z(?:(_chat_response))?\.(md|html)$/i;
 const AAOIFI_PATTERN=/^AAOIFI\/([A-Za-z0-9.-]+)\.html$/i;
+import {classifyArchivedReport,extractReportDividend} from "./stock-profile.mjs";
 const GITHUB="https://github.com/NORTHSTAR234/Search_stocks/blob/main/";
 const entityMap={amp:"&",lt:"<",gt:">",quot:'"',apos:"'",nbsp:" ",mdash:"—",ndash:"–",bull:"•",times:"×",hellip:"…"};
 export function archiveInfo(relative) {
@@ -374,8 +375,11 @@ export function parseHtmlReport(info,html) {
   const ownerAction=short(snapshot?.actions?.existing_holder||snapshot?.actions?.holder||
     snapshot?.existing_holder_action||snapshot?.holder_action||existingPill?.replace(/^IF I OWN\s*:\s*/i,"")||
     acts[1]||namedField(fields,/^action\s+if i own/i)||"NOT RATED",140);
+  const categoryProfile=classifyArchivedReport({snapshot,fields,ticker,company,statusOnly:isStatus});
+  const incomeProfile=extractReportDividend({snapshot,fields,currency,statusOnly:isStatus});
   return {
     company:company||ticker,ticker,exchange,bucket:info.bucket,timestamp:info.timestamp,
+    ...categoryProfile,...incomeProfile,
     statusOnly:isStatus,
     action:isStatus?"SCREENING ONLY — NO INVESTMENT REPORT":action,
     ownerAction:isStatus?"RESEARCH SKIPPED":ownerAction,
