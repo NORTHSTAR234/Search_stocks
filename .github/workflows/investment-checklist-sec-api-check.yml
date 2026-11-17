@@ -1,0 +1,31 @@
+name: Investment Checklist SEC API connectivity
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/investment-checklist-sec-api-check.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: Check documented public SEC companyfacts API (one request only)
+        env:
+          SEC_USER_AGENT: "NORTHSTAR234 SearchStocks checklist research (+https://github.com/NORTHSTAR234/Search_stocks/issues)"
+        run: |
+          python - <<'PY'
+          import json,os,urllib.request,urllib.error
+          u='https://data.sec.gov/api/xbrl/companyfacts/CIK0000796343.json'
+          req=urllib.request.Request(u,headers={'User-Agent':os.environ['SEC_USER_AGENT'],'Accept':'application/json'})
+          try:
+              with urllib.request.urlopen(req, timeout=30) as r:
+                  payload=r.read()
+              j=json.loads(payload)
+              print('SEC official companyfacts status 200; CIK',j.get('cik'),'name',j.get('entityName'),'bytes',len(payload))
+              assert j.get('cik')==796343
+          except urllib.error.HTTPError as e:
+              print(f'SEC official companyfacts HTTP {e.code}; access unavailable from GitHub runner; will not bypass')
+              raise
+          PY
