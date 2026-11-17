@@ -627,7 +627,7 @@ test("second table routing uses FINAL combined ethical red OR Musaffa non-halal,
 
 test("eleven columns follow owner's exact order in BOTH stock tables",()=>{
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
- const labels=JSON.parse(build.match(/const labels=(\\[[^\\n]+\\]);/)[1]);
+ const labels=JSON.parse(build.split("\n").find(line=>line.includes("const labels=")).split("const labels=")[1].trim().replace(/;$/,""));
  assert.deepEqual(labels,[
   "Company / ticker","Regular / latest price","Overnight / vs close",
   "Live chart · 1M","Action / Risk","Markers","Industry category","Dividend / yield",
@@ -644,7 +644,7 @@ test("eleven columns follow owner's exact order in BOTH stock tables",()=>{
  for(let i=1;i<tokens.length;i++)
   assert(tr.indexOf(tokens[i-1])<tr.indexOf(tokens[i]),
     "Cell is out of order: "+tokens[i]);
- assert(build.includes("<thead><tr>'+head+'</tr></thead><tbody id=\\\"rows\\\""));
- assert(build.includes("<thead><tr>'+head+'</tr></thead><tbody id=\\\"flaggedRows\\\""));
+ assert(build.includes('<tbody id="rows"><tr>'));
+ assert(build.includes('<tbody id="flaggedRows"><tr>'));
  assert(source.includes("primary.map(tr)")&&source.includes("flagged.map(tr)"));
 });
