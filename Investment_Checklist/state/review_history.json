@@ -56,6 +56,69 @@
           "stage": "deep_review",
           "outcome": "provisional",
           "origin": "user-provided v1.5 test report"
+        },
+        {
+          "ticker": "LULU",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.6",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "in-chat primary SEC 10-K and Q2 FY2026 research",
+          "financial_periods": [
+            "FY2023",
+            "FY2024",
+            "FY2025"
+          ],
+          "quote_date": "2026-11-16",
+          "quote_usd": 105.46,
+          "valuation": "illustrative only, not verified; 5-year bear $44.59 base $88.45",
+          "note": "FY2023-25 ROIC reconstructed approx 47.1%,48.3%,35.2%; FY2026 sales decline and moat durability concern.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1397187/000139718726000020/lulu-20260201.htm",
+            "https://www.sec.gov/Archives/edgar/data/1397187/000139718726000126/lulu-20260802xex991.htm"
+          ]
+        },
+        {
+          "ticker": "TTD",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.6",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "in-chat primary SEC 10-K and Q3 2026 research",
+          "financial_periods": [
+            "FY2023",
+            "FY2024",
+            "FY2025"
+          ],
+          "quote_date": "2026-11-16",
+          "quote_usd": 14.83,
+          "valuation": "illustrative only, not verified; 5-year bear $4.31 base $11.01",
+          "note": "FY2023-25 accounting ROIC approx 13.7%,28.1%,26.8%; substantial stock-based compensation and flat Q3 2026 sales.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1671933/000167193326000014/ttd-20251231.htm",
+            "https://www.sec.gov/Archives/edgar/data/1671933/000167193326000115/ttd-20261109x8kexx991.htm"
+          ]
+        },
+        {
+          "ticker": "EXEL",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.6",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "in-chat primary SEC 10-K and Q3 2026 research",
+          "financial_periods": [
+            "FY2023",
+            "FY2024",
+            "FY2025"
+          ],
+          "quote_date": "2026-11-16",
+          "quote_usd": 67.1,
+          "valuation": "illustrative only, not verified; 5-year bear $17.27 base $41.84",
+          "note": "Specialist biotechnology; traditional ROIC not economically reconstructed due expensed R&D; FY2023-25 ROE approx 8.7%,23.1%,35.5%; franchise and IP concentration risk.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/939767/000093976726000021/exel-20260102.htm",
+            "https://www.sec.gov/Archives/edgar/data/939767/000093976726000114/exel20260930exhibit991.htm"
+          ]
         }
       ],
       "brief_checks": [
