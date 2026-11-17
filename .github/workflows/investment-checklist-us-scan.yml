@@ -6,6 +6,9 @@ on:
       - "Investment_Checklist/test_rank_free_us_snapshot.py"
       - ".github/workflows/investment-checklist-us-scan.yml"
   workflow_dispatch:
+concurrency:
+  group: investment-checklist-us-scan-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 permissions:
   contents: write
 jobs:
@@ -53,5 +56,7 @@ jobs:
             echo "No change to generated US discovery snapshot"
           else
             git commit -m "Save dated US Investment Checklist quantitative discovery snapshot"
+            git fetch origin feature/investment-checklist-multimarket-v1
+            git rebase origin/feature/investment-checklist-multimarket-v1
             git push origin HEAD:feature/investment-checklist-multimarket-v1
           fi
