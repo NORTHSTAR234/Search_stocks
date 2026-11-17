@@ -141,10 +141,10 @@ def main(argv=None):
         annual=[]
         for fy in ys:
             r=by_year[fy]
-            if annual and r['report_currency'] != annual[-1]['report_currency']:
-                prev_ic = None # Never compare balances denominated in different currencies.
+            if annual and (r['report_currency'] != annual[-1]['report_currency'] or fy != annual[-1]['fy']+1):
+                prev_ic = None # Never join different currencies or nonconsecutive fiscal years.
             vals=[r[k] for k in ('equity','interest_debt','cash')]
-            ic=sum(vals[:2])-vals[2]+(r['lease_liabilities'] or 0) if all(v is not None for v in vals) else None
+            ic=(sum(vals[:2])-vals[2]+r['lease_liabilities']) if all(v is not None for v in vals) and r['lease_liabilities'] is not None else None
             fcf=(r['cfo']-r['capex']-(r['lease_principal'] or 0)) if r['cfo'] is not None and r['capex'] is not None else None
             roic=None
             if args.tax_rate is not None and prev_ic is not None and ic is not None and prev_ic+ic>0 and r['ebit'] is not None:
