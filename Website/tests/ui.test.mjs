@@ -85,7 +85,7 @@ test("regular and overnight have distinct columns and signed price/percentage co
  assert(source.includes("quoteDirection(valid?c.regularChangePercent:null)"));
  assert(source.includes("quote-value overnight-value"));
  assert(source.includes("No recent verified overnight indication"));
- assert(source.includes('colspan="9"'));
+ assert(source.includes('colspan="11"'));
 });
 
 
@@ -160,15 +160,15 @@ test("dashboard columns match specified new order and remove duplicate report co
  assert(list);
  const headings=JSON.parse(list[1]);
  assert.deepEqual(headings,[
- "Company / ticker","Regular / latest price","Overnight / vs close","Live chart · 1M",
+ "Company / ticker","Industry category","Dividend / yield","Regular / latest price","Overnight / vs close","Live chart · 1M",
  "Action / Risk","Markers","Last report (AEDT/AEST)",
  "Musaffa status / grade / screening date","Next earnings / confirmation"]);
- assert.equal(headings.length,9);
+ assert.equal(headings.length,11);
  assert(!source.includes('Original GitHub</a>'));
  assert(source.includes("'<td class=\"markers-cell\">'+markersCell(r,context)+'</td>'"));
  assert(source.includes("zoneCell(r,context)+"));
  assert(source.includes("stopsCell(r)+"));
- assert(source.includes('colspan="9"'));
+ assert(source.includes('colspan="11"'));
  assert(source.includes("class=\"ticker'+active+'\" href="));
 });
 test("entry caps use preferred-first inclusive thresholds and Action/Risk ignores above ceilings",()=>{
@@ -383,13 +383,13 @@ test("table headings and first column no longer cover rows when page scrolls",()
  assert(table.includes("border-bottom:1px solid #27394d;"),
   "Keep the row separators");
 });
-test("all nine stock headings are visible in the restored table",()=>{
+test("all eleven stock headings are visible in the restored table",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
  const section=css.slice(css.indexOf("ORIGINAL FULL-WIDTH STOCK TABLE WITH CONTAINED HORIZONTAL OVERFLOW"),
    css.indexOf("/* FLUID VIEWPORT WIDTH"));
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  const headings=JSON.parse(build.split("\n").find(l=>l.includes("const labels=")).split("const labels=")[1].trim().replace(/;$/, ""));
- assert.equal(headings.length,9);
+ assert.equal(headings.length,11);
  assert(section.includes("display:table-header-group"));
  assert(section.includes("td::before {content:none!important;display:none!important}"));
  for(let i=1;i<=headings.length;i++)
@@ -469,7 +469,7 @@ test("one-month IEX chart is sourced, responsive and polled with every quote cyc
    assert(source.includes('YFINANCE_YAHOO_1H_BAR_DELAYED'));
    assert(source.includes('hourly?.currency===q.currency'));
    assert(source.includes('new RegExp("\\\\b"+currency+"\\\\b","i")'));
-  assert(source.includes('colspan="9"'));
+  assert(source.includes('colspan="11"'));
   const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
   assert(css.includes(".mini-chart-svg"));
   assert(css.includes(".mini-chart-legend"));
@@ -496,7 +496,7 @@ test("Markers remains 3 paired rows with all six existing values and behaviors",
 test("Musaffa remains the only screening column and RizqInvests box is inline",()=>{
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  const labels=JSON.parse(build.split("\n").find(l=>l.includes("const labels=")).split("const labels=")[1].trim().replace(/;$/,""));
- assert.equal(labels.length,9);
+ assert.equal(labels.length,11);
  assert(labels.includes("Musaffa status / grade / screening date"));
  assert(!labels.includes("AAOIFI"));
  assert(!labels.includes("Ethical / BDS"));
@@ -603,7 +603,7 @@ test("two stock tables share the same search/category/exchange/order and row mar
   assert(source.includes('const flagged=filtered.filter(isFlaggedForSecondTable);'));
   assert(source.includes("primary.map(tr)")&&source.includes("flagged.map(tr)"));
   assert(source.indexOf("filtered.sort(")<source.indexOf("const primary=filtered.filter("));
-  assert(source.includes('["search","bucket","exchange","order"].forEach'));
+  assert(source.includes('["search","bucket","industry","exchange","order"].forEach'));
   assert(source.includes('"Showing "+filtered.length+" of "+all.length'));
 });
 
