@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "NORTHSTAR234/Search_stocks live ticker index",
-  "generatedAt": "2026-11-17T11:48:15.494Z",
+  "generatedAt": "2026-11-17T11:49:14.832Z",
   "total": 19,
   "links": [
     {
@@ -97,42 +97,47 @@
     {
       "ticker": "ASM.XAMS",
       "order": 11,
-      "total": 20,
+      "total": 19,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/3BooTcgqLS8F",
-      "expiresAt": "2026-11-22T08:15:32.262Z"
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/3lH1KyxJPqMe",
+      "expiresAt": "2026-11-24T11:49:01.042Z"
     },
     {
       "ticker": "HD",
       "order": 12,
-      "total": 20,
+      "total": 19,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/c5eTIpCuf9BR",
-      "expiresAt": "2026-11-22T08:15:34.409Z"
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/xGfO8wJo2IKq",
+      "expiresAt": "2026-11-24T11:49:04.354Z"
     },
     {
       "ticker": "JNJ",
       "order": 13,
-      "total": 20,
+      "total": 19,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/aAQrFsIW7pP_",
-      "expiresAt": "2026-11-22T08:15:36.980Z"
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/uDes52budrC2",
+      "expiresAt": "2026-11-24T11:49:07.812Z"
     },
     {
       "ticker": "LLY",
       "order": 14,
-      "total": 20,
+      "total": 19,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/kUv-yl9zjMCL",
-      "expiresAt": "2026-11-22T08:15:39.028Z"
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/VDpGLiqYj-tn",
+      "expiresAt": "2026-11-24T11:49:11.117Z"
     },
     {
       "ticker": "MA",
       "order": 15,
-      "total": 20,
+      "total": 19,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/Ge8Q45KJc_v3",
-      "expiresAt": "2026-11-22T08:15:41.545Z"
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/rYGMOzqnbfcx",
+      "expiresAt": "2026-11-24T11:49:14.509Z"
     },
     {
       "ticker": "MRK",
