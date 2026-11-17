@@ -72,3 +72,17 @@ test("Full HTML extractor reads standard fields without changing Aya v2 required
  assert.equal(r.dividendYieldPercent,2.58);
  assert.equal(r.dividendAnnualPerShare,4.35);
 });
+
+test("Visible G. Dividends prose is parsed without mining unrelated forecast percentages",()=>{
+ const cash=extractReportDividend({
+  snapshot:{},currency:"USD",fields:new Map(),
+  dividendText:"Micron's announced quarterly cash dividend was $0.15/share. Annualized $0.60/share implies ~0.083% at this intraday quote."
+ });
+ assert.equal(cash.dividendYieldPercent,0.083);
+ assert.equal(cash.dividendAnnualPerShare,0.60);
+ assert.equal(cash.dividendDataSource,"REPORT_TEXT");
+ const noSection=extractReportDividend({snapshot:{},currency:"USD",fields:new Map(),
+  dividendText:"Revenue rose 17% and margins widened 5%; no cash dividend information supplied."});
+ assert.equal(noSection.dividendYieldPercent,null);
+ assert.equal(noSection.dividendStatus,"UNKNOWN");
+});
