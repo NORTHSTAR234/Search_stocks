@@ -359,7 +359,7 @@ test("vertical separators match horizontal row borders at every viewport width",
  }
  assert(table.includes("th:first-child,\n.table-wrap td:first-child {border-left:1px solid #27394d}"));
  assert(table.includes(".table-wrap th:last-child,\n.table-wrap td:last-child {border-right:0}"));
- assert(table.includes("min-width:1560px!important;"));
+ assert(table.includes("min-width:2200px!important;"));
  assert(!table.includes("min-width:1400px!important;"));
  assert(!table.includes("min-width:1350px!important;"));
  assert(table.includes("overflow-wrap:break-word;"));
@@ -368,7 +368,7 @@ test("vertical separators match horizontal row borders at every viewport width",
  assert(table.includes("overflow-y:hidden!important;"),
    "Keep page-level vertical scrolling");
  assert(table.includes("overflow-x:auto!important;"),
-   "Use only horizontal overflow for 9 columns on narrow windows");
+   "Use only horizontal overflow for 11 columns on narrow windows");
 });
 test("table headings and first column no longer cover rows when page scrolls",()=>{
  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
@@ -405,7 +405,7 @@ test("narrow screens cannot horizontally shift the website header or filters",()
  const fluid=css.slice(css.indexOf("/* FLUID VIEWPORT WIDTH"));
  assert(table.includes("max-width:100%;"));
  assert(table.includes("overflow-x:auto!important;"));
- assert(table.includes("min-width:1560px!important;"));
+ assert(table.includes("min-width:2200px!important;"));
  assert(fluid.includes("html,body{max-width:100%;overflow-x:hidden}"));
  assert(fluid.includes("main:not(.report-layout)>.panel .toolbar,"));
  assert(fluid.includes("main:not(.report-layout)>.panel .notice,"));
