@@ -262,14 +262,14 @@ function currencyAmount(value,currency){
 // G. Dividends section. Parse that section, not arbitrary percentage claims
 // elsewhere in the report, and never overwrite structured snapshot values.
 function historicDividendText(html){
- const headings=[...html.matchAll(/<h[234]\\b[^>]*>[\\s\\S]{0,420}?<\\/h[234]\\s*>/gi)];
- const idx=headings.findIndex(m=>/^G[.:]\\s*Dividends?\\b/i.test(strip(m[0])));
+ const headings=[...html.matchAll(/<h[234]\b[^>]*>[\s\S]{0,420}?<\/h[234]\s*>/gi)];
+ const idx=headings.findIndex(m=>/^G[.:]\s*Dividends?\b/i.test(strip(m[0])));
  if(idx<0)return "";
  const start=headings[idx].index+headings[idx][0].length;
  let end=Math.min(html.length,start+4500);
  for(let j=idx+1;j<headings.length;j++){
    const title=strip(headings[j][0]);
-   if(/^(?:H[.:]\\s*|I[.:]\\s*|G[.:]\\s*|(?:[A-I][.:]\\s+))/i.test(title)){
+   if(/^(?:H[.:]\s*|I[.:]\s*|G[.:]\s*|(?:[A-I][.:]\s+))/i.test(title)){
      end=Math.min(end,headings[j].index);break;
    }
  }
