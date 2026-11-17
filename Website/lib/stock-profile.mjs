@@ -49,7 +49,7 @@ const LEGACY=new Map([
  ["V",["VISA",2]],
  ["XOM",["EXXONMOBIL",6]]
 ]);
-function issuerKey(s){return String(s||"").toUpperCase().replace(/&/g," AND ").replace(/[^A-Z0-9]+/g," ").trim();}
+function issuerKey(s){return String(s||"").toUpperCase().replace(/&/g," AND ").replace(/[^A-Z0-9]+/g," ").replace(/^THE /,"").trim();}
 export function classifyArchivedReport({snapshot,fields,ticker,company,statusOnly=false}){
  if(statusOnly)return {industryCategory:null,industryDetail:null,industryCategorySource:"UNVERIFIED"};
  const sector=snapshot?.industry||snapshot?.industry_detail||snapshot?.sector||
@@ -104,7 +104,7 @@ export function extractReportDividend({snapshot,fields,currency,statusOnly=false
  if(yieldPercent!==null&&(yieldPercent<0||yieldPercent>100))yieldPercent=null;
  if(annual!==null&&(annual<0||annual>1e9))annual=null;
  const explicitNone=status==="NONE"||status==="DOES_NOT_PAY"||
-   (yieldPercent===0&&annual===0);
+   (yieldPercent===0&&(annual===0||raw?.cash_dividend_per_share_usd===0));
  const resultStatus=explicitNone?"NONE":statusOnly?"UNKNOWN":
    (yieldPercent!==null||annual!==null)?"PAYS":"UNKNOWN";
  const ex=raw&&dateKeys.ex.map(k=>dateOrNull(raw[k])).find(Boolean)||null;
