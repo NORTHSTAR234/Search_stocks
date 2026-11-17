@@ -89,12 +89,12 @@ def assess(raw):
         flags.append('cash-to-profit conversion atypical')
     if identity['sector'] in ('Energy','Basic Materials'):
         flags.append('through-cycle earnings and capex required')
-    if identity['sector'] in SPECIAL_SECTORS:
+    if identity['exchange'] not in ('NYSE','NASDAQ'):
+        status='OUTSIDE NYSE NASDAQ'
+    elif identity['sector'] in SPECIAL_SECTORS:
         status='SPECIALIST SECTOR — separate methods required'
     elif identity['sector'] in CYCLICAL_SECTORS:
         status='COMMODITY CYCLICAL — through-cycle model required'
-    elif identity['exchange'] not in ('NYSE','NASDAQ'):
-        status='OUTSIDE NYSE NASDAQ'
     elif coverage < 7:
         status='INSUFFICIENT DATA'
     elif m['fcf_yield'] is not None and m['fcf_yield']>20:
