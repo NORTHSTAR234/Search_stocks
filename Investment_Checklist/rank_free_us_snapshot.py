@@ -19,6 +19,7 @@ SEC_SOURCE = 'https://github.com/JANalytics/us-stock-universe/blob/main/us_liste
 CRITICAL = ('price', 'mktCap', 'pe', 'roce', 'opMargin',
             'freeCashFlow', 'salesGrowth3y', 'debtToEquity', 'profitAfterTax')
 SPECIAL_SECTORS = ('Financial Services', 'Real Estate')
+CYCLICAL_SECTORS = ('Basic Materials', 'Energy')
 
 
 def parse_num(x):
@@ -90,15 +91,21 @@ def assess(raw):
         flags.append('through-cycle earnings and capex required')
     if identity['sector'] in SPECIAL_SECTORS:
         status='SPECIALIST SECTOR — separate methods required'
+    elif identity['sector'] in CYCLICAL_SECTORS:
+        status='COMMODITY CYCLICAL — through-cycle model required'
     elif identity['exchange'] not in ('NYSE','NASDAQ'):
         status='OUTSIDE NYSE NASDAQ'
     elif coverage < 7:
         status='INSUFFICIENT DATA'
+    elif m['fcf_yield'] is not None and m['fcf_yield']>20:
+        status='ANOMALOUS FCF YIELD — MANUAL DATA AUDIT'
+    elif (m['fcf_cash_conversion'] is not None and m['fcf_cash_conversion']>3):
+        status='ANOMALOUS CASH CONVERSION — MANUAL DATA AUDIT'
     elif cap is None or cap < 300e6 or not m['price'] or m['price']<=0:
         status='NOT IN SIZE/PRICE DISCOVERY COHORT'
     elif any(m.get(k) is None for k in ('roce','opMargin','freeCashFlow','pe','salesGrowth3y','debtToEquity')):
         status='INCOMPLETE FOR QUANT SCREEN'
-    elif (m['roce']<10 or m['opMargin']<5 or m['freeCashFlow']<=0
+    elif (m['profitAfterTax'] is None or m['profitAfterTax']<=0 or m['roce']<10 or m['opMargin']<5 or m['freeCashFlow']<=0
           or not (5<=m['pe']<=35) or m['debtToEquity']>2 or m['salesGrowth3y']<-10):
         status='FILTERED BY PRELIMINARY CRITERIA'
     else:
@@ -158,6 +165,8 @@ def md_report(a,leaders,raw):
         '',
         '## Specialist sectors',
         'Financial Services and Real Estate were separated, NOT failed. Banks, insurers, asset managers and REITs require distinct capital and valuation measures.',
+        'Commodity producers (Basic Materials and Energy) were also separated for through-cycle normalisation, not treated as ordinary company ROCE comparables.',
+        'Outlier free-cash-flow yields above 20% are quarantined for denominator/source review, not scored as bargains.',
         '',
         '## Material limitations',
         '* Snapshot is two weeks older than the 17 November 2026 research date. Prices and ratios must be refreshed before recommendations.',
