@@ -27,6 +27,11 @@ jobs:
           print('FIELDS',json.dumps(headers))
           print('SAMPLE (redacted metrics)',json.dumps([{k:row.get(k) for k in headers[:5]} for row in rows[:3]]))
           print('SHA256',hashlib.sha256(open(p,'rb').read()).hexdigest())
+          for ticker in ('ADBE','ACN','NFLX','QCOM','NVDA','GOOGL','AAPL','INTU','MU','JPM'):
+            match=next((r for r in rows if r.get('ticker','').upper()==ticker),None)
+            if match:
+              print('METRIC_SAMPLE',ticker,json.dumps({k:match.get(k) for k in ('price','pe','roce','roe','opMargin','netMargin','freeCashFlow','profitAfterTax','salesGrowth','salesGrowth3y','debtToEquity','mktCap','sector','exchange')}))
+
           if len(rows)<1000 or len(headers)<10: raise RuntimeError('Incomplete or malformed source')
           PY
           echo 'Attribution: DeltaScreener "US stock universe dataset", https://deltascreener.com/data ; dated 3 November 2026. Free reuse with attribution.' > data-probe/ATTRIBUTION.txt
