@@ -37,6 +37,16 @@ class RankingTests(unittest.TestCase):
         r=assess(fictional(pe='6'))
         self.assertTrue(any('very low' in s for s in r['warnings']))
 
+    def test_cashflow_outlier_quarantined(self):
+        r=assess(fictional(freeCashFlow='500000000'))
+        self.assertIn('ANOMALOUS',r['status'])
+        self.assertIsNone(r['discovery_score'])
+
+    def test_commodity_cycles_not_industrial_compounders(self):
+        r=assess(fictional(sector='Basic Materials'))
+        self.assertIn('COMMODITY CYCLICAL',r['status'])
+        self.assertIsNone(r['discovery_score'])
+
     def test_sector_caps(self):
         r1=assess(fictional(ticker='A'))
         r2=assess(fictional(ticker='B'))
