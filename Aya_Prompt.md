@@ -1182,3 +1182,64 @@ Use Version 3.6: include explicit WHEN TO SELL / REDUCE rules, profit targets, s
 **New Search_stock report contract:** Continue to save exact Musaffa classification, original provider date or month-only period, gate and evidence in required aya-report-snapshot v2 fields. Preserve source-locked RizqInvests Nov 2026 and Investigate Jul 2025 findings separately; expose the final combined ethical verdict using optional source-backed data in Section I, consistent with Section 23B. The website already computes ethicalFinalStatus and ethicalFinalColor from the frozen sources and uses these plus Musaffa classification for dynamic grouping. Do not hard-code or store a permanent website table number in a ticker report, and do NOT alter snapshot mandatory fields, folder routing or financial recommendations to manipulate grouping.
 
 **Mandatory QA examples:** Fresh Musaffa HALAL plus ethical red -> ONLY lower table. Musaffa NOT HALAL plus ethical Neutral -> ONLY lower table. Both flagged -> one lower row. Musaffa inconclusive/stale positive and no ethical red -> upper table. A row with administrative nonhalal bucket but no true negative finding -> upper table. Shared controls, live quote/zone/chart, mobile layout and status source links must continue to work in both.
+
+
+### 24. MANDATORY NINE INDUSTRY CATEGORIES AND VERIFIED DIVIDEND DATA (17 NOV 2026)
+
+**Priority:** This section governs every new Search_stock report (single or batch), HTML archive, and optional Aya v2 snapshot. Preserve the existing A–I layout, prepublication report-depth QA (§0M / §§17A–17B), Musaffa screening, ethical decision priority (§23B), full analysis, price charts, historical archives and financial actions. Never falsify a dividend yield to populate a website cell.
+
+#### 24.1 Exactly NINE categories — one per stock
+For every stock identify the principal economic activity from current official company business descriptions, segment revenues and/or filings. Assign ONE exact canonical `industry_category` from this controlled vocabulary, spelled and capitalized identically:
+1. `Technology & Communications` — semiconductors, AI, electronics, software, networks, telecommunications, IT and internet platforms.
+2. `Healthcare & Pharmaceuticals` — pharmaceutical, biotech, healthcare providers, medical devices and diagnostics.
+3. `Financial Services` — banks, payments, lending, insurance, investment management and financial networks.
+4. `Consumer Essentials` — consumer staples, food, beverages, groceries, household hygiene and everyday essentials.
+5. `Consumer Discretionary` — automotive, nonessential consumer retail, travel, leisure, hospitality, home-improvement retail.
+6. `Industrials, Construction & Transportation` — civil/commercial/residential construction CONTRACTORS, infrastructure engineering, industrial equipment, aerospace, logistics, manufacturing and transportation.
+7. `Energy & Resources` — upstream/downstream oil and gas, mining, metals, chemicals, materials and resource extraction.
+8. `Utilities` — electric/gas/water utilities, regulated distribution networks, essential energy generation/retail and network infrastructure.
+9. `Real Estate` — commercial/residential property owners, developers, landlords, managers, REITs and property services.
+
+**Construction distinction:** Physical infrastructure/building contractors belong in category 6; property owners/developers/REITs in 9; businesses primarily SELLING consumer home-improvement products remain in 5; mining construction materials (e.g., cement/quarry operators) can be 7 when primary income is raw materials. Diversified firms use their main business and explain borderline cases. Keep a narrower `industry_detail` (e.g., “Semiconductors / AI infrastructure”, “Commercial building construction”) and a brief industry classification reason in report. Do not guess from stock ticker alone. A broad-market diversified ETF has no single company operating industry: use explicit `industry_category:null` and `industry_detail:"Diversified ETF"`; discuss ETF sector exposures separately, rather than fabricate a category. An industry ETF may use a category only when its investment mandate and portfolio composition support one dominant industry; mark it ETF, not operating company.
+
+**HTML/snapshot machine contract:** Add visible “Industry category” and “Specific industry” near the issuer summary in EVERY new complete report. Add to optional top-level `aya-report-snapshot` v2:
+```json
+"industry_category": "Technology & Communications",
+"industry_detail": "Semiconductors / AI infrastructure"
+```
+Use one of the EXACT nine values for company stocks. Null when source-limited and not classified, with a visible NOT VERIFIED explanation. Preserve all other required v2 keys and typed fields. Existing historical reports must remain intact; the website may transparently classify a limited set of older known issuers using a labeled issuer-matched mapping (not pretending that the old report contained the category).
+
+#### 24.2 Dividend — mandatory visible research and structured fields
+For EACH stock report, including those not paying dividends, research actual declared cash dividends and report in clear, readable **G. Dividends / Income** and in the executive-summary metadata:
+- **Cash dividend status**: PAYS, NONE (verified company does not pay a regular cash dividend), UNKNOWN / NOT VERIFIED. Zero is legitimate when evidenced; unknown is NOT zero.
+- **Dividend yield %:** indicated FORWARD annualized yield based on latest board-announced recurring cash dividend divided by an explicit verified stock price; quote BOTH the price and date used and the yield observation timestamp. Do not mix a historical trailing 12-month yield with an indicated forward yield or silently treat old rate as newly declared.
+- **Annual cash dividend per share** in the security's local currency (e.g. AUD, USD, CHF), the source per-payment amount and payment frequency (monthly, quarterly, semiannual, annual, irregular); always specify the basis.
+- Latest confirmed ex-dividend / record / payment date, next confirmed dates if actually announced, and “NOT CONFIRMED” rather than inventing future declaration dates.
+- If listed in Australia, the FRANKING percentage when independently verified, otherwise NOT VERIFIED; foreign withholding and tax caveats when relevant. Gross yield is not after-tax yield. Provide recent payout sustainability and relevant FCF/profits/coverage when available.
+- Cite the issuer announcement, filing, registry/exchange and observed share price as appropriate. If a yield can't be derived from independently verified price and dividend, retain rate if verified but show “Yield NOT VERIFIED”. If none can be verified, show “Dividend NOT VERIFIED”. Do not auto-refresh historical report dividend yields from separately fetched live stock quotes.
+
+**Canonical optional top-level `aya-report-snapshot` v2 dividend object** (real numeric values or null, never strings masquerading as numbers):
+```json
+"dividend": {
+  "status": "PAYS",
+  "annual_dividend_per_share": 2.12,
+  "yield_percent": 2.19,
+  "currency": "USD",
+  "frequency": "Quarterly",
+  "yield_basis": "INDICATED_FORWARD",
+  "as_of": "2026-11-17",
+  "price_used": 96.91,
+  "price_date": "2026-11-16",
+  "next_ex_date": null,
+  "next_payment_date": "2026-12-15",
+  "franked_percent": null,
+  "source_url": "https://EXACT-VERIFIED-SOURCE-IF-AVAILABLE"
+}
+```
+The above numbers and URL are **illustrative of field structure only**, NOT security facts, nor transferable research data. In actual reports use the ticker's verified evidence and source URLs. For verified nonpayers use `status:"NONE",annual_dividend_per_share:0,yield_percent:0` with an evidence-backed as-of date. If not verified use `status:"UNKNOWN",annual_dividend_per_share:null,yield_percent:null`. Omit or null non-applicable dates/fields. Legacy inconsistent dividend objects (e.g., yield_pct / cash_yield_percent / annualized / quarterly) remain readable by website parser but all NEW reports must emit the canonical names.
+
+#### 24.3 Dashboard and tests
+The Cloudflare dashboard has TWO NEW columns immediately after Company / ticker:
+**Industry category** (exact controlled list, with narrower industry optional) and **Dividend / yield** (yield %, annual cash per share, currency and payment schedule where verified, otherwise NOT VERIFIED or No dividend).
+All TWO existing stock tables (other / unethical-or-Musaffa-nonhalal) must have identical 11 headings, identical row formatting, and common filter/sort controls. Default **Group by industry**; within categories order tickers A–Z. Add explicit industry filter and **Dividend yield descending** order. All existing search, exchange, source bucket, other sorts, score/entry/highlight markers, mobile table, 1-month chart, market-data refresh and screening rules stay operational. Color dividend/income independently; don't confuse green dividend display with halal/ethics status.
+**Pre-save QA:** Check that every NEW full report includes a valid industry label + specific industry and dividend evidence/uncertainty, and that its JSON snapshot has the optional standardized properties without disturbing the A–I/report-depth checks. Never invent “yield 0%” when source is inaccessible.
