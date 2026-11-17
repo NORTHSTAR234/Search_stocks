@@ -70,7 +70,8 @@ test("new standalone HTML report extracts fields without borrowing prior Markdow
 
 test("dashboard uses independent regular and overnight columns",()=>{
  const code=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
- assert(code.includes('"Markers","Regular / latest price","Overnight / vs close","Last report (AEDT/AEST)"'));
+ assert(code.includes('"Company / ticker","Regular / latest price","Overnight / vs close","Live chart · 1M"'));
+ assert(code.includes('"Markers","Industry category","Dividend / yield","Last report (AEDT/AEST)"'));
  assert(code.includes('colspan="11"'));
 });
 
