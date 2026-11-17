@@ -88,7 +88,20 @@ function labelledNumber(fields,regex,suffix=false){
  }
  return null;
 }
-export function extractReportDividend({snapshot,fields,currency,statusOnly=false}){
+function dividendProseNumbers(value){
+ // Restrict extraction to the actual visible G. Dividends section supplied by
+ // report-archive; never scan general news, forecast or valuation percentages.
+ const text=String(value||"").slice(0,2400);
+ if(!text)return {yieldPercent:null,annual:null};
+ const percent=text.match(/(?:dividend\s+yield|indicated\s+yield|annualis(?:ed)?\s+yield|annualiz(?:ed)?\s+yield|yield\s+at|yield\s+of|implies?|implying|or about)\b[^%]{0,95}?(\d{1,2}(?:\.\d{1,5})?)\s*%/i)||
+   text.match(/(\d{1,2}(?:\.\d{1,5})?)\s*%\s*(?:cash\s+|annuali[sz]ed\s+|indicated\s+|dividend\s+)?dividend\s+yield\b/i);
+ const annualText=text.match(/\bannual(?:iz|is)ed\b[^\n$]{0,110}[$€£]\s*(\d+(?:\.\d{1,5})?)\b/i)||
+   text.match(/[$€£]\s*(\d+(?:\.\d{1,5})?)\s*\/\s*year\b/i)||
+   text.match(/\bannual\s+(?:cash\s+)?dividend\b[^\n$]{0,80}[$€£]\s*(\d+(?:\.\d{1,5})?)\b/i);
+ return {yieldPercent:percent?Number(percent[1]):null,
+   annual:annualText?Number(annualText[1]):null};
+}
+export function extractReportDividend({snapshot,fields,currency,statusOnly=false,dividendText=""}){
  const raw=snapshot?.dividend&&typeof snapshot.dividend==="object"&&!Array.isArray(snapshot.dividend)?snapshot.dividend:
   snapshot?.dividends&&typeof snapshot.dividends==="object"&&!Array.isArray(snapshot.dividends)?snapshot.dividends:null;
  let yieldPercent=firstNumber(raw,yieldKeys);
@@ -96,10 +109,21 @@ export function extractReportDividend({snapshot,fields,currency,statusOnly=false
  const status=String(raw?.status||"").toUpperCase();
  const fromSnapshot=yieldPercent!==null||annual!==null||["NONE","PAYS","UNKNOWN"].includes(status);
  let fromText=false;
- if(!fromSnapshot&&!statusOnly){
-   yieldPercent=labelledNumber(fields,/(?:^|\b)(?:annuali[sz]ed\s+)?(?:dividend\s+)?yield\b/i,true);
-   annual=labelledNumber(fields,/(?:annuali[sz]ed|annual|per year).*(?:dividend|cash|amount|share)|(?:dividend|cash).*(?:annuali[sz]ed|annual)/i,false);
-   fromText=yieldPercent!==null||annual!==null;
+ if(!statusOnly&&status!=="NONE"){
+   // Supplement missing fields, retaining already-sourced snapshot values.
+   if(yieldPercent===null){
+     const n=labelledNumber(fields,/(?:^|\b)(?:annuali[sz]ed\s+)?(?:dividend\s+)?yield\b/i,true);
+     if(n!==null){yieldPercent=n;fromText=true;}
+   }
+   if(annual===null){
+     const n=labelledNumber(fields,/(?:annuali[sz]ed|annual|per year).*(?:dividend|cash|amount|share)|(?:dividend|cash).*(?:annuali[sz]ed|annual)|^annualized$|^annualised$|^annualised at/i,false);
+     if(n!==null){annual=n;fromText=true;}
+   }
+   if(yieldPercent===null||annual===null){
+     const prose=dividendProseNumbers(dividendText);
+     if(yieldPercent===null&&prose.yieldPercent!==null){yieldPercent=prose.yieldPercent;fromText=true;}
+     if(annual===null&&prose.annual!==null){annual=prose.annual;fromText=true;}
+   }
  }
  if(yieldPercent!==null&&(yieldPercent<0||yieldPercent>100))yieldPercent=null;
  if(annual!==null&&(annual<0||annual>1e9))annual=null;
@@ -109,7 +133,7 @@ export function extractReportDividend({snapshot,fields,currency,statusOnly=false
    (yieldPercent!==null||annual!==null)?"PAYS":"UNKNOWN";
  const ex=raw&&dateKeys.ex.map(k=>dateOrNull(raw[k])).find(Boolean)||null;
  const payment=raw&&dateKeys.payment.map(k=>dateOrNull(raw[k])).find(Boolean)||null;
- const source=fromSnapshot?"REPORT_SNAPSHOT":fromText?"REPORT_TEXT":"UNVERIFIED";
+ const source=fromSnapshot&&fromText?"REPORT_MIXED":fromSnapshot?"REPORT_SNAPSHOT":fromText?"REPORT_TEXT":"UNVERIFIED";
  return {dividendStatus:resultStatus,dividendYieldPercent:resultStatus==="UNKNOWN"?null:yieldPercent,
   dividendAnnualPerShare:resultStatus==="UNKNOWN"?null:annual,
   dividendCurrency:typeof raw?.currency==="string"&&/^[A-Z]{3}$/.test(raw.currency)?raw.currency:
