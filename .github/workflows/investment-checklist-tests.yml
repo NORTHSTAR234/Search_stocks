@@ -1,0 +1,22 @@
+name: Investment Checklist offline tests
+on:
+  pull_request:
+    paths:
+      - "Investment_Checklist/**"
+      - ".github/workflows/investment-checklist-tests.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile and test stdlib importers with synthetic offline fixtures
+        run: |
+          python -m compileall -q Investment_Checklist
+          python -m unittest discover -s Investment_Checklist -p 'test_*.py' -v
