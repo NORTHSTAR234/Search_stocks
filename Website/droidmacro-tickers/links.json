@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "NORTHSTAR234/Search_stocks live ticker index",
-  "generatedAt": "2026-11-17T11:47:04.221Z",
+  "generatedAt": "2026-11-17T11:48:15.494Z",
   "total": 19,
   "links": [
     {
@@ -52,42 +52,47 @@
     {
       "ticker": "2449.TWSE",
       "order": 6,
-      "total": 20,
+      "total": 19,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/e6HMdWbCVAn0",
-      "expiresAt": "2026-11-22T08:15:05.760Z"
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/Wt2QCiL8WjiY",
+      "expiresAt": "2026-11-24T11:47:45.660Z"
     },
     {
       "ticker": "2454.TWSE",
       "order": 7,
-      "total": 20,
+      "total": 19,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/M6iqVJcu91hB",
-      "expiresAt": "2026-11-22T08:15:09.083Z"
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/EJwxMMIXaHev",
+      "expiresAt": "2026-11-24T11:48:10.190Z"
     },
     {
       "ticker": "3034.TWSE",
       "order": 8,
-      "total": 20,
+      "total": 19,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/sfQp13Sfk6Ti",
-      "expiresAt": "2026-11-22T08:15:11.456Z"
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/FbZBQfDIqPeV",
+      "expiresAt": "2026-11-24T11:47:54.534Z"
     },
     {
       "ticker": "AMAT",
       "order": 9,
-      "total": 20,
+      "total": 19,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/M3Q3f14zfYNN",
-      "expiresAt": "2026-11-22T08:15:03.871Z"
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/SfFULt6QiO3P",
+      "expiresAt": "2026-11-24T11:48:12.885Z"
     },
     {
       "ticker": "AMD",
       "order": 10,
-      "total": 20,
+      "total": 19,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/9mTS0eclC7Dr",
-      "expiresAt": "2026-11-22T08:15:13.581Z"
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/ihSfh24S0vm1",
+      "expiresAt": "2026-11-24T11:48:15.204Z"
     },
     {
       "ticker": "ASM.XAMS",
