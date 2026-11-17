@@ -1,8 +1,5 @@
 name: Investment Checklist SEC API connectivity
 on:
-  pull_request:
-    paths:
-      - ".github/workflows/investment-checklist-sec-api-check.yml"
   workflow_dispatch:
 permissions:
   contents: read
