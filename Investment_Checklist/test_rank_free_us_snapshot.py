@@ -21,7 +21,7 @@ class RankingTests(unittest.TestCase):
         self.assertEqual(r['status'],'QUANT DISCOVERY — FULL CHECKLIST PENDING')
         self.assertIsNotNone(r['discovery_score'])
         self.assertAlmostEqual(r['metrics']['fcf_yield'],10)
-        self.assertAlmostEqual(r['metrics']['fcf_cash_conversion'],200/150)
+        self.assertEqual(r['metrics']['fcf_cash_conversion'],1.33)
 
     def test_specialists_are_separate(self):
         r=assess(fictional(sector='Financial Services'))
