@@ -1,9 +1,5 @@
 name: Investment Checklist SEC live probe
 on:
-  pull_request:
-    paths:
-      - "Investment_Checklist/live_sec_probe.py"
-      - ".github/workflows/investment-checklist-sec-probe.yml"
   workflow_dispatch:
 permissions:
   contents: read
