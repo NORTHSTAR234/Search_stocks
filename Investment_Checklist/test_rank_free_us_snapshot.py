@@ -47,6 +47,21 @@ class RankingTests(unittest.TestCase):
         self.assertIn('COMMODITY CYCLICAL',r['status'])
         self.assertIsNone(r['discovery_score'])
 
+    def test_negative_book_equity_is_not_low_leverage(self):
+        r=assess(fictional(debtToEquity='-3.46'))
+        self.assertIn('NEGATIVE BOOK EQUITY',r['status'])
+        self.assertIsNone(r['discovery_score'])
+
+    def test_when_issued_security_not_comparable(self):
+        r=assess(fictional(name='Fictional Company Common Stock When-Issued'))
+        self.assertIn('WHEN-ISSUED',r['status'])
+        self.assertIsNone(r['discovery_score'])
+
+    def test_extreme_growth_is_research_cohort_not_qualified(self):
+        r=assess(fictional(salesGrowth3y='105'))
+        self.assertIn('EXTREME GROWTH',r['status'])
+        self.assertIsNone(r['discovery_score'])
+
     def test_sector_caps(self):
         r1=assess(fictional(ticker='A'))
         r2=assess(fictional(ticker='B'))
