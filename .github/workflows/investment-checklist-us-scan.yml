@@ -7,13 +7,15 @@ on:
       - ".github/workflows/investment-checklist-us-scan.yml"
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   scan:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -40,3 +42,16 @@ jobs:
             Investment_Checklist/source-data/ATTRIBUTION.txt
           if-no-files-found: warn
           retention-days: 30
+
+      - name: Commit sourced summary to isolated feature branch
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'feature/investment-checklist-multimarket-v1'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f Investment_Checklist/generated/US/us_quant_audit.json Investment_Checklist/generated/US/us_top20.md Investment_Checklist/generated/US/us_ranked_candidates.csv
+          if git diff --cached --quiet; then
+            echo "No change to generated US discovery snapshot"
+          else
+            git commit -m "Save dated US Investment Checklist quantitative discovery snapshot"
+            git push origin HEAD:feature/investment-checklist-multimarket-v1
+          fi
