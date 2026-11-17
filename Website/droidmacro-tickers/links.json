@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "NORTHSTAR234/Search_stocks live ticker index",
-  "generatedAt": "2026-11-17T11:49:14.832Z",
+  "generatedAt": "2026-11-17T11:49:59.412Z",
   "total": 19,
   "links": [
     {
@@ -142,42 +142,38 @@
     {
       "ticker": "MRK",
       "order": 16,
-      "total": 20,
+      "total": 19,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/St1vU9ujF09o",
-      "expiresAt": "2026-11-22T08:16:01.307Z"
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/lqv3v0aehNkO",
+      "expiresAt": "2026-11-24T11:49:45.225Z"
     },
     {
       "ticker": "MU",
       "order": 17,
-      "total": 20,
+      "total": 19,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/pXRAJOuHoAiQ",
-      "expiresAt": "2026-11-22T08:16:03.359Z"
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/zrHki9NPMJma",
+      "expiresAt": "2026-11-24T11:49:48.266Z"
     },
     {
       "ticker": "ORG.ASX",
       "order": 18,
-      "total": 20,
+      "total": 19,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/zITnzR8FrlB-",
-      "expiresAt": "2026-11-22T08:16:04.567Z"
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/NRY2sPROiMUj",
+      "expiresAt": "2026-11-24T11:49:59.217Z"
     },
     {
       "ticker": "SU.PA",
       "order": 19,
-      "total": 20,
+      "total": 19,
       "flagged": false,
-      "url": "https://macrodroidlink.com/m/_9RMOeMLJz4T",
-      "expiresAt": "2026-11-22T08:16:07.093Z"
-    },
-    {
-      "ticker": "XOM",
-      "order": 20,
-      "total": 20,
-      "flagged": false,
-      "url": "https://macrodroidlink.com/m/BHUjc1L-Yu-O",
-      "expiresAt": "2026-11-22T08:15:58.641Z"
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/y4Azj65u-ARI",
+      "expiresAt": "2026-11-24T11:49:50.818Z"
     }
   ],
   "promptVersion": "full-search-stock-workflow-v1"
