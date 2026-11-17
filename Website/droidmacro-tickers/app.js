@@ -21,6 +21,7 @@ function flagged(r){
 // Faithful to the owner's uploaded 1519.TWSE variable-triggered 15-action macro.
 function stableId(text){let h=2166136261;for(const ch of text)h=Math.imul(h^ch.charCodeAt(0),16777619)>>>0;return -1000000000-(h%900000000);}
 function integerVar(name,local,value=0){return {description:"",dictionary:{entries:[],isArray:false,variableType:4,type:"Dictionary"},isActionBlockWorkingVar:true,isLocalVar:local,isSecure:false,m_booleanValue:false,m_decimalValue:value,m_intValue:value,m_name:name,m_stringValue:"",m_type:1,supportsInput:false,supportsOutput:true};}
+const researchPromptVersion="full-search-stock-workflow-v1";
 function researchPrompt(ticker){return "Run the installed Search_stock plugin workflow for "+ticker+". Read skills://plugins/search-stock/search-stock-research/skill.md and the latest GitHub Aya_Prompt.md. Follow all mandatory research, Musaffa, HTML archiving and verification requirements. Do not substitute a generic analysis.";}
 function macroFor(r){
  const ticker=String(r.ticker),order=Number(r.myOrder),total=rows.length;
@@ -51,7 +52,8 @@ function renderRow(r){
  const mobileName=make("small","mobile-macro-name",macroName);
  const linkArea=make("div","link-actions");
  const current=links.get(ticker);
- const currentValid=Boolean(current&&current.order===r.myOrder&&current.total===rows.length&&
+ const currentValid=Boolean(current&&current.promptVersion===researchPromptVersion&&
+   current.order===r.myOrder&&current.total===rows.length&&
    current.flagged===flagged(r)&&Date.now()<Date.parse(current.expiresAt));
  if(currentValid){
    const link=make("a","macro-link","Install");
