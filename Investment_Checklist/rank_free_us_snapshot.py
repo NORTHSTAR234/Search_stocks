@@ -95,6 +95,12 @@ def assess(raw):
         status='SPECIALIST SECTOR — separate methods required'
     elif identity['sector'] in CYCLICAL_SECTORS:
         status='COMMODITY CYCLICAL — through-cycle model required'
+    elif 'when-issued' in identity['name'].lower():
+        status='CORPORATE ACTION / WHEN-ISSUED — VERIFY ECONOMIC HISTORY'
+    elif m['debtToEquity'] is not None and m['debtToEquity']<0:
+        status='NEGATIVE BOOK EQUITY — DEBT RATIO NOT COMPARABLE'
+    elif m['salesGrowth3y'] is not None and m['salesGrowth3y']>70:
+        status='EXTREME GROWTH / CYCLICAL EARNINGS — NORMALIZE FIRST'
     elif coverage < 7:
         status='INSUFFICIENT DATA'
     elif m['fcf_yield'] is not None and m['fcf_yield']>20:
@@ -166,7 +172,7 @@ def md_report(a,leaders,raw):
         '## Specialist sectors',
         'Financial Services and Real Estate were separated, NOT failed. Banks, insurers, asset managers and REITs require distinct capital and valuation measures.',
         'Commodity producers (Basic Materials and Energy) were also separated for through-cycle normalisation, not treated as ordinary company ROCE comparables.',
-        'Outlier free-cash-flow yields above 20% are quarantined for denominator/source review, not scored as bargains.',
+        'Outlier free-cash-flow yields above 20%, negative book equity ratios, when-issued share classes and extreme trailing growth are quarantined for source/denominator review.',
         '',
         '## Material limitations',
         '* Snapshot is two weeks older than the 17 November 2026 research date. Prices and ratios must be refreshed before recommendations.',
