@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-11-17T06:02:12.558217+00:00",
+  "generated_utc": "2026-11-17T06:03:16.359480+00:00",
   "snapshot_date": "2026-11-03",
   "price_live": false,
   "dataset_attribution": "DeltaScreener, \"US stock universe dataset\", https://deltascreener.com/data, as of 3 November 2026.",
@@ -11,22 +11,25 @@
   "duplicates_or_missing": 0,
   "nyse_nasdaq_rows": 4178,
   "data_coverage_7of9": 3951,
-  "quantitative_pass_count": 365,
+  "quantitative_pass_count": 330,
   "independent_source": "https://github.com/JANalytics/us-stock-universe/blob/main/us_listed_companies.csv",
   "independent_rows": 5363,
   "independent_sha256": "8914e35f26ec0349bc18af703aefe3f40ee20862adae5dfda38004689465d116",
   "crossmatched_tickers": 4777,
   "status_counts": {
-    "FILTERED BY PRELIMINARY CRITERIA": 677,
-    "QUANT DISCOVERY — FULL CHECKLIST PENDING": 365,
-    "INCOMPLETE FOR QUANT SCREEN": 572,
+    "FILTERED BY PRELIMINARY CRITERIA": 642,
+    "EXTREME GROWTH / CYCLICAL EARNINGS — NORMALIZE FIRST": 98,
+    "QUANT DISCOVERY — FULL CHECKLIST PENDING": 330,
+    "INCOMPLETE FOR QUANT SCREEN": 489,
     "SPECIALIST SECTOR — separate methods required": 831,
     "OUTSIDE NYSE NASDAQ": 716,
     "COMMODITY CYCLICAL — through-cycle model required": 388,
-    "ANOMALOUS CASH CONVERSION — MANUAL DATA AUDIT": 165,
-    "ANOMALOUS FCF YIELD — MANUAL DATA AUDIT": 137,
-    "INSUFFICIENT DATA": 164,
-    "NOT IN SIZE/PRICE DISCOVERY COHORT": 879
+    "NEGATIVE BOOK EQUITY — DEBT RATIO NOT COMPARABLE": 262,
+    "ANOMALOUS CASH CONVERSION — MANUAL DATA AUDIT": 154,
+    "CORPORATE ACTION / WHEN-ISSUED — VERIFY ECONOMIC HISTORY": 2,
+    "ANOMALOUS FCF YIELD — MANUAL DATA AUDIT": 113,
+    "INSUFFICIENT DATA": 125,
+    "NOT IN SIZE/PRICE DISCOVERY COHORT": 744
   },
   "universe_exhaustive": false,
   "fully_verified_investments": null,
@@ -38,74 +41,6 @@
     "Source fundamentals are not issuer-audited by this workflow"
   ],
   "top20_sector_diversified": [
-    {
-      "ticker": "SNDK",
-      "name": "Sandisk Corporation - Common Stock When-Issued",
-      "exchange": "NASDAQ",
-      "sector": "Technology",
-      "industry": "Hardware, Equipment & Parts",
-      "metrics": {
-        "price": 1075.08,
-        "mktCap": 155378689205.0,
-        "pe": 15.92,
-        "roce": 73.35,
-        "opMargin": 61.31,
-        "freeCashFlow": 11494000000.0,
-        "salesGrowth3y": 49.29,
-        "debtToEquity": 0.02,
-        "profitAfterTax": 11433.0,
-        "avgVolume": 12231246.0,
-        "salesGrowth": 175.3,
-        "sales": 20248.0,
-        "currentRatio": 2.29,
-        "fcf_yield": 7.4,
-        "fcf_cash_conversion": 1.01
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 90.5,
-      "sec_crosscheck": {
-        "cik": "2023554",
-        "latest_annual": "2026-08-17",
-        "sec_company": "Sandisk Corp",
-        "sec_exchange": "Nasdaq"
-      }
-    },
-    {
-      "ticker": "BKNG",
-      "name": "Booking Holdings Inc.",
-      "exchange": "NASDAQ",
-      "sector": "Consumer Cyclical",
-      "industry": "Travel Services",
-      "metrics": {
-        "price": 153.75,
-        "mktCap": 115524828750.0,
-        "pe": 18.2,
-        "roce": 73.87,
-        "opMargin": 34.48,
-        "freeCashFlow": 9539000000.0,
-        "salesGrowth3y": 16.35,
-        "debtToEquity": -3.46,
-        "profitAfterTax": 5404.0,
-        "avgVolume": 7176602.0,
-        "salesGrowth": 13.39,
-        "sales": 26917.0,
-        "currentRatio": 1.33,
-        "fcf_yield": 8.26,
-        "fcf_cash_conversion": 1.77
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 88.4,
-      "sec_crosscheck": {
-        "cik": "1075531",
-        "latest_annual": "2026-02-18",
-        "sec_company": "Booking Holdings Inc.",
-        "sec_exchange": "Nasdaq"
-      }
-    },
     {
       "ticker": "ADBE",
       "name": "Adobe Inc.",
@@ -137,43 +72,6 @@
         "cik": "796343",
         "latest_annual": "2026-01-15",
         "sec_company": "ADOBE INC.",
-        "sec_exchange": "Nasdaq"
-      }
-    },
-    {
-      "ticker": "MU",
-      "name": "Micron Technology, Inc.",
-      "exchange": "NASDAQ",
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "metrics": {
-        "price": 833.59,
-        "mktCap": 943140397800.0,
-        "pe": 11.65,
-        "roce": 58.99,
-        "opMargin": 74.59,
-        "freeCashFlow": 26172000000.0,
-        "salesGrowth3y": 104.65,
-        "debtToEquity": 0.04,
-        "profitAfterTax": 84969.0,
-        "avgVolume": 35936066.0,
-        "salesGrowth": 256.33,
-        "sales": 133188.0,
-        "currentRatio": 3.31,
-        "fcf_yield": 2.77,
-        "fcf_cash_conversion": 0.31
-      },
-      "critical_data_count": 9,
-      "warnings": [
-        "growth/cyclical extreme",
-        "cash-to-profit conversion atypical"
-      ],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 86.0,
-      "sec_crosscheck": {
-        "cik": "723125",
-        "latest_annual": "2026-10-09",
-        "sec_company": "MICRON TECHNOLOGY INC",
         "sec_exchange": "Nasdaq"
       }
     },
@@ -386,6 +284,74 @@
       }
     },
     {
+      "ticker": "DAVE",
+      "name": "Dave Inc.",
+      "exchange": "NASDAQ",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "metrics": {
+        "price": 321.88,
+        "mktCap": 4105742271.0,
+        "pe": 20.93,
+        "roce": 49.61,
+        "opMargin": 34.52,
+        "freeCashFlow": 326000000.0,
+        "salesGrowth3y": 39.29,
+        "debtToEquity": 1.29,
+        "profitAfterTax": 196.0,
+        "avgVolume": 429210.0,
+        "salesGrowth": 59.65,
+        "sales": 554.0,
+        "currentRatio": 4.22,
+        "fcf_yield": 7.94,
+        "fcf_cash_conversion": 1.66
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 82.8,
+      "sec_crosscheck": {
+        "cik": "1841408",
+        "latest_annual": "2026-03-02",
+        "sec_company": "Dave Inc./DE",
+        "sec_exchange": "Nasdaq"
+      }
+    },
+    {
+      "ticker": "APP",
+      "name": "Applovin Corporation",
+      "exchange": "NASDAQ",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "metrics": {
+        "price": 228.85,
+        "mktCap": 76879756177.0,
+        "pe": 19.5,
+        "roce": 75.39,
+        "opMargin": 77.44,
+        "freeCashFlow": 4498000000.0,
+        "salesGrowth3y": 24.84,
+        "debtToEquity": 1.11,
+        "profitAfterTax": 3334.0,
+        "avgVolume": 5354411.0,
+        "salesGrowth": 70.01,
+        "sales": 5481.0,
+        "currentRatio": 4.3,
+        "fcf_yield": 5.85,
+        "fcf_cash_conversion": 1.35
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 81.9,
+      "sec_crosscheck": {
+        "cik": "1751008",
+        "latest_annual": "2026-02-19",
+        "sec_company": "AppLovin Corp",
+        "sec_exchange": "Nasdaq"
+      }
+    },
+    {
       "ticker": "EVER",
       "name": "EverQuote, Inc.",
       "exchange": "NASDAQ",
@@ -416,40 +382,6 @@
         "cik": "1640428",
         "latest_annual": "2026-02-24",
         "sec_company": "EverQuote, Inc.",
-        "sec_exchange": "Nasdaq"
-      }
-    },
-    {
-      "ticker": "MTCH",
-      "name": "Match Group, Inc.",
-      "exchange": "NASDAQ",
-      "sector": "Communication Services",
-      "industry": "Internet Content & Information",
-      "metrics": {
-        "price": 42.07,
-        "mktCap": 9657210570.0,
-        "pe": 14.11,
-        "roce": 28.37,
-        "opMargin": 28.15,
-        "freeCashFlow": 1142000000.0,
-        "salesGrowth3y": 3.02,
-        "debtToEquity": -14.98,
-        "profitAfterTax": 613.0,
-        "avgVolume": 3340340.0,
-        "salesGrowth": 0.23,
-        "sales": 3487.0,
-        "currentRatio": 1.72,
-        "fcf_yield": 11.83,
-        "fcf_cash_conversion": 1.86
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 80.0,
-      "sec_crosscheck": {
-        "cik": "891103",
-        "latest_annual": "2026-02-26",
-        "sec_company": "Match Group, Inc.",
         "sec_exchange": "Nasdaq"
       }
     },
@@ -486,35 +418,6 @@
         "sec_company": "RESMED INC",
         "sec_exchange": "NYSE"
       }
-    },
-    {
-      "ticker": "MO",
-      "name": "Altria Group, Inc.",
-      "exchange": "NYSE",
-      "sector": "Consumer Defensive",
-      "industry": "Tobacco",
-      "metrics": {
-        "price": 77.17,
-        "mktCap": 128367664800.0,
-        "pe": 15.47,
-        "roce": 47.87,
-        "opMargin": 58.05,
-        "freeCashFlow": 8303000000.0,
-        "salesGrowth3y": -0.89,
-        "debtToEquity": -9.21,
-        "profitAfterTax": 6947.0,
-        "avgVolume": 8381189.0,
-        "salesGrowth": -1.49,
-        "sales": 20139.0,
-        "currentRatio": 0.44,
-        "fcf_yield": 6.47,
-        "fcf_cash_conversion": 1.2
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 77.1,
-      "sec_crosscheck": null
     },
     {
       "ticker": "SGHC",
@@ -585,74 +488,6 @@
       }
     },
     {
-      "ticker": "WING",
-      "name": "Wingstop Inc.",
-      "exchange": "NASDAQ",
-      "sector": "Consumer Cyclical",
-      "industry": "Restaurants",
-      "metrics": {
-        "price": 163.04,
-        "mktCap": 4410742641.0,
-        "pe": 32.38,
-        "roce": 34.73,
-        "opMargin": 28.27,
-        "freeCashFlow": 129000000.0,
-        "salesGrowth3y": 24.87,
-        "debtToEquity": -1.65,
-        "profitAfterTax": 174.0,
-        "avgVolume": 1254238.0,
-        "salesGrowth": 11.34,
-        "sales": 697.0,
-        "currentRatio": 2.12,
-        "fcf_yield": 2.92,
-        "fcf_cash_conversion": 0.74
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 75.0,
-      "sec_crosscheck": {
-        "cik": "1636222",
-        "latest_annual": "2026-02-18",
-        "sec_company": "Wingstop Inc.",
-        "sec_exchange": "Nasdaq"
-      }
-    },
-    {
-      "ticker": "PM",
-      "name": "Philip Morris International Inc",
-      "exchange": "NYSE",
-      "sector": "Consumer Defensive",
-      "industry": "Tobacco",
-      "metrics": {
-        "price": 208.29,
-        "mktCap": 324643593209.0,
-        "pe": 29.69,
-        "roce": 40.12,
-        "opMargin": 38.62,
-        "freeCashFlow": 12722000000.0,
-        "salesGrowth3y": 8.57,
-        "debtToEquity": -5.99,
-        "profitAfterTax": 11348.0,
-        "avgVolume": 4818327.0,
-        "salesGrowth": 7.31,
-        "sales": 40648.0,
-        "currentRatio": 1.02,
-        "fcf_yield": 3.92,
-        "fcf_cash_conversion": 1.12
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 74.8,
-      "sec_crosscheck": {
-        "cik": "1413329",
-        "latest_annual": "2026-02-06",
-        "sec_company": "Philip Morris International Inc.",
-        "sec_exchange": "NYSE"
-      }
-    },
-    {
       "ticker": "LOPE",
       "name": "Grand Canyon Education, Inc.",
       "exchange": "NASDAQ",
@@ -719,77 +554,179 @@
         "sec_company": "ARGAN INC",
         "sec_exchange": "NYSE"
       }
+    },
+    {
+      "ticker": "PXED",
+      "name": "Phoenix Education Partners, Inc.",
+      "exchange": "NYSE",
+      "sector": "Consumer Defensive",
+      "industry": "Education & Training Services",
+      "metrics": {
+        "price": 23.91,
+        "mktCap": 861892760.0,
+        "pe": 10.61,
+        "roce": 31.62,
+        "opMargin": 13.11,
+        "freeCashFlow": 132000000.0,
+        "salesGrowth3y": 6.02,
+        "debtToEquity": 0.2,
+        "profitAfterTax": 134.0,
+        "avgVolume": 109532.0,
+        "salesGrowth": 6.0,
+        "sales": 1007.0,
+        "currentRatio": 1.92,
+        "fcf_yield": 15.32,
+        "fcf_cash_conversion": 0.99
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 74.1,
+      "sec_crosscheck": {
+        "cik": "1600222",
+        "latest_annual": "2026-11-03",
+        "sec_company": "Phoenix Education Partners, Inc.",
+        "sec_exchange": "NYSE"
+      }
+    },
+    {
+      "ticker": "LULU",
+      "name": "lululemon athletica inc.",
+      "exchange": "NASDAQ",
+      "sector": "Consumer Cyclical",
+      "industry": "Apparel - Retail",
+      "metrics": {
+        "price": 107.83,
+        "mktCap": 12489515639.0,
+        "pe": 8.14,
+        "roce": 29.48,
+        "opMargin": 17.76,
+        "freeCashFlow": 922000000.0,
+        "salesGrowth3y": 11.03,
+        "debtToEquity": 0.45,
+        "profitAfterTax": 1579.0,
+        "avgVolume": 4424369.0,
+        "salesGrowth": 4.86,
+        "sales": 11103.0,
+        "currentRatio": 2.19,
+        "fcf_yield": 7.38,
+        "fcf_cash_conversion": 0.58
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 73.4,
+      "sec_crosscheck": {
+        "cik": "1397187",
+        "latest_annual": "2026-03-17",
+        "sec_company": "lululemon athletica inc.",
+        "sec_exchange": "Nasdaq"
+      }
+    },
+    {
+      "ticker": "TTD",
+      "name": "The Trade Desk, Inc.",
+      "exchange": "NASDAQ",
+      "sector": "Communication Services",
+      "industry": "Advertising Agencies",
+      "metrics": {
+        "price": 12.55,
+        "mktCap": 5933578367.0,
+        "pe": 15.48,
+        "roce": 19.74,
+        "opMargin": 19.61,
+        "freeCashFlow": 860000000.0,
+        "salesGrowth3y": 22.43,
+        "debtToEquity": 0.17,
+        "profitAfterTax": 443.0,
+        "avgVolume": 21793379.0,
+        "salesGrowth": 18.45,
+        "sales": 2896.0,
+        "currentRatio": 1.72,
+        "fcf_yield": 14.49,
+        "fcf_cash_conversion": 1.94
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 73.1,
+      "sec_crosscheck": {
+        "cik": "1671933",
+        "latest_annual": "2026-02-27",
+        "sec_company": "Trade Desk, Inc.",
+        "sec_exchange": "Nasdaq"
+      }
+    },
+    {
+      "ticker": "SBC",
+      "name": "SBC Medical Group Holdings Incorporated",
+      "exchange": "NASDAQ",
+      "sector": "Industrials",
+      "industry": "Consulting Services",
+      "metrics": {
+        "price": 5.31,
+        "mktCap": 546117305.0,
+        "pe": 11.36,
+        "roce": 19.93,
+        "opMargin": 37.34,
+        "freeCashFlow": 75000000.0,
+        "salesGrowth3y": 0.0,
+        "debtToEquity": 0.18,
+        "profitAfterTax": 51.0,
+        "avgVolume": 165046.0,
+        "salesGrowth": -15.12,
+        "sales": 174.0,
+        "currentRatio": 3.31,
+        "fcf_yield": 13.73,
+        "fcf_cash_conversion": 1.47
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 72.9,
+      "sec_crosscheck": {
+        "cik": "1930313",
+        "latest_annual": "2026-04-30",
+        "sec_company": "SBC Medical Group Holdings Inc",
+        "sec_exchange": "Nasdaq"
+      }
+    },
+    {
+      "ticker": "BWLP",
+      "name": "BW LPG Limited",
+      "exchange": "NYSE",
+      "sector": "Industrials",
+      "industry": "Marine Shipping",
+      "metrics": {
+        "price": 23.47,
+        "mktCap": 3563088756.0,
+        "pe": 8.91,
+        "roce": 19.93,
+        "opMargin": 15.5,
+        "freeCashFlow": 599000000.0,
+        "salesGrowth3y": 34.13,
+        "debtToEquity": 0.49,
+        "profitAfterTax": 249.0,
+        "avgVolume": 409210.0,
+        "salesGrowth": 9.54,
+        "sales": 3687.0,
+        "currentRatio": 1.44,
+        "fcf_yield": 16.81,
+        "fcf_cash_conversion": 2.41
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 71.2,
+      "sec_crosscheck": {
+        "cik": "1649313",
+        "latest_annual": "2026-03-31",
+        "sec_company": "BW LPG Ltd",
+        "sec_exchange": "NYSE"
+      }
     }
   ],
   "top50_unrestricted": [
-    {
-      "ticker": "SNDK",
-      "name": "Sandisk Corporation - Common Stock When-Issued",
-      "exchange": "NASDAQ",
-      "sector": "Technology",
-      "industry": "Hardware, Equipment & Parts",
-      "metrics": {
-        "price": 1075.08,
-        "mktCap": 155378689205.0,
-        "pe": 15.92,
-        "roce": 73.35,
-        "opMargin": 61.31,
-        "freeCashFlow": 11494000000.0,
-        "salesGrowth3y": 49.29,
-        "debtToEquity": 0.02,
-        "profitAfterTax": 11433.0,
-        "avgVolume": 12231246.0,
-        "salesGrowth": 175.3,
-        "sales": 20248.0,
-        "currentRatio": 2.29,
-        "fcf_yield": 7.4,
-        "fcf_cash_conversion": 1.01
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 90.5,
-      "sec_crosscheck": {
-        "cik": "2023554",
-        "latest_annual": "2026-08-17",
-        "sec_company": "Sandisk Corp",
-        "sec_exchange": "Nasdaq"
-      }
-    },
-    {
-      "ticker": "BKNG",
-      "name": "Booking Holdings Inc.",
-      "exchange": "NASDAQ",
-      "sector": "Consumer Cyclical",
-      "industry": "Travel Services",
-      "metrics": {
-        "price": 153.75,
-        "mktCap": 115524828750.0,
-        "pe": 18.2,
-        "roce": 73.87,
-        "opMargin": 34.48,
-        "freeCashFlow": 9539000000.0,
-        "salesGrowth3y": 16.35,
-        "debtToEquity": -3.46,
-        "profitAfterTax": 5404.0,
-        "avgVolume": 7176602.0,
-        "salesGrowth": 13.39,
-        "sales": 26917.0,
-        "currentRatio": 1.33,
-        "fcf_yield": 8.26,
-        "fcf_cash_conversion": 1.77
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 88.4,
-      "sec_crosscheck": {
-        "cik": "1075531",
-        "latest_annual": "2026-02-18",
-        "sec_company": "Booking Holdings Inc.",
-        "sec_exchange": "Nasdaq"
-      }
-    },
     {
       "ticker": "ADBE",
       "name": "Adobe Inc.",
@@ -821,43 +758,6 @@
         "cik": "796343",
         "latest_annual": "2026-01-15",
         "sec_company": "ADOBE INC.",
-        "sec_exchange": "Nasdaq"
-      }
-    },
-    {
-      "ticker": "MU",
-      "name": "Micron Technology, Inc.",
-      "exchange": "NASDAQ",
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "metrics": {
-        "price": 833.59,
-        "mktCap": 943140397800.0,
-        "pe": 11.65,
-        "roce": 58.99,
-        "opMargin": 74.59,
-        "freeCashFlow": 26172000000.0,
-        "salesGrowth3y": 104.65,
-        "debtToEquity": 0.04,
-        "profitAfterTax": 84969.0,
-        "avgVolume": 35936066.0,
-        "salesGrowth": 256.33,
-        "sales": 133188.0,
-        "currentRatio": 3.31,
-        "fcf_yield": 2.77,
-        "fcf_cash_conversion": 0.31
-      },
-      "critical_data_count": 9,
-      "warnings": [
-        "growth/cyclical extreme",
-        "cash-to-profit conversion atypical"
-      ],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 86.0,
-      "sec_crosscheck": {
-        "cik": "723125",
-        "latest_annual": "2026-10-09",
-        "sec_company": "MICRON TECHNOLOGY INC",
         "sec_exchange": "Nasdaq"
       }
     },
@@ -1002,42 +902,6 @@
       }
     },
     {
-      "ticker": "FICO",
-      "name": "Fair Isaac Corporation",
-      "exchange": "NYSE",
-      "sector": "Technology",
-      "industry": "Software - Application",
-      "metrics": {
-        "price": 724.19,
-        "mktCap": 15640791291.0,
-        "pe": 20.06,
-        "roce": 95.68,
-        "opMargin": 51.65,
-        "freeCashFlow": 996000000.0,
-        "salesGrowth3y": 13.08,
-        "debtToEquity": -1.37,
-        "profitAfterTax": 652.0,
-        "avgVolume": 590140.0,
-        "salesGrowth": 15.89,
-        "sales": 1991.0,
-        "currentRatio": 1.18,
-        "fcf_yield": 6.37,
-        "fcf_cash_conversion": 1.53
-      },
-      "critical_data_count": 9,
-      "warnings": [
-        "ROCE needs reconciliation"
-      ],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 83.8,
-      "sec_crosscheck": {
-        "cik": "814547",
-        "latest_annual": "2026-11-06",
-        "sec_company": "FAIR ISAAC CORP",
-        "sec_exchange": "NYSE"
-      }
-    },
-    {
       "ticker": "DECK",
       "name": "Deckers Outdoor Corporation",
       "exchange": "NYSE",
@@ -1103,40 +967,6 @@
         "latest_annual": "2026-02-10",
         "sec_company": "EXELIXIS, INC.",
         "sec_exchange": "Nasdaq"
-      }
-    },
-    {
-      "ticker": "GRND",
-      "name": "Grindr Inc.",
-      "exchange": "NYSE",
-      "sector": "Technology",
-      "industry": "Software - Application",
-      "metrics": {
-        "price": 12.77,
-        "mktCap": 2219694170.0,
-        "pe": 24.94,
-        "roce": 40.19,
-        "opMargin": 29.83,
-        "freeCashFlow": 148000000.0,
-        "salesGrowth3y": 31.16,
-        "debtToEquity": -33.19,
-        "profitAfterTax": 95.0,
-        "avgVolume": 1662671.0,
-        "salesGrowth": 27.54,
-        "sales": 440.0,
-        "currentRatio": 1.1,
-        "fcf_yield": 6.67,
-        "fcf_cash_conversion": 1.56
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 83.2,
-      "sec_crosscheck": {
-        "cik": "1820144",
-        "latest_annual": "2026-03-02",
-        "sec_company": "Grindr Inc.",
-        "sec_exchange": "NYSE"
       }
     },
     {
@@ -1276,76 +1106,6 @@
       }
     },
     {
-      "ticker": "NVDA",
-      "name": "NVIDIA Corporation",
-      "exchange": "NASDAQ",
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "metrics": {
-        "price": 202.06,
-        "mktCap": 4869646000000.0,
-        "pe": 26.54,
-        "roce": 71.26,
-        "opMargin": 65.21,
-        "freeCashFlow": 127006000000.0,
-        "salesGrowth3y": 100.05,
-        "debtToEquity": 0.17,
-        "profitAfterTax": 120067.0,
-        "avgVolume": 123167052.0,
-        "salesGrowth": 65.47,
-        "sales": 215938.0,
-        "currentRatio": 4.59,
-        "fcf_yield": 2.61,
-        "fcf_cash_conversion": 1.06
-      },
-      "critical_data_count": 9,
-      "warnings": [
-        "growth/cyclical extreme"
-      ],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 80.2,
-      "sec_crosscheck": {
-        "cik": "1045810",
-        "latest_annual": "2026-02-25",
-        "sec_company": "NVIDIA CORP",
-        "sec_exchange": "Nasdaq"
-      }
-    },
-    {
-      "ticker": "MTCH",
-      "name": "Match Group, Inc.",
-      "exchange": "NASDAQ",
-      "sector": "Communication Services",
-      "industry": "Internet Content & Information",
-      "metrics": {
-        "price": 42.07,
-        "mktCap": 9657210570.0,
-        "pe": 14.11,
-        "roce": 28.37,
-        "opMargin": 28.15,
-        "freeCashFlow": 1142000000.0,
-        "salesGrowth3y": 3.02,
-        "debtToEquity": -14.98,
-        "profitAfterTax": 613.0,
-        "avgVolume": 3340340.0,
-        "salesGrowth": 0.23,
-        "sales": 3487.0,
-        "currentRatio": 1.72,
-        "fcf_yield": 11.83,
-        "fcf_cash_conversion": 1.86
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 80.0,
-      "sec_crosscheck": {
-        "cik": "891103",
-        "latest_annual": "2026-02-26",
-        "sec_company": "Match Group, Inc.",
-        "sec_exchange": "Nasdaq"
-      }
-    },
-    {
       "ticker": "RMD",
       "name": "ResMed Inc.",
       "exchange": "NYSE",
@@ -1377,40 +1137,6 @@
         "latest_annual": "2026-08-13",
         "sec_company": "RESMED INC",
         "sec_exchange": "NYSE"
-      }
-    },
-    {
-      "ticker": "DBX",
-      "name": "Dropbox, Inc.",
-      "exchange": "NASDAQ",
-      "sector": "Technology",
-      "industry": "Software - Infrastructure",
-      "metrics": {
-        "price": 35.64,
-        "mktCap": 7749654906.0,
-        "pe": 20.06,
-        "roce": 40.7,
-        "opMargin": 26.49,
-        "freeCashFlow": 957000000.0,
-        "salesGrowth3y": 2.73,
-        "debtToEquity": -1.82,
-        "profitAfterTax": 508.0,
-        "avgVolume": 3905647.0,
-        "salesGrowth": -1.06,
-        "sales": 2521.0,
-        "currentRatio": 1.07,
-        "fcf_yield": 12.35,
-        "fcf_cash_conversion": 1.88
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 78.9,
-      "sec_crosscheck": {
-        "cik": "1467623",
-        "latest_annual": "2026-02-20",
-        "sec_company": "DROPBOX, INC.",
-        "sec_exchange": "Nasdaq"
       }
     },
     {
@@ -1446,35 +1172,6 @@
         "sec_company": "Harmony Biosciences Holdings, Inc.",
         "sec_exchange": "Nasdaq"
       }
-    },
-    {
-      "ticker": "MO",
-      "name": "Altria Group, Inc.",
-      "exchange": "NYSE",
-      "sector": "Consumer Defensive",
-      "industry": "Tobacco",
-      "metrics": {
-        "price": 77.17,
-        "mktCap": 128367664800.0,
-        "pe": 15.47,
-        "roce": 47.87,
-        "opMargin": 58.05,
-        "freeCashFlow": 8303000000.0,
-        "salesGrowth3y": -0.89,
-        "debtToEquity": -9.21,
-        "profitAfterTax": 6947.0,
-        "avgVolume": 8381189.0,
-        "salesGrowth": -1.49,
-        "sales": 20139.0,
-        "currentRatio": 0.44,
-        "fcf_yield": 6.47,
-        "fcf_cash_conversion": 1.2
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 77.1,
-      "sec_crosscheck": null
     },
     {
       "ticker": "SGHC",
@@ -1579,108 +1276,6 @@
       }
     },
     {
-      "ticker": "VRSK",
-      "name": "Verisk Analytics, Inc.",
-      "exchange": "NASDAQ",
-      "sector": "Technology",
-      "industry": "Software - Services",
-      "metrics": {
-        "price": 201.5,
-        "mktCap": 26226436418.0,
-        "pe": 28.89,
-        "roce": 41.46,
-        "opMargin": 44.68,
-        "freeCashFlow": 1236000000.0,
-        "salesGrowth3y": 7.16,
-        "debtToEquity": -3.88,
-        "profitAfterTax": 908.0,
-        "avgVolume": 1940619.0,
-        "salesGrowth": 6.63,
-        "sales": 3073.0,
-        "currentRatio": 1.01,
-        "fcf_yield": 4.71,
-        "fcf_cash_conversion": 1.36
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 75.2,
-      "sec_crosscheck": {
-        "cik": "1442145",
-        "latest_annual": "2026-02-18",
-        "sec_company": "Verisk Analytics, Inc.",
-        "sec_exchange": "Nasdaq"
-      }
-    },
-    {
-      "ticker": "WING",
-      "name": "Wingstop Inc.",
-      "exchange": "NASDAQ",
-      "sector": "Consumer Cyclical",
-      "industry": "Restaurants",
-      "metrics": {
-        "price": 163.04,
-        "mktCap": 4410742641.0,
-        "pe": 32.38,
-        "roce": 34.73,
-        "opMargin": 28.27,
-        "freeCashFlow": 129000000.0,
-        "salesGrowth3y": 24.87,
-        "debtToEquity": -1.65,
-        "profitAfterTax": 174.0,
-        "avgVolume": 1254238.0,
-        "salesGrowth": 11.34,
-        "sales": 697.0,
-        "currentRatio": 2.12,
-        "fcf_yield": 2.92,
-        "fcf_cash_conversion": 0.74
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 75.0,
-      "sec_crosscheck": {
-        "cik": "1636222",
-        "latest_annual": "2026-02-18",
-        "sec_company": "Wingstop Inc.",
-        "sec_exchange": "Nasdaq"
-      }
-    },
-    {
-      "ticker": "PM",
-      "name": "Philip Morris International Inc",
-      "exchange": "NYSE",
-      "sector": "Consumer Defensive",
-      "industry": "Tobacco",
-      "metrics": {
-        "price": 208.29,
-        "mktCap": 324643593209.0,
-        "pe": 29.69,
-        "roce": 40.12,
-        "opMargin": 38.62,
-        "freeCashFlow": 12722000000.0,
-        "salesGrowth3y": 8.57,
-        "debtToEquity": -5.99,
-        "profitAfterTax": 11348.0,
-        "avgVolume": 4818327.0,
-        "salesGrowth": 7.31,
-        "sales": 40648.0,
-        "currentRatio": 1.02,
-        "fcf_yield": 3.92,
-        "fcf_cash_conversion": 1.12
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 74.8,
-      "sec_crosscheck": {
-        "cik": "1413329",
-        "latest_annual": "2026-02-06",
-        "sec_company": "Philip Morris International Inc.",
-        "sec_exchange": "NYSE"
-      }
-    },
-    {
       "ticker": "LOPE",
       "name": "Grand Canyon Education, Inc.",
       "exchange": "NASDAQ",
@@ -1713,35 +1308,6 @@
         "sec_company": "Grand Canyon Education, Inc.",
         "sec_exchange": "Nasdaq"
       }
-    },
-    {
-      "ticker": "YUM",
-      "name": "Yum! Brands, Inc.",
-      "exchange": "NYSE",
-      "sector": "Consumer Cyclical",
-      "industry": "Restaurants",
-      "metrics": {
-        "price": 157.47,
-        "mktCap": 42973733855.0,
-        "pe": 18.48,
-        "roce": 61.57,
-        "opMargin": 30.99,
-        "freeCashFlow": 1679000000.0,
-        "salesGrowth3y": 6.28,
-        "debtToEquity": -1.73,
-        "profitAfterTax": 1559.0,
-        "avgVolume": 2502130.0,
-        "salesGrowth": 8.81,
-        "sales": 8214.0,
-        "currentRatio": 0.59,
-        "fcf_yield": 3.91,
-        "fcf_cash_conversion": 1.08
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 74.5,
-      "sec_crosscheck": null
     },
     {
       "ticker": "AGX",
@@ -1846,40 +1412,6 @@
       }
     },
     {
-      "ticker": "LVS",
-      "name": "Las Vegas Sands Corp.",
-      "exchange": "NYSE",
-      "sector": "Consumer Cyclical",
-      "industry": "Gambling, Resorts & Casinos",
-      "metrics": {
-        "price": 38.2,
-        "mktCap": 24742185229.0,
-        "pe": 15.09,
-        "roce": 20.46,
-        "opMargin": 22.25,
-        "freeCashFlow": 2416000000.0,
-        "salesGrowth3y": 46.86,
-        "debtToEquity": -44.9,
-        "profitAfterTax": 1627.0,
-        "avgVolume": 5466677.0,
-        "salesGrowth": 15.22,
-        "sales": 13017.0,
-        "currentRatio": 0.83,
-        "fcf_yield": 9.76,
-        "fcf_cash_conversion": 1.48
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 73.9,
-      "sec_crosscheck": {
-        "cik": "1300514",
-        "latest_annual": "2026-02-06",
-        "sec_company": "LAS VEGAS SANDS CORP",
-        "sec_exchange": "NYSE"
-      }
-    },
-    {
       "ticker": "LULU",
       "name": "lululemon athletica inc.",
       "exchange": "NASDAQ",
@@ -1944,42 +1476,6 @@
         "cik": "896878",
         "latest_annual": "2026-09-09",
         "sec_company": "INTUIT INC.",
-        "sec_exchange": "Nasdaq"
-      }
-    },
-    {
-      "ticker": "WINA",
-      "name": "Winmark Corporation",
-      "exchange": "NASDAQ",
-      "sector": "Consumer Cyclical",
-      "industry": "Apparel - Footwear & Accessories",
-      "metrics": {
-        "price": 283.16,
-        "mktCap": 1007821656.0,
-        "pe": 24.46,
-        "roce": 157.34,
-        "opMargin": 59.7,
-        "freeCashFlow": 45000000.0,
-        "salesGrowth3y": 2.02,
-        "debtToEquity": -1.67,
-        "profitAfterTax": 42.0,
-        "avgVolume": 67060.0,
-        "salesGrowth": 6.17,
-        "sales": 86.0,
-        "currentRatio": 3.2,
-        "fcf_yield": 4.47,
-        "fcf_cash_conversion": 1.07
-      },
-      "critical_data_count": 9,
-      "warnings": [
-        "ROCE needs reconciliation"
-      ],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 73.3,
-      "sec_crosscheck": {
-        "cik": "908315",
-        "latest_annual": "2026-02-25",
-        "sec_company": "WINMARK CORP",
         "sec_exchange": "Nasdaq"
       }
     },
@@ -2151,40 +1647,6 @@
         "latest_annual": "2026-07-29",
         "sec_company": "MICROSOFT CORP",
         "sec_exchange": "Nasdaq"
-      }
-    },
-    {
-      "ticker": "IT",
-      "name": "Gartner, Inc.",
-      "exchange": "NYSE",
-      "sector": "Technology",
-      "industry": "Information Technology Services",
-      "metrics": {
-        "price": 235.49,
-        "mktCap": 14871210606.0,
-        "pe": 19.39,
-        "roce": 31.61,
-        "opMargin": 17.26,
-        "freeCashFlow": 1289000000.0,
-        "salesGrowth3y": 5.86,
-        "debtToEquity": -17.8,
-        "profitAfterTax": 729.0,
-        "avgVolume": 1238123.0,
-        "salesGrowth": 3.67,
-        "sales": 6497.0,
-        "currentRatio": 0.88,
-        "fcf_yield": 8.67,
-        "fcf_cash_conversion": 1.77
-      },
-      "critical_data_count": 9,
-      "warnings": [],
-      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
-      "discovery_score": 70.7,
-      "sec_crosscheck": {
-        "cik": "749251",
-        "latest_annual": "2026-02-12",
-        "sec_company": "GARTNER INC",
-        "sec_exchange": "NYSE"
       }
     },
     {
@@ -2425,6 +1887,545 @@
         "latest_annual": "2025-11-24",
         "sec_company": "Blue Bird Corp",
         "sec_exchange": "Nasdaq"
+      }
+    },
+    {
+      "ticker": "LAUR",
+      "name": "Laureate Education, Inc.",
+      "exchange": "NASDAQ",
+      "sector": "Consumer Defensive",
+      "industry": "Education & Training Services",
+      "metrics": {
+        "price": 34.81,
+        "mktCap": 4725318260.0,
+        "pe": 12.75,
+        "roce": 24.87,
+        "opMargin": 25.82,
+        "freeCashFlow": 288000000.0,
+        "salesGrowth3y": 11.07,
+        "debtToEquity": 0.67,
+        "profitAfterTax": 282.0,
+        "avgVolume": 1108428.0,
+        "salesGrowth": 8.62,
+        "sales": 1702.0,
+        "currentRatio": 0.71,
+        "fcf_yield": 6.09,
+        "fcf_cash_conversion": 1.02
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 69.0,
+      "sec_crosscheck": {
+        "cik": "912766",
+        "latest_annual": "2026-02-19",
+        "sec_company": "LAUREATE EDUCATION, INC.",
+        "sec_exchange": "Nasdaq"
+      }
+    },
+    {
+      "ticker": "PTC",
+      "name": "PTC Inc.",
+      "exchange": "NASDAQ",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "metrics": {
+        "price": 194.31,
+        "mktCap": 21108328223.0,
+        "pe": 18.78,
+        "roce": 21.58,
+        "opMargin": 37.81,
+        "freeCashFlow": 934000000.0,
+        "salesGrowth3y": 12.32,
+        "debtToEquity": 0.46,
+        "profitAfterTax": 734.0,
+        "avgVolume": 2215913.0,
+        "salesGrowth": 19.19,
+        "sales": 2739.0,
+        "currentRatio": 1.03,
+        "fcf_yield": 4.42,
+        "fcf_cash_conversion": 1.27
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 68.9,
+      "sec_crosscheck": {
+        "cik": "857005",
+        "latest_annual": "2025-11-21",
+        "sec_company": "PTC INC.",
+        "sec_exchange": "Nasdaq"
+      }
+    },
+    {
+      "ticker": "AWI",
+      "name": "Armstrong World Industries Inc",
+      "exchange": "NYSE",
+      "sector": "Industrials",
+      "industry": "Construction",
+      "metrics": {
+        "price": 171.1,
+        "mktCap": 7157780290.0,
+        "pe": 22.31,
+        "roce": 28.7,
+        "opMargin": 29.23,
+        "freeCashFlow": 255000000.0,
+        "salesGrowth3y": 9.55,
+        "debtToEquity": 0.66,
+        "profitAfterTax": 309.0,
+        "avgVolume": 415909.0,
+        "salesGrowth": 12.1,
+        "sales": 1621.0,
+        "currentRatio": 1.52,
+        "fcf_yield": 3.56,
+        "fcf_cash_conversion": 0.83
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 68.7,
+      "sec_crosscheck": {
+        "cik": "7431",
+        "latest_annual": "2026-02-24",
+        "sec_company": "ARMSTRONG WORLD INDUSTRIES INC",
+        "sec_exchange": "NYSE"
+      }
+    },
+    {
+      "ticker": "PRDO",
+      "name": "Perdoceo Education Corporation",
+      "exchange": "NASDAQ",
+      "sector": "Consumer Defensive",
+      "industry": "Education & Training Services",
+      "metrics": {
+        "price": 29.66,
+        "mktCap": 1856036786.0,
+        "pe": 10.68,
+        "roce": 18.13,
+        "opMargin": 24.56,
+        "freeCashFlow": 218000000.0,
+        "salesGrowth3y": 6.77,
+        "debtToEquity": 0.05,
+        "profitAfterTax": 160.0,
+        "avgVolume": 677487.0,
+        "salesGrowth": 24.23,
+        "sales": 846.0,
+        "currentRatio": 4.69,
+        "fcf_yield": 11.75,
+        "fcf_cash_conversion": 1.36
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 68.4,
+      "sec_crosscheck": {
+        "cik": "1046568",
+        "latest_annual": "2026-02-19",
+        "sec_company": "PERDOCEO EDUCATION Corp",
+        "sec_exchange": "Nasdaq"
+      }
+    },
+    {
+      "ticker": "LRN",
+      "name": "Stride, Inc.",
+      "exchange": "NYSE",
+      "sector": "Consumer Defensive",
+      "industry": "Education & Training Services",
+      "metrics": {
+        "price": 75.71,
+        "mktCap": 3183518509.0,
+        "pe": 9.96,
+        "roce": 21.0,
+        "opMargin": 17.9,
+        "freeCashFlow": 355000000.0,
+        "salesGrowth3y": 11.08,
+        "debtToEquity": 0.33,
+        "profitAfterTax": 338.0,
+        "avgVolume": 869880.0,
+        "salesGrowth": 4.7,
+        "sales": 2518.0,
+        "currentRatio": 5.94,
+        "fcf_yield": 11.15,
+        "fcf_cash_conversion": 1.05
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 68.1,
+      "sec_crosscheck": {
+        "cik": "1157408",
+        "latest_annual": "2026-08-05",
+        "sec_company": "Stride, Inc.",
+        "sec_exchange": "NYSE"
+      }
+    },
+    {
+      "ticker": "PAYC",
+      "name": "Paycom Software, Inc.",
+      "exchange": "NYSE",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "metrics": {
+        "price": 266.04,
+        "mktCap": 11990853519.0,
+        "pe": 28.21,
+        "roce": 33.09,
+        "opMargin": 30.29,
+        "freeCashFlow": 572000000.0,
+        "salesGrowth3y": 14.28,
+        "debtToEquity": 1.72,
+        "profitAfterTax": 453.0,
+        "avgVolume": 774015.0,
+        "salesGrowth": 8.98,
+        "sales": 2052.0,
+        "currentRatio": 1.07,
+        "fcf_yield": 4.77,
+        "fcf_cash_conversion": 1.26
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 68.1,
+      "sec_crosscheck": {
+        "cik": "1590955",
+        "latest_annual": "2026-02-19",
+        "sec_company": "Paycom Software, Inc.",
+        "sec_exchange": "NYSE"
+      }
+    },
+    {
+      "ticker": "BKE",
+      "name": "Buckle, Inc. (The)",
+      "exchange": "NYSE",
+      "sector": "Consumer Cyclical",
+      "industry": "Apparel - Retail",
+      "metrics": {
+        "price": 47.31,
+        "mktCap": 2437053253.0,
+        "pe": 9.8,
+        "roce": 32.07,
+        "opMargin": 20.84,
+        "freeCashFlow": 206000000.0,
+        "salesGrowth3y": -1.18,
+        "debtToEquity": 0.86,
+        "profitAfterTax": 210.0,
+        "avgVolume": 481076.0,
+        "salesGrowth": 6.57,
+        "sales": 1298.0,
+        "currentRatio": 2.08,
+        "fcf_yield": 8.45,
+        "fcf_cash_conversion": 0.98
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 67.5,
+      "sec_crosscheck": {
+        "cik": "885245",
+        "latest_annual": "2026-04-01",
+        "sec_company": "BUCKLE INC",
+        "sec_exchange": "NYSE"
+      }
+    },
+    {
+      "ticker": "LOGI",
+      "name": "Logitech International S.A. - Registered Shares",
+      "exchange": "NASDAQ",
+      "sector": "Technology",
+      "industry": "Computer Hardware",
+      "metrics": {
+        "price": 94.55,
+        "mktCap": 13408943335.0,
+        "pe": 17.23,
+        "roce": 34.72,
+        "opMargin": 17.76,
+        "freeCashFlow": 954000000.0,
+        "salesGrowth3y": 2.32,
+        "debtToEquity": 0.05,
+        "profitAfterTax": 714.0,
+        "avgVolume": 1001172.0,
+        "salesGrowth": 6.74,
+        "sales": 4862.0,
+        "currentRatio": 2.13,
+        "fcf_yield": 7.11,
+        "fcf_cash_conversion": 1.34
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 67.5,
+      "sec_crosscheck": null
+    },
+    {
+      "ticker": "DXCM",
+      "name": "DexCom, Inc.",
+      "exchange": "NASDAQ",
+      "sector": "Healthcare",
+      "industry": "Medical - Devices",
+      "metrics": {
+        "price": 84.76,
+        "mktCap": 31611326760.0,
+        "pe": 30.09,
+        "roce": 27.8,
+        "opMargin": 22.92,
+        "freeCashFlow": 1405000000.0,
+        "salesGrowth3y": 17.01,
+        "debtToEquity": 0.53,
+        "profitAfterTax": 836.0,
+        "avgVolume": 4561584.0,
+        "salesGrowth": 15.6,
+        "sales": 4662.0,
+        "currentRatio": 1.73,
+        "fcf_yield": 4.44,
+        "fcf_cash_conversion": 1.68
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 67.0,
+      "sec_crosscheck": {
+        "cik": "1093557",
+        "latest_annual": "2026-02-12",
+        "sec_company": "DEXCOM INC",
+        "sec_exchange": "Nasdaq"
+      }
+    },
+    {
+      "ticker": "META",
+      "name": "Meta Platforms, Inc.",
+      "exchange": "NASDAQ",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "metrics": {
+        "price": 606.73,
+        "mktCap": 1343585383100.0,
+        "pe": 21.64,
+        "roce": 19.09,
+        "opMargin": 32.86,
+        "freeCashFlow": 40976000000.0,
+        "salesGrowth3y": 19.89,
+        "debtToEquity": 0.41,
+        "profitAfterTax": 60458.0,
+        "avgVolume": 19516088.0,
+        "salesGrowth": 22.17,
+        "sales": 200966.0,
+        "currentRatio": 1.9,
+        "fcf_yield": 3.05,
+        "fcf_cash_conversion": 0.68
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 66.6,
+      "sec_crosscheck": {
+        "cik": "1326801",
+        "latest_annual": "2026-01-29",
+        "sec_company": "Meta Platforms, Inc.",
+        "sec_exchange": "Nasdaq"
+      }
+    },
+    {
+      "ticker": "IESC",
+      "name": "IES Holdings, Inc.",
+      "exchange": "NASDAQ",
+      "sector": "Industrials",
+      "industry": "Engineering & Construction",
+      "metrics": {
+        "price": 196.07,
+        "mktCap": 7897640779.0,
+        "pe": 17.62,
+        "roce": 36.96,
+        "opMargin": 12.37,
+        "freeCashFlow": 228000000.0,
+        "salesGrowth3y": 15.87,
+        "debtToEquity": 0.06,
+        "profitAfterTax": 306.0,
+        "avgVolume": 419316.0,
+        "salesGrowth": 16.89,
+        "sales": 3371.0,
+        "currentRatio": 1.63,
+        "fcf_yield": 2.89,
+        "fcf_cash_conversion": 0.75
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 66.5,
+      "sec_crosscheck": {
+        "cik": "1048268",
+        "latest_annual": "2025-11-21",
+        "sec_company": "IES Holdings, Inc.",
+        "sec_exchange": "Nasdaq"
+      }
+    },
+    {
+      "ticker": "COCO",
+      "name": "The Vita Coco Company, Inc.",
+      "exchange": "NASDAQ",
+      "sector": "Consumer Defensive",
+      "industry": "Beverages - Non-Alcoholic",
+      "metrics": {
+        "price": 58.21,
+        "mktCap": 3321687349.0,
+        "pe": 29.2,
+        "roce": 32.61,
+        "opMargin": 19.1,
+        "freeCashFlow": 125000000.0,
+        "salesGrowth3y": 12.54,
+        "debtToEquity": 0.04,
+        "profitAfterTax": 71.0,
+        "avgVolume": 1210329.0,
+        "salesGrowth": 18.22,
+        "sales": 610.0,
+        "currentRatio": 3.36,
+        "fcf_yield": 3.76,
+        "fcf_cash_conversion": 1.76
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 66.4,
+      "sec_crosscheck": {
+        "cik": "1482981",
+        "latest_annual": "2026-02-18",
+        "sec_company": "Vita Coco Company, Inc.",
+        "sec_exchange": "Nasdaq"
+      }
+    },
+    {
+      "ticker": "EME",
+      "name": "EMCOR Group, Inc.",
+      "exchange": "NYSE",
+      "sector": "Industrials",
+      "industry": "Engineering & Construction",
+      "metrics": {
+        "price": 682.76,
+        "mktCap": 29892601051.0,
+        "pe": 19.93,
+        "roce": 39.08,
+        "opMargin": 10.22,
+        "freeCashFlow": 1482000000.0,
+        "salesGrowth3y": 15.32,
+        "debtToEquity": 0.24,
+        "profitAfterTax": 1273.0,
+        "avgVolume": 414144.0,
+        "salesGrowth": 16.61,
+        "sales": 16986.0,
+        "currentRatio": 1.17,
+        "fcf_yield": 4.96,
+        "fcf_cash_conversion": 1.16
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 65.7,
+      "sec_crosscheck": {
+        "cik": "105634",
+        "latest_annual": "2026-02-26",
+        "sec_company": "EMCOR Group, Inc.",
+        "sec_exchange": "NYSE"
+      }
+    },
+    {
+      "ticker": "TER",
+      "name": "Teradyne, Inc.",
+      "exchange": "NASDAQ",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "metrics": {
+        "price": 261.01,
+        "mktCap": 40806564410.0,
+        "pe": 30.68,
+        "roce": 39.1,
+        "opMargin": 32.11,
+        "freeCashFlow": 1024000000.0,
+        "salesGrowth3y": 0.37,
+        "debtToEquity": 0.04,
+        "profitAfterTax": 554.0,
+        "avgVolume": 3272474.0,
+        "salesGrowth": 13.12,
+        "sales": 3190.0,
+        "currentRatio": 2.08,
+        "fcf_yield": 2.51,
+        "fcf_cash_conversion": 1.85
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 65.7,
+      "sec_crosscheck": {
+        "cik": "97210",
+        "latest_annual": "2026-02-19",
+        "sec_company": "TERADYNE, INC",
+        "sec_exchange": "Nasdaq"
+      }
+    },
+    {
+      "ticker": "CRCT",
+      "name": "Cricut, Inc.",
+      "exchange": "NASDAQ",
+      "sector": "Technology",
+      "industry": "Computer Hardware",
+      "metrics": {
+        "price": 6.04,
+        "mktCap": 1267787774.0,
+        "pe": 15.41,
+        "roce": 27.78,
+        "opMargin": 15.5,
+        "freeCashFlow": 148000000.0,
+        "salesGrowth3y": -7.16,
+        "debtToEquity": 0.03,
+        "profitAfterTax": 77.0,
+        "avgVolume": 678058.0,
+        "salesGrowth": -0.56,
+        "sales": 709.0,
+        "currentRatio": 2.49,
+        "fcf_yield": 11.67,
+        "fcf_cash_conversion": 1.92
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 65.3,
+      "sec_crosscheck": {
+        "cik": "1828962",
+        "latest_annual": "2026-03-06",
+        "sec_company": "Cricut, Inc.",
+        "sec_exchange": "Nasdaq"
+      }
+    },
+    {
+      "ticker": "GRMN",
+      "name": "Garmin Ltd. Common Stock (Switzerland)",
+      "exchange": "NYSE",
+      "sector": "Technology",
+      "industry": "Hardware, Equipment & Parts",
+      "metrics": {
+        "price": 274.29,
+        "mktCap": 52854393288.0,
+        "pe": 26.04,
+        "roce": 23.04,
+        "opMargin": 28.82,
+        "freeCashFlow": 1402000000.0,
+        "salesGrowth3y": 14.24,
+        "debtToEquity": 0.02,
+        "profitAfterTax": 1664.0,
+        "avgVolume": 902324.0,
+        "salesGrowth": 15.07,
+        "sales": 7246.0,
+        "currentRatio": 3.05,
+        "fcf_yield": 2.65,
+        "fcf_cash_conversion": 0.84
+      },
+      "critical_data_count": 9,
+      "warnings": [],
+      "status": "QUANT DISCOVERY — FULL CHECKLIST PENDING",
+      "discovery_score": 65.3,
+      "sec_crosscheck": {
+        "cik": "1121788",
+        "latest_annual": "2026-02-18",
+        "sec_company": "GARMIN LTD",
+        "sec_exchange": "NYSE"
       }
     }
   ]
