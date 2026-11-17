@@ -159,7 +159,7 @@ def main(argv=None):
         records.append({'ticker':ticker,'company':latest['company'],'market':market,
                         'financial_years_observed':len(annual),'roic_years_computed':results,
                         'three_year_roic_complete':results>=3,
-                        'latest_price_comparable':bool(latest['price'] is not None and
+                        'latest_price_currency_matches_reporting_currency':bool(latest['price'] is not None and
                           latest['price_currency']==latest['report_currency']),
                         'annual':annual,'screening_status':'DISCOVERY ONLY / NOT INVESTMENT QUALIFIED'})
     result={'schema_version':1,'market':market,'as_of':dt.datetime.now(dt.timezone.utc).isoformat(),
