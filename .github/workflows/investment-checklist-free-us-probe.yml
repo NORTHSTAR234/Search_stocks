@@ -1,0 +1,50 @@
+name: Investment Checklist free US dataset probe
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/investment-checklist-free-us-probe.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  datasets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Download openly licensed dated US universe
+        run: |
+          mkdir -p data-probe
+          curl -fL --retry 1 --connect-timeout 15 --max-time 90             "https://deltascreener.com/data/us-stock-universe-2026-11-03.csv"             -o data-probe/deltascreener-2026-11-03.csv
+          python - <<'PY'
+          import csv,json,hashlib,os
+          p='data-probe/deltascreener-2026-11-03.csv'
+          with open(p,encoding='utf-8-sig',newline='') as f:
+            r=csv.DictReader(f)
+            headers=r.fieldnames
+            rows=list(r)
+          print('DATASET DeltaScreener as-of 2026-11-03')
+          print('ROWS',len(rows))
+          print('FIELDS',json.dumps(headers))
+          print('SAMPLE (redacted metrics)',json.dumps([{k:row.get(k) for k in headers[:5]} for row in rows[:3]]))
+          print('SHA256',hashlib.sha256(open(p,'rb').read()).hexdigest())
+          if len(rows)<1000 or len(headers)<10: raise RuntimeError('Incomplete or malformed source')
+          PY
+          echo 'Attribution: DeltaScreener "US stock universe dataset", https://deltascreener.com/data ; dated 3 November 2026. Free reuse with attribution.' > data-probe/ATTRIBUTION.txt
+      - name: Download independently published SEC-only snapshot for comparison
+        continue-on-error: true
+        run: |
+          curl -fL --retry 1 --connect-timeout 15 --max-time 90             "https://raw.githubusercontent.com/JANalytics/us-stock-universe/main/us_listed_companies.csv"             -o data-probe/JA-universe.csv
+          python - <<'PY'
+          import csv,json
+          with open('data-probe/JA-universe.csv',encoding='utf-8-sig',newline='') as f:
+            r=csv.DictReader(f);count=sum(1 for _ in r)
+            print('INDEPENDENT SEC-ONLY DATASET ROWS',count,'FIELDS',json.dumps(r.fieldnames))
+          PY
+      - name: Save source and provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: published-free-us-data-probe
+          path: data-probe/
+          if-no-files-found: warn
+          retention-days: 14
