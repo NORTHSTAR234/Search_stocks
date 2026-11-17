@@ -258,6 +258,26 @@ function currencyAmount(value,currency){
   return Number.isFinite(n)&&n>0?(currency==="USD"?"US$":currency+" ")+n.toLocaleString("en-US"):"";
 }
 
+// Historical reports sometimes contain dividend figures only in the visible
+// G. Dividends section. Parse that section, not arbitrary percentage claims
+// elsewhere in the report, and never overwrite structured snapshot values.
+function historicDividendText(html){
+ const headings=[...html.matchAll(/<h[234]\\b[^>]*>[\\s\\S]{0,420}?<\\/h[234]\\s*>/gi)];
+ const idx=headings.findIndex(m=>/^G[.:]\\s*Dividends?\\b/i.test(strip(m[0])));
+ if(idx<0)return "";
+ const start=headings[idx].index+headings[idx][0].length;
+ let end=Math.min(html.length,start+4500);
+ for(let j=idx+1;j<headings.length;j++){
+   const title=strip(headings[j][0]);
+   if(/^(?:H[.:]\\s*|I[.:]\\s*|G[.:]\\s*|(?:[A-I][.:]\\s+))/i.test(title)){
+     end=Math.min(end,headings[j].index);break;
+   }
+ }
+ const sectionEnd=html.indexOf("</section>",start);
+ if(sectionEnd>=0)end=Math.min(end,sectionEnd);
+ return strip(html.slice(start,end)).slice(0,2400);
+}
+
 export function parseHtmlReport(info,html) {
   if(info.format!=="html"||typeof html!=="string"||html.length<180||
      !/<html\b/i.test(html)||!/<body\b/i.test(html))throw Error("Malformed or non-HTML research archive");
@@ -376,7 +396,7 @@ export function parseHtmlReport(info,html) {
     snapshot?.existing_holder_action||snapshot?.holder_action||existingPill?.replace(/^IF I OWN\s*:\s*/i,"")||
     acts[1]||namedField(fields,/^action\s+if i own/i)||"NOT RATED",140);
   const categoryProfile=classifyArchivedReport({snapshot,fields,ticker,company,statusOnly:isStatus});
-  const incomeProfile=extractReportDividend({snapshot,fields,currency,statusOnly:isStatus});
+  const incomeProfile=extractReportDividend({snapshot,fields,currency,statusOnly:isStatus,dividendText:historicDividendText(html)});
   return {
     company:company||ticker,ticker,exchange,bucket:info.bucket,timestamp:info.timestamp,
     ...categoryProfile,...incomeProfile,
