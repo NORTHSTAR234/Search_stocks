@@ -21,6 +21,7 @@ function flagged(r){
 // Faithful to the owner's uploaded 1519.TWSE variable-triggered 15-action macro.
 function stableId(text){let h=2166136261;for(const ch of text)h=Math.imul(h^ch.charCodeAt(0),16777619)>>>0;return -1000000000-(h%900000000);}
 function integerVar(name,local,value=0){return {description:"",dictionary:{entries:[],isArray:false,variableType:4,type:"Dictionary"},isActionBlockWorkingVar:true,isLocalVar:local,isSecure:false,m_booleanValue:false,m_decimalValue:value,m_intValue:value,m_name:name,m_stringValue:"",m_type:1,supportsInput:false,supportsOutput:true};}
+function researchPrompt(ticker){return "Run the installed Search_stock plugin workflow for "+ticker+". Read skills://plugins/search-stock/search-stock-research/skill.md and the latest GitHub Aya_Prompt.md. Follow all mandatory research, Musaffa, HTML archiving and verification requirements. Do not substitute a generic analysis.";}
 function macroFor(r){
  const ticker=String(r.ticker),order=Number(r.myOrder),total=rows.length;
  if(flagged(r))throw Error("Excluded unethical/non-halal ticker: "+ticker);
@@ -29,13 +30,13 @@ function macroFor(r){
  const delay={...integerVar("Chatgpt_timedelay_Sec",false,0),description:"Time delay for execution of chatGPT search actions",m_type:3,m_decimalValue:0.5};
  const wait=()=>({m_classType:"PauseAction",m_delayInMilliSeconds:0,m_delayInSeconds:1,m_useAlarm:false,m_variable:{...delay,m_decimalValue:0},unitForVariables:0});
  const launch=(name,pkg,start)=>({m_classType:"LaunchActivityAction",m_applicationName:name,m_packageToLaunch:pkg,m_startNew:start,m_excludeFromRecents:false,m_userSerial:-1,m_workProfile:false,option:0});
- const paste={m_classType:"UIInteractionAction",action:4,uiInteractionConfiguration:{forceClear:true,text:"@search_stock "+ticker,useClipboard:false,useNewClipboardPasteMechanism:false,type:"Paste"}};
+ const paste={m_classType:"UIInteractionAction",action:4,uiInteractionConfiguration:{forceClear:true,text:researchPrompt(ticker),useClipboard:false,useNewClipboardPasteMechanism:false,type:"Paste"}};
  const click={m_classType:"UIInteractionAction",action:0,uiInteractionConfiguration:{blocking:false,checkOverlays:false,clickOption:2,contentDescription:"",contextClick:false,longClick:false,showTouchLocation:true,skipCount:"0",textContent:"",textMatchOption:0,useRegex:false,viewId:"",xyPercentages:true,xyPoint:{x:91,y:55},type:"Click"}};
  const set=(num,inc)=>({m_classType:"SetVariableAction",m_variable:g,m_newIntValue:num,m_intValueIncrement:inc,m_intValueDecrement:false,m_intExpression:false,m_intRandom:false,m_userPrompt:false});
  const ifLast={m_classType:"IfConditionAction",m_isOrCondition:false,m_constraintList:[{m_classType:"MacroDroidVariableConstraint",m_variable:g,m_intCompareVariable:true,m_otherValueToCompare:n,m_intValue:100,m_intGreaterThan:false,m_intLessThan:false,m_intNotEqual:false}]};
  const trigger={m_classType:"VariableTrigger",m_variable:g,m_intCompareVariable:true,m_otherValueToCompare:l,m_intValue:0,m_intGreaterThan:false,m_intLessThan:false,m_intNotEqual:false,m_anyValueChange:false,m_SIGUID:stableId(ticker+":trigger")};
  const actions=[wait(),launch("ChatGPT","com.openai.chatgpt",true),wait(),wait(),paste,wait(),click,wait(),launch("MacroDroid","com.arlosoft.macrodroid",false),wait(),ifLast,set(0,false),{m_classType:"TerminateRunningAction"},{m_classType:"EndIfAction"},set(0,true)].map((action,i)=>({...action,m_SIGUID:stableId(ticker+":action:"+i)}));
- return {globalVariables:[g,delay,n],macro:{aiGenerated:2,m_GUID:stableId("droidmacro:"+ticker),m_name:ticker+" searchstock",m_description:"Runs @search_stock "+ticker+" when My_order is "+order+" of "+total+"; returns to MacroDroid; resets counter after last ticker.",m_category:"Uncategorized",m_completed:true,m_enabled:true,m_triggerList:[trigger],m_constraintList:[{m_classType:"DeviceLockedConstraint",m_locked:false,m_SIGUID:stableId(ticker+":constraint")}],localVariables:[l],m_actionList:actions},macroExportVersion:1};
+ return {globalVariables:[g,delay,n],macro:{aiGenerated:2,m_GUID:stableId("droidmacro:"+ticker),m_name:ticker+" searchstock",m_description:"Runs the installed Search_stock workflow for "+ticker+" using Aya_Prompt.md when My_order is "+order+" of "+total+"; returns to MacroDroid; resets counter after last ticker.",m_category:"Uncategorized",m_completed:true,m_enabled:true,m_triggerList:[trigger],m_constraintList:[{m_classType:"DeviceLockedConstraint",m_locked:false,m_SIGUID:stableId(ticker+":constraint")}],localVariables:[l],m_actionList:actions},macroExportVersion:1};
 }
 function tdWith(...nodes){const cell=make("td");nodes.forEach(n=>cell.append(n));return cell;}
 function renderRow(r){
