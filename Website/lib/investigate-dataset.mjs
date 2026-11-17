@@ -20,7 +20,10 @@ function issuer(value){
  return String(value||"").toUpperCase().replace(/&/g," AND ").replace(/[^A-Z0-9]+/g," ")
   .split(/\s+/).filter(x=>x&&!SUFFIX_WORDS.has(x)).join(" ");
 }
-function sameIssuer(a,b){const x=issuer(a),y=issuer(b);return Boolean(x&&y&&(x===y||x.startsWith(y+" ")||y.startsWith(x+" ")));}
+// SEC-verified XOM successor: ExxonMobil Holdings Corporation replaced
+// Exxon Mobil Corporation as the listed parent on 1 July 2026.
+function canonicalIssuer(value){return value==="EXXONMOBIL HOLDINGS"?"EXXON MOBIL":value;}
+function sameIssuer(a,b){const x=canonicalIssuer(issuer(a)),y=canonicalIssuer(issuer(b));return Boolean(x&&y&&(x===y||x.startsWith(y+" ")||y.startsWith(x+" ")));}
 function tickerListing(row){
  const sym=String(row.ticker||"").toUpperCase().trim(),match=sym.match(/^(.*)\.([A-Z]{1,5})$/);
  if(match&&Object.hasOwn(SUFFIX,match[2]))return {ticker:match[1],exchange:SUFFIX[match[2]]};
