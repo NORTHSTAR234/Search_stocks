@@ -1,0 +1,42 @@
+name: Investment Checklist US market-wide free scan
+on:
+  pull_request:
+    paths:
+      - "Investment_Checklist/rank_free_us_snapshot.py"
+      - "Investment_Checklist/test_rank_free_us_snapshot.py"
+      - ".github/workflows/investment-checklist-us-scan.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check offline screen logic
+        run: |
+          python -m unittest discover -s Investment_Checklist -p 'test_*.py' -q
+      - name: Download dated licensed data sources
+        run: |
+          mkdir -p Investment_Checklist/source-data
+          curl -fL --retry 1 --connect-timeout 15 --max-time 90             "https://deltascreener.com/data/us-stock-universe-2026-11-03.csv"             -o Investment_Checklist/source-data/delta-2026-11-03.csv
+          curl -fL --retry 1 --connect-timeout 15 --max-time 90             "https://raw.githubusercontent.com/JANalytics/us-stock-universe/main/us_listed_companies.csv"             -o Investment_Checklist/source-data/janal-sec-derived.csv
+          echo 'Attribution: DeltaScreener "US stock universe dataset", https://deltascreener.com/data, dated 3 November 2026. SEC-derived reference: https://github.com/JANalytics/us-stock-universe.' > Investment_Checklist/source-data/ATTRIBUTION.txt
+      - name: Screen full published file and audit source overlap
+        run: |
+          python Investment_Checklist/rank_free_us_snapshot.py             --snapshot Investment_Checklist/source-data/delta-2026-11-03.csv             --independent Investment_Checklist/source-data/janal-sec-derived.csv             --out Investment_Checklist/generated/US
+          cat Investment_Checklist/generated/US/us_top20.md
+      - name: Preserve results without changing the live website
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: investment-checklist-us-wide-2026-11-03
+          path: |
+            Investment_Checklist/generated/US/
+            Investment_Checklist/source-data/ATTRIBUTION.txt
+          if-no-files-found: warn
+          retention-days: 30
