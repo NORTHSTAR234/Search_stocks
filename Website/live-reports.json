@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-18T04:05:42Z",
-  "htmlReportCount": 158,
+  "latestHtmlReportAt": "2026-11-18T04:06:45Z",
+  "htmlReportCount": 159,
   "uniqueTickers": 31,
   "ethicalSources": {
     "rizqinvests": {
@@ -15,14 +15,14 @@
       "matchedReports": 6
     }
   },
-  "revision": "7b1acd764c78c145e938dbcd04221316",
+  "revision": "3dcbd4a78263f0b2f39e0ee951b5876c",
   "rows": [
     {
       "company": "lululemon athletica inc.",
       "ticker": "LULU",
       "exchange": "US",
       "bucket": "halal",
-      "timestamp": "2026-11-18T04:05:42Z",
+      "timestamp": "2026-11-18T04:06:45Z",
       "industryCategory": "Consumer Discretionary",
       "industryDetail": "Athletic apparel, footwear and accessories retailer",
       "industryCategorySource": "REPORT_SNAPSHOT",
@@ -58,8 +58,8 @@
       "marketSchedule": null,
       "sourceMarketTicker": "LULU",
       "zoneBands": [],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/LULU/LULU_2026-11-18_04-05-42Z.html",
-      "reportPath": "/view-report?path=halal%2FLULU%2FLULU_2026-11-18_04-05-42Z.html",
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/LULU/LULU_2026-11-18_04-06-45Z.html",
+      "reportPath": "/view-report?path=halal%2FLULU%2FLULU_2026-11-18_04-06-45Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
       "ethicalStatus": "NEUTRAL",
