@@ -1303,3 +1303,63 @@ Add the following OPTIONAL top-level `historical_data_audit` object to `aya-repo
 All entries are **templates, not live facts**; populate with actual checked records only. Permitted `method_used` values: `HISTORICAL_FIVE_SESSION_QUANTILES`, `ONE_SESSION_ATR_STRESS_PROXY`, `UNRATED`. Successful sources must really have supplied the series. Report independent Fundamental/Investment rating availability separately from technical stress eligibility.
 
 **Pre-publication LULU regression:** On a fresh LULU research, the first old report's **9 selected daily observations alone cannot yield 120 closes or 20 OHLC bars**. Attempt daily historical retrieval from accessible alternative sources and verify count; do not automatically copy the previous report's `null` scores and zones. A completed, valid sample can support numerical Section C stress; independent sufficient fundamentals can support a separately justified Investment score. If all three avenues genuinely fail, keep stress UNRATED but explain each failure rather than just writing "Alpha Vantage throttled." Never overwrite either historical LULU report, nor claim the dashboard has changed until a new report is saved and its index is verified.
+
+
+### 26. RIZQINVESTS HALAL FALLBACK — ONLY WHEN MUSAFFA IS INCONCLUSIVE (18 NOV 2026)
+
+**MANDATORY for every @Search_stock security and every report. This adds a secondary SHARIAH / HALAL screening source while preserving Musaffa as the PRIMARY source and retaining the completely INDEPENDENT ethical/BDS two-source hierarchy (§23B). An ethical "Neutral" is NEVER proof of halal compliance. The November 2026 491-row RizqInvests ethical/BDS JSON is not a halal-ratio database and MUST NEVER be used to derive a Rizq halal result. This section supersedes older requirements to leave the entire Shariah evaluation unresolved without investigating an independently available RizqInvests halal result. It does not supersede Musaffa's explicit first-party result.**
+
+#### 26.1 Exact mandatory two-step screen
+**STEP ONE — MUSAFFA FIRST.** Follow the exact security lookup and evidence recovery in §§0M and the Musaffa skill addendum: identify ticker, issuer, share class, listing, provider ticker, screening date or month, 4-calendar-month freshness and direct/cached official Musaffa evidence. If a reliable, exact-company Musaffa classification is explicit, valid and within the established four-month rule, STOP the Shariah hierarchy with **Musaffa VERIFIED HALAL (green)** or **Musaffa VERIFIED NOT HALAL/NON-COMPLIANT (red)**. Neither Rizq nor an ethical/BDS entry may override a fresh definite Musaffa classification. Keep the standalone Rizq ethical/BDS check in §23B regardless.
+
+**STEP TWO — RIZQINVESTS HALAL ONLY IF MUSAFFA REMAINS INCONCLUSIVE.** This includes inaccessible after all authorised recovery paths, genuinely missing, doubtful, stale, undated or conflicting Musaffa results. Independently locate and open **the exact stock security page** on `https://www.rizqinvests.com/halal/stock/<EXACT_VERIFIED_PROVIDER_TICKER>` (this is a candidate URL format, not evidence by itself). Use only an actual attributable first-party RizqInvests page, authorised indexed first-party text, or a legible first-party screenshot supplied by the user. Match the ISSUER, ticker, exchange and share class; verify ADR/international mapping rather than trusting a coincidental symbol. Prefer the view showing a **"Halal Screening"** panel with the business-activity screening, financial ratio screening, explicit overall Shariah classification and its source links. Check whether the underlying ratio data are from another vendor (e.g. halalscreener.app) and name that upstream source separately; do not misrepresent it as an independently audited Rizq calculation. If Rizq's page is blocked or missing, do not invent a result or demand a user screenshot as the routine first step.
+
+**Do NOT substitute the "Ethical Screening" panel, `ethical_label:Neutral`, BDS badge, Investigate listing, November 2026 historical 491-row ethical database or a generic search snippet for the Halal Screening outcome.** Halal and ethical are DIFFERENT judgements; keep their respective colour rules and source links separate.
+
+#### 26.2 Decision and colours — source attribution essential
+Use TWO visibly separate Shariah lines in the executive summary, detailed screening and HTML: `PRIMARY — Musaffa: [HALAL / NOT HALAL / INCONCLUSIVE], assessment date/month, source and reason`; and when Step 2 triggered `SECONDARY — RizqInvests Halal Screening: [COMPLIANT / NON-COMPLIANT / INCONCLUSIVE], source/date and business/ratio evidence`. Avoid relabelling an undated secondary verdict as a fresh Musaffa result.
+
+- **Fresh, explicit Musaffa HALAL or NOT HALAL:** Existing GREEN / RED primary decision remains FINAL; no Rizq halal override, no automatic secondary recheck required. This does not block an independent Rizq ethical/BDS assessment.
+- **Musaffa INCONCLUSIVE + Rizq explicit NON-COMPLIANT / NOT HALAL:** Show **RED — RIZQINVESTS SECONDARY NON-COMPLIANT** as a conservative Shariah risk / avoid-for-halal flag, with exact failing business activity or measured ratio, threshold, methodology and live page/underlying vendor link. Keep Musaffa's raw status **YELLOW INCONCLUSIVE** and explain that the rejection came from Rizq, NOT Musaffa. If Rizq's assessment date is absent, label the finding **UNDATED / RECONFIRM BEFORE INVESTING**, not a newly certified four-month screen; do not hide the negative evidence merely because its date is missing.
+- **Musaffa INCONCLUSIVE + Rizq explicitly COMPLIANT/HALAL with independently attributable screening assessment date/month no older than 4 calendar months:** Show **GREEN — RIZQINVESTS SECONDARY HALAL (Musaffa still INCONCLUSIVE)**, always naming the provider, dating it and citing its actual business/ratio screen. This is NOT Musaffa VERIFIED HALAL or an AAOIFI-certified ruling. Never grant positive secondary green from a dated generic quote, unverified marketing claim or ethics Neutral.
+- **Musaffa INCONCLUSIVE + Rizq explicit HALAL but stale, undated or conflicting:** Keep FINAL Shariah **YELLOW INCONCLUSIVE**. Show **"RizqInvests indicates HALAL — screening date unverified/stale"** as a yellow secondary indication only. Seek updated source if available. Positive undated ≠ fresh clearance.
+- **Musaffa INCONCLUSIVE + Rizq unavailable, ambiguous, not exact-match, or missing its explicit halal classification:** Keep FINAL **YELLOW INCONCLUSIVE** with separate access/evidence explanations; do not fabricate the classification by applying ratios from unrelated periods.
+
+**Do not equate Rizq's numerical ratio criteria with Musaffa's.** Quote the test as actually displayed (e.g. Rizq's 30% threshold) and its numerator/denominator/period if available. A violation of Rizq's screening is a provider-attributed rejection under THAT method, not proof Musaffa failed the same test. Negative or positive source findings must preserve collection time versus actual screening/financial-statement date. The prior Musaffa first-day-of-month convention applies only to Musaffa month-only claims unless the same method is expressly documented for Rizq.
+
+#### 26.3 Example supplied by the owner — Perdoceo Education Corporation
+A user-supplied RizqInvests screenshot (18 Nov 2026) shows the **Halal Screening** card for Perdoceo Education Corporation: business activity permissible; **debt ratio 0.6% PASS against <30%**, **cash ratio 31.7% FAIL against <30%**, **impure revenue 3.3% PASS against <5%**. Its classification text states that 31.7% exceeding 30% is enough for a NON-COMPLIANT verdict. It names **halalscreener.app** in Sources. Its SEPARATE Ethical Screening panel says **Neutral**; that ethical Neutral must NOT clear the Shariah failure. The screenshot does NOT establish the underlying financial statement date or the present/live Musaffa status, so mark assessment freshness **UNVERIFIED** and DO NOT treat this as an up-to-date Musaffa screen. This is a policy regression example; every future PRDO analysis must research the exact current issuer page and applicable dates rather than blindly copy these historic numbers.
+
+#### 26.4 Report layout, data contract and unchanged other rules
+In reports place **FINAL SHARIAH INTERPRETATION [Musaffa primary or explicit Rizq fallback]** at the top with provider-labeled primary/secondary result, precise reason, colour, URL and screening freshness. If Rizq is negative and Musaffa undetermined, communicate "Avoid as a halal candidate pending confirmation" without changing the independent financial BUY/WATCH/HOLD/SELL analysis.
+
+For new optional top-level `aya-report-snapshot` schema v2 fields, **never overwrite `musaffa.classification`, `musaffa.gate` or `musaffa.assessment` with Rizq data**. Add only source-specific optional fields:
+```json
+"rizq_halal": {
+  "triggered": true,
+  "status": "NON_COMPLIANT",
+  "status_source": "RIZQINVESTS_HALAL_SCREENING",
+  "issuer_matched": true,
+  "screening_date": null,
+  "screening_period": null,
+  "checked_at_utc": null,
+  "assessment_freshness": "UNVERIFIED",
+  "business_activity": "PERMISSIBLE",
+  "financial_tests": [
+    {"name":"cash_ratio","value_percent":31.7,"threshold_percent":30,"pass":false}
+  ],
+  "reason": "Cash ratio 31.7% exceeds RizqInvests 30% limit",
+  "source_url": null,
+  "upstream_source_name": "halalscreener.app",
+  "upstream_source_url": null
+},
+"shariah_interpretation": {
+  "provider": "RIZQINVESTS_SECONDARY",
+  "decision": "SECONDARY_NON_COMPLIANT",
+  "color": "RED",
+  "musaffa_original_status": "INCONCLUSIVE"
+}
+```
+**The numbers above are only the OWNER'S SCREENSHOT EXAMPLE, never portable/live stock facts; use correct source URLs and timestamps in a real generated report, with nulls when unverified.** Valid `rizq_halal.status`: `COMPLIANT`, `NON_COMPLIANT`, `INCONCLUSIVE`, `NOT_FOUND`; `shariah_interpretation.decision`: `MUSAFFA_HALAL`, `MUSAFFA_NON_COMPLIANT`, `RIZQ_SECONDARY_HALAL`, `RIZQ_SECONDARY_NON_COMPLIANT`, `INCONCLUSIVE`. Secondary fields are OPTIONAL and do not replace required v2 schema fields. Clear any irrelevant example values before saving a new report.
+
+Preserve existing historical reports, `halal/` versus `nonhalal/` **administrative Musaffa folder routing**, exact §23B Rizq-vs-Investigate **ethical/BDS** precedence, nine industries, dividends, scores, charts, all prepublication gates and both website tables. In particular, a Rizq **secondary positive** must not silently move a Musaffa-INCONCLUSIVE report to the Musaffa-HALAL folder. Dashboard Musaffa display and flagged-table routing must not falsely show a Rizq result as Musaffa; only present secondary conclusions when a source-aware report parser or explicit labeled HTML actually supports them. Never claim the Cloudflare dashboard supports these new optional fields before separately verifying its parser.
