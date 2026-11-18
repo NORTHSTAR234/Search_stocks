@@ -98,7 +98,7 @@ rank,ticker,name,sector,industry,snapshot_price_usd,pe,roce_pct,op_margin_pct,fc
 97,CHKP,Check Point Software Technologies Ltd.,Technology,Software - Infrastructure,141.5,13.12,13.93,29.02,7.88,5.36,0.72,56.5,,1015922,2026-03-31,QUANT DISCOVERY — FULL CHECKLIST PENDING
 98,BMI,"Badger Meter, Inc.",Technology,"Hardware, Equipment & Parts",157.69,29.11,19.81,18.58,3.28,17.45,0.0,56.4,,9092,2026-02-17,QUANT DISCOVERY — FULL CHECKLIST PENDING
 99,CHE,Chemed Corp,Healthcare,Medical - Care Facilities,542.14,25.48,27.72,13.46,4.58,5.82,0.4,56.3,,,,QUANT DISCOVERY — FULL CHECKLIST PENDING
-100,TTEK,"Tetra Tech, Inc.",Industrials,Engineering & Construction,39.57,19.96,19.71,11.88,5.41,24.27,0.55,56.3,,831641,2025-11-20,QUANT DISCOVERY — FULL CHECKLIST PENDING
+100,TTEK,"Tetra Tech, Inc.",Industrials,Engineering & Construction,39.57,19.96,19.71,11.88,5.41,24.27,0.55,56.3,,831641,2026-11-17,QUANT DISCOVERY — FULL CHECKLIST PENDING
 101,CTSH,Cognizant Technology Solutions Corporation,Technology,Information Technology Services,65.09,11.86,19.31,15.6,8.12,2.8,0.14,56.1,,1058290,2026-02-12,QUANT DISCOVERY — FULL CHECKLIST PENDING
 102,SHIP,Seanergy Maritime Holdings Corp.,Industrials,Marine Shipping,14.71,6.23,12.83,37.03,3.14,8.12,0.94,56.1,very low P/E: audit earnings normalization; cash-to-profit conversion atypical,1448397,2026-03-31,QUANT DISCOVERY — FULL CHECKLIST PENDING
 103,BMY,Bristol-Myers Squibb Company,Healthcare,Drug Manufacturers - General,63.02,13.54,20.07,28.14,8.88,1.45,1.93,56.0,,14272,2026-02-11,QUANT DISCOVERY — FULL CHECKLIST PENDING
@@ -253,7 +253,7 @@ rank,ticker,name,sector,industry,snapshot_price_usd,pe,roce_pct,op_margin_pct,fc
 252,TXRH,"Texas Roadhouse, Inc.",Consumer Cyclical,Restaurants,187.17,29.86,17.26,7.98,3.3,13.55,0.7,40.2,,1289460,2026-02-27,QUANT DISCOVERY — FULL CHECKLIST PENDING
 253,AEO,"American Eagle Outfitters, Inc.",Consumer Cyclical,Apparel - Retail,19.75,8.86,15.48,9.34,5.08,3.28,1.09,40.1,,919012,2026-03-30,QUANT DISCOVERY — FULL CHECKLIST PENDING
 254,CCK,"Crown Holdings, Inc.",Consumer Cyclical,Packaging & Containers,123.24,16.14,17.6,13.18,8.86,-1.51,1.99,40.1,,,,QUANT DISCOVERY — FULL CHECKLIST PENDING
-255,SBH,"Sally Beauty Holdings, Inc. (Name to be changed from Sally Holdings, Inc.)",Consumer Cyclical,Specialty Retail,18.41,8.19,13.52,8.44,13.98,-1.01,1.74,40.1,,1368458,2025-11-13,QUANT DISCOVERY — FULL CHECKLIST PENDING
+255,SBH,"Sally Beauty Holdings, Inc. (Name to be changed from Sally Holdings, Inc.)",Consumer Cyclical,Specialty Retail,18.41,8.19,13.52,8.44,13.98,-1.01,1.74,40.1,,1368458,2026-11-10,QUANT DISCOVERY — FULL CHECKLIST PENDING
 256,ALGN,"Align Technology, Inc.",Healthcare,Medical - Devices,154.13,26.82,12.24,13.33,6.9,2.61,0.03,40.0,,1097149,2026-02-27,QUANT DISCOVERY — FULL CHECKLIST PENDING
 257,ZBRA,Zebra Technologies Corporation,Technology,Communication Equipment,361.13,34.25,20.28,16.09,5.29,-2.27,0.86,39.9,,877212,2026-02-12,QUANT DISCOVERY — FULL CHECKLIST PENDING
 258,CVNA,Carvana Co.,Consumer Cyclical,Auto - Dealerships,72.0,22.19,18.36,8.74,1.41,14.31,1.29,39.7,,1690820,2026-02-18,QUANT DISCOVERY — FULL CHECKLIST PENDING
@@ -303,7 +303,7 @@ rank,ticker,name,sector,industry,snapshot_price_usd,pe,roce_pct,op_margin_pct,fc
 302,DGX,Quest Diagnostics Incorporated,Healthcare,Medical - Diagnostics & Research,250.81,24.45,10.79,14.14,4.41,3.74,0.85,33.1,,1022079,2026-02-26,QUANT DISCOVERY — FULL CHECKLIST PENDING
 303,IBP,"Installed Building Products, Inc.",Consumer Cyclical,Residential Construction,220.44,23.6,19.74,12.41,0.68,3.62,1.88,33.0,cash-to-profit conversion atypical,1580905,2026-02-26,QUANT DISCOVERY — FULL CHECKLIST PENDING
 304,IBM,International Business Machines Corporation,Technology,Information Technology Services,252.51,21.31,10.6,17.98,5.71,3.72,1.89,32.9,,51143,2026-02-24,QUANT DISCOVERY — FULL CHECKLIST PENDING
-305,JCI,Johnson Controls International plc Ordinary Share,Industrials,Industrial - Machinery,146.49,27.08,12.64,13.9,2.25,4.57,0.7,32.8,,833444,2025-11-14,QUANT DISCOVERY — FULL CHECKLIST PENDING
+305,JCI,Johnson Controls International plc Ordinary Share,Industrials,Industrial - Machinery,146.49,27.08,12.64,13.9,2.25,4.57,0.7,32.8,,833444,2026-11-12,QUANT DISCOVERY — FULL CHECKLIST PENDING
 306,MATX,"Matson, Inc.",Industrials,Marine Shipping,221.04,14.69,12.2,14.49,1.88,-8.34,0.26,32.8,cash-to-profit conversion atypical,3453,2026-02-27,QUANT DISCOVERY — FULL CHECKLIST PENDING
 307,SAIC,Science Applications International Corporation,Technology,Information Technology Services,152.91,17.48,13.25,7.81,9.66,-1.95,1.88,32.1,,1571123,2026-03-16,QUANT DISCOVERY — FULL CHECKLIST PENDING
 308,WLY,"John Wiley & Sons, Inc.",Communication Services,Publishing,51.12,13.84,10.06,14.75,8.18,-6.01,1.72,31.3,,107140,2026-06-24,QUANT DISCOVERY — FULL CHECKLIST PENDING

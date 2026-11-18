@@ -12,8 +12,8 @@ SEC-derived comparison: https://github.com/JANalytics/us-stock-universe/blob/mai
 * NYSE/NASDAQ records: 4178
 * Rows with 7/9 key metrics: 3951
 * Passed explicit preliminary quantitative criteria: 330
-* Independent SEC-derived source rows: 5363
-* Ticker overlaps with SEC-derived source: 4777
+* Independent SEC-derived source rows: 5360
+* Ticker overlaps with SEC-derived source: 4770
 * Verified Investment Checklist opportunities: NOT ASSESSED (no business/valuation audit)
 
 ## Top 20 diversified discovery priorities
@@ -66,5 +66,5 @@ Use the shortlist with Investment Checklist Screener for full due diligence; pas
 * Snapshot: https://deltascreener.com/data/us-stock-universe-2026-11-03.csv
 * Snapshot SHA-256: dc3652b804a82857cbb4ddfcb2ad96ce22b0554c93afd2d9f53384859a744984
 * SEC-only comparison: https://github.com/JANalytics/us-stock-universe/blob/main/us_listed_companies.csv
-* SEC-only SHA-256: 8914e35f26ec0349bc18af703aefe3f40ee20862adae5dfda38004689465d116
-* Generated UTC: 2026-11-17T09:51:41.484527+00:00
+* SEC-only SHA-256: a230e8090e78dacfa1f909c3c6cfc2a9cf99e134afa9c677f65bef4d7c9ef3d0
+* Generated UTC: 2026-11-18T07:17:40.696475+00:00

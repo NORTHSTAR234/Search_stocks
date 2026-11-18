@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-11-17T09:51:41.484527+00:00",
+  "generated_utc": "2026-11-18T07:17:40.696475+00:00",
   "snapshot_date": "2026-11-03",
   "price_live": false,
   "dataset_attribution": "DeltaScreener, \"US stock universe dataset\", https://deltascreener.com/data, as of 3 November 2026.",
@@ -13,9 +13,9 @@
   "data_coverage_7of9": 3951,
   "quantitative_pass_count": 330,
   "independent_source": "https://github.com/JANalytics/us-stock-universe/blob/main/us_listed_companies.csv",
-  "independent_rows": 5363,
-  "independent_sha256": "8914e35f26ec0349bc18af703aefe3f40ee20862adae5dfda38004689465d116",
-  "crossmatched_tickers": 4777,
+  "independent_rows": 5360,
+  "independent_sha256": "a230e8090e78dacfa1f909c3c6cfc2a9cf99e134afa9c677f65bef4d7c9ef3d0",
+  "crossmatched_tickers": 4770,
   "status_counts": {
     "FILTERED BY PRELIMINARY CRITERIA": 642,
     "EXTREME GROWTH / CYCLICAL EARNINGS — NORMALIZE FIRST": 98,
