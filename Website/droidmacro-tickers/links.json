@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "NORTHSTAR234/Search_stocks live ticker index",
-  "generatedAt": "2026-11-18T20:31:44.181Z",
+  "generatedAt": "2026-11-18T20:33:26.129Z",
   "total": 24,
   "links": [
     {
@@ -165,6 +165,60 @@
       "promptVersion": "full-search-stock-workflow-v1",
       "url": "https://macrodroidlink.com/m/EcvyeEGXg9Jy",
       "expiresAt": "2026-11-25T20:31:44.013Z"
+    },
+    {
+      "ticker": "MA",
+      "order": 19,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/z5K1xzGJUqST",
+      "expiresAt": "2026-11-25T20:33:13.141Z"
+    },
+    {
+      "ticker": "MRK",
+      "order": 20,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/qaYw53wIfuXi",
+      "expiresAt": "2026-11-25T20:33:15.778Z"
+    },
+    {
+      "ticker": "MU",
+      "order": 21,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/tbsxmhI7cBDP",
+      "expiresAt": "2026-11-25T20:33:18.570Z"
+    },
+    {
+      "ticker": "ORG.ASX",
+      "order": 22,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/YYMJZEAeDPlM",
+      "expiresAt": "2026-11-25T20:33:20.984Z"
+    },
+    {
+      "ticker": "SU.PA",
+      "order": 23,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/dPCTH4mcLZA6",
+      "expiresAt": "2026-11-25T20:33:23.571Z"
+    },
+    {
+      "ticker": "TTD",
+      "order": 24,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/keLM7dZFCn6I",
+      "expiresAt": "2026-11-25T20:33:25.960Z"
     }
   ],
   "promptVersion": "full-search-stock-workflow-v1"
