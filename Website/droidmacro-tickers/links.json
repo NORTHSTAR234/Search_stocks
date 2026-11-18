@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "NORTHSTAR234/Search_stocks live ticker index",
-  "generatedAt": "2026-11-18T20:30:58.934Z",
+  "generatedAt": "2026-11-18T20:31:44.181Z",
   "total": 24,
   "links": [
     {
@@ -111,6 +111,60 @@
       "promptVersion": "full-search-stock-workflow-v1",
       "url": "https://macrodroidlink.com/m/i9B__ezMvcg7",
       "expiresAt": "2026-11-25T20:30:58.741Z"
+    },
+    {
+      "ticker": "DECK",
+      "order": 13,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/zg8NPOaYz7aK",
+      "expiresAt": "2026-11-25T20:31:29.849Z"
+    },
+    {
+      "ticker": "EXEL",
+      "order": 14,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/Wrm8DPi6pUnD",
+      "expiresAt": "2026-11-25T20:31:32.571Z"
+    },
+    {
+      "ticker": "HD",
+      "order": 15,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/-W4p3FAc2HaK",
+      "expiresAt": "2026-11-25T20:31:35.364Z"
+    },
+    {
+      "ticker": "JNJ",
+      "order": 16,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/a1DkUW-ncrJY",
+      "expiresAt": "2026-11-25T20:31:37.966Z"
+    },
+    {
+      "ticker": "LLY",
+      "order": 17,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/FIC1a5l8c7Lv",
+      "expiresAt": "2026-11-25T20:31:41.498Z"
+    },
+    {
+      "ticker": "LULU",
+      "order": 18,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-v1",
+      "url": "https://macrodroidlink.com/m/EcvyeEGXg9Jy",
+      "expiresAt": "2026-11-25T20:31:44.013Z"
     }
   ],
   "promptVersion": "full-search-stock-workflow-v1"
