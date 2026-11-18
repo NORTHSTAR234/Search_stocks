@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-18T07:20:10Z",
-  "htmlReportCount": 167,
+  "latestHtmlReportAt": "2026-11-18T07:34:34Z",
+  "htmlReportCount": 168,
   "uniqueTickers": 38,
   "ethicalSources": {
     "rizqinvests": {
@@ -15,14 +15,14 @@
       "matchedReports": 7
     }
   },
-  "revision": "001372d39a34adfcea6caea3fe3e0011",
+  "revision": "5b0b775f40090b96aa5f36379d2a9398",
   "rows": [
     {
       "company": "Perdoceo Education Corporation",
       "ticker": "PRDO",
       "exchange": "US",
       "bucket": "nonhalal",
-      "timestamp": "2026-11-18T07:20:10Z",
+      "timestamp": "2026-11-18T07:34:34Z",
       "industryCategory": "Consumer Discretionary",
       "industryDetail": "For-profit postsecondary education services (CTU, AIU and related institutions)",
       "industryCategorySource": "REPORT_SNAPSHOT",
@@ -43,14 +43,14 @@
       "risk": "HIGH",
       "investment": "70/100",
       "entry": "52/100",
-      "musaffa": "NOT VERIFIED",
-      "musaffaClassification": null,
-      "musaffaGate": "UNVERIFIED",
+      "musaffa": "NOT HALAL · 2026-11 (month) · FAIL",
+      "musaffaClassification": "NOT HALAL",
+      "musaffaGate": "FAIL",
       "musaffaScreeningDate": null,
-      "musaffaScreeningPeriod": null,
+      "musaffaScreeningPeriod": "2026-11",
       "musaffaScreeningMonthConflict": false,
       "musaffaAssessment": null,
-      "musaffaReason": "Official PRDO status/date inaccessible via directly attempted URLs and indexed first-party searches; secondary October 2026 AAOIFI verdict is non-compliant and is not Musaffa.",
+      "musaffaReason": "The user provided a legible screenshot of exact-stock Musaffa PRDO official page showing 'NOT HALAL' as of November 2026 and stating PRDO fails Musaffa's business and financial sc…",
       "earnings": "NOT VERIFIED",
       "zones": "US$26.3–27.5 / US$27.5–29",
       "stops": "US$25.7 / US$30.2",
@@ -67,8 +67,8 @@
           29
         ]
       ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/PRDO/PRDO_2026-11-18_07-20-10Z.html",
-      "reportPath": "/view-report?path=nonhalal%2FPRDO%2FPRDO_2026-11-18_07-20-10Z.html",
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/PRDO/PRDO_2026-11-18_07-34-34Z.html",
+      "reportPath": "/view-report?path=nonhalal%2FPRDO%2FPRDO_2026-11-18_07-34-34Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
       "ethicalStatus": "UNVERIFIED",
