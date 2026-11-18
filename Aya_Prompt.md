@@ -1168,7 +1168,7 @@ Use Version 3.6: include explicit WHEN TO SELL / REDUCE rules, profit targets, s
 
 ### 23C. TWO-TABLE DASHBOARD ROUTING — MANDATORY WEBSITE PRESENTATION (15 NOV 2026)
 
-**This overrides older Section 23/23A language claiming exactly ONE stock table on the Cloudflare home page.** Preserve the existing NINE columns, order, scores, risk and action colours, 1-month charts, preferred/acceptable zone highlighting, mobile horizontal table panning, responsive width, only one page-level vertical scrollbar, 5-minute report and quote refresh, and small linked ethical card within the first column. Do not add separate AAOIFI or ethical status columns.
+**This overrides older Section 23/23A language claiming exactly ONE stock table on the Cloudflare home page.** Preserve the existing ELEVEN columns in the exact order restated in §24.3, scores, risk and action colours, 1-month charts, preferred/acceptable zone highlighting, mobile horizontal table panning, responsive width, only one page-level vertical scrollbar, 5-minute report and quote refresh, and small linked ethical card within the first column. Do not add separate AAOIFI or ethical status columns.
 
 **Make TWO separate, vertically stacked, full-width stock tables in the following order, using ONE shared toolbar above both tables:**
 
@@ -1177,7 +1177,7 @@ Use Version 3.6: include explicit WHEN TO SELL / REDUCE rules, profit targets, s
 
 **Never route by** halal/nonhalal GitHub archive bucket, AAOIFI yellow review status, market score, investment BUY/WATCH/SELL action, a mere fuzzy Investigate name match, a missing Musaffa URL, a Musaffa access failure, generic INCONCLUSIVE or an old HALAL classification. The separate Musaffa and ethical original sources, assessments, dates, colour and BDS semantics remain unchanged.
 
-**ONE shared search and sorting logic:** Apply the existing Search text, Category/archive folder, Exchange and Order controls to the entire current report set, sort ALL filtered rows ONCE using the currently selected comparator, and partition into primary and flagged arrays after sorting. Both tables preserve the same order choice, all nine headings and the same row renderer. Display individual counts and combined count; no duplicate/missing rows. A GitHub report sync, deletion, changed ethical policy result or freshness change must re-render both tables using the existing five-minute schedule. Avoid extra vertical scroll containers.
+**ONE shared search and sorting logic:** Apply the existing Search text, Category/archive folder, Exchange and Order controls to the entire current report set, sort ALL filtered rows ONCE using the currently selected comparator, and partition into primary and flagged arrays after sorting. Both tables preserve the same order choice, all ELEVEN headings in the same user-selected order and the same row renderer. Display individual counts and combined count; no duplicate/missing rows. A GitHub report sync, deletion, changed ethical policy result or freshness change must re-render both tables using the existing five-minute schedule. Avoid extra vertical scroll containers.
 
 **New Search_stock report contract:** Continue to save exact Musaffa classification, original provider date or month-only period, gate and evidence in required aya-report-snapshot v2 fields. Preserve source-locked RizqInvests Nov 2026 and Investigate Jul 2025 findings separately; expose the final combined ethical verdict using optional source-backed data in Section I, consistent with Section 23B. The website already computes ethicalFinalStatus and ethicalFinalColor from the frozen sources and uses these plus Musaffa classification for dynamic grouping. Do not hard-code or store a permanent website table number in a ticker report, and do NOT alter snapshot mandatory fields, folder routing or financial recommendations to manipulate grouping.
 
@@ -1239,8 +1239,19 @@ For EACH stock report, including those not paying dividends, research actual dec
 The above numbers and URL are **illustrative of field structure only**, NOT security facts, nor transferable research data. In actual reports use the ticker's verified evidence and source URLs. For verified nonpayers use `status:"NONE",annual_dividend_per_share:0,yield_percent:0` with an evidence-backed as-of date. If not verified use `status:"UNKNOWN",annual_dividend_per_share:null,yield_percent:null`. Omit or null non-applicable dates/fields. Legacy inconsistent dividend objects (e.g., yield_pct / cash_yield_percent / annualized / quarterly) remain readable by website parser but all NEW reports must emit the canonical names.
 
 #### 24.3 Dashboard and tests
-The Cloudflare dashboard has TWO NEW columns immediately after Company / ticker:
-**Industry category** (exact controlled list, with narrower industry optional) and **Dividend / yield** (yield %, annual cash per share, currency and payment schedule where verified, otherwise NOT VERIFIED or No dividend).
+The Cloudflare dashboard has TWO ADDED columns: **Industry category** (exact controlled list, with narrower industry optional) and **Dividend / yield** (yield %, annual cash per share, currency and payment schedule where verified, otherwise NOT VERIFIED or No dividend). **They must remain immediately AFTER Markers and BEFORE Last report.** The user's exact 11-column order is:
+1. Company / ticker
+2. Regular / latest price
+3. Overnight / vs close
+4. Live chart · 1M
+5. Action / Risk
+6. Markers
+7. Industry category
+8. Dividend / yield
+9. Last report (AEDT/AEST)
+10. Musaffa status / grade / screening date
+11. Next earnings / confirmation
+This corrects older nine-column and industry-immediately-after-ticker descriptions. Do not add, remove or reorder columns when researching a stock.
 All TWO existing stock tables (other / unethical-or-Musaffa-nonhalal) must have identical 11 headings, identical row formatting, and common filter/sort controls. Default **Group by industry**; within categories order tickers A–Z. Add explicit industry filter and **Dividend yield descending** order. All existing search, exchange, source bucket, other sorts, score/entry/highlight markers, mobile table, 1-month chart, market-data refresh and screening rules stay operational. Color dividend/income independently; don't confuse green dividend display with halal/ethics status.
 **Pre-save QA:** Check that every NEW full report includes a valid industry label + specific industry and dividend evidence/uncertainty, and that its JSON snapshot has the optional standardized properties without disturbing the A–I/report-depth checks. Never invent “yield 0%” when source is inaccessible.
 
