@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-19T11:38:29Z",
-  "htmlReportCount": 223,
-  "uniqueTickers": 40,
+  "latestHtmlReportAt": "2026-11-19T11:46:26Z",
+  "htmlReportCount": 224,
+  "uniqueTickers": 41,
   "ethicalSources": {
     "rizqinvests": {
       "snapshot": "2026-11",
@@ -15,8 +15,111 @@
       "matchedReports": 7
     }
   },
-  "revision": "06e5a5f46b01fcfeb8471adb84e1d3bd",
+  "revision": "6ee63cc251b2b85547c47306fb013f0a",
   "rows": [
+    {
+      "company": "Samsung Electronics Co., Ltd.",
+      "ticker": "005930.KRX",
+      "exchange": "KRX",
+      "bucket": "nonhalal",
+      "timestamp": "2026-11-19T11:46:26Z",
+      "industryCategory": "Technology & Communications",
+      "industryDetail": "Semiconductors / AI memory, foundry and consumer electronics",
+      "industryCategorySource": "REPORT_SNAPSHOT",
+      "dividendStatus": "PAYS",
+      "dividendYieldPercent": 2.72,
+      "dividendAnnualPerShare": null,
+      "dividendCurrency": "KRW",
+      "dividendFrequency": null,
+      "dividendExDate": null,
+      "dividendPaymentDate": "2026-11-27",
+      "dividendAsOf": "2026-11-19",
+      "dividendYieldBasis": "INDICATED_FORWARD_UNVERIFIED",
+      "dividendSourceUrl": "https://www.samsung.com/global/ir/reports-disclosures/public-disclosure-view.84796/",
+      "dividendDataSource": "REPORT_MIXED",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "76/100",
+      "entry": "54/100",
+      "musaffa": "NOT VERIFIED",
+      "musaffaClassification": null,
+      "musaffaGate": "UNVERIFIED",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": null,
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "INCONCLUSIVE",
+      "musaffaReason": "Exact first-party Korean 005930.KS current Musaffa assessment could not be fetched or indexed; live SSUN.HM/SMSD.L snippets are other venues, cannot be transferred.",
+      "earnings": "NOT VERIFIED",
+      "zones": "KRW 188,000–192,000 / KRW 193,000–198,000",
+      "stops": "KRW 181,000 / KRW 208,000",
+      "nativeCurrency": "KRW",
+      "marketSchedule": {
+        "exchange": "KRX",
+        "mic": "XKRX",
+        "market_time_zone": "Asia/Seoul",
+        "sydney_time_zone": "Australia/Sydney",
+        "melbourne_time_zone": "Australia/Melbourne",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "15:30"
+          }
+        ],
+        "yahoo_ticker": "005930.KS",
+        "hours_source": "https://global.krx.co.kr/contents/GLB/06/0602/0602010201/GLB0602010201T1.jsp",
+        "hours_checked_utc": "2026-11-19T11:46:26Z"
+      },
+      "sourceMarketTicker": "005930.KS",
+      "zoneBands": [
+        [
+          188000,
+          192000
+        ],
+        [
+          193000,
+          198000
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/005930.KRX/005930.KRX_2026-11-19_11-46-26Z.html",
+      "reportPath": "/view-report?path=nonhalal%2F005930.KRX%2F005930.KRX_2026-11-19_11-46-26Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false,
+      "ethicalStatus": "UNVERIFIED",
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
+    },
     {
       "company": "SK hynix Inc.",
       "ticker": "000660.KRX",
