@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "NORTHSTAR234/Search_stocks live ticker index",
-  "generatedAt": "2026-11-19T11:02:38.660Z",
+  "generatedAt": "2026-11-19T11:03:42.463Z",
   "total": 24,
   "links": [
     {
@@ -221,5 +221,24 @@
       "expiresAt": "2026-11-26T11:02:38.458Z"
     }
   ],
-  "promptVersion": "full-search-stock-workflow-project-url-v2"
+  "promptVersion": "full-search-stock-workflow-project-url-v2",
+  "bulkInstaller": {
+    "url": "https://macrodroidlink.com/m/vYDkEYQOwx_m",
+    "expiresAt": "2026-11-26T11:03:23.201Z",
+    "total": 24,
+    "macroPath": "/droidmacro-tickers/bulk-installer.macro",
+    "saveButton": {
+      "xPercent": 90,
+      "yPercent": 88
+    },
+    "mode": "direct-save-centered-adjustable-wait",
+    "defaultLinkWaitSeconds": 4,
+    "waitVariable": "DroidMacro_LinkWait_Seconds",
+    "saveWaitMilliseconds": 500,
+    "saveWaitPlacement": "after-save-click-and-progress-update-before-EndIf",
+    "progressVariable": "DroidMacro_BulkNext_Centered",
+    "saveClickCount": 24,
+    "screenTextChecks": 0,
+    "promptVersion": "full-search-stock-workflow-project-url-v2"
+  }
 }
