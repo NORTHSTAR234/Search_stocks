@@ -399,7 +399,7 @@
     const ambiguous=Boolean(r.musaffaScreeningMonthConflict)||contradictory||
       /(?:STALE|UNVERIFIED|UNKNOWN|INCONCLUSIVE|DOUBTFUL|AMBIGUOUS|CONFLICT|UNCERTAIN)/.test(status+" "+gate);
     if(recent&&!ambiguous&&negative)return {tone:"bad",label:"VERIFIED NON-COMPLIANT"};
-    if(recent&&!ambiguous&&positive&&gate!=="FAIL")return {tone:"good",label:"VERIFIED HALAL"};
+    if(recent&&!ambiguous&&positive&&gate!=="FAIL")return {tone:"good",label:declared==="USER_SCREENSHOT_HALAL"?"MUSAFFA HALAL · SCREENSHOT":"VERIFIED HALAL"};
     return {tone:"warn",label:"INCONCLUSIVE"};
   }
   function screeningCell(r){
