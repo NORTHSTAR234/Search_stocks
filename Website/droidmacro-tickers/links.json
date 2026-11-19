@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "NORTHSTAR234/Search_stocks live ticker index",
-  "generatedAt": "2026-11-18T20:34:43.869Z",
+  "generatedAt": "2026-11-19T10:59:28.137Z",
   "total": 24,
   "links": [
     {
@@ -9,236 +9,55 @@
       "order": 1,
       "total": 24,
       "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/zjCZVuF_CnAU",
-      "expiresAt": "2026-11-25T20:30:09.440Z"
+      "promptVersion": "full-search-stock-workflow-project-url-v2",
+      "url": "https://macrodroidlink.com/m/1pGnNlDV3FAR",
+      "expiresAt": "2026-11-26T10:59:13.345Z"
     },
     {
       "ticker": "2330.TWSE",
       "order": 2,
       "total": 24,
       "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/mWT_M1lNVhJd",
-      "expiresAt": "2026-11-25T20:30:03.918Z"
+      "promptVersion": "full-search-stock-workflow-project-url-v2",
+      "url": "https://macrodroidlink.com/m/xXdrcM94mgZs",
+      "expiresAt": "2026-11-26T10:59:16.466Z"
     },
     {
       "ticker": "2377.TWSE",
       "order": 3,
       "total": 24,
       "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/8SkpTPOfF2MT",
-      "expiresAt": "2026-11-25T20:30:06.418Z"
+      "promptVersion": "full-search-stock-workflow-project-url-v2",
+      "url": "https://macrodroidlink.com/m/_7kNsqk85lWq",
+      "expiresAt": "2026-11-26T10:59:19.606Z"
     },
     {
       "ticker": "2379.TWSE",
       "order": 4,
       "total": 24,
       "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/Dg_d5_NGp6_N",
-      "expiresAt": "2026-11-25T20:30:11.295Z"
+      "promptVersion": "full-search-stock-workflow-project-url-v2",
+      "url": "https://macrodroidlink.com/m/_EdjMRfYfoQr",
+      "expiresAt": "2026-11-26T10:59:22.217Z"
     },
     {
       "ticker": "2383.TWSE",
       "order": 5,
       "total": 24,
       "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/7VtSptJV7lht",
-      "expiresAt": "2026-11-25T20:30:12.862Z"
+      "promptVersion": "full-search-stock-workflow-project-url-v2",
+      "url": "https://macrodroidlink.com/m/PQbrLRZHuySU",
+      "expiresAt": "2026-11-26T10:59:27.923Z"
     },
     {
       "ticker": "2449.TWSE",
       "order": 6,
       "total": 24,
       "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/TC9G-E8pMqGV",
-      "expiresAt": "2026-11-25T20:30:15.584Z"
-    },
-    {
-      "ticker": "2454.TWSE",
-      "order": 7,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/o5CL09gv3N_G",
-      "expiresAt": "2026-11-25T20:30:49.194Z"
-    },
-    {
-      "ticker": "3034.TWSE",
-      "order": 8,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/JVmQhN5t5Fqx",
-      "expiresAt": "2026-11-25T20:30:54.706Z"
-    },
-    {
-      "ticker": "ADBE",
-      "order": 9,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/iLEkLn3RlvHa",
-      "expiresAt": "2026-11-25T20:30:52.101Z"
-    },
-    {
-      "ticker": "AMAT",
-      "order": 10,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/DIbHR--SZn-F",
-      "expiresAt": "2026-11-25T20:30:45.974Z"
-    },
-    {
-      "ticker": "AMD",
-      "order": 11,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/cLYHyXhwj1e9",
-      "expiresAt": "2026-11-25T20:30:56.875Z"
-    },
-    {
-      "ticker": "ASM.XAMS",
-      "order": 12,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/i9B__ezMvcg7",
-      "expiresAt": "2026-11-25T20:30:58.741Z"
-    },
-    {
-      "ticker": "DECK",
-      "order": 13,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/zg8NPOaYz7aK",
-      "expiresAt": "2026-11-25T20:31:29.849Z"
-    },
-    {
-      "ticker": "EXEL",
-      "order": 14,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/Wrm8DPi6pUnD",
-      "expiresAt": "2026-11-25T20:31:32.571Z"
-    },
-    {
-      "ticker": "HD",
-      "order": 15,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/-W4p3FAc2HaK",
-      "expiresAt": "2026-11-25T20:31:35.364Z"
-    },
-    {
-      "ticker": "JNJ",
-      "order": 16,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/a1DkUW-ncrJY",
-      "expiresAt": "2026-11-25T20:31:37.966Z"
-    },
-    {
-      "ticker": "LLY",
-      "order": 17,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/FIC1a5l8c7Lv",
-      "expiresAt": "2026-11-25T20:31:41.498Z"
-    },
-    {
-      "ticker": "LULU",
-      "order": 18,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/EcvyeEGXg9Jy",
-      "expiresAt": "2026-11-25T20:31:44.013Z"
-    },
-    {
-      "ticker": "MA",
-      "order": 19,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/z5K1xzGJUqST",
-      "expiresAt": "2026-11-25T20:33:13.141Z"
-    },
-    {
-      "ticker": "MRK",
-      "order": 20,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/qaYw53wIfuXi",
-      "expiresAt": "2026-11-25T20:33:15.778Z"
-    },
-    {
-      "ticker": "MU",
-      "order": 21,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/tbsxmhI7cBDP",
-      "expiresAt": "2026-11-25T20:33:18.570Z"
-    },
-    {
-      "ticker": "ORG.ASX",
-      "order": 22,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/YYMJZEAeDPlM",
-      "expiresAt": "2026-11-25T20:33:20.984Z"
-    },
-    {
-      "ticker": "SU.PA",
-      "order": 23,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/dPCTH4mcLZA6",
-      "expiresAt": "2026-11-25T20:33:23.571Z"
-    },
-    {
-      "ticker": "TTD",
-      "order": 24,
-      "total": 24,
-      "flagged": false,
-      "promptVersion": "full-search-stock-workflow-v1",
-      "url": "https://macrodroidlink.com/m/keLM7dZFCn6I",
-      "expiresAt": "2026-11-25T20:33:25.960Z"
+      "promptVersion": "full-search-stock-workflow-project-url-v2",
+      "url": "https://macrodroidlink.com/m/D61bgcIw-lhB",
+      "expiresAt": "2026-11-26T10:59:24.946Z"
     }
   ],
-  "promptVersion": "full-search-stock-workflow-v1",
-  "bulkInstaller": {
-    "url": "https://macrodroidlink.com/m/e6BUM7-3GWyj",
-    "expiresAt": "2026-11-25T20:34:23.883Z",
-    "total": 24,
-    "macroPath": "/droidmacro-tickers/bulk-installer.macro",
-    "saveButton": {
-      "xPercent": 90,
-      "yPercent": 88
-    },
-    "mode": "direct-save-centered-adjustable-wait",
-    "defaultLinkWaitSeconds": 4,
-    "waitVariable": "DroidMacro_LinkWait_Seconds",
-    "saveWaitMilliseconds": 500,
-    "saveWaitPlacement": "after-save-click-and-progress-update-before-EndIf",
-    "progressVariable": "DroidMacro_BulkNext_Centered",
-    "saveClickCount": 24,
-    "screenTextChecks": 0,
-    "promptVersion": "full-search-stock-workflow-v1"
-  }
+  "promptVersion": "full-search-stock-workflow-project-url-v2"
 }
