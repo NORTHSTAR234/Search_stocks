@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-19T20:31:20Z",
-  "htmlReportCount": 227,
+  "latestHtmlReportAt": "2026-11-19T20:32:22Z",
+  "htmlReportCount": 228,
   "uniqueTickers": 44,
   "ethicalSources": {
     "rizqinvests": {
@@ -15,14 +15,14 @@
       "matchedReports": 8
     }
   },
-  "revision": "969746b1fada5d1d50fd6d365a956156",
+  "revision": "47f4cb5c14458385138677fdc99af5ba",
   "rows": [
     {
       "company": "Infineon Technologies AG",
       "ticker": "IFX.DE",
       "exchange": "XETRA",
       "bucket": "halal",
-      "timestamp": "2026-11-19T20:31:20Z",
+      "timestamp": "2026-11-19T20:32:22Z",
       "industryCategory": "Technology & Communications",
       "industryDetail": "Automotive, power and data-centre semiconductors",
       "industryCategorySource": "REPORT_SNAPSHOT",
@@ -59,7 +59,7 @@
         "exchange": "XETRA",
         "mic": "XETR",
         "market_time_zone": "Europe/Berlin",
-        "sydney_time_zone": "Australia/Melbourne",
+        "sydney_time_zone": "Australia/Sydney",
         "weekdays": [
           1,
           2,
@@ -75,7 +75,7 @@
         ],
         "yahoo_ticker": "IFX.DE",
         "hours_source": "https://www.cashmarket.deutsche-boerse.com/cash-en/trading/trading-calendar-and-trading-hours",
-        "hours_checked_utc": "2026-11-19T20:31:20Z"
+        "hours_checked_utc": "2026-11-19T20:32:22Z"
       },
       "sourceMarketTicker": "IFX.DE",
       "zoneBands": [
@@ -88,8 +88,8 @@
           49
         ]
       ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/IFX.DE/IFX.DE_2026-11-19_20-31-20Z.html",
-      "reportPath": "/view-report?path=halal%2FIFX.DE%2FIFX.DE_2026-11-19_20-31-20Z.html",
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/IFX.DE/IFX.DE_2026-11-19_20-32-22Z.html",
+      "reportPath": "/view-report?path=halal%2FIFX.DE%2FIFX.DE_2026-11-19_20-32-22Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
       "ethicalStatus": "UNVERIFIED",
