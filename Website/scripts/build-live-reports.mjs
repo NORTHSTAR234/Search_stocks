@@ -29,6 +29,11 @@ const chosen=latestArchive(archives);
 const rows=[];
 const ethicalRegistry=loadEthicalDataset();
 const investigateRegistry=loadInvestigateDataset();
+// Explicit user-requested caution flags; these never alter official Musaffa evidence.
+const screeningReviews=JSON.parse(fs.readFileSync(path.join(root,"Website/data/shariah-user-reviews.json"),"utf8"));
+if(screeningReviews.schema_version!==1||!Array.isArray(screeningReviews.rows))
+  throw Error("Invalid user screening-review registry");
+const reviewByTicker=new Map(screeningReviews.rows.map(item=>[item.ticker,item]));
 const byBucket=new Map();
 for(const report of archives){
  const key=report.ticker.toUpperCase();
@@ -44,6 +49,15 @@ for(const file of chosen){
 for(const row of rows){
   // Source-locked RizqInvests-first decision; Investigate may override only non-red findings.
   Object.assign(row,applyCombinedEthicalScreening(applyInvestigateDataset(applyEthicalDataset(row,ethicalRegistry),investigateRegistry)));
+  const manualReview=reviewByTicker.get(row.ticker);
+  // User label is applied only while the latest report remains INCONCLUSIVE in nonhalal/.
+  // A new fresh, explicit Musaffa HALAL/NOT HALAL report supersedes this manual caution.
+  if(manualReview?.label==="DOUBTFUL"&&manualReview.bucket==="nonhalal"&&
+      row.bucket==="nonhalal"&&row.musaffaAssessment==="INCONCLUSIVE"){
+    row.screeningReviewStatus="DOUBTFUL";
+    row.screeningReviewSource="USER_REQUEST";
+    row.screeningReviewNote=manualReview.reason;
+  }
   for(const key of Object.keys(row))if(/^aaoifi/i.test(key))delete row[key];
 }
 const content=JSON.stringify(rows);
