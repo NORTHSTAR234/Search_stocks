@@ -39,22 +39,22 @@
     }
   ],
   "macro": {
-    "m_GUID": -989800024,
-    "m_name": "DroidMacro Bulk Installer — 24 stocks (Centred Save 90,88)",
+    "m_GUID": -990600024,
+    "m_name": "DroidMacro Bulk Installer — 24 stocks (Stock Testitn Project)",
     "m_category": "Uncategorized",
-    "m_description": "Installs 24 first-table stock macros, each with full Search_stock workflow instruction, My_order=Count, total=24. On every manual launch resets bulk order to 1 but NEVER resets global editable DroidMacro_LinkWait_Seconds (starts at 4s). Each stock: Open link → variable wait seconds → Save tap center (90%,88%) → advance progress → wait 500ms. No screen text check.",
+    "m_description": "Installs 24 eligible ticker macros, each opening the designated ChatGPT Stock Testitn PROJECT URL via Open Website rather than launching ChatGPT app. Separate adjustable 4s link wait, centred Save at (90%,88%), then update counter and 500ms pause.",
     "m_completed": true,
     "m_enabled": true,
     "m_triggerList": [
       {
         "m_classType": "ShortcutTrigger",
-        "m_SIGUID": -989920000
+        "m_SIGUID": -990900000
       }
     ],
     "m_constraintList": [
       {
         "m_classType": "DeviceLockedConstraint",
-        "m_SIGUID": -989930000,
+        "m_SIGUID": -991000000,
         "m_locked": false
       }
     ],
@@ -62,13 +62,13 @@
     "m_actionList": [
       {
         "m_classType": "NotificationAction",
-        "m_SIGUID": -989900000,
+        "m_SIGUID": -990700000,
         "m_notificationSubject": "DroidMacro installer",
-        "m_notificationText": "Importing 24 eligible stock macros (full Search_stock instruction). Keep phone unlocked, portrait; Save at 90%,88%, adjustable global wait 4s by default. Verify first import."
+        "m_notificationText": "Importing 24 stock macros with Open Website pointing to your Stock Testitn ChatGPT project. Keep screen unlocked; verify the first ticker macro opens the project."
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900001,
+        "m_SIGUID": -990700001,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -92,11 +92,11 @@
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900002,
+        "m_SIGUID": -990700002,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910006,
+            "m_SIGUID": -990800006,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -121,13 +121,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900003,
-        "m_urlToOpen": "https://macrodroidlink.com/m/zjCZVuF_CnAU",
+        "m_SIGUID": -990700003,
+        "m_urlToOpen": "https://macrodroidlink.com/m/1pGnNlDV3FAR",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900004,
+        "m_SIGUID": -990700004,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -175,16 +175,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900005,
+        "m_SIGUID": -990700005,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 1519.TWSE (1/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro 1519.TWSE, Count 1/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900006,
+        "m_SIGUID": -990700006,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -207,22 +207,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900007,
+        "m_SIGUID": -990700007,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900008
+        "m_SIGUID": -990700008
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900009,
+        "m_SIGUID": -990700009,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910027,
+            "m_SIGUID": -990800027,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -247,13 +247,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900010,
-        "m_urlToOpen": "https://macrodroidlink.com/m/mWT_M1lNVhJd",
+        "m_SIGUID": -990700010,
+        "m_urlToOpen": "https://macrodroidlink.com/m/xXdrcM94mgZs",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900011,
+        "m_SIGUID": -990700011,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -301,16 +301,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900012,
+        "m_SIGUID": -990700012,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2330.TWSE (2/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro 2330.TWSE, Count 2/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900013,
+        "m_SIGUID": -990700013,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -333,22 +333,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900014,
+        "m_SIGUID": -990700014,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900015
+        "m_SIGUID": -990700015
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900016,
+        "m_SIGUID": -990700016,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910048,
+            "m_SIGUID": -990800048,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -373,13 +373,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900017,
-        "m_urlToOpen": "https://macrodroidlink.com/m/8SkpTPOfF2MT",
+        "m_SIGUID": -990700017,
+        "m_urlToOpen": "https://macrodroidlink.com/m/_7kNsqk85lWq",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900018,
+        "m_SIGUID": -990700018,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -427,16 +427,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900019,
+        "m_SIGUID": -990700019,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2377.TWSE (3/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro 2377.TWSE, Count 3/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900020,
+        "m_SIGUID": -990700020,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -459,22 +459,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900021,
+        "m_SIGUID": -990700021,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900022
+        "m_SIGUID": -990700022
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900023,
+        "m_SIGUID": -990700023,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910069,
+            "m_SIGUID": -990800069,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -499,13 +499,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900024,
-        "m_urlToOpen": "https://macrodroidlink.com/m/Dg_d5_NGp6_N",
+        "m_SIGUID": -990700024,
+        "m_urlToOpen": "https://macrodroidlink.com/m/_EdjMRfYfoQr",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900025,
+        "m_SIGUID": -990700025,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -553,16 +553,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900026,
+        "m_SIGUID": -990700026,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2379.TWSE (4/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro 2379.TWSE, Count 4/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900027,
+        "m_SIGUID": -990700027,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -585,22 +585,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900028,
+        "m_SIGUID": -990700028,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900029
+        "m_SIGUID": -990700029
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900030,
+        "m_SIGUID": -990700030,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910090,
+            "m_SIGUID": -990800090,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -625,13 +625,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900031,
-        "m_urlToOpen": "https://macrodroidlink.com/m/7VtSptJV7lht",
+        "m_SIGUID": -990700031,
+        "m_urlToOpen": "https://macrodroidlink.com/m/PQbrLRZHuySU",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900032,
+        "m_SIGUID": -990700032,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -679,16 +679,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900033,
+        "m_SIGUID": -990700033,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2383.TWSE (5/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro 2383.TWSE, Count 5/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900034,
+        "m_SIGUID": -990700034,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -711,22 +711,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900035,
+        "m_SIGUID": -990700035,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900036
+        "m_SIGUID": -990700036
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900037,
+        "m_SIGUID": -990700037,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910111,
+            "m_SIGUID": -990800111,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -751,13 +751,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900038,
-        "m_urlToOpen": "https://macrodroidlink.com/m/TC9G-E8pMqGV",
+        "m_SIGUID": -990700038,
+        "m_urlToOpen": "https://macrodroidlink.com/m/D61bgcIw-lhB",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900039,
+        "m_SIGUID": -990700039,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -805,16 +805,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900040,
+        "m_SIGUID": -990700040,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2449.TWSE (6/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro 2449.TWSE, Count 6/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900041,
+        "m_SIGUID": -990700041,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -837,22 +837,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900042,
+        "m_SIGUID": -990700042,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900043
+        "m_SIGUID": -990700043
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900044,
+        "m_SIGUID": -990700044,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910132,
+            "m_SIGUID": -990800132,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -877,13 +877,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900045,
-        "m_urlToOpen": "https://macrodroidlink.com/m/o5CL09gv3N_G",
+        "m_SIGUID": -990700045,
+        "m_urlToOpen": "https://macrodroidlink.com/m/lLPO4EriWh7j",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900046,
+        "m_SIGUID": -990700046,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -931,16 +931,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900047,
+        "m_SIGUID": -990700047,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 2454.TWSE (7/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro 2454.TWSE, Count 7/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900048,
+        "m_SIGUID": -990700048,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -963,22 +963,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900049,
+        "m_SIGUID": -990700049,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900050
+        "m_SIGUID": -990700050
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900051,
+        "m_SIGUID": -990700051,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910153,
+            "m_SIGUID": -990800153,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -1003,13 +1003,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900052,
-        "m_urlToOpen": "https://macrodroidlink.com/m/JVmQhN5t5Fqx",
+        "m_SIGUID": -990700052,
+        "m_urlToOpen": "https://macrodroidlink.com/m/dbV5C3wrpmeD",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900053,
+        "m_SIGUID": -990700053,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -1057,16 +1057,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900054,
+        "m_SIGUID": -990700054,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE 3034.TWSE (8/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro 3034.TWSE, Count 8/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900055,
+        "m_SIGUID": -990700055,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -1089,22 +1089,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900056,
+        "m_SIGUID": -990700056,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900057
+        "m_SIGUID": -990700057
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900058,
+        "m_SIGUID": -990700058,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910174,
+            "m_SIGUID": -990800174,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -1129,13 +1129,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900059,
-        "m_urlToOpen": "https://macrodroidlink.com/m/iLEkLn3RlvHa",
+        "m_SIGUID": -990700059,
+        "m_urlToOpen": "https://macrodroidlink.com/m/UhRz543iwe40",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900060,
+        "m_SIGUID": -990700060,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -1183,16 +1183,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900061,
+        "m_SIGUID": -990700061,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE ADBE (9/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro ADBE, Count 9/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900062,
+        "m_SIGUID": -990700062,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -1215,22 +1215,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900063,
+        "m_SIGUID": -990700063,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900064
+        "m_SIGUID": -990700064
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900065,
+        "m_SIGUID": -990700065,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910195,
+            "m_SIGUID": -990800195,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -1255,13 +1255,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900066,
-        "m_urlToOpen": "https://macrodroidlink.com/m/DIbHR--SZn-F",
+        "m_SIGUID": -990700066,
+        "m_urlToOpen": "https://macrodroidlink.com/m/_GP6Kj6gSYeo",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900067,
+        "m_SIGUID": -990700067,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -1309,16 +1309,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900068,
+        "m_SIGUID": -990700068,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE AMAT (10/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro AMAT, Count 10/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900069,
+        "m_SIGUID": -990700069,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -1341,22 +1341,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900070,
+        "m_SIGUID": -990700070,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900071
+        "m_SIGUID": -990700071
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900072,
+        "m_SIGUID": -990700072,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910216,
+            "m_SIGUID": -990800216,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -1381,13 +1381,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900073,
-        "m_urlToOpen": "https://macrodroidlink.com/m/cLYHyXhwj1e9",
+        "m_SIGUID": -990700073,
+        "m_urlToOpen": "https://macrodroidlink.com/m/qH60nUdB7wDY",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900074,
+        "m_SIGUID": -990700074,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -1435,16 +1435,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900075,
+        "m_SIGUID": -990700075,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE AMD (11/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro AMD, Count 11/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900076,
+        "m_SIGUID": -990700076,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -1467,22 +1467,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900077,
+        "m_SIGUID": -990700077,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900078
+        "m_SIGUID": -990700078
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900079,
+        "m_SIGUID": -990700079,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910237,
+            "m_SIGUID": -990800237,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -1507,13 +1507,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900080,
-        "m_urlToOpen": "https://macrodroidlink.com/m/i9B__ezMvcg7",
+        "m_SIGUID": -990700080,
+        "m_urlToOpen": "https://macrodroidlink.com/m/PS_20QrgTEUA",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900081,
+        "m_SIGUID": -990700081,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -1561,16 +1561,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900082,
+        "m_SIGUID": -990700082,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE ASM.XAMS (12/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro ASM.XAMS, Count 12/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900083,
+        "m_SIGUID": -990700083,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -1593,22 +1593,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900084,
+        "m_SIGUID": -990700084,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900085
+        "m_SIGUID": -990700085
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900086,
+        "m_SIGUID": -990700086,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910258,
+            "m_SIGUID": -990800258,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -1633,13 +1633,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900087,
-        "m_urlToOpen": "https://macrodroidlink.com/m/zg8NPOaYz7aK",
+        "m_SIGUID": -990700087,
+        "m_urlToOpen": "https://macrodroidlink.com/m/V4tAGeXSLrBP",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900088,
+        "m_SIGUID": -990700088,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -1687,16 +1687,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900089,
+        "m_SIGUID": -990700089,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE DECK (13/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro DECK, Count 13/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900090,
+        "m_SIGUID": -990700090,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -1719,22 +1719,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900091,
+        "m_SIGUID": -990700091,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900092
+        "m_SIGUID": -990700092
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900093,
+        "m_SIGUID": -990700093,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910279,
+            "m_SIGUID": -990800279,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -1759,13 +1759,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900094,
-        "m_urlToOpen": "https://macrodroidlink.com/m/Wrm8DPi6pUnD",
+        "m_SIGUID": -990700094,
+        "m_urlToOpen": "https://macrodroidlink.com/m/07u81A7jYovp",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900095,
+        "m_SIGUID": -990700095,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -1813,16 +1813,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900096,
+        "m_SIGUID": -990700096,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE EXEL (14/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro EXEL, Count 14/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900097,
+        "m_SIGUID": -990700097,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -1845,22 +1845,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900098,
+        "m_SIGUID": -990700098,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900099
+        "m_SIGUID": -990700099
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900100,
+        "m_SIGUID": -990700100,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910300,
+            "m_SIGUID": -990800300,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -1885,13 +1885,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900101,
-        "m_urlToOpen": "https://macrodroidlink.com/m/-W4p3FAc2HaK",
+        "m_SIGUID": -990700101,
+        "m_urlToOpen": "https://macrodroidlink.com/m/WGMSmHRPLCa6",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900102,
+        "m_SIGUID": -990700102,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -1939,16 +1939,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900103,
+        "m_SIGUID": -990700103,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE HD (15/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro HD, Count 15/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900104,
+        "m_SIGUID": -990700104,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -1971,22 +1971,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900105,
+        "m_SIGUID": -990700105,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900106
+        "m_SIGUID": -990700106
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900107,
+        "m_SIGUID": -990700107,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910321,
+            "m_SIGUID": -990800321,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -2011,13 +2011,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900108,
-        "m_urlToOpen": "https://macrodroidlink.com/m/a1DkUW-ncrJY",
+        "m_SIGUID": -990700108,
+        "m_urlToOpen": "https://macrodroidlink.com/m/SNB9pD-zyECc",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900109,
+        "m_SIGUID": -990700109,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -2065,16 +2065,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900110,
+        "m_SIGUID": -990700110,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE JNJ (16/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro JNJ, Count 16/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900111,
+        "m_SIGUID": -990700111,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -2097,22 +2097,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900112,
+        "m_SIGUID": -990700112,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900113
+        "m_SIGUID": -990700113
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900114,
+        "m_SIGUID": -990700114,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910342,
+            "m_SIGUID": -990800342,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -2137,13 +2137,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900115,
-        "m_urlToOpen": "https://macrodroidlink.com/m/FIC1a5l8c7Lv",
+        "m_SIGUID": -990700115,
+        "m_urlToOpen": "https://macrodroidlink.com/m/MSOm7V309OED",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900116,
+        "m_SIGUID": -990700116,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -2191,16 +2191,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900117,
+        "m_SIGUID": -990700117,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE LLY (17/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro LLY, Count 17/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900118,
+        "m_SIGUID": -990700118,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -2223,22 +2223,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900119,
+        "m_SIGUID": -990700119,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900120
+        "m_SIGUID": -990700120
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900121,
+        "m_SIGUID": -990700121,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910363,
+            "m_SIGUID": -990800363,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -2263,13 +2263,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900122,
-        "m_urlToOpen": "https://macrodroidlink.com/m/EcvyeEGXg9Jy",
+        "m_SIGUID": -990700122,
+        "m_urlToOpen": "https://macrodroidlink.com/m/uuIv1Hi8zfjw",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900123,
+        "m_SIGUID": -990700123,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -2317,16 +2317,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900124,
+        "m_SIGUID": -990700124,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE LULU (18/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro LULU, Count 18/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900125,
+        "m_SIGUID": -990700125,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -2349,22 +2349,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900126,
+        "m_SIGUID": -990700126,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900127
+        "m_SIGUID": -990700127
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900128,
+        "m_SIGUID": -990700128,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910384,
+            "m_SIGUID": -990800384,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -2389,13 +2389,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900129,
-        "m_urlToOpen": "https://macrodroidlink.com/m/z5K1xzGJUqST",
+        "m_SIGUID": -990700129,
+        "m_urlToOpen": "https://macrodroidlink.com/m/MIHctYELPZhk",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900130,
+        "m_SIGUID": -990700130,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -2443,16 +2443,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900131,
+        "m_SIGUID": -990700131,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE MA (19/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro MA, Count 19/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900132,
+        "m_SIGUID": -990700132,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -2475,22 +2475,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900133,
+        "m_SIGUID": -990700133,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900134
+        "m_SIGUID": -990700134
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900135,
+        "m_SIGUID": -990700135,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910405,
+            "m_SIGUID": -990800405,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -2515,13 +2515,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900136,
-        "m_urlToOpen": "https://macrodroidlink.com/m/qaYw53wIfuXi",
+        "m_SIGUID": -990700136,
+        "m_urlToOpen": "https://macrodroidlink.com/m/N5-8_PmY-sJP",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900137,
+        "m_SIGUID": -990700137,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -2569,16 +2569,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900138,
+        "m_SIGUID": -990700138,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE MRK (20/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro MRK, Count 20/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900139,
+        "m_SIGUID": -990700139,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -2601,22 +2601,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900140,
+        "m_SIGUID": -990700140,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900141
+        "m_SIGUID": -990700141
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900142,
+        "m_SIGUID": -990700142,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910426,
+            "m_SIGUID": -990800426,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -2641,13 +2641,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900143,
-        "m_urlToOpen": "https://macrodroidlink.com/m/tbsxmhI7cBDP",
+        "m_SIGUID": -990700143,
+        "m_urlToOpen": "https://macrodroidlink.com/m/mj8IL9iBJoGj",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900144,
+        "m_SIGUID": -990700144,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -2695,16 +2695,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900145,
+        "m_SIGUID": -990700145,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE MU (21/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro MU, Count 21/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900146,
+        "m_SIGUID": -990700146,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -2727,22 +2727,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900147,
+        "m_SIGUID": -990700147,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900148
+        "m_SIGUID": -990700148
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900149,
+        "m_SIGUID": -990700149,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910447,
+            "m_SIGUID": -990800447,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -2767,13 +2767,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900150,
-        "m_urlToOpen": "https://macrodroidlink.com/m/YYMJZEAeDPlM",
+        "m_SIGUID": -990700150,
+        "m_urlToOpen": "https://macrodroidlink.com/m/1BgEiF_IvDYf",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900151,
+        "m_SIGUID": -990700151,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -2821,16 +2821,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900152,
+        "m_SIGUID": -990700152,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE ORG.ASX (22/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro ORG.ASX, Count 22/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900153,
+        "m_SIGUID": -990700153,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -2853,22 +2853,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900154,
+        "m_SIGUID": -990700154,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900155
+        "m_SIGUID": -990700155
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900156,
+        "m_SIGUID": -990700156,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910468,
+            "m_SIGUID": -990800468,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -2893,13 +2893,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900157,
-        "m_urlToOpen": "https://macrodroidlink.com/m/dPCTH4mcLZA6",
+        "m_SIGUID": -990700157,
+        "m_urlToOpen": "https://macrodroidlink.com/m/GpmtSPKjHTt8",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900158,
+        "m_SIGUID": -990700158,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -2947,16 +2947,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900159,
+        "m_SIGUID": -990700159,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE SU.PA (23/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro SU.PA, Count 23/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900160,
+        "m_SIGUID": -990700160,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -2979,22 +2979,22 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900161,
+        "m_SIGUID": -990700161,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900162
+        "m_SIGUID": -990700162
       },
       {
         "m_classType": "IfConditionAction",
-        "m_SIGUID": -989900163,
+        "m_SIGUID": -990700163,
         "m_constraintList": [
           {
             "m_classType": "MacroDroidVariableConstraint",
-            "m_SIGUID": -989910489,
+            "m_SIGUID": -990800489,
             "m_variable": {
               "m_name": "DroidMacro_BulkNext_Centered",
               "m_type": 1,
@@ -3019,13 +3019,13 @@
       },
       {
         "m_classType": "OpenWebPageAction",
-        "m_SIGUID": -989900164,
-        "m_urlToOpen": "https://macrodroidlink.com/m/keLM7dZFCn6I",
+        "m_SIGUID": -990700164,
+        "m_urlToOpen": "https://macrodroidlink.com/m/7AkdFRmnrFK8",
         "m_httpGet": false
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900165,
+        "m_SIGUID": -990700165,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 0,
         "m_useAlarm": false,
@@ -3073,16 +3073,16 @@
           "type": "Click"
         },
         "disableLogging": false,
-        "m_SIGUID": -989900166,
+        "m_SIGUID": -990700166,
         "m_classType": "UIInteractionAction",
-        "m_comment": "SAVE TTD (24/24) at the centre of the white circle — 90%, 88%",
+        "m_comment": "Save new Stock Testitn project-opening ticker macro TTD, Count 24/24",
         "m_constraintList": [],
         "m_isDisabled": false,
         "m_isOrCondition": false
       },
       {
         "m_classType": "SetVariableAction",
-        "m_SIGUID": -989900167,
+        "m_SIGUID": -990700167,
         "m_variable": {
           "m_name": "DroidMacro_BulkNext_Centered",
           "m_type": 1,
@@ -3105,20 +3105,20 @@
       },
       {
         "m_classType": "PauseAction",
-        "m_SIGUID": -989900168,
+        "m_SIGUID": -990700168,
         "m_delayInSeconds": 0,
         "m_delayInMilliSeconds": 500,
         "m_useAlarm": false
       },
       {
         "m_classType": "EndIfAction",
-        "m_SIGUID": -989900169
+        "m_SIGUID": -990700169
       },
       {
         "m_classType": "NotificationAction",
-        "m_SIGUID": -989900170,
+        "m_SIGUID": -990700170,
         "m_notificationSubject": "DroidMacro: 24 Save taps attempted",
-        "m_notificationText": "All 24 ticker Save clicks attempted. Check saved MacroDroid stock entries and My_order; click attempts are not proof of import."
+        "m_notificationText": "Attempted 24 stock macro saves using project-opening ticker links. Verify that ticker macros are present and the project URL opens as expected."
       }
     ]
   }
