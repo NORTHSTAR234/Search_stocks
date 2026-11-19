@@ -17,6 +17,13 @@
       "bucket": "nonhalal",
       "label": "DOUBTFUL",
       "reason": "Owner requests review while current exact KRX Musaffa screening is inconclusive; no verified NOT HALAL finding."
+    },
+    {
+      "ticker": "3750.HK",
+      "company": "Contemporary Amperex Technology Co., Limited",
+      "bucket": "nonhalal",
+      "label": "DOUBTFUL",
+      "reason": "Owner explicitly designated HKEX 3750.HK (CATL) as DOUBTFUL on 20 November 2026. This is an owner review, not a verified Musaffa NON-HALAL finding."
     }
   ]
 }
