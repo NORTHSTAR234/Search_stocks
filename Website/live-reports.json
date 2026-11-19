@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-19T20:33:38Z",
-  "htmlReportCount": 229,
+  "latestHtmlReportAt": "2026-11-19T20:35:59Z",
+  "htmlReportCount": 230,
   "uniqueTickers": 45,
   "ethicalSources": {
     "rizqinvests": {
@@ -15,14 +15,14 @@
       "matchedReports": 8
     }
   },
-  "revision": "86a625972e5b4ef249e6e1946ebe4e7e",
+  "revision": "040265156f48b2b5bc9824993bf78d3c",
   "rows": [
     {
       "company": "Contemporary Amperex Technology Co., Limited",
       "ticker": "3750.HK",
       "exchange": "HKEX",
       "bucket": "nonhalal",
-      "timestamp": "2026-11-19T20:33:38Z",
+      "timestamp": "2026-11-19T20:35:59Z",
       "industryCategory": "Industrials, Construction & Transportation",
       "industryDetail": "Electric-vehicle and stationary energy-storage battery cells, packs and systems; this nine-way taxonomy includes electrical-equipment manufacturers.",
       "industryCategorySource": "REPORT_SNAPSHOT",
@@ -79,12 +79,12 @@
         ],
         "yahoo_ticker": "3750.HK",
         "hours_source": "https://www.hkex.com.hk/Services/Trading-hours-and-Severe-Weather-Arrangements/Trading-Hours/Securities-Market?sc_lang=en",
-        "hours_checked_utc": "2026-11-19T20:33:38Z"
+        "hours_checked_utc": "2026-11-19T20:35:59Z"
       },
       "sourceMarketTicker": "3750.HK",
       "zoneBands": [],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/3750.HK/3750.HK_2026-11-19_20-33-38Z.html",
-      "reportPath": "/view-report?path=nonhalal%2F3750.HK%2F3750.HK_2026-11-19_20-33-38Z.html",
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/3750.HK/3750.HK_2026-11-19_20-35-59Z.html",
+      "reportPath": "/view-report?path=nonhalal%2F3750.HK%2F3750.HK_2026-11-19_20-35-59Z.html",
       "sourceFormat": "html",
       "conflictingBuckets": false,
       "ethicalStatus": "UNVERIFIED",
