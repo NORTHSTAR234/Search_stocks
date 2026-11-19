@@ -633,6 +633,12 @@
       /^(?:DOUBTFUL|NON_HALAL)$/.test(String(r.screeningReviewStatus||"").toUpperCase());
     return ethicalNegative||musaffaNegative||ownerFlagged||musaffaVisual(r).tone==="bad";
   }
+  function stockTableCounts(rows){
+    // Top cards always describe the ENTIRE latest report set, just like "Latest reports".
+    // Table headings below continue to show counts after user filters are applied.
+    const table2=rows.filter(isFlaggedForSecondTable).length;
+    return {table1:rows.length-table2,table2};
+  }
   function render(){
     syncExchangeFilters();
     const query=norm($("search").value),bucket=$("bucket").value,industry=$("industry").value,exchange=$("exchange").value,order=$("order").value;
@@ -661,6 +667,9 @@
     $("count").textContent=all.length;
     $("halalCount").textContent=all.filter(r=>r.bucket==="halal").length;
     $("quoteCount").textContent=Object.keys(state.quotes).length;
+    const totals=stockTableCounts(all);
+    $("table1Count").textContent=totals.table1;
+    $("table2Count").textContent=totals.table2;
     $("shown").textContent="Showing "+filtered.length+" of "+all.length+" latest reports · "+primary.length+" other / "+flagged.length+" flagged";
   }
   async function refresh(){

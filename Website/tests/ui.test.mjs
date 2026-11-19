@@ -607,6 +607,35 @@ test("two stock tables share the same search/category/exchange/order and row mar
   assert(source.includes('"Showing "+filtered.length+" of "+all.length'));
 });
 
+
+test("hero cards add accurate Table 1 and Table 2 totals from all reports, not the active filters",()=>{
+  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
+  for(const id of ["count","halalCount","quoteCount","table1Count","table2Count"])
+    assert(build.includes('id="'+id+'"'),"missing top card "+id);
+  assert(build.includes("Table 1 · Other stocks"));
+  assert(build.includes("Table 2 · Flagged stocks"));
+  assert(source.includes('const totals=stockTableCounts(all);'));
+  assert(source.includes('$("table1Count").textContent=totals.table1;'));
+  assert(source.includes('$("table2Count").textContent=totals.table2;'));
+  assert(source.includes('$("primaryShown").textContent=primary.length'));
+  assert(source.includes('$("flaggedShown").textContent=flagged.length'));
+  const routerSource=source.match(/function isFlaggedForSecondTable\(r\)\{([\s\S]*?)\n  \}/);
+  const countsSource=source.match(/function stockTableCounts\(rows\)\{([\s\S]*?)\n  \}/);
+  assert(routerSource&&countsSource,"shared classifier and totals helper must exist");
+  const route=new Function("musaffaVisual","return function(r){"+routerSource[1]+"\n}")(r=>({tone:r.testTone||"warn"}));
+  const count=new Function("isFlaggedForSecondTable","return function(rows){"+countsSource[1]+"\n}")(route);
+  const standard={bucket:"halal",ethicalFinalStatus:"UNVERIFIED",ethicalFinalColor:"NONE",musaffaClassification:"HALAL",musaffaAssessment:"VERIFIED_HALAL"};
+  const rows=[
+    {...standard,ticker:"A"},
+    {...standard,ticker:"B"},
+    {...standard,ticker:"C",ethicalFinalStatus:"UNETHICAL",ethicalFinalColor:"RED"},
+    {...standard,ticker:"D",bucket:"nonhalal",screeningReviewStatus:"DOUBTFUL",screeningReviewSource:"USER_REQUEST"}
+  ];
+  assert.deepEqual(count(rows),{table1:2,table2:2});
+  assert.deepEqual(count(rows.slice(0,1)),{table1:1,table2:0});
+  assert.equal(count(rows).table1+count(rows).table2,rows.length);
+});
+
 test("second table routes any explicitly owner-reviewed doubtful or non-halal listing, not folder or inconclusive",()=>{
   const match=source.match(/function isFlaggedForSecondTable\(r\)\{([\s\S]*?)\n  \}/);
   assert(match,"dual-table classifier");
