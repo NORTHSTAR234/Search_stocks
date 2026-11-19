@@ -15,7 +15,7 @@
       "matchedReports": 8
     }
   },
-  "revision": "040265156f48b2b5bc9824993bf78d3c",
+  "revision": "3408618f2486924c97c68b281c7545ca",
   "rows": [
     {
       "company": "Contemporary Amperex Technology Co., Limited",
@@ -2512,7 +2512,7 @@
       "company": "Fortune Electric Co., Ltd.",
       "ticker": "1519.TWSE",
       "exchange": "TWSE",
-      "bucket": "nonhalal",
+      "bucket": "halal",
       "timestamp": "2026-11-19T11:19:47Z",
       "industryCategory": "Industrials, Construction & Transportation",
       "industryDetail": "Electrical power transformer, switchgear and grid equipment manufacturer",
@@ -2580,10 +2580,10 @@
           485
         ]
       ],
-      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/1519.TWSE/1519.TWSE_2026-11-19_11-19-47Z.html",
-      "reportPath": "/view-report?path=nonhalal%2F1519.TWSE%2F1519.TWSE_2026-11-19_11-19-47Z.html",
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/1519.TWSE/1519.TWSE_2026-11-19_11-19-47Z.html",
+      "reportPath": "/view-report?path=halal%2F1519.TWSE%2F1519.TWSE_2026-11-19_11-19-47Z.html",
       "sourceFormat": "html",
-      "conflictingBuckets": true,
+      "conflictingBuckets": false,
       "ethicalStatus": "UNVERIFIED",
       "ethicalBdsListed": null,
       "ethicalAssessmentDate": null,
