@@ -26,3 +26,16 @@ test("owner label is separate from original Musaffa and financial recommendation
  assert(app.includes('r.screeningReviewSource==="USER_REQUEST"'));
  assert(!builder.includes('row.musaffaClassification="DOUBTFUL"'));
 });
+
+test("any exact owner-flagged stock is automatically cloned into nonhalal if newer source was in halal",()=>{
+  const reconcile=readFileSync(new URL("../scripts/reconcile-owner-screening-reviews.mjs",import.meta.url),"utf8");
+  const workflow=readFileSync(new URL("../../.github/workflows/publish-html-reports.yml",import.meta.url),"utf8");
+  assert(reconcile.includes("latestArchive(reports)"));
+  assert(reconcile.includes('if(info.bucket==="nonhalal")continue;'));
+  assert(reconcile.includes('snap.owner_review={status:review.label,source:"USER_REQUEST"'));
+  assert(reconcile.includes('fs.writeFileSync(dest,updated,{flag:"wx"})'));
+  assert(reconcile.includes('requiredDepth.some(rx=>!rx.test(visible))'));
+  assert(reconcile.includes('check.musaffaClassification!==parsed.musaffaClassification'));
+  assert(workflow.includes("node Website/scripts/reconcile-owner-screening-reviews.mjs"));
+  assert(workflow.includes("git add Website/live-reports.json nonhalal/"));
+});

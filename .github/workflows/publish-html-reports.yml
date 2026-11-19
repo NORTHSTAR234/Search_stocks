@@ -7,6 +7,7 @@ on:
       - 'halal/**/*.html'
       - 'nonhalal/**/*.html'
       - 'Website/scripts/build-live-reports.mjs'
+      - 'Website/scripts/reconcile-owner-screening-reviews.mjs'
       - 'Website/data/shariah-user-reviews.json'
       - 'Website/tests/shariah-user-reviews.test.mjs'
       - 'Website/lib/ethical-policy.mjs'
@@ -66,6 +67,8 @@ jobs:
           node-version: '22'
       - name: Install dashboard test dependencies
         run: npm --prefix Website install --no-audit --no-fund
+      - name: Reconcile any owner-flagged stocks into nonhalal folder
+        run: node Website/scripts/reconcile-owner-screening-reviews.mjs
       - name: Verify new and legacy dashboard regressions
         run: node --test Website/tests/*.test.mjs
       - name: Verify international price collector syntax and exchange session configuration
@@ -87,11 +90,14 @@ jobs:
             git fetch --no-tags origin main
             # This is an ephemeral CI checkout; never force-push or delete reports.
             git reset --hard origin/main
+            # Create new administrative copies of owner-designated halal-folder stocks.
+            # Never delete old reports or weaken full-research depth tests.
+            node Website/scripts/reconcile-owner-screening-reviews.mjs
             # Revalidate the latest report set, including any reports pushed
             # while this workflow was running. Do not relax the quality gate.
             node --test Website/tests/*.test.mjs
             node Website/scripts/build-live-reports.mjs
-            git add Website/live-reports.json
+            git add Website/live-reports.json nonhalal/
             if git diff --cached --quiet; then
               echo "Index is current; no commit needed."
               exit 0
