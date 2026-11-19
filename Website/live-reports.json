@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-19T19:44:30Z",
-  "htmlReportCount": 226,
-  "uniqueTickers": 43,
+  "latestHtmlReportAt": "2026-11-19T20:31:20Z",
+  "htmlReportCount": 227,
+  "uniqueTickers": 44,
   "ethicalSources": {
     "rizqinvests": {
       "snapshot": "2026-11",
@@ -15,8 +15,110 @@
       "matchedReports": 8
     }
   },
-  "revision": "1b2e88f15487f3363d1fd1ab8ed61575",
+  "revision": "969746b1fada5d1d50fd6d365a956156",
   "rows": [
+    {
+      "company": "Infineon Technologies AG",
+      "ticker": "IFX.DE",
+      "exchange": "XETRA",
+      "bucket": "halal",
+      "timestamp": "2026-11-19T20:31:20Z",
+      "industryCategory": "Technology & Communications",
+      "industryDetail": "Automotive, power and data-centre semiconductors",
+      "industryCategorySource": "REPORT_SNAPSHOT",
+      "dividendStatus": "PAYS",
+      "dividendYieldPercent": 0.77,
+      "dividendAnnualPerShare": 0.38,
+      "dividendCurrency": "EUR",
+      "dividendFrequency": "Annual",
+      "dividendExDate": null,
+      "dividendPaymentDate": null,
+      "dividendAsOf": "2026-11-19",
+      "dividendYieldBasis": null,
+      "dividendSourceUrl": "https://www.infineon.com/about/investor/infineon-share/dividend",
+      "dividendDataSource": "REPORT_SNAPSHOT",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH — cyclical semiconductor and valuation volatility",
+      "investment": "69/100",
+      "entry": "46/100",
+      "musaffa": "HALAL · 2026-11 (month) · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": "2026-11",
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "VERIFIED_HALAL",
+      "musaffaReason": "Exact IFX.DE Musaffa indexed official first-party classification HALAL as of November 2026; cached directly opened view showed August 2026 HALAL; both fresh versus UTC minus four…",
+      "earnings": "3 Feb 2027 estimated",
+      "zones": "EUR 43–46 / EUR 46–49",
+      "stops": "EUR 40 / EUR 52",
+      "nativeCurrency": "EUR",
+      "marketSchedule": {
+        "exchange": "XETRA",
+        "mic": "XETR",
+        "market_time_zone": "Europe/Berlin",
+        "sydney_time_zone": "Australia/Melbourne",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "17:30"
+          }
+        ],
+        "yahoo_ticker": "IFX.DE",
+        "hours_source": "https://www.cashmarket.deutsche-boerse.com/cash-en/trading/trading-calendar-and-trading-hours",
+        "hours_checked_utc": "2026-11-19T20:31:20Z"
+      },
+      "sourceMarketTicker": "IFX.DE",
+      "zoneBands": [
+        [
+          43,
+          46
+        ],
+        [
+          46,
+          49
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/IFX.DE/IFX.DE_2026-11-19_20-31-20Z.html",
+      "reportPath": "/view-report?path=halal%2FIFX.DE%2FIFX.DE_2026-11-19_20-31-20Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false,
+      "ethicalStatus": "UNVERIFIED",
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
+    },
     {
       "company": "Marker Therapeutics, Inc.",
       "ticker": "MRKR",
