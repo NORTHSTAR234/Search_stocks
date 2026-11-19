@@ -623,7 +623,13 @@
     const classification=String(r.musaffaClassification||
       String(r.musaffa||"").split(" · ")[0]||"").trim().toUpperCase();
     const musaffaNegative=/(?:NOT\s+HALAL|NON[\s-]?COMPLIANT|NON[\s-]?HALAL|HARAM)/.test(classification);
-    return ethicalNegative||musaffaNegative||musaffaVisual(r).tone==="bad";
+    // Explicit owner-requested DOUBTFUL routes cautiously; it is NOT a Musaffa verdict.
+    // Plain INCONCLUSIVE statuses and folder placement alone do not route.
+    const ownerDoubtful=r.bucket==="nonhalal"&&
+      String(r.screeningReviewStatus||"").toUpperCase()==="DOUBTFUL"&&
+      r.screeningReviewSource==="USER_REQUEST"&&
+      r.musaffaAssessment==="INCONCLUSIVE";
+    return ethicalNegative||musaffaNegative||ownerDoubtful||musaffaVisual(r).tone==="bad";
   }
   function render(){
     syncExchangeFilters();
@@ -647,7 +653,7 @@
     const primary=filtered.filter(r=>!isFlaggedForSecondTable(r));
     const flagged=filtered.filter(isFlaggedForSecondTable);
     $("rows").innerHTML=primary.length?primary.map(tr).join(""):'<tr><td colspan="11">No other stocks match your filters.</td></tr>';
-    $("flaggedRows").innerHTML=flagged.length?flagged.map(tr).join(""):'<tr><td colspan="11">No unethical or Musaffa non-halal stocks match your filters.</td></tr>';
+    $("flaggedRows").innerHTML=flagged.length?flagged.map(tr).join(""):'<tr><td colspan="11">No unethical, non-halal or owner-reviewed doubtful stocks match your filters.</td></tr>';
     $("primaryShown").textContent=primary.length+" stock"+(primary.length===1?"":"s");
     $("flaggedShown").textContent=flagged.length+" stock"+(flagged.length===1?"":"s");
     $("count").textContent=all.length;
