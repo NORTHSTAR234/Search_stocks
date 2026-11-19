@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-19T11:36:00Z",
-  "htmlReportCount": 222,
-  "uniqueTickers": 39,
+  "latestHtmlReportAt": "2026-11-19T11:38:29Z",
+  "htmlReportCount": 223,
+  "uniqueTickers": 40,
   "ethicalSources": {
     "rizqinvests": {
       "snapshot": "2026-11",
@@ -15,8 +15,110 @@
       "matchedReports": 7
     }
   },
-  "revision": "8d8e15b6cf8499a650ba12a5c6a61dd0",
+  "revision": "06e5a5f46b01fcfeb8471adb84e1d3bd",
   "rows": [
+    {
+      "company": "SK hynix Inc.",
+      "ticker": "000660.KRX",
+      "exchange": "KRX",
+      "bucket": "nonhalal",
+      "timestamp": "2026-11-19T11:38:29Z",
+      "industryCategory": "Technology & Communications",
+      "industryDetail": "DRAM/NAND flash and HBM for AI acceleration",
+      "industryCategorySource": "REPORT_SNAPSHOT",
+      "dividendStatus": "UNKNOWN",
+      "dividendYieldPercent": null,
+      "dividendAnnualPerShare": null,
+      "dividendCurrency": "KRW",
+      "dividendFrequency": "Quarterly",
+      "dividendExDate": null,
+      "dividendPaymentDate": null,
+      "dividendAsOf": null,
+      "dividendYieldBasis": null,
+      "dividendSourceUrl": "https://news.skhynix.com/en/q3-2026-business-results/",
+      "dividendDataSource": "REPORT_SNAPSHOT",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "70/100",
+      "entry": "39/100",
+      "musaffa": "NOT VERIFIED",
+      "musaffaClassification": null,
+      "musaffaGate": "UNVERIFIED",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": null,
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "INCONCLUSIVE",
+      "musaffaReason": "Official first-party KRX page exists, but does not provide a verifiable current halal classification; ADR evidence is not transferable",
+      "earnings": "NOT VERIFIED",
+      "zones": "KRW 1,090,000–1,140,000 / KRW 1,140,000–1,180,000",
+      "stops": "KRW 1,089,000 / KRW 1,281,300",
+      "nativeCurrency": "KRW",
+      "marketSchedule": {
+        "exchange": "KRX",
+        "mic": "XKRX",
+        "market_time_zone": "Asia/Seoul",
+        "sydney_time_zone": "Australia/Melbourne",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:00",
+            "end": "15:30"
+          }
+        ],
+        "yahoo_ticker": "000660.KS",
+        "hours_source": "https://global.krx.co.kr/main/contents/MKD/02/0201/02010100/MKD02010100.jsp",
+        "hours_checked_utc": "2026-11-19T11:38:29Z"
+      },
+      "sourceMarketTicker": "000660.KS",
+      "zoneBands": [
+        [
+          1090000,
+          1140000
+        ],
+        [
+          1140000,
+          1180000
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/000660.KRX/000660.KRX_2026-11-19_11-38-29Z.html",
+      "reportPath": "/view-report?path=nonhalal%2F000660.KRX%2F000660.KRX_2026-11-19_11-38-29Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false,
+      "ethicalStatus": "UNVERIFIED",
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
+    },
     {
       "company": "Broadcom Inc.",
       "ticker": "AVGO",
