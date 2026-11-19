@@ -15,7 +15,7 @@
       "matchedReports": 8
     }
   },
-  "revision": "30d599a80fa1e7a20d174db184cfb576",
+  "revision": "31d6c102ead7bcdc1beba150e3ca3028",
   "rows": [
     {
       "company": "Contemporary Amperex Technology Co., Limited",
@@ -112,7 +112,10 @@
       "ethicalFinalReason": "No matching archived ethical record",
       "ethicalFinalBdsListed": false,
       "ethicalFinalColor": "NONE",
-      "ethicalRizqOriginalLabel": null
+      "ethicalRizqOriginalLabel": null,
+      "screeningReviewStatus": "DOUBTFUL",
+      "screeningReviewSource": "USER_REQUEST",
+      "screeningReviewNote": "Owner explicitly designated HKEX 3750.HK (CATL) as DOUBTFUL on 20 November 2026. This is an owner review, not a verified Musaffa NON-HALAL finding."
     },
     {
       "company": "Infineon Technologies AG",
