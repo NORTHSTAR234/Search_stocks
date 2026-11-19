@@ -15,7 +15,7 @@
       "matchedReports": 8
     }
   },
-  "revision": "3408618f2486924c97c68b281c7545ca",
+  "revision": "30d599a80fa1e7a20d174db184cfb576",
   "rows": [
     {
       "company": "Contemporary Amperex Technology Co., Limited",
@@ -2526,7 +2526,7 @@
       "dividendPaymentDate": null,
       "dividendAsOf": "2026-11-19",
       "dividendYieldBasis": "HISTORICAL_CASH_REPEATS_ONLY",
-      "dividendSourceUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/1519.TWSE/1519.TWSE_2026-11-18_21-07-02Z.html",
+      "dividendSourceUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/1519.TWSE/1519.TWSE_2026-11-18_21-07-02Z.html",
       "dividendDataSource": "REPORT_SNAPSHOT",
       "statusOnly": false,
       "action": "WATCH",
@@ -2534,14 +2534,14 @@
       "risk": "HIGH",
       "investment": "59/100",
       "entry": "40/100",
-      "musaffa": "INCONCLUSIVE · UNVERIFIED",
-      "musaffaClassification": "INCONCLUSIVE",
-      "musaffaGate": "UNVERIFIED",
+      "musaffa": "HALAL · 2026-11 (month) · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
       "musaffaScreeningDate": null,
-      "musaffaScreeningPeriod": null,
+      "musaffaScreeningPeriod": "2026-11",
       "musaffaScreeningMonthConflict": false,
-      "musaffaAssessment": "INCONCLUSIVE",
-      "musaffaReason": "Official exact-security Musaffa directly accessible assessment says HALAL grade A screened 2024-11-30 (Q3 2024), while first-party indexed snippet represents HALAL as of October 2…",
+      "musaffaAssessment": "USER_SCREENSHOT_HALAL",
+      "musaffaReason": "Owner-provided screenshot displays Musaffa HALAL as of November 2026 for 1519.TW; 18 Nov last-updated label, Q2 2026 reporting basis. Commercial provider screen from screenshot on…",
       "earnings": "NOT VERIFIED",
       "zones": "TWD 445–465 / TWD 466–485",
       "stops": "TWD 410 / TWD 525",
