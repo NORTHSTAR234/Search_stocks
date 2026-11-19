@@ -400,6 +400,9 @@
       /(?:STALE|UNVERIFIED|UNKNOWN|INCONCLUSIVE|DOUBTFUL|AMBIGUOUS|CONFLICT|UNCERTAIN)/.test(status+" "+gate);
     if(recent&&!ambiguous&&negative)return {tone:"bad",label:"VERIFIED NON-COMPLIANT"};
     if(recent&&!ambiguous&&positive&&gate!=="FAIL")return {tone:"good",label:"VERIFIED HALAL"};
+    // Owner's conservative review label, not a Musaffa classification or negative verdict.
+    if(r.bucket==="nonhalal"&&String(r.screeningReviewStatus||"").toUpperCase()==="DOUBTFUL")
+      return {tone:"warn",label:"DOUBTFUL"};
     return {tone:"warn",label:"INCONCLUSIVE"};
   }
   function screeningCell(r){
