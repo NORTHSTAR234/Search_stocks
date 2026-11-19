@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "updated_on": "2026-11-20",
+  "provenance": "USER_REQUEST",
+  "description": "Conservative owner-requested DOUBTFUL review labels. These labels are not first-party Musaffa halal classifications; do not imply NOT HALAL or a confirmed ratio failure.",
+  "rows": [
+    {
+      "ticker": "000660.KRX",
+      "company": "SK hynix Inc.",
+      "bucket": "nonhalal",
+      "label": "DOUBTFUL",
+      "reason": "Owner requests review while current exact KRX Musaffa screening is inconclusive; no verified NOT HALAL finding."
+    },
+    {
+      "ticker": "005930.KRX",
+      "company": "Samsung Electronics Co., Ltd.",
+      "bucket": "nonhalal",
+      "label": "DOUBTFUL",
+      "reason": "Owner requests review while current exact KRX Musaffa screening is inconclusive; no verified NOT HALAL finding."
+    }
+  ]
+}
