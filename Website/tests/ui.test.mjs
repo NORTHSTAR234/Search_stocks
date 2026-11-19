@@ -607,7 +607,7 @@ test("two stock tables share the same search/category/exchange/order and row mar
   assert(source.includes('"Showing "+filtered.length+" of "+all.length'));
 });
 
-test("second table routes negative ethical, Musaffa and explicit owner DOUBTFUL reviews, not generic inconclusive or bucket",()=>{
+test("second table routes any explicitly owner-reviewed doubtful or non-halal listing, not folder or inconclusive",()=>{
   const match=source.match(/function isFlaggedForSecondTable\(r\)\{([\s\S]*?)\n  \}/);
   assert(match,"dual-table classifier");
   const classify=new Function("musaffaVisual",
@@ -625,17 +625,19 @@ test("second table routes negative ethical, Musaffa and explicit owner DOUBTFUL 
   assert.equal(classify({...row,musaffaClassification:"INCONCLUSIVE"}),false);
   const doubtful={...row,musaffaClassification:null,musaffaAssessment:"INCONCLUSIVE",
     screeningReviewStatus:"DOUBTFUL",screeningReviewSource:"USER_REQUEST"};
-  for(const ticker of ["000660.KRX","005930.KRX"])
+  for(const ticker of ["000660.KRX","005930.KRX","ANYTHING.ASX","ZZZ"])
     assert.equal(classify({...doubtful,ticker}),true,ticker+" owner doubtful routes to Table 2");
+  assert.equal(classify({...doubtful,screeningReviewStatus:"NON_HALAL"}),true,
+    "owner non-halal routes even with unavailable provider evidence");
   assert.equal(classify({...doubtful,bucket:"halal"}),false,"never bucket-only");
   assert.equal(classify({...doubtful,screeningReviewSource:"OTHER"}),false,"unknown source");
-  assert.equal(classify({...doubtful,musaffaAssessment:"VERIFIED_HALAL"}),false,
-    "a verified halal assessment supersedes manual doubtful review");
+  assert.equal(classify({...doubtful,musaffaAssessment:"VERIFIED_HALAL"}),true,
+    "independent owner preference stays while Musaffa evidence remains unchanged");
 });
 test("second table visible title distinguishes owner doubtful from verified non-halal",()=>{
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  assert(build.includes("Unethical / non-halal / doubtful"));
- assert(build.includes("A doubtful listing is not verified non-halal"));
+ assert(build.includes("Owner labels are amber, separately attributed"));
 });
 
 test("eleven columns follow owner's exact order in BOTH stock tables",()=>{

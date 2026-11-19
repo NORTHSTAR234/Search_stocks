@@ -31,8 +31,19 @@ const ethicalRegistry=loadEthicalDataset();
 const investigateRegistry=loadInvestigateDataset();
 // Explicit user-requested caution flags; these never alter official Musaffa evidence.
 const screeningReviews=JSON.parse(fs.readFileSync(path.join(root,"Website/data/shariah-user-reviews.json"),"utf8"));
-if(screeningReviews.schema_version!==1||!Array.isArray(screeningReviews.rows))
-  throw Error("Invalid user screening-review registry");
+if(screeningReviews.schema_version!==1||screeningReviews.provenance!=="USER_REQUEST"||
+    !Array.isArray(screeningReviews.rows))
+  throw Error("Invalid owner Shariah review registry");
+const validLabels=new Set(["DOUBTFUL","NON_HALAL"]);
+const seenReviews=new Set();
+for(const review of screeningReviews.rows){
+  if(!review||!validLabels.has(review.label)||review.bucket!=="nonhalal"||
+      typeof review.ticker!=="string"||!/^[A-Z0-9]+(?:[.-][A-Z0-9]+)*$/.test(review.ticker)||
+      typeof review.company!=="string"||!review.company.trim()||
+      typeof review.reason!=="string"||!review.reason.trim()||
+      seenReviews.has(review.ticker))throw Error("Invalid or duplicate owner review");
+  seenReviews.add(review.ticker);
+}
 const reviewByTicker=new Map(screeningReviews.rows.map(item=>[item.ticker,item]));
 const byBucket=new Map();
 for(const report of archives){
@@ -50,11 +61,13 @@ for(const row of rows){
   // Source-locked RizqInvests-first decision; Investigate may override only non-red findings.
   Object.assign(row,applyCombinedEthicalScreening(applyInvestigateDataset(applyEthicalDataset(row,ethicalRegistry),investigateRegistry)));
   const manualReview=reviewByTicker.get(row.ticker);
-  // User label is applied only while the latest report remains INCONCLUSIVE in nonhalal/.
-  // A new fresh, explicit Musaffa HALAL/NOT HALAL report supersedes this manual caution.
-  if(manualReview?.label==="DOUBTFUL"&&manualReview.bucket==="nonhalal"&&
-      row.bucket==="nonhalal"&&row.musaffaAssessment==="INCONCLUSIVE"){
-    row.screeningReviewStatus="DOUBTFUL";
+  // Owner preferences apply to ANY exact ticker/issuer, regardless of original
+  // Musaffa grade or conclusion. They never overwrite the original provider fields.
+  if(manualReview&&validLabels.has(manualReview.label)&&
+      manualReview.bucket==="nonhalal"&&row.bucket==="nonhalal"&&
+      manualReview.company.trim().replace(/\s+/g," ").toUpperCase()===
+        row.company.trim().replace(/\s+/g," ").toUpperCase()){
+    row.screeningReviewStatus=manualReview.label;
     row.screeningReviewSource="USER_REQUEST";
     row.screeningReviewNote=manualReview.reason;
   }

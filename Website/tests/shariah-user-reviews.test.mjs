@@ -2,27 +2,27 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync,existsSync} from "node:fs";
 const registry=JSON.parse(readFileSync(new URL("../data/shariah-user-reviews.json",import.meta.url),"utf8"));
-const build=readFileSync(new URL("../scripts/build-live-reports.mjs",import.meta.url),"utf8");
-const ui=readFileSync(new URL("../assets/app.js",import.meta.url),"utf8");
-test("Korean owner-requested doubtful reviews are explicit and in nonhalal without pretending Musaffa found noncompliance",()=>{
-  assert.equal(registry.schema_version,1);
-  assert.equal(registry.provenance,"USER_REQUEST");
-  assert.deepEqual(registry.rows.map(v=>v.ticker).sort(),["000660.KRX","005930.KRX"]);
-  for(const item of registry.rows){
-    assert.equal(item.bucket,"nonhalal");
-    assert.equal(item.label,"DOUBTFUL");
-    assert.match(item.reason,/inconclusive/i);
-    assert(existsSync(new URL("../../nonhalal/"+item.ticker+"/",import.meta.url)),
-      item.ticker+" must remain archived in nonhalal");
-  }
+const builder=readFileSync(new URL("../scripts/build-live-reports.mjs",import.meta.url),"utf8");
+const app=readFileSync(new URL("../assets/app.js",import.meta.url),"utf8");
+test("owner registry is OPEN-ENDED, no exact stock is hard-coded in the index or router",()=>{
+ assert.equal(registry.schema_version,1);
+ assert.equal(registry.provenance,"USER_REQUEST");
+ for(const entry of registry.rows){
+   assert.match(entry.ticker,/^[A-Z0-9]+(?:[.-][A-Z0-9]+)*$/);
+   assert(["DOUBTFUL","NON_HALAL"].includes(entry.label));
+   assert.equal(entry.bucket,"nonhalal");
+   assert(existsSync(new URL("../../nonhalal/"+entry.ticker+"/",import.meta.url)));
+ }
+ assert(builder.includes('const validLabels=new Set(["DOUBTFUL","NON_HALAL"])'));
+ assert(builder.includes('row.screeningReviewStatus=manualReview.label'));
+ assert(builder.includes("manualReview.company.trim()"));
+ assert(!builder.includes('row.musaffaAssessment==="INCONCLUSIVE"'));
+ assert(app.includes("ownerFlagged||musaffaVisual(r).tone"));
 });
-test("doubtful badge is user-labelled amber only and keeps exact first-party Musaffa classifications independent",()=>{
-  assert(build.includes('row.screeningReviewStatus="DOUBTFUL"'));
-  assert(build.includes('row.screeningReviewSource="USER_REQUEST"'));
-  assert(build.includes('row.musaffaAssessment==="INCONCLUSIVE"'));
-  assert(build.includes('row.bucket==="nonhalal"'));
-  assert(ui.includes('tone:"warn",label:"DOUBTFUL"'));
-  assert(ui.includes('tone:"bad",label:"VERIFIED NON-COMPLIANT"'));
-  assert(ui.includes('tone:"good",label:"VERIFIED HALAL"'));
-  assert(!build.includes('row.musaffaClassification="DOUBTFUL"'));
+test("owner label is separate from original Musaffa and financial recommendations",()=>{
+ assert(app.includes('OWNER: NON-HALAL'));
+ assert(app.includes('OWNER: DOUBTFUL'));
+ assert(app.includes('Musaffa: '));
+ assert(app.includes('r.screeningReviewSource==="USER_REQUEST"'));
+ assert(!builder.includes('row.musaffaClassification="DOUBTFUL"'));
 });

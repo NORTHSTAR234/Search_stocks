@@ -400,15 +400,19 @@
       /(?:STALE|UNVERIFIED|UNKNOWN|INCONCLUSIVE|DOUBTFUL|AMBIGUOUS|CONFLICT|UNCERTAIN)/.test(status+" "+gate);
     if(recent&&!ambiguous&&negative)return {tone:"bad",label:"VERIFIED NON-COMPLIANT"};
     if(recent&&!ambiguous&&positive&&gate!=="FAIL")return {tone:"good",label:"VERIFIED HALAL"};
-    // Owner's conservative review label, not a Musaffa classification or negative verdict.
-    if(r.bucket==="nonhalal"&&String(r.screeningReviewStatus||"").toUpperCase()==="DOUBTFUL")
-      return {tone:"warn",label:"DOUBTFUL"};
     return {tone:"warn",label:"INCONCLUSIVE"};
   }
   function screeningCell(r){
     // The full Musaffa evidence remains in the existing ticker report.
     const result=musaffaVisual(r);
-    return '<div class="musaffa-cell status-only-cell">'+badge(result.label,result.tone)+'</div>';
+    const owner=String(r.screeningReviewStatus||"").toUpperCase();
+    const ownerActive=r.bucket==="nonhalal"&&r.screeningReviewSource==="USER_REQUEST"&&
+      (owner==="DOUBTFUL"||owner==="NON_HALAL");
+    const ownerBadge=ownerActive?badge(owner==="NON_HALAL"?"OWNER: NON-HALAL":"OWNER: DOUBTFUL","warn"):"";
+    // Show owner designation independently; Musaffa's original finding remains legible.
+    return '<div class="musaffa-cell status-only-cell">'+
+      (ownerBadge?ownerBadge+'<span class="screening-original">Musaffa: '+escape(result.label)+'</span>':
+        badge(result.label,result.tone))+'</div>';
   }
   // First RizqInvests, then Investigate only for non-red Rizq decisions.
   // The final decision and source flags are recorded in the server-side manifest;
@@ -623,13 +627,11 @@
     const classification=String(r.musaffaClassification||
       String(r.musaffa||"").split(" · ")[0]||"").trim().toUpperCase();
     const musaffaNegative=/(?:NOT\s+HALAL|NON[\s-]?COMPLIANT|NON[\s-]?HALAL|HARAM)/.test(classification);
-    // Explicit owner-requested DOUBTFUL routes cautiously; it is NOT a Musaffa verdict.
-    // Plain INCONCLUSIVE statuses and folder placement alone do not route.
-    const ownerDoubtful=r.bucket==="nonhalal"&&
-      String(r.screeningReviewStatus||"").toUpperCase()==="DOUBTFUL"&&
-      r.screeningReviewSource==="USER_REQUEST"&&
-      r.musaffaAssessment==="INCONCLUSIVE";
-    return ethicalNegative||musaffaNegative||ownerDoubtful||musaffaVisual(r).tone==="bad";
+    // GENERAL owner rule for any ticker/exchange; a label is not a Musaffa finding.
+    // The folder alone and generic inconclusive screens never route to Table 2.
+    const ownerFlagged=r.bucket==="nonhalal"&&r.screeningReviewSource==="USER_REQUEST"&&
+      /^(?:DOUBTFUL|NON_HALAL)$/.test(String(r.screeningReviewStatus||"").toUpperCase());
+    return ethicalNegative||musaffaNegative||ownerFlagged||musaffaVisual(r).tone==="bad";
   }
   function render(){
     syncExchangeFilters();

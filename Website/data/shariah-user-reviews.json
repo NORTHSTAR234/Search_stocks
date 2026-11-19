@@ -2,7 +2,7 @@
   "schema_version": 1,
   "updated_on": "2026-11-20",
   "provenance": "USER_REQUEST",
-  "description": "Conservative owner-requested DOUBTFUL review labels. These labels are not first-party Musaffa halal classifications; do not imply NOT HALAL or a confirmed ratio failure.",
+  "description": "Owner-supplied exact-security review designations for ANY ticker (DOUBTFUL or NON_HALAL). These are administrative personal preferences independent of original Musaffa and ethical/BDS evidence. The latest report must live in nonhalal/ to appear in Table 2.",
   "rows": [
     {
       "ticker": "000660.KRX",
