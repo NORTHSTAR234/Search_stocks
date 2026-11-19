@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-19T20:32:22Z",
-  "htmlReportCount": 228,
-  "uniqueTickers": 44,
+  "latestHtmlReportAt": "2026-11-19T20:33:38Z",
+  "htmlReportCount": 229,
+  "uniqueTickers": 45,
   "ethicalSources": {
     "rizqinvests": {
       "snapshot": "2026-11",
@@ -15,8 +15,105 @@
       "matchedReports": 8
     }
   },
-  "revision": "47f4cb5c14458385138677fdc99af5ba",
+  "revision": "86a625972e5b4ef249e6e1946ebe4e7e",
   "rows": [
+    {
+      "company": "Contemporary Amperex Technology Co., Limited",
+      "ticker": "3750.HK",
+      "exchange": "HKEX",
+      "bucket": "nonhalal",
+      "timestamp": "2026-11-19T20:33:38Z",
+      "industryCategory": "Industrials, Construction & Transportation",
+      "industryDetail": "Electric-vehicle and stationary energy-storage battery cells, packs and systems; this nine-way taxonomy includes electrical-equipment manufacturers.",
+      "industryCategorySource": "REPORT_SNAPSHOT",
+      "dividendStatus": "PAYS",
+      "dividendYieldPercent": 1.17,
+      "dividendAnnualPerShare": 4.097,
+      "dividendCurrency": "HKD",
+      "dividendFrequency": "SEMIANNUAL",
+      "dividendExDate": null,
+      "dividendPaymentDate": null,
+      "dividendAsOf": "2026-11-19",
+      "dividendYieldBasis": "INDICATED_FORWARD_PROXY_EXCLUDING_SPECIAL",
+      "dividendSourceUrl": "https://mpf.etnet.com.hk/www/eng/stocks/realtime/quote_dividend.php?code=3750",
+      "dividendDataSource": "REPORT_SNAPSHOT",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "66/100",
+      "entry": "NOT RATED",
+      "musaffa": "NOT VERIFIED",
+      "musaffaClassification": null,
+      "musaffaGate": "UNVERIFIED",
+      "musaffaScreeningDate": null,
+      "musaffaScreeningPeriod": null,
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "INCONCLUSIVE",
+      "musaffaReason": "No exact-listing recent official Musaffa status could be authenticated; access failures are not proof of no record.",
+      "earnings": "9 Mar 2027 estimated",
+      "zones": "NOT RATED",
+      "stops": "HKD 326",
+      "nativeCurrency": "HKD",
+      "marketSchedule": {
+        "exchange": "HKEX",
+        "mic": "XHKG",
+        "market_time_zone": "Asia/Hong_Kong",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:30",
+            "end": "12:00"
+          },
+          {
+            "start": "13:00",
+            "end": "16:00"
+          }
+        ],
+        "yahoo_ticker": "3750.HK",
+        "hours_source": "https://www.hkex.com.hk/Services/Trading-hours-and-Severe-Weather-Arrangements/Trading-Hours/Securities-Market?sc_lang=en",
+        "hours_checked_utc": "2026-11-19T20:33:38Z"
+      },
+      "sourceMarketTicker": "3750.HK",
+      "zoneBands": [],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/nonhalal/3750.HK/3750.HK_2026-11-19_20-33-38Z.html",
+      "reportPath": "/view-report?path=nonhalal%2F3750.HK%2F3750.HK_2026-11-19_20-33-38Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false,
+      "ethicalStatus": "UNVERIFIED",
+      "ethicalBdsListed": null,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": null,
+      "ethicalReason": "No exact issuer match in the user-supplied RizqInvests Nov 2026 dataset. No external ethical/BDS lookup attempted.",
+      "ethicalSourceUrl": null,
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "UNVERIFIED",
+      "ethicalFinalSource": "NONE",
+      "ethicalFinalSourceUrl": null,
+      "ethicalFinalReason": "No matching archived ethical record",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "NONE",
+      "ethicalRizqOriginalLabel": null
+    },
     {
       "company": "Infineon Technologies AG",
       "ticker": "IFX.DE",
@@ -376,7 +473,10 @@
       "ethicalFinalReason": "No matching archived ethical record",
       "ethicalFinalBdsListed": false,
       "ethicalFinalColor": "NONE",
-      "ethicalRizqOriginalLabel": null
+      "ethicalRizqOriginalLabel": null,
+      "screeningReviewStatus": "DOUBTFUL",
+      "screeningReviewSource": "USER_REQUEST",
+      "screeningReviewNote": "Owner requests review while current exact KRX Musaffa screening is inconclusive; no verified NOT HALAL finding."
     },
     {
       "company": "SK hynix Inc.",
@@ -478,7 +578,10 @@
       "ethicalFinalReason": "No matching archived ethical record",
       "ethicalFinalBdsListed": false,
       "ethicalFinalColor": "NONE",
-      "ethicalRizqOriginalLabel": null
+      "ethicalRizqOriginalLabel": null,
+      "screeningReviewStatus": "DOUBTFUL",
+      "screeningReviewSource": "USER_REQUEST",
+      "screeningReviewNote": "Owner requests review while current exact KRX Musaffa screening is inconclusive; no verified NOT HALAL finding."
     },
     {
       "company": "Broadcom Inc.",
