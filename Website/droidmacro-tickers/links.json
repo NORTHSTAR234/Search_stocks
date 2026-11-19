@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "source": "NORTHSTAR234/Search_stocks live ticker index",
-  "generatedAt": "2026-11-19T11:01:03.460Z",
+  "generatedAt": "2026-11-19T11:01:51.412Z",
   "total": 24,
   "links": [
     {
@@ -111,6 +111,60 @@
       "promptVersion": "full-search-stock-workflow-project-url-v2",
       "url": "https://macrodroidlink.com/m/PS_20QrgTEUA",
       "expiresAt": "2026-11-26T11:01:03.199Z"
+    },
+    {
+      "ticker": "DECK",
+      "order": 13,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-project-url-v2",
+      "url": "https://macrodroidlink.com/m/V4tAGeXSLrBP",
+      "expiresAt": "2026-11-26T11:01:34.971Z"
+    },
+    {
+      "ticker": "EXEL",
+      "order": 14,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-project-url-v2",
+      "url": "https://macrodroidlink.com/m/07u81A7jYovp",
+      "expiresAt": "2026-11-26T11:01:41.844Z"
+    },
+    {
+      "ticker": "HD",
+      "order": 15,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-project-url-v2",
+      "url": "https://macrodroidlink.com/m/WGMSmHRPLCa6",
+      "expiresAt": "2026-11-26T11:01:38.420Z"
+    },
+    {
+      "ticker": "JNJ",
+      "order": 16,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-project-url-v2",
+      "url": "https://macrodroidlink.com/m/SNB9pD-zyECc",
+      "expiresAt": "2026-11-26T11:01:44.763Z"
+    },
+    {
+      "ticker": "LLY",
+      "order": 17,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-project-url-v2",
+      "url": "https://macrodroidlink.com/m/MSOm7V309OED",
+      "expiresAt": "2026-11-26T11:01:48.120Z"
+    },
+    {
+      "ticker": "LULU",
+      "order": 18,
+      "total": 24,
+      "flagged": false,
+      "promptVersion": "full-search-stock-workflow-project-url-v2",
+      "url": "https://macrodroidlink.com/m/uuIv1Hi8zfjw",
+      "expiresAt": "2026-11-26T11:01:51.207Z"
     }
   ],
   "promptVersion": "full-search-stock-workflow-project-url-v2"
