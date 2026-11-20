@@ -3,19 +3,51 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 const source=readFileSync(new URL("../assets/app.js",import.meta.url),"utf8");
 
-test("Only the three chosen Taiwan tickers receive a star beside TWSE in Company / Ticker",()=>{
-  const body=source.match(/function isTopTaiwanPick\(r\)\{([\s\S]*?)\n  \}/);
-  assert(body,"Top-three Taiwan star helper must exist");
-  const isTopTaiwanPick=new Function("r",body[1]);
-  for(const ticker of ["2330.TWSE","2379.TWSE","3034.TWSE"]){
-    assert.equal(isTopTaiwanPick({ticker,exchange:"TWSE"}),true);
-  }
-  for(const ticker of ["1519.TWSE","2377.TWSE","2383.TWSE","2449.TWSE","2454.TWSE","AAPL"]){
-    assert.equal(isTopTaiwanPick({ticker,exchange:ticker==="AAPL"?"US":"TWSE"}),false);
-  }
-  assert.equal(isTopTaiwanPick({ticker:"2330.TWSE",exchange:"US"}),false);
-  assert(source.includes("escape(market.market)+star+"));
-  assert(source.includes("Top 3 Taiwan stock selection"));
+test("favourites replace hard-coded Taiwan stars and can be selected on either table",()=>{
+  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+  assert(!source.includes("isTopTaiwanPick")&&!source.includes("taiwan-top-pick-star"));
+  assert(!css.includes("taiwan-top-pick-star"));
+  assert(source.includes('const FAVOURITES_KEY="search-stocks:favourites:v1"'));
+  assert(source.includes('class="ticker-first-line"'));
+  assert(source.includes('class="favourite-checkbox" data-favourite-ticker='));
+  assert(source.includes('class="favourite-row"'));
+  assert(source.includes('aria-label="Favourite '));
+  assert(source.includes('favourites.has(ticker)'));
+  assert(source.includes('$("rows").addEventListener("change",onFavouriteChange)'));
+  assert(source.includes('$("flaggedRows").addEventListener("change",onFavouriteChange)'));
+  assert(source.includes('window.addEventListener("storage",event=>'));
+  assert(css.includes(".table-wrap tbody tr.favourite-row > td{background:#203c58"));
+  assert(css.includes(".table-wrap tbody tr.favourite-row:hover > td{background:#2a4f70"));
+  assert(css.includes(".table-wrap tbody tr.favourite-row > td:first-child"));
+  assert(css.includes(".table-wrap .favourite-checkbox:focus-visible"));
+});
+test("favourites persist after reload and toggle the entire row",()=>{
+  const storage=new Map();
+  const localStorage={getItem:key=>storage.get(key)??null,setItem:(key,value)=>storage.set(key,value)};
+  const key="search-stocks:favourites:v1";
+  const body=name=>{
+    const found=source.match(new RegExp("function "+name+"\\([^)]*\\)\\{([\\s\\S]*?)\\n  \\}"));
+    assert(found,"Missing helper "+name);
+    return found[1];
+  };
+  const load=new Function("window","FAVOURITES_KEY","return function(){"+body("loadFavourites")+"\\n} ")({localStorage},key);
+  let favourites=load();
+  const save=new Function("window","FAVOURITES_KEY","favourites","return function(){"+body("saveFavourites")+"\\n} ")({localStorage},key,favourites);
+  const onChange=new Function("favourites","saveFavourites","favouriteTicker",
+    "return function(event){"+body("onFavouriteChange")+"\\n} ")(favourites,save,r=>String(r.ticker||"").trim().toUpperCase());
+  let isHighlighted=false;
+  const input={checked:true,dataset:{favouriteTicker:"2330.TWSE"},title:"",
+    matches:selector=>selector==="input.favourite-checkbox[data-favourite-ticker]",
+    closest:()=>({classList:{toggle:(cls,enabled)=>{assert.equal(cls,"favourite-row");isHighlighted=enabled;}}})};
+  onChange({target:input});
+  assert(isHighlighted);
+  assert.deepEqual([...load()],["2330.TWSE"],"selection survives a new read from browser storage");
+  input.checked=false;
+  onChange({target:input});
+  assert(!isHighlighted);
+  assert.deepEqual([...load()],[],"unchecking persists");
+  storage.set(key,"invalid json");
+  assert.deepEqual([...load()],[],"corrupt browser storage fails safely");
 });
 const match=source.match(/const actionKind=v=>\{([\s\S]*?)\};/);
 assert(match,"Dashboard recommendation classifier must exist");

@@ -19,6 +19,32 @@
     return exchange&&row.exchange!==exchange?{...row,exchange}:row;
   }
 
+  // Browser-local favourites: exact ticker identities, never written to GitHub.
+  const FAVOURITES_KEY="search-stocks:favourites:v1";
+  const favouriteTicker=r=>String(r?.ticker||"").trim().toUpperCase();
+  function loadFavourites(){
+    try{
+      const saved=JSON.parse(window.localStorage.getItem(FAVOURITES_KEY)||"[]");
+      return new Set(Array.isArray(saved)?
+        saved.filter(t=>typeof t==="string"&&t.length>0&&t.length<=80).map(t=>t.trim().toUpperCase()):[]);
+    }catch{return new Set();}
+  }
+  let favourites=loadFavourites();
+  function saveFavourites(){
+    try{window.localStorage.setItem(FAVOURITES_KEY,JSON.stringify([...favourites]));}
+    catch{/* Keep current-tab selection usable when browser storage is blocked. */}
+  }
+  function onFavouriteChange(event){
+    const input=event.target;
+    if(!input?.matches?.("input.favourite-checkbox[data-favourite-ticker]"))return;
+    const ticker=favouriteTicker({ticker:input.dataset.favouriteTicker});
+    if(!ticker)return;
+    if(input.checked)favourites.add(ticker);else favourites.delete(ticker);
+    saveFavourites();
+    input.title=(input.checked?"Remove ":"Add ")+ticker+(input.checked?" from favourites":" to favourites");
+    input.closest("tr")?.classList.toggle("favourite-row",input.checked);
+  }
+
   // Visual score bands only, NOT a buy/sell verdict. The two grades stay independent.
   const scoreTone=value=>{
     const n=score(value);
@@ -601,23 +627,22 @@
     return '<div class="dividend-cell">'+top+(money?'<small>'+money+'</small>':"")+freq+dates+
       '<small class="dividend-provenance">'+escape(proof)+' · at report date</small></div>';
   }
-  // Only these three Taiwan holdings are starred in the Company / Ticker column.
-  function isTopTaiwanPick(r){
-    return String(r?.exchange||"").toUpperCase()==="TWSE"&&
-      ["2330.TWSE","2379.TWSE","3034.TWSE"].includes(String(r?.ticker||"").toUpperCase());
-  }
   function tr(r){
     const action=cap(r.action,96);
     const context=zoneContext(r);
     const market=marketStatus(r);
     const active=market?.open?" market-open":"";
-    const star=isTopTaiwanPick(r)?'<span class="taiwan-top-pick-star" title="Top 3 Taiwan stock selection" aria-label="Top 3 Taiwan stock selection">★</span>':"";
-    const status=market?'<small class="market-session">'+escape(market.market)+star+
+    const ticker=favouriteTicker(r),isFavourite=favourites.has(ticker);
+    const status=market?'<small class="market-session">'+escape(market.market)+
       ' · Sydney '+escape(market.hours)+
       ' · '+(market.open?'<span class="market-open-label">Trading session</span>':'Outside session')+'</small>':
       '<small class="market-session muted">Market hours not configured</small>';
-    return '<tr><td><a class="ticker'+active+'" href="'+escape(r.reportPath)+'"'+
-      (market?.open?' title="Market in regular weekday session"':'')+'>'+escape(r.ticker)+'</a>'+
+    return '<tr'+(isFavourite?' class="favourite-row"':'')+'><td><div class="ticker-first-line">'+
+      '<input type="checkbox" class="favourite-checkbox" data-favourite-ticker="'+escape(ticker)+'"'+
+      ' aria-label="Favourite '+escape(ticker)+'" title="'+escape((isFavourite?"Remove ":"Add ")+ticker+
+      (isFavourite?" from favourites":" to favourites"))+'"'+(isFavourite?' checked':'')+'>'+
+      '<a class="ticker'+active+'" href="'+escape(r.reportPath)+'"'+
+      (market?.open?' title="Market in regular weekday session"':'')+'>'+escape(r.ticker)+'</a></div>'+
       '<small>'+escape(r.company)+'</small>'+status+ethicalFirstColumn(r)+'</td>'+
     '<td>'+quoteCell(r)+'</td>'+
     '<td>'+overnightCell(r)+'</td>'+
@@ -852,6 +877,16 @@
       $("flaggedRows").innerHTML='<tr><td colspan="11">Archive unavailable.</td></tr>';
     }
   }
+  // Delegation survives automatic quote/report rerenders in BOTH stock tables.
+  $("rows").addEventListener("change",onFavouriteChange);
+  $("flaggedRows").addEventListener("change",onFavouriteChange);
+  // Synchronize favourites between tabs of the same website/browser.
+  window.addEventListener("storage",event=>{
+    if(event.key===FAVOURITES_KEY||event.key===null){
+      favourites=loadFavourites();
+      render();
+    }
+  });
   ["search","bucket","industry","exchange","order"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",render));
   $("refresh").addEventListener("click",checkAll);
   init();

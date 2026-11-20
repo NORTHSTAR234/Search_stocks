@@ -172,7 +172,6 @@
 }
 .table-wrap .market-open-label{color:#ffd77c;font-weight:850}
 .table-wrap .market-session{color:#b5cce1;font-size:.70rem;line-height:1.42}
-.table-wrap .taiwan-top-pick-star{color:#ffd77c;font-weight:900;margin-left:4px;font-size:.88rem;vertical-align:baseline}
 @media (prefers-reduced-motion:reduce){.table-wrap .ticker.market-open{transition:none}}
 
 /* Musaffa screening uses separate, accessible green/yellow/red status labels.
@@ -439,3 +438,23 @@ main:not(.report-layout)>.panel .table-footer{
   .table-wrap th:nth-child(7),.table-wrap td:nth-child(7){min-width:178px;max-width:225px}
   .table-wrap th:nth-child(8),.table-wrap td:nth-child(8){min-width:160px}
 }
+
+/* Browser-persistent favourites: checkbox on first ticker line, readable
+   blue across all eleven cells even when scrolled horizontally. */
+.table-wrap .ticker-first-line{display:flex;align-items:center;gap:8px;min-width:0}
+.table-wrap .ticker-first-line .ticker{min-width:0;overflow-wrap:anywhere}
+.table-wrap .favourite-checkbox{
+  appearance:auto;
+  -webkit-appearance:checkbox;
+  accent-color:#8bc9ff;
+  width:18px;
+  height:18px;
+  flex:0 0 18px;
+  margin:0;
+  cursor:pointer;
+}
+.table-wrap .favourite-checkbox:focus-visible{outline:2px solid #8bc9ff;outline-offset:3px}
+.table-wrap tbody tr.favourite-row > td{background:#203c58;border-bottom-color:#3a5872}
+.table-wrap tbody tr.favourite-row > td:first-child{background:#203c58;box-shadow:inset 3px 0 0 #8bc9ff}
+.table-wrap tbody tr.favourite-row:hover > td{background:#2a4f70}
+.table-wrap tbody tr.favourite-row:hover > td:first-child{background:#2a4f70;box-shadow:inset 3px 0 0 #8bc9ff}
