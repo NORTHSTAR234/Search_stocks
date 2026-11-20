@@ -30,11 +30,11 @@ test("favourites persist after reload and toggle the entire row",()=>{
     assert(found,"Missing helper "+name);
     return found[1];
   };
-  const load=new Function("window","FAVOURITES_KEY","return function(){"+body("loadFavourites")+"\\n} ")({localStorage},key);
+  const load=new Function("window","FAVOURITES_KEY","return function(){"+body("loadFavourites")+String.fromCharCode(10)+"} ")({localStorage},key);
   let favourites=load();
-  const save=new Function("window","FAVOURITES_KEY","favourites","return function(){"+body("saveFavourites")+"\\n} ")({localStorage},key,favourites);
+  const save=new Function("window","FAVOURITES_KEY","favourites","return function(){"+body("saveFavourites")+String.fromCharCode(10)+"} ")({localStorage},key,favourites);
   const onChange=new Function("favourites","saveFavourites","favouriteTicker",
-    "return function(event){"+body("onFavouriteChange")+"\\n} ")(favourites,save,r=>String(r.ticker||"").trim().toUpperCase());
+    "return function(event){"+body("onFavouriteChange")+String.fromCharCode(10)+"} ")(favourites,save,r=>String(r.ticker||"").trim().toUpperCase());
   let isHighlighted=false;
   const input={checked:true,dataset:{favouriteTicker:"2330.TWSE"},title:"",
     matches:selector=>selector==="input.favourite-checkbox[data-favourite-ticker]",
