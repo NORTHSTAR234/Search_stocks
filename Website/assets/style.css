@@ -439,22 +439,50 @@ main:not(.report-layout)>.panel .table-footer{
   .table-wrap th:nth-child(8),.table-wrap td:nth-child(8){min-width:160px}
 }
 
-/* Browser-persistent favourites: checkbox on first ticker line, readable
-   blue across all eleven cells even when scrolled horizontally. */
+/* Three-state ticker control, replacing the previous checkbox. */
 .table-wrap .ticker-first-line{display:flex;align-items:center;gap:8px;min-width:0}
 .table-wrap .ticker-first-line .ticker{min-width:0;overflow-wrap:anywhere}
-.table-wrap .favourite-checkbox{
-  appearance:auto;
-  -webkit-appearance:checkbox;
-  accent-color:#8bc9ff;
-  width:18px;
-  height:18px;
-  flex:0 0 18px;
-  margin:0;
-  cursor:pointer;
+.table-wrap .row-state-toggle,
+.table-wrap .row-state-toggle:hover{
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:0 0 22px;width:22px;height:22px;
+  margin:0;padding:0;border:1px solid #7890a8;border-radius:5px;
+  background:#14273d;color:#b3c4d5;cursor:pointer;
+  line-height:1;font-size:17px;font-weight:800;box-shadow:none
 }
-.table-wrap .favourite-checkbox:focus-visible{outline:2px solid #8bc9ff;outline-offset:3px}
-.table-wrap tbody tr.favourite-row > td{background:#51482c;border-bottom-color:#796843}
-.table-wrap tbody tr.favourite-row > td:first-child{background:#51482c;box-shadow:inset 3px 0 0 #f2d67a}
-.table-wrap tbody tr.favourite-row:hover > td{background:#51482c}
-.table-wrap tbody tr.favourite-row:hover > td:first-child{background:#51482c;box-shadow:inset 3px 0 0 #f2d67a}
+.table-wrap .row-state-toggle[data-state="favourite"],
+.table-wrap .row-state-toggle[data-state="favourite"]:hover{
+  color:#ffd979;border-color:#bdaf71;background:#233a50
+}
+.table-wrap .row-state-toggle[data-state="minimized"],
+.table-wrap .row-state-toggle[data-state="minimized"]:hover{
+  color:#ff737c;border-color:#b26473;background:#35212c
+}
+.table-wrap .row-state-toggle:focus-visible{outline:2px solid #8bc9ff;outline-offset:3px}
+.table-wrap tbody tr.favourite-row > td,
+.table-wrap tbody tr.favourite-row:hover > td{background:#203c58;border-bottom-color:#3a5872}
+.table-wrap tbody tr.favourite-row > td:first-child,
+.table-wrap tbody tr.favourite-row:hover > td:first-child{
+  background:#203c58;box-shadow:inset 3px 0 0 #8bc9ff
+}
+/* Red-X rows retain the normal background even during hover.
+   Keep all eleven columns at the exact same fixed widths as the other rows. */
+.table-wrap tbody tr.minimized-row > td,
+.table-wrap tbody tr.minimized-row:hover > td{
+  padding:7px 9px;height:38px;line-height:1.3;
+  vertical-align:middle;background:transparent
+}
+.table-wrap tbody tr.minimized-row > td:first-child,
+.table-wrap tbody tr.minimized-row:hover > td:first-child{
+  background:#132136;box-shadow:none
+}
+.table-wrap tbody tr.minimized-row td.markers-cell{padding:7px 9px}
+.table-wrap tbody tr.minimized-row .compact-value{
+  display:block;width:100%;max-width:100%;overflow:hidden;
+  white-space:nowrap;text-overflow:ellipsis;line-height:1.3;
+  font-size:.78rem
+}
+.table-wrap tbody tr.minimized-row .ticker-first-line{flex-wrap:nowrap;min-width:0}
+.table-wrap tbody tr.minimized-row .ticker-first-line .ticker{
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.88rem
+}
