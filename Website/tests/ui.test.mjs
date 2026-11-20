@@ -2,6 +2,21 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 const source=readFileSync(new URL("../assets/app.js",import.meta.url),"utf8");
+
+test("Only the three chosen Taiwan tickers receive a star beside TWSE in Company / Ticker",()=>{
+  const body=source.match(/function isTopTaiwanPick\(r\)\{([\s\S]*?)\n  \}/);
+  assert(body,"Top-three Taiwan star helper must exist");
+  const isTopTaiwanPick=new Function("r",body[1]);
+  for(const ticker of ["2330.TWSE","2379.TWSE","3034.TWSE"]){
+    assert.equal(isTopTaiwanPick({ticker,exchange:"TWSE"}),true);
+  }
+  for(const ticker of ["1519.TWSE","2377.TWSE","2383.TWSE","2449.TWSE","2454.TWSE","AAPL"]){
+    assert.equal(isTopTaiwanPick({ticker,exchange:ticker==="AAPL"?"US":"TWSE"}),false);
+  }
+  assert.equal(isTopTaiwanPick({ticker:"2330.TWSE",exchange:"US"}),false);
+  assert(source.includes("escape(market.market)+star+"));
+  assert(source.includes("Top 3 Taiwan stock selection"));
+});
 const match=source.match(/const actionKind=v=>\{([\s\S]*?)\};/);
 assert(match,"Dashboard recommendation classifier must exist");
 const classify=new Function("v",match[1]);
