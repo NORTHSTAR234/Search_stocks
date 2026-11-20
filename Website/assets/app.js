@@ -19,30 +19,51 @@
     return exchange&&row.exchange!==exchange?{...row,exchange}:row;
   }
 
-  // Browser-local favourites: exact ticker identities, never written to GitHub.
-  const FAVOURITES_KEY="search-stocks:favourites:v1";
-  const favouriteTicker=r=>String(r?.ticker||"").trim().toUpperCase();
-  function loadFavourites(){
+  // Browser-local row preference; migrate previous checked favourites to stars.
+  const ROW_STATES_KEY="search-stocks:row-states:v1";
+  const LEGACY_FAVOURITES_KEY="search-stocks:favourites:v1";
+  const rowTicker=r=>String(r?.ticker||"").trim().toUpperCase();
+  const validRowState=value=>value==="favourite"||value==="minimized";
+  function loadRowStates(){
     try{
-      const saved=JSON.parse(window.localStorage.getItem(FAVOURITES_KEY)||"[]");
-      return new Set(Array.isArray(saved)?
-        saved.filter(t=>typeof t==="string"&&t.length>0&&t.length<=80).map(t=>t.trim().toUpperCase()):[]);
-    }catch{return new Set();}
+      const stored=window.localStorage.getItem(ROW_STATES_KEY);
+      if(stored!==null){
+        const pairs=JSON.parse(stored);
+        return new Map(Array.isArray(pairs)?
+          pairs.filter(item=>Array.isArray(item)&&item.length===2&&
+            typeof item[0]==="string"&&item[0].length>0&&item[0].length<=80&&validRowState(item[1]))
+            .map(([ticker,value])=>[ticker.trim().toUpperCase(),value]):[]);
+      }
+      const previous=JSON.parse(window.localStorage.getItem(LEGACY_FAVOURITES_KEY)||"[]");
+      return new Map(Array.isArray(previous)?
+        previous.filter(t=>typeof t==="string"&&t.length>0&&t.length<=80)
+          .map(t=>[t.trim().toUpperCase(),"favourite"]):[]);
+    }catch{return new Map();}
   }
-  let favourites=loadFavourites();
-  function saveFavourites(){
-    try{window.localStorage.setItem(FAVOURITES_KEY,JSON.stringify([...favourites]));}
-    catch{/* Keep current-tab selection usable when browser storage is blocked. */}
+  let rowStates=loadRowStates();
+  const rowState=r=>rowStates.get(rowTicker(r))||"normal";
+  const nextRowState=state=>state==="normal"?"favourite":state==="favourite"?"minimized":"normal";
+  function saveRowStates(){
+    try{window.localStorage.setItem(ROW_STATES_KEY,JSON.stringify([...rowStates]));}
+    catch{/* Keep current-tab preference if browser storage is blocked. */}
   }
-  function onFavouriteChange(event){
-    const input=event.target;
-    if(!input?.matches?.("input.favourite-checkbox[data-favourite-ticker]"))return;
-    const ticker=favouriteTicker({ticker:input.dataset.favouriteTicker});
+  function onRowStateClick(event){
+    const button=event.target?.closest?.("button.row-state-toggle[data-row-ticker]");
+    if(!button||!event.currentTarget.contains(button))return;
+    const ticker=rowTicker({ticker:button.dataset.rowTicker});
     if(!ticker)return;
-    if(input.checked)favourites.add(ticker);else favourites.delete(ticker);
-    saveFavourites();
-    input.title=(input.checked?"Remove ":"Add ")+ticker+(input.checked?" from favourites":" to favourites");
-    input.closest("tr")?.classList.toggle("favourite-row",input.checked);
+    const next=nextRowState(rowStates.get(ticker)||"normal");
+    if(next==="normal")rowStates.delete(ticker);else rowStates.set(ticker,next);
+    saveRowStates();
+    // Repaint only this stock, preserving table columns and scroll position.
+    const currentRow=button.closest("tr");
+    const row=state.rows.find(item=>rowTicker(item)===ticker);
+    if(row&&currentRow){
+      currentRow.insertAdjacentHTML("afterend",tr(row));
+      const replacement=currentRow.nextElementSibling;
+      currentRow.remove();
+      replacement?.querySelector(".row-state-toggle")?.focus({preventScroll:true});
+    }else render();
   }
 
   // Visual score bands only, NOT a buy/sell verdict. The two grades stay independent.
@@ -627,20 +648,127 @@
     return '<div class="dividend-cell">'+top+(money?'<small>'+money+'</small>':"")+freq+dates+
       '<small class="dividend-provenance">'+escape(proof)+' · at report date</small></div>';
   }
+  // Compact rows use the existing verified quote and report fields.
+  // Values remain available in tooltips even when clipped to one line.
+  function compactLine(value){
+    const label=String(value??"").trim()||"—";
+    return '<span class="compact-value" title="'+escape(label)+'">'+escape(label)+'</span>';
+  }
+  function compactPrice(r){
+    const q=state.quotes[rowTicker(r)];
+    if(!q)return "Price unavailable";
+    const price=chartDisplayedPrice(r,q);
+    if(price===null||!q.currency)return "Price unavailable";
+    const session=r.exchange==="US"&&q.feed==="IEX"?usSessionQuote(r,q):null;
+    const percent=session?.open?(session.fresh?session.comparison?.percent:null):
+      r.exchange==="US"&&q.feed==="IEX"?q.regularClose?.regularChangePercent:
+      q.feed==="YFINANCE_YAHOO_5M_BAR_DELAYED"||q.feed==="EODHD"?q.previousCloseChangePercent:
+      q.change24hPercent;
+    return quoteMoney(q.currency,price)+(typeof percent==="number"&&Number.isFinite(percent)?
+      " · "+signedPercent(percent):"");
+  }
+  function compactOvernight(r){
+    if(r.exchange!=="US")return "US only";
+    const q=state.quotes[rowTicker(r)];
+    if(q?.feed!=="IEX")return "Unavailable";
+    const session=usSessionQuote(r,q);
+    if(session?.open)return session.fresh&&session.comparison?
+      "IEX "+signedPercent(session.comparison.percent):"No comparison";
+    const night=q.overnight,pct=q.overnightChangePercent,amount=q.overnightChangeAmount;
+    const observed=Date.parse(night?.asOf),age=Date.now()-observed;
+    if(!q.regularClose||!night||!Number.isFinite(Number(night.price))||Number(night.price)<=0||
+      typeof pct!=="number"||!Number.isFinite(pct)||typeof amount!=="number"||
+      !Number.isFinite(amount)||!Number.isFinite(observed)||age>90*60000||age< -120000)
+      return "No overnight";
+    return signedPercent(pct)+" overnight";
+  }
+  function compactMonth(r){
+    const us=r.exchange==="US",q=state.quotes[rowTicker(r)];
+    const hourly=us?null:q?.hourly;
+    const verifiedHourly=!us&&q?.feed==="YFINANCE_YAHOO_5M_BAR_DELAYED"&&
+      hourly?.feed==="YFINANCE_YAHOO_1H_BAR_DELAYED"&&hourly?.interval==="1h"&&
+      hourly?.currency===q.currency&&hourly?.exchange===q.exchange&&
+      hourly?.sourceSymbol===q.sourceSymbol&&/^[A-Z]{3}$/.test(hourly.currency)&&
+      Array.isArray(hourly.bars)&&hourly.bars.length>=2&&hourly.bars.length<=200;
+    const bars=us?state.history[rowTicker(r)]?.bars:verifiedHourly?hourly.bars:null;
+    if(!Array.isArray(bars)||bars.length<2)return "1M unavailable";
+    const points=(us?bars.map(b=>({t:Date.parse(b.asOf),p:Number(b.close)})):
+      bars.map(b=>({t:Number(b?.[0])*1000,p:Number(b?.[1])})))
+      .filter(p=>Number.isFinite(p.t)&&p.t<Date.now()+120000&&
+        p.t>=Date.now()-35*86400000&&Number.isFinite(p.p)&&p.p>0);
+    if(points.length<2)return "1M unavailable";
+    const range=monthRangePercentages(points,chartDisplayedPrice(r,q));
+    return range?"High "+signedPercent(range.fromHigh)+" / Low "+signedPercent(range.fromLow):
+      "1M unavailable";
+  }
+  function compactAction(r){
+    const first=String(r.action||"").replace(/^[^A-Za-z]+/,"").trim();
+    const verdict=(first.match(/^(?:STRONG BUY|STRONG SELL|BUY|SELL|WATCH|WAIT|HOLD|REDUCE|AVOID|EXIT)\b/i)||[])[0]||
+      first.slice(0,22)||"Not rated";
+    const risk=(String(r.risk||"").match(/\b(?:VERY HIGH|HIGH|MODERATE|LOW)\b/i)||[])[0];
+    return verdict.toUpperCase()+(risk?" · "+risk.toUpperCase():"");
+  }
+  function compactMarkers(r,context){
+    const i=score(r.investment),e=score(r.entry);
+    const position=(context?.overnight||context?.regular)?.position?.kind;
+    return "I "+(i>=0?i:"—")+" / E "+(e>=0?e:"—")+
+      (position==="preferred"?" · Preferred":position==="acceptable"?" · Acceptable":"");
+  }
+  function compactDividend(r){
+    const status=String(r.dividendStatus||"").toUpperCase();
+    const y=r.dividendYieldPercent;
+    return status==="NONE"?"No dividend":
+      status==="PAYS"&&typeof y==="number"&&Number.isFinite(y)&&y>=0&&y<=100?
+        y.toFixed(2)+"% yield":status==="PAYS"?"Pays · yield n/a":"Not verified";
+  }
+  function compactMusaffa(r){
+    const assessment=musaffaVisual(r).label;
+    const owner=String(r.screeningReviewStatus||"").toUpperCase();
+    return r.bucket==="nonhalal"&&r.screeningReviewSource==="USER_REQUEST"&&
+      (owner==="DOUBTFUL"||owner==="NON_HALAL")?
+      "Owner: "+owner.replace("_","-")+" · Musaffa: "+assessment:assessment;
+  }
+  function rowStateControl(ticker,current){
+    const next=nextRowState(current);
+    const action=next==="favourite"?"Mark favourite":next==="minimized"?"Minimize row":"Restore normal row";
+    const symbol=current==="favourite"?"★":current==="minimized"?"✕":"";
+    return '<button type="button" class="row-state-toggle" data-row-ticker="'+escape(ticker)+
+      '" data-state="'+current+'" aria-label="'+escape(ticker+": "+action)+
+      '" title="'+escape(action+" · "+ticker)+'">'+
+      '<span aria-hidden="true">'+symbol+'</span></button>';
+  }
+  function compactTr(r,ticker,active,control,context){
+    const shortDate=(()=>{try{return new Intl.DateTimeFormat("en-AU",{
+      timeZone:"Australia/Melbourne",day:"2-digit",month:"short",year:"2-digit"}).format(new Date(r.timestamp));}
+      catch{return "Unknown date";}})();
+    return '<tr class="minimized-row"><td><div class="ticker-first-line">'+control+
+      '<a class="ticker'+active+'" href="'+escape(r.reportPath)+'" title="'+escape(r.company||r.ticker)+
+      '">'+escape(r.ticker)+'</a></div></td>'+
+      '<td>'+compactLine(compactPrice(r))+'</td>'+
+      '<td>'+compactLine(compactOvernight(r))+'</td>'+
+      '<td>'+compactLine(compactMonth(r))+'</td>'+
+      '<td>'+compactLine(compactAction(r))+'</td>'+
+      '<td class="markers-cell">'+compactLine(compactMarkers(r,context))+'</td>'+
+      '<td class="industry-cell">'+compactLine(r.industryCategory||"Not classified")+'</td>'+
+      '<td class="dividend-column">'+compactLine(compactDividend(r))+'</td>'+
+      '<td>'+compactLine(shortDate)+'</td>'+
+      '<td>'+compactLine(compactMusaffa(r))+'</td>'+
+      '<td>'+compactLine(r.earnings||"Not verified")+'</td></tr>';
+  }
   function tr(r){
     const action=cap(r.action,96);
     const context=zoneContext(r);
     const market=marketStatus(r);
     const active=market?.open?" market-open":"";
-    const ticker=favouriteTicker(r),isFavourite=favourites.has(ticker);
+    const ticker=rowTicker(r),selection=rowState(r);
+    const control=rowStateControl(ticker,selection);
+    if(selection==="minimized")return compactTr(r,ticker,active,control,context);
     const status=market?'<small class="market-session">'+escape(market.market)+
       ' · Sydney '+escape(market.hours)+
       ' · '+(market.open?'<span class="market-open-label">Trading session</span>':'Outside session')+'</small>':
       '<small class="market-session muted">Market hours not configured</small>';
-    return '<tr'+(isFavourite?' class="favourite-row"':'')+'><td><div class="ticker-first-line">'+
-      '<input type="checkbox" class="favourite-checkbox" data-favourite-ticker="'+escape(ticker)+'"'+
-      ' aria-label="Favourite '+escape(ticker)+'" title="'+escape((isFavourite?"Remove ":"Add ")+ticker+
-      (isFavourite?" from favourites":" to favourites"))+'"'+(isFavourite?' checked':'')+'>'+
+    return '<tr'+(selection==="favourite"?' class="favourite-row"':'')+
+      '><td><div class="ticker-first-line">'+control+
       '<a class="ticker'+active+'" href="'+escape(r.reportPath)+'"'+
       (market?.open?' title="Market in regular weekday session"':'')+'>'+escape(r.ticker)+'</a></div>'+
       '<small>'+escape(r.company)+'</small>'+status+ethicalFirstColumn(r)+'</td>'+
@@ -654,7 +782,6 @@
     '<td class="dividend-column">'+dividendCell(r)+'</td>'+
     '<td>'+escape(fmt(r.timestamp))+(r.conflictingBuckets?'<small class="warning">Both buckets contain this ticker</small>':"")+'</td>'+
     '<td>'+screeningCell(r)+'</td>'+
-
     '<td>'+escape(cap(r.earnings,110))+'</td></tr>';
   }
   function syncExchangeFilters(){
@@ -877,13 +1004,13 @@
       $("flaggedRows").innerHTML='<tr><td colspan="11">Archive unavailable.</td></tr>';
     }
   }
-  // Delegation survives automatic quote/report rerenders in BOTH stock tables.
-  $("rows").addEventListener("change",onFavouriteChange);
-  $("flaggedRows").addEventListener("change",onFavouriteChange);
-  // Synchronize favourites between tabs of the same website/browser.
+  // Event delegation survives quote/report refreshes and both stock tables.
+  $("rows").addEventListener("click",onRowStateClick);
+  $("flaggedRows").addEventListener("click",onRowStateClick);
   window.addEventListener("storage",event=>{
-    if(event.key===FAVOURITES_KEY||event.key===null){
-      favourites=loadFavourites();
+    if(event.key===ROW_STATES_KEY||event.key===null||
+      event.key===LEGACY_FAVOURITES_KEY&&window.localStorage.getItem(ROW_STATES_KEY)===null){
+      rowStates=loadRowStates();
       render();
     }
   });
