@@ -3,58 +3,117 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 const source=readFileSync(new URL("../assets/app.js",import.meta.url),"utf8");
 
-test("favourites replace hard-coded Taiwan stars and can be selected on either table",()=>{
+test("three-state ticker selector replaces fixed stars and checkbox in both tables",()=>{
   const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
   assert(!source.includes("isTopTaiwanPick")&&!source.includes("taiwan-top-pick-star"));
-  assert(!css.includes("taiwan-top-pick-star"));
-  assert(source.includes('const FAVOURITES_KEY="search-stocks:favourites:v1"'));
-  assert(source.includes('class="ticker-first-line"'));
-  assert(source.includes('class="favourite-checkbox" data-favourite-ticker='));
-  assert(source.includes('class="favourite-row"'));
-  assert(source.includes('aria-label="Favourite '));
-  assert(source.includes('favourites.has(ticker)'));
-  assert(source.includes('$("rows").addEventListener("change",onFavouriteChange)'));
-  assert(source.includes('$("flaggedRows").addEventListener("change",onFavouriteChange)'));
-  assert(source.includes('window.addEventListener("storage",event=>'));
-  const yellow="#51482c";
-  for(const selector of [
-    ".table-wrap tbody tr.favourite-row > td",
-    ".table-wrap tbody tr.favourite-row > td:first-child",
-    ".table-wrap tbody tr.favourite-row:hover > td",
-    ".table-wrap tbody tr.favourite-row:hover > td:first-child"
-  ]){
-    assert(css.includes(selector+"{background:"+yellow),selector+" stays the same muted yellow");
-  }
-  assert(css.includes("box-shadow:inset 3px 0 0 #f2d67a"));
-  assert(css.includes(".table-wrap .favourite-checkbox:focus-visible"));
+  assert(!source.includes("favourite-checkbox"));
+  assert(source.includes('const ROW_STATES_KEY="search-stocks:row-states:v1"'));
+  assert(source.includes('const LEGACY_FAVOURITES_KEY="search-stocks:favourites:v1"'));
+  assert(source.includes('class="row-state-toggle" data-row-ticker='));
+  assert(source.includes("current===\"favourite\"?\"★\":current===\"minimized\"?\"✕\""));
+  assert(source.includes('$("rows").addEventListener("click",onRowStateClick)'));
+  assert(source.includes('$("flaggedRows").addEventListener("click",onRowStateClick)'));
+  assert(source.includes('currentRow.insertAdjacentHTML("afterend",tr(row))'));
+  assert(source.includes('if(selection==="minimized")return compactTr('));
+  assert(source.includes('class="minimized-row"'));
+  assert(css.includes('.table-wrap tbody tr.favourite-row:hover > td{background:#203c58'));
+  assert(css.includes('.table-wrap tbody tr.minimized-row:hover > td{'));
+  assert(css.includes('background:#132136;box-shadow:none'));
+  assert(css.includes('white-space:nowrap;text-overflow:ellipsis'));
+  assert(css.includes('.table-wrap .row-state-toggle[data-state="minimized"]'));
 });
-test("favourites persist after reload and toggle the entire row",()=>{
-  const storage=new Map();
-  const localStorage={getItem:key=>storage.get(key)??null,setItem:(key,value)=>storage.set(key,value)};
-  const key="search-stocks:favourites:v1";
-  const body=name=>{
-    const found=source.match(new RegExp("function "+name+"\\([^)]*\\)\\{([\\s\\S]*?)\\n  \\}"));
-    assert(found,"Missing helper "+name);
+test("three presses cycle normal to favourite star, minimized red X, then normal",()=>{
+  const extract=name=>{
+    const found=source.match(new RegExp("  function "+name+"\\([^)]*\\)\\{([\\s\\S]*?)\\n  \\}"));
+    assert(found,"Missing "+name);
     return found[1];
   };
-  const load=new Function("window","FAVOURITES_KEY","return function(){"+body("loadFavourites")+String.fromCharCode(10)+"} ")({localStorage},key);
-  let favourites=load();
-  const save=new Function("window","FAVOURITES_KEY","favourites","return function(){"+body("saveFavourites")+String.fromCharCode(10)+"} ")({localStorage},key,favourites);
-  const onChange=new Function("favourites","saveFavourites","favouriteTicker",
-    "return function(event){"+body("onFavouriteChange")+String.fromCharCode(10)+"} ")(favourites,save,r=>String(r.ticker||"").trim().toUpperCase());
-  let isHighlighted=false;
-  const input={checked:true,dataset:{favouriteTicker:"2330.TWSE"},title:"",
-    matches:selector=>selector==="input.favourite-checkbox[data-favourite-ticker]",
-    closest:()=>({classList:{toggle:(cls,enabled)=>{assert.equal(cls,"favourite-row");isHighlighted=enabled;}}})};
-  onChange({target:input});
-  assert(isHighlighted);
-  assert.deepEqual([...load()],["2330.TWSE"],"selection survives a new read from browser storage");
-  input.checked=false;
-  onChange({target:input});
-  assert(!isHighlighted);
-  assert.deepEqual([...load()],[],"unchecking persists");
-  storage.set(key,"invalid json");
-  assert.deepEqual([...load()],[],"corrupt browser storage fails safely");
+  const nextMatch=source.match(/const nextRowState=state=>([^;]+);/);
+  assert(nextMatch);
+  const next=new Function("state","return "+nextMatch[1]+";");
+  assert.deepEqual(["normal",next("normal"),next("favourite"),next("minimized")],
+    ["normal","favourite","minimized","normal"]);
+  const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+  const control=new Function("nextRowState","escape",
+    "return function(ticker,current){"+extract("rowStateControl")+"\n}")(next,esc);
+  assert.match(control("2330.TWSE","normal"),/data-state="normal"/);
+  assert.doesNotMatch(control("2330.TWSE","normal"),/[★✕]/);
+  assert.match(control("2330.TWSE","favourite"),/★/);
+  assert.match(control("2330.TWSE","minimized"),/✕/);
+  assert.match(control("2330.TWSE","minimized"),/Restore normal row/);
+  const states=new Map(),saved=[];
+  const ticker=r=>String(r?.ticker||"").trim().toUpperCase();
+  const record={ticker:"2330.TWSE"};
+  const state={rows:[record]};
+  const row={nextElementSibling:{querySelector:()=>({focus:()=>{}})},
+    insertAdjacentHTML:()=>{},remove:()=>{}};
+  const button={dataset:{rowTicker:record.ticker},closest:selector=>selector==="tr"?row:null};
+  const onClick=new Function("rowTicker","nextRowState","rowStates","saveRowStates","state","tr","render",
+    "return function(event){"+extract("onRowStateClick")+"\n}")(
+      ticker,next,states,()=>saved.push(JSON.stringify([...states])),state,()=>"<tr></tr>",()=>{});
+  for(const expected of ["favourite","minimized","normal"]){
+    onClick({target:{closest:()=>button},currentTarget:{contains:()=>true}});
+    assert.equal(states.get(record.ticker)||"normal",expected);
+  }
+  assert.equal(saved.length,3);
+});
+test("legacy favourites become stars and all three states persist per browser",()=>{
+  const store=new Map(),window={localStorage:{
+    getItem:k=>store.get(k)??null,setItem:(k,v)=>store.set(k,v)
+  }};
+  const extract=name=>{
+    const found=source.match(new RegExp("  function "+name+"\\([^)]*\\)\\{([\\s\\S]*?)\\n  \\}"));
+    assert(found,"Missing "+name);
+    return found[1];
+  };
+  const key="search-stocks:row-states:v1",legacy="search-stocks:favourites:v1";
+  const valid=v=>v==="favourite"||v==="minimized";
+  const load=new Function("window","ROW_STATES_KEY","LEGACY_FAVOURITES_KEY","validRowState",
+    "return function(){"+extract("loadRowStates")+"\n}")(window,key,legacy,valid);
+  store.set(legacy,JSON.stringify(["2330.TWSE","AAPL"]));
+  let selected=load();
+  assert.equal(selected.get("2330.TWSE"),"favourite");
+  assert.equal(selected.get("AAPL"),"favourite");
+  const save=new Function("window","ROW_STATES_KEY","rowStates",
+    "return function(){"+extract("saveRowStates")+"\n}")(window,key,selected);
+  selected.set("2330.TWSE","minimized");
+  save();
+  selected=load();
+  assert.equal(selected.get("2330.TWSE"),"minimized");
+  assert.equal(selected.get("AAPL"),"favourite");
+  selected.delete("2330.TWSE");
+  const saveNormal=new Function("window","ROW_STATES_KEY","rowStates",
+    "return function(){"+extract("saveRowStates")+"\n}")(window,key,selected);
+  saveNormal();
+  assert.equal(load().has("2330.TWSE"),false,"third click clears previous preference");
+  store.set(key,JSON.stringify([["AAPL","invalid"],["TSM","minimized"]]));
+  assert.deepEqual([...load()],[["TSM","minimized"]],"invalid states ignored");
+  store.set(key,"invalid json");
+  assert.deepEqual([...load()],[],"corrupt data fails safely");
+});
+test("red-X compact rows have one line and exactly eleven unchanged columns",()=>{
+  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+  const f=source.match(/function compactTr\(r,ticker,active,control,context\)\{([\s\S]*?)\n  \}/);
+  assert(f,"compact row renderer exists");
+  const compiled=new Function("escape","compactLine","compactPrice","compactOvernight",
+    "compactMonth","compactAction","compactMarkers","compactDividend","compactMusaffa",
+    'return function(r,ticker,active,control,context){'+f[1]+'\n}');
+  const escape=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+  const line=v=>'<span class="compact-value" title="'+escape(v)+'">'+escape(v)+'</span>';
+  const row=compiled(escape,line,()=>"$120.00",()=>"+2.0%",()=>"High -4% / Low +5%",
+    ()=>"WATCH · HIGH",()=>"I 80 / E 25",()=>"1.20% yield",()=>"VERIFIED HALAL");
+  const html=row({ticker:"2330.TWSE",company:"TSMC",reportPath:"/reports/2330.TWSE/",
+    timestamp:"2026-11-20T00:00:00Z",industryCategory:"Technology & Communications",earnings:"10 Dec"},
+    "2330.TWSE","","<button></button>",null);
+  assert.equal((html.match(/<td(?:\s|>)/g)||[]).length,11,"all columns preserved");
+  assert.match(html,/class="minimized-row"/);
+  assert(!html.includes("<svg"),"compact row avoids chart height");
+  assert(!html.includes("market-session"),"compact row omits extra display lines");
+  assert(css.includes("min-width:2200px!important"),"table fixed width preserved");
+  assert(css.includes(".table-wrap th:nth-child(1) {width:11%}"));
+  for(const field of ["compactPrice(r)","compactOvernight(r)","compactMonth(r)",
+    "compactAction(r)","compactMarkers(r,context)","compactDividend(r)","compactMusaffa(r)"])
+    assert(source.includes(field),field+" preserved in compact layout");
 });
 const match=source.match(/const actionKind=v=>\{([\s\S]*?)\};/);
 assert(match,"Dashboard recommendation classifier must exist");
