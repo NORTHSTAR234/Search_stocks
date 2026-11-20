@@ -473,13 +473,13 @@
         !usSessionQuote(r,q)?.open)return Number(q.regularClose.price);
     return Number.isFinite(p)&&p>0?p:null;
   }
-  // High/low refer to the same verified closing-price observations as the 1M chart.
-  // A fresh quote can be one of those observations. No intraday high/low is inferred.
+  // Use the verified 1M closing observations plus the currently displayed quote.
+  // A new high or low is reflected immediately; intraday candle extremes are not inferred.
   function monthRangePercentages(points,currentPrice){
     if(!Number.isFinite(currentPrice)||currentPrice<=0||!Array.isArray(points))return null;
     const prices=points.map(point=>Number(point.p)).filter(p=>Number.isFinite(p)&&p>0);
     if(prices.length<2)return null;
-    const high=Math.max(...prices),low=Math.min(...prices);
+    const high=Math.max(currentPrice,...prices),low=Math.min(currentPrice,...prices);
     return {high,low,fromHigh:(currentPrice/high-1)*100,fromLow:(currentPrice/low-1)*100};
   }
 
@@ -554,7 +554,7 @@
       (levels[0]!=null?'<span class="preferred-dot">Preferred '+escape(quoteMoney(currency,levels[0]))+'</span>':"")+
       (levels[1]!=null?'<span class="acceptable-dot">Acceptable '+escape(quoteMoney(currency,levels[1]))+'</span>':"")+
       '</small>'+
-      (monthRange?'<div class="mini-chart-range" aria-label="Current quote compared with the highest and lowest observed 1-month chart closing prices">'+
+      (monthRange?'<div class="mini-chart-range" aria-label="Current quote compared with the 1-month observed closing-price range including the current quote">'+
         '<span class="mini-chart-range-high">1M high '+escape(quoteMoney(currency,monthRange.high))+
           ' <strong>'+escape(signedPercent(monthRange.fromHigh))+'</strong></span>'+
         '<span class="mini-chart-range-low">1M low '+escape(quoteMoney(currency,monthRange.low))+
