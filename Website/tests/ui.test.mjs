@@ -16,9 +16,16 @@ test("favourites replace hard-coded Taiwan stars and can be selected on either t
   assert(source.includes('$("rows").addEventListener("change",onFavouriteChange)'));
   assert(source.includes('$("flaggedRows").addEventListener("change",onFavouriteChange)'));
   assert(source.includes('window.addEventListener("storage",event=>'));
-  assert(css.includes(".table-wrap tbody tr.favourite-row > td{background:#203c58"));
-  assert(css.includes(".table-wrap tbody tr.favourite-row:hover > td{background:#2a4f70"));
-  assert(css.includes(".table-wrap tbody tr.favourite-row > td:first-child"));
+  const yellow="#51482c";
+  for(const selector of [
+    ".table-wrap tbody tr.favourite-row > td",
+    ".table-wrap tbody tr.favourite-row > td:first-child",
+    ".table-wrap tbody tr.favourite-row:hover > td",
+    ".table-wrap tbody tr.favourite-row:hover > td:first-child"
+  ]){
+    assert(css.includes(selector+"{background:"+yellow),selector+" stays the same muted yellow");
+  }
+  assert(css.includes("box-shadow:inset 3px 0 0 #f2d67a"));
   assert(css.includes(".table-wrap .favourite-checkbox:focus-visible"));
 });
 test("favourites persist after reload and toggle the entire row",()=>{

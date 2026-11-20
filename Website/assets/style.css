@@ -454,7 +454,7 @@ main:not(.report-layout)>.panel .table-footer{
   cursor:pointer;
 }
 .table-wrap .favourite-checkbox:focus-visible{outline:2px solid #8bc9ff;outline-offset:3px}
-.table-wrap tbody tr.favourite-row > td{background:#203c58;border-bottom-color:#3a5872}
-.table-wrap tbody tr.favourite-row > td:first-child{background:#203c58;box-shadow:inset 3px 0 0 #8bc9ff}
-.table-wrap tbody tr.favourite-row:hover > td{background:#2a4f70}
-.table-wrap tbody tr.favourite-row:hover > td:first-child{background:#2a4f70;box-shadow:inset 3px 0 0 #8bc9ff}
+.table-wrap tbody tr.favourite-row > td{background:#51482c;border-bottom-color:#796843}
+.table-wrap tbody tr.favourite-row > td:first-child{background:#51482c;box-shadow:inset 3px 0 0 #f2d67a}
+.table-wrap tbody tr.favourite-row:hover > td{background:#51482c}
+.table-wrap tbody tr.favourite-row:hover > td:first-child{background:#51482c;box-shadow:inset 3px 0 0 #f2d67a}
