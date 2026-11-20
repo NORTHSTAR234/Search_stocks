@@ -650,9 +650,26 @@
   }
   // Compact rows use the existing verified quote and report fields.
   // Values remain available in tooltips even when clipped to one line.
-  function compactLine(value){
+  function compactLine(value,tone=""){
     const label=String(value??"").trim()||"—";
-    return '<span class="compact-value" title="'+escape(label)+'">'+escape(label)+'</span>';
+    const color=["gain","loss","flat"].includes(tone)?" "+tone:"";
+    return '<span class="compact-value'+color+'" title="'+escape(label)+'">'+escape(label)+'</span>';
+  }
+  // Use the same price-direction classes as the expanded price/overnight cells.
+  // Only sourced percentages determine direction: no inferred movement.
+  function compactPercentTone(value){
+    const percent=String(value??"").match(/([+\-−]?\d+(?:\.\d+)?)%/);
+    return percent?quoteDirection(Number(percent[1].replace("−","-"))):"flat";
+  }
+  // The existing 1M high (red) and low (green) comparisons must keep
+  // their distinct colours in the one-line minimized chart column too.
+  function compactMonthLine(r){
+    const summary=compactMonth(r),separator=" / Low ";
+    const cut=summary.indexOf(separator);
+    if(!summary.startsWith("High ")||cut<0)return compactLine(summary);
+    return '<span class="compact-value compact-month" title="'+escape(summary)+'">'+
+      '<span class="mini-chart-range-high">'+escape(summary.slice(0,cut))+'</span>'+
+      ' / <span class="mini-chart-range-low">'+escape(summary.slice(cut+3))+'</span></span>';
   }
   function compactPrice(r){
     const q=state.quotes[rowTicker(r)];
@@ -741,18 +758,20 @@
     const shortDate=(()=>{try{return new Intl.DateTimeFormat("en-AU",{
       timeZone:"Australia/Melbourne",day:"2-digit",month:"short",year:"2-digit"}).format(new Date(r.timestamp));}
       catch{return "Unknown date";}})();
+    const priceSummary=compactPrice(r),overnightSummary=compactOvernight(r);
     return '<tr class="minimized-row"><td><div class="ticker-first-line">'+control+
       '<a class="ticker'+active+'" href="'+escape(r.reportPath)+'" title="'+escape(r.company||r.ticker)+
       '">'+escape(r.ticker)+'</a></div></td>'+
-      '<td>'+compactLine(compactPrice(r))+'</td>'+
-      '<td>'+compactLine(compactOvernight(r))+'</td>'+
-      '<td>'+compactLine(compactMonth(r))+'</td>'+
+      '<td>'+compactLine(priceSummary,compactPercentTone(priceSummary))+'</td>'+
+      '<td>'+compactLine(overnightSummary,compactPercentTone(overnightSummary))+'</td>'+
+      '<td>'+compactMonthLine(r)+'</td>'+
       '<td>'+compactLine(compactAction(r))+'</td>'+
       '<td class="markers-cell">'+compactLine(compactMarkers(r,context))+'</td>'+
       '<td class="industry-cell">'+compactLine(r.industryCategory||"Not classified")+'</td>'+
       '<td class="dividend-column">'+compactLine(compactDividend(r))+'</td>'+
       '<td>'+compactLine(shortDate)+'</td>'+
-      '<td>'+compactLine(compactMusaffa(r))+'</td>'+
+      '<td><div class="compact-musaffa" title="'+escape(compactMusaffa(r))+'">'+
+        screeningCell(r)+'</div></td>'+
       '<td>'+compactLine(r.earnings||"Not verified")+'</td></tr>';
   }
   function tr(r){

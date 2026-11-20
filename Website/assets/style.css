@@ -486,3 +486,24 @@ main:not(.report-layout)>.panel .table-footer{
 .table-wrap tbody tr.minimized-row .ticker-first-line .ticker{
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.88rem
 }
+
+/* In minimized rows retain existing movement semantics: gain green, loss red.
+   The 1M high comparison stays red and the low comparison stays green. */
+.table-wrap tbody tr.minimized-row .compact-value.gain{color:#66dcaa!important}
+.table-wrap tbody tr.minimized-row .compact-value.loss{color:#ff8a95!important}
+.table-wrap tbody tr.minimized-row .compact-month .mini-chart-range-high{color:#ffadb7}
+.table-wrap tbody tr.minimized-row .compact-month .mini-chart-range-low{color:#4de0be}
+/* Reuse the regular Musaffa/owner screening badge, including its tone; keep
+   it on a single compact line without changing the table's column widths. */
+.table-wrap tbody tr.minimized-row .compact-musaffa{min-width:0;width:100%;overflow:hidden;white-space:nowrap}
+.table-wrap tbody tr.minimized-row .compact-musaffa .musaffa-cell{
+  display:flex;align-items:center;flex-wrap:nowrap;gap:4px;max-width:100%;min-width:0;
+  overflow:hidden;width:100%;white-space:nowrap
+}
+.table-wrap tbody tr.minimized-row .compact-musaffa .status-only-cell>.badge{
+  flex:0 1 auto;min-width:0;max-width:100%;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;padding:2px 5px;line-height:1.2;font-size:.70rem
+}
+.table-wrap tbody tr.minimized-row .compact-musaffa .screening-original{
+  flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+}

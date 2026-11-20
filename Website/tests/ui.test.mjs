@@ -96,12 +96,16 @@ test("red-X compact rows have one line and exactly eleven unchanged columns",()=
   const f=source.match(/function compactTr\(r,ticker,active,control,context\)\{([\s\S]*?)\n  \}/);
   assert(f,"compact row renderer exists");
   const compiled=new Function("escape","compactLine","compactPrice","compactOvernight",
-    "compactMonth","compactAction","compactMarkers","compactDividend","compactMusaffa",
+    "compactMonthLine","compactAction","compactMarkers","compactDividend","compactMusaffa",
+    "compactPercentTone","screeningCell",
     'return function(r,ticker,active,control,context){'+f[1]+'\n}');
   const escape=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
-  const line=v=>'<span class="compact-value" title="'+escape(v)+'">'+escape(v)+'</span>';
-  const row=compiled(escape,line,()=>"$120.00",()=>"+2.0%",()=>"High -4% / Low +5%",
-    ()=>"WATCH · HIGH",()=>"I 80 / E 25",()=>"1.20% yield",()=>"VERIFIED HALAL");
+  const line=(v,tone="")=>'<span class="compact-value '+tone+'" title="'+escape(v)+'">'+escape(v)+'</span>';
+  const row=compiled(escape,line,()=>"$120.00 · -2.5%",()=>"+2.0%",()=>
+    '<span class="compact-value"><span class="mini-chart-range-high">High -4%</span> / <span class="mini-chart-range-low">Low +5%</span></span>',
+    ()=>"WATCH · HIGH",()=>"I 80 / E 25",()=>"1.20% yield",()=>"VERIFIED HALAL",
+    value=>value.includes("-2.5%")?"loss":"gain",
+    ()=>'<div class="musaffa-cell"><span class="badge good">VERIFIED HALAL</span></div>');
   const html=row({ticker:"2330.TWSE",company:"TSMC",reportPath:"/reports/2330.TWSE/",
     timestamp:"2026-11-20T00:00:00Z",industryCategory:"Technology & Communications",earnings:"10 Dec"},
     "2330.TWSE","","<button></button>",null);
@@ -109,11 +113,48 @@ test("red-X compact rows have one line and exactly eleven unchanged columns",()=
   assert.match(html,/class="minimized-row"/);
   assert(!html.includes("<svg"),"compact row avoids chart height");
   assert(!html.includes("market-session"),"compact row omits extra display lines");
+  assert.match(html,/class="compact-value loss"/,"negative quote keeps loss colour");
+  assert.match(html,/class="compact-value gain"/,"positive overnight keeps gain colour");
+  assert.match(html,/mini-chart-range-high/,"one-month high remains red");
+  assert.match(html,/mini-chart-range-low/,"one-month low remains green");
+  assert.match(html,/class="badge good"/,"compact Musaffa keeps existing badge colour");
   assert(css.includes("min-width:2200px!important"),"table fixed width preserved");
   assert(css.includes(".table-wrap th:nth-child(1) {width:11%}"));
   for(const field of ["compactPrice(r)","compactOvernight(r)","compactMonth(r)",
-    "compactAction(r)","compactMarkers(r,context)","compactDividend(r)","compactMusaffa(r)"])
+    "compactMonthLine(r)","compactAction(r)","compactMarkers(r,context)",
+    "compactDividend(r)","compactMusaffa(r)","screeningCell(r)"])
     assert(source.includes(field),field+" preserved in compact layout");
+});
+test("minimized price and percentage retain gain/loss and separate 1M high/low colours",()=>{
+  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+  const helpers=name=>{
+    const m=source.match(new RegExp("function "+name+"\\([^)]*\\)\\{([\\s\\S]*?)\\n  \\}"));
+    assert(m,"missing "+name);
+    return m[1];
+  };
+  const quoteDirection=v=>typeof v!=="number"||!Number.isFinite(v)||v===0?"flat":v>0?"gain":"loss";
+  const tone=new Function("quoteDirection","return function(value){"+helpers("compactPercentTone")+"\n}")(quoteDirection);
+  assert.equal(tone("TWD 500 · +3.25%"),"gain");
+  assert.equal(tone("USD 500 · -3.25%"),"loss");
+  assert.equal(tone("USD 500 · −3.25%"),"loss");
+  assert.equal(tone("No verified quote"),"flat");
+  assert.equal(tone("0.00%"),"flat");
+  const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+  const line=new Function("escape","return function(value,tone=''){"+helpers("compactLine")+"\n}")(esc);
+  assert.match(line("TWD 500 · +3.25%",tone("+3.25%")),/compact-value gain/);
+  assert.match(line("TWD 500 · -3.25%",tone("-3.25%")),/compact-value loss/);
+  const month=new Function("compactMonth","compactLine","escape",
+    "return function(r){"+helpers("compactMonthLine")+"\n}")(
+      ()=>"High -4.52% / Low +8.25%",line,esc);
+  const m=month({});
+  assert.match(m,/class="mini-chart-range-high">High -4.52%/);
+  assert.match(m,/class="mini-chart-range-low">Low \+8.25%/);
+  assert(css.includes(".table-wrap tbody tr.minimized-row .compact-value.gain{color:#66dcaa!important}"));
+  assert(css.includes(".table-wrap tbody tr.minimized-row .compact-value.loss{color:#ff8a95!important}"));
+  assert(css.includes(".table-wrap tbody tr.minimized-row .compact-month .mini-chart-range-high{color:#ffadb7}"));
+  assert(css.includes(".table-wrap tbody tr.minimized-row .compact-month .mini-chart-range-low{color:#4de0be}"));
+  assert(css.includes(".table-wrap tbody tr.minimized-row .compact-musaffa .status-only-cell>.badge{"));
+  assert(source.includes("screeningCell(r)+'</div></td>'"),"reuse exact Musaffa severity badge");
 });
 const match=source.match(/const actionKind=v=>\{([\s\S]*?)\};/);
 assert(match,"Dashboard recommendation classifier must exist");
