@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-11-20",
+  "updated_on": "2026-11-21",
   "provenance": "USER_REQUEST",
   "description": "Owner-supplied exact-security review designations for ANY ticker (DOUBTFUL or NON_HALAL). These are administrative personal preferences independent of original Musaffa and ethical/BDS evidence. The latest report must live in nonhalal/ to appear in Table 2.",
   "rows": [
@@ -24,6 +24,13 @@
       "bucket": "nonhalal",
       "label": "DOUBTFUL",
       "reason": "Owner explicitly designated HKEX 3750.HK (CATL) as DOUBTFUL on 20 November 2026. This is an owner review, not a verified Musaffa NON-HALAL finding."
+    },
+    {
+      "ticker": "MLM",
+      "company": "Martin Marietta Materials, Inc.",
+      "bucket": "nonhalal",
+      "label": "NON_HALAL",
+      "reason": "Owner explicitly marked the exact NYSE:MLM ordinary share (Martin Marietta Materials, Inc.) as NON-HALAL on 21 November 2026, for owner-requested administrative exclusion. This is not a new Musaffa, RizqInvests, AAOIFI, or BDS finding; the previously reported Musaffa HALAL B+ screen of 7 May 2026 remains stale and its original assessment unchanged."
     }
   ]
 }
