@@ -15,7 +15,7 @@
       "matchedReports": 9
     }
   },
-  "revision": "ffa07bb5f74e41d245b75bb971a5badd",
+  "revision": "abeb2b7ed72b6c378004bdcaddcc3e6f",
   "rows": [
     {
       "company": "GEA Group Aktiengesellschaft",
@@ -1685,7 +1685,10 @@
       "ethicalFinalReason": "No matching archived ethical record",
       "ethicalFinalBdsListed": false,
       "ethicalFinalColor": "NONE",
-      "ethicalRizqOriginalLabel": null
+      "ethicalRizqOriginalLabel": null,
+      "screeningReviewStatus": "NON_HALAL",
+      "screeningReviewSource": "USER_REQUEST",
+      "screeningReviewNote": "Owner requested 'oir.asx' be marked NON-HALAL on 21 November 2026; matched the existing ASX Orica Limited listing ORI.ASX (provider ORI.AX), with no OIR.ASX report/listing in the stock archive. Administrative owner exclusion only; NOT an independent Musaffa, RizqInvests, AAOIFI or BDS determination. Preserve previous Musaffa UNVERIFIED / INCONCLUSIVE status, ethical findings and financial ratings."
     },
     {
       "company": "Realtek Semiconductor Corporation",
