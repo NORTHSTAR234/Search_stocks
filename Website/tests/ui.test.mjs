@@ -476,9 +476,11 @@ test("one-month IEX chart is sourced, responsive and polled with every quote cyc
 });
 
 test("1M high red and 1M low green percentages use the current displayed quote and observed chart closing extremes",()=>{
-  const metricSource=source.match(/function monthRangePercentages\\(points,currentPrice\\)\\{([\\s\\S]*?)\\n  \\}/);
-  assert(metricSource,"range helper must exist and handle validated observations");
-  const calc=new Function("points","currentPrice",metricSource[1]);
+  const signature="function monthRangePercentages(points,currentPrice){";
+  const metricStart=source.indexOf(signature);
+  const metricEnd=source.indexOf("\n  }",metricStart);
+  assert(metricStart>=0&&metricEnd>metricStart,"range helper must exist");
+  const calc=new Function("points","currentPrice",source.slice(metricStart+signature.length,metricEnd));
   const points=[{p:80},{p:120},{p:105}];
   const metrics=calc(points,100);
   assert.equal(metrics.high,120);
