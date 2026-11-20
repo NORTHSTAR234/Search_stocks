@@ -15,7 +15,7 @@
       "matchedReports": 9
     }
   },
-  "revision": "8943bd8bae7e1a9ba210825a51b397bb",
+  "revision": "ffa07bb5f74e41d245b75bb971a5badd",
   "rows": [
     {
       "company": "GEA Group Aktiengesellschaft",
@@ -1202,7 +1202,10 @@
       "ethicalFinalReason": "RizqInvests Nov 2026 says Neutral; no exact issuer listing in the uploaded Investigate July 2025 dataset. Not universal ethical clearance.",
       "ethicalFinalBdsListed": false,
       "ethicalFinalColor": "GREEN",
-      "ethicalRizqOriginalLabel": "Neutral"
+      "ethicalRizqOriginalLabel": "Neutral",
+      "screeningReviewStatus": "NON_HALAL",
+      "screeningReviewSource": "USER_REQUEST",
+      "screeningReviewNote": "Owner explicitly marked the exact NYSE:MLM ordinary share (Martin Marietta Materials, Inc.) as NON-HALAL on 21 November 2026, for owner-requested administrative exclusion. This is not a new Musaffa, RizqInvests, AAOIFI, or BDS finding; the previously reported Musaffa HALAL B+ screen of 7 May 2026 remains stale and its original assessment unchanged."
     },
     {
       "company": "Origin Energy Limited",
