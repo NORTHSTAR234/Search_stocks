@@ -487,6 +487,11 @@ test("1M high red and 1M low green percentages use the current displayed quote a
   assert.equal(metrics.low,80);
   assert(Math.abs(metrics.fromHigh-(-16.666666666666664))<1e-9);
   assert(Math.abs(metrics.fromLow-25)<1e-9);
+  const newHigh=calc(points,135),newLow=calc(points,60);
+  assert.equal(newHigh.high,135,"latest quote extends the 1M high");
+  assert.equal(newHigh.fromHigh,0);
+  assert.equal(newLow.low,60,"latest quote extends the 1M low");
+  assert.equal(newLow.fromLow,0);
   assert.equal(calc(points,null),null,"unverified quote must not create percentages");
   assert.equal(calc([{p:95}],100),null,"at least two observed closes required");
   const currentSource=source.slice(source.indexOf("function chartDisplayedPrice(r,q)"),source.indexOf("function monthRangePercentages(points,currentPrice)"));
