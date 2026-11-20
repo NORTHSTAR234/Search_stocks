@@ -16,7 +16,9 @@ function flagged(r){
    finalStatus==="UNETHICAL"||finalStatus==="BDS_LISTED";
  const classification=String(r.musaffaClassification||
    String(r.musaffa||"").split(" · ")[0]||"").trim().toUpperCase();
- return red||negativeMusaffa.test(classification);
+ const ownerFlagged=r.bucket==="nonhalal"&&r.screeningReviewSource==="USER_REQUEST"&&
+   /^(?:DOUBTFUL|NON_HALAL)$/.test(String(r.screeningReviewStatus||"").toUpperCase());
+ return red||negativeMusaffa.test(classification)||ownerFlagged;
 }
 // Faithful to the owner's uploaded 1519.TWSE variable-triggered 15-action macro.
 function stableId(text){let h=2166136261;for(const ch of text)h=Math.imul(h^ch.charCodeAt(0),16777619)>>>0;return -1000000000-(h%900000000);}
