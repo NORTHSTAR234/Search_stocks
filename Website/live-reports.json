@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "sourceRepository": "NORTHSTAR234/Search_stocks",
-  "latestHtmlReportAt": "2026-11-19T20:35:59Z",
-  "htmlReportCount": 230,
-  "uniqueTickers": 45,
+  "latestHtmlReportAt": "2026-11-20T06:02:25Z",
+  "htmlReportCount": 231,
+  "uniqueTickers": 46,
   "ethicalSources": {
     "rizqinvests": {
       "snapshot": "2026-11",
@@ -15,8 +15,111 @@
       "matchedReports": 8
     }
   },
-  "revision": "31d6c102ead7bcdc1beba150e3ca3028",
+  "revision": "fa60e4a16ed599f6d4acecabba72fed8",
   "rows": [
+    {
+      "company": "NXP Semiconductors N.V.",
+      "ticker": "NXPI",
+      "exchange": "US",
+      "bucket": "halal",
+      "timestamp": "2026-11-20T06:02:25Z",
+      "industryCategory": "Technology & Communications",
+      "industryDetail": "Automotive, industrial/IoT, secure connectivity and edge-computing semiconductors; primary issuer business",
+      "industryCategorySource": "REPORT_SNAPSHOT",
+      "dividendStatus": "PAYS",
+      "dividendYieldPercent": 1.61,
+      "dividendAnnualPerShare": 4.056,
+      "dividendCurrency": "USD",
+      "dividendFrequency": "QUARTERLY",
+      "dividendExDate": null,
+      "dividendPaymentDate": "2027-01-07",
+      "dividendAsOf": "2026-11-19",
+      "dividendYieldBasis": "INDICATED_FORWARD",
+      "dividendSourceUrl": "https://investors.nxp.com/news-releases/news-release-details/nxp-semiconductors-announces-quarterly-dividend-25",
+      "dividendDataSource": "REPORT_SNAPSHOT",
+      "statusOnly": false,
+      "action": "WATCH",
+      "ownerAction": "HOLD",
+      "risk": "HIGH",
+      "investment": "78/100",
+      "entry": "58/100",
+      "musaffa": "HALAL · A- · 2026-10-30 · PASS",
+      "musaffaClassification": "HALAL",
+      "musaffaGate": "PASS",
+      "musaffaScreeningDate": "2026-10-30",
+      "musaffaScreeningPeriod": "2026-11",
+      "musaffaScreeningMonthConflict": false,
+      "musaffaAssessment": "VERIFIED_HALAL",
+      "musaffaReason": "Official exact NASDAQ NXPI Musaffa indexed November 2026 page identifies grade A− and last updated 2026-10-30 using Q3 2026 report. Older direct cached July record is superseded.",
+      "earnings": "1 Feb 2027 estimated",
+      "zones": "US$228–240 / US$241–250",
+      "stops": "US$215 / US$265",
+      "nativeCurrency": "USD",
+      "marketSchedule": {
+        "exchange": "NASDAQ",
+        "mic": "XNAS",
+        "market_time_zone": "America/New_York",
+        "sydney_time_zone": "Australia/Sydney",
+        "weekdays": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sessions": [
+          {
+            "start": "09:30",
+            "end": "16:00"
+          }
+        ],
+        "yahoo_ticker": "NXPI",
+        "hours_source": "https://www.nasdaq.com/stock-market-trading-hours",
+        "hours_checked_utc": "2026-11-20T06:02:25Z"
+      },
+      "sourceMarketTicker": "NXPI",
+      "zoneBands": [
+        [
+          228,
+          240
+        ],
+        [
+          241,
+          250
+        ]
+      ],
+      "reportUrl": "https://github.com/NORTHSTAR234/Search_stocks/blob/main/halal/NXPI/NXPI_2026-11-20_06-02-25Z.html",
+      "reportPath": "/view-report?path=halal%2FNXPI%2FNXPI_2026-11-20_06-02-25Z.html",
+      "sourceFormat": "html",
+      "conflictingBuckets": false,
+      "ethicalStatus": "NEUTRAL",
+      "ethicalBdsListed": false,
+      "ethicalAssessmentDate": null,
+      "ethicalCheckedAt": "2026-11-13T00:00:00Z",
+      "ethicalReason": "User-supplied RizqInvests table (Nov 2026): Ethical = Neutral; BDS badge not shown. Historical snapshot only; not a live or independent BDS check.",
+      "ethicalSourceUrl": "https://www.rizqinvests.com/halal/stock/NXPI?view=both",
+      "ethicalSourceKind": "USER_SNAPSHOT",
+      "ethicalDataAsOf": "2026-11",
+      "ethicalSnapshotImportedOn": "2026-11-13",
+      "ethicalProviderLabel": "Neutral",
+      "investigateListed": false,
+      "investigateCategories": [],
+      "investigateSourceUrl": null,
+      "investigateSourceKind": "USER_SNAPSHOT",
+      "investigateDataAsOf": "2025-07",
+      "investigateSummary": null,
+      "investigateCompany": null,
+      "investigateIsin": null,
+      "investigateDivestmentShortlist": false,
+      "investigateSourceLinkWarning": null,
+      "ethicalFinalStatus": "NEUTRAL",
+      "ethicalFinalSource": "RIZQINVESTS",
+      "ethicalFinalSourceUrl": "https://www.rizqinvests.com/halal/stock/NXPI?view=both",
+      "ethicalFinalReason": "RizqInvests Nov 2026 says Neutral; no exact issuer listing in the uploaded Investigate July 2025 dataset. Not universal ethical clearance.",
+      "ethicalFinalBdsListed": false,
+      "ethicalFinalColor": "GREEN",
+      "ethicalRizqOriginalLabel": "Neutral"
+    },
     {
       "company": "Contemporary Amperex Technology Co., Limited",
       "ticker": "3750.HK",
