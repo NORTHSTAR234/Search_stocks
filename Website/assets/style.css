@@ -172,6 +172,7 @@
 }
 .table-wrap .market-open-label{color:#ffd77c;font-weight:850}
 .table-wrap .market-session{color:#b5cce1;font-size:.70rem;line-height:1.42}
+.table-wrap .taiwan-top-pick-star{color:#ffd77c;font-weight:900;margin-left:4px;font-size:.88rem;vertical-align:baseline}
 @media (prefers-reduced-motion:reduce){.table-wrap .ticker.market-open{transition:none}}
 
 /* Musaffa screening uses separate, accessible green/yellow/red status labels.
