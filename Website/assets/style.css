@@ -391,6 +391,12 @@ main:not(.report-layout)>.panel .table-footer{
 .mini-chart-legend .blue-dot::before{background:#8dabff}
 .mini-chart-legend .preferred-dot::before{background:#31d0b8}
 .mini-chart-legend .acceptable-dot::before{background:#ffd05e}
+.mini-chart-range{display:flex;flex-wrap:wrap;gap:3px 12px;margin-top:8px;padding-top:6px;border-top:1px solid rgba(148,170,201,.22);font-size:.69rem;line-height:1.5}
+.mini-chart-range>span{white-space:nowrap}
+.mini-chart-range-high{color:#ffadb7}
+.mini-chart-range-low{color:#4de0be}
+.mini-chart-range strong{font-size:.76rem;font-weight:800;margin-left:3px;font-variant-numeric:tabular-nums}
+.mini-chart-range-unavailable{display:block;margin-top:8px;color:#92a8c3;font-size:.67rem}
 .mini-chart-empty{font-size:.77rem;color:#b1c4d8;line-height:1.5}
 .mini-chart-empty small{color:#8297af}
 
