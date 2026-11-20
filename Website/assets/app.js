@@ -601,12 +601,18 @@
     return '<div class="dividend-cell">'+top+(money?'<small>'+money+'</small>':"")+freq+dates+
       '<small class="dividend-provenance">'+escape(proof)+' · at report date</small></div>';
   }
+  // Only these three Taiwan holdings are starred in the Company / Ticker column.
+  function isTopTaiwanPick(r){
+    return String(r?.exchange||"").toUpperCase()==="TWSE"&&
+      ["2330.TWSE","2379.TWSE","3034.TWSE"].includes(String(r?.ticker||"").toUpperCase());
+  }
   function tr(r){
     const action=cap(r.action,96);
     const context=zoneContext(r);
     const market=marketStatus(r);
     const active=market?.open?" market-open":"";
-    const status=market?'<small class="market-session">'+escape(market.market)+
+    const star=isTopTaiwanPick(r)?'<span class="taiwan-top-pick-star" title="Top 3 Taiwan stock selection" aria-label="Top 3 Taiwan stock selection">★</span>':"";
+    const status=market?'<small class="market-session">'+escape(market.market)+star+
       ' · Sydney '+escape(market.hours)+
       ' · '+(market.open?'<span class="market-open-label">Trading session</span>':'Outside session')+'</small>':
       '<small class="market-session muted">Market hours not configured</small>';
