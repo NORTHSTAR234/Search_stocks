@@ -475,6 +475,29 @@ test("one-month IEX chart is sourced, responsive and polled with every quote cyc
   assert(css.includes(".mini-chart-legend"));
 });
 
+test("1M high red and 1M low green percentages use the current displayed quote and observed chart closing extremes",()=>{
+  const metricSource=source.match(/function monthRangePercentages\\(points,currentPrice\\)\\{([\\s\\S]*?)\\n  \\}/);
+  assert(metricSource,"range helper must exist and handle validated observations");
+  const calc=new Function("points","currentPrice",metricSource[1]);
+  const points=[{p:80},{p:120},{p:105}];
+  const metrics=calc(points,100);
+  assert.equal(metrics.high,120);
+  assert.equal(metrics.low,80);
+  assert(Math.abs(metrics.fromHigh-(-16.666666666666664))<1e-9);
+  assert(Math.abs(metrics.fromLow-25)<1e-9);
+  assert.equal(calc(points,null),null,"unverified quote must not create percentages");
+  assert.equal(calc([{p:95}],100),null,"at least two observed closes required");
+  const currentSource=source.slice(source.indexOf("function chartDisplayedPrice(r,q)"),source.indexOf("function monthRangePercentages(points,currentPrice)"));
+  assert(currentSource.includes("usSessionQuote(r,q)?.open"));
+  assert(currentSource.includes("q?.regularClose?.price"),"outside US trading use displayed regular close");
+  assert(source.includes("monthRangePercentages(points,chartDisplayedPrice(r,q))"),"refresh-render must recalculate from current quote");
+  assert(source.includes("1M high ")&&source.includes("1M low "));
+  assert(source.includes("mini-chart-range-high")&&source.includes("mini-chart-range-low"));
+  const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+  assert(css.includes(".mini-chart-range-high{color:#ffadb7}"));
+  assert(css.includes(".mini-chart-range-low{color:#4de0be}"));
+});
+
 test("Markers remains 3 paired rows with all six existing values and behaviors",()=>{
  const start=source.indexOf("function markersCell(r,context){");
  const end=source.indexOf("\n  function tr(r){",start);
