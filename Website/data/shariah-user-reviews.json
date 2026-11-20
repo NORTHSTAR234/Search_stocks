@@ -31,6 +31,13 @@
       "bucket": "nonhalal",
       "label": "NON_HALAL",
       "reason": "Owner explicitly marked the exact NYSE:MLM ordinary share (Martin Marietta Materials, Inc.) as NON-HALAL on 21 November 2026, for owner-requested administrative exclusion. This is not a new Musaffa, RizqInvests, AAOIFI, or BDS finding; the previously reported Musaffa HALAL B+ screen of 7 May 2026 remains stale and its original assessment unchanged."
+    },
+    {
+      "ticker": "ORI.ASX",
+      "company": "Orica Limited",
+      "bucket": "nonhalal",
+      "label": "NON_HALAL",
+      "reason": "Owner requested 'oir.asx' be marked NON-HALAL on 21 November 2026; matched the existing ASX Orica Limited listing ORI.ASX (provider ORI.AX), with no OIR.ASX report/listing in the stock archive. Administrative owner exclusion only; NOT an independent Musaffa, RizqInvests, AAOIFI or BDS determination. Preserve previous Musaffa UNVERIFIED / INCONCLUSIVE status, ethical findings and financial ratings."
     }
   ]
 }
