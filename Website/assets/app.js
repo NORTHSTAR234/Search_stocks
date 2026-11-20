@@ -465,6 +465,24 @@
     return "";
   }
 
+  // Match the primary price shown in Regular/latest: US IEX while its
+  // regular session is open; completed SIP regular close outside the session.
+  function chartDisplayedPrice(r,q){
+    const p=Number(q?.price);
+    if(r.exchange==="US"&&q?.feed==="IEX"&&Number(q?.regularClose?.price)>0&&
+        !usSessionQuote(r,q)?.open)return Number(q.regularClose.price);
+    return Number.isFinite(p)&&p>0?p:null;
+  }
+  // High/low refer to the same verified closing-price observations as the 1M chart.
+  // A fresh quote can be one of those observations. No intraday high/low is inferred.
+  function monthRangePercentages(points,currentPrice){
+    if(!Number.isFinite(currentPrice)||currentPrice<=0||!Array.isArray(points))return null;
+    const prices=points.map(point=>Number(point.p)).filter(p=>Number.isFinite(p)&&p>0);
+    if(prices.length<2)return null;
+    const high=Math.max(...prices),low=Math.min(...prices);
+    return {high,low,fromHigh:(currentPrice/high-1)*100,fromLow:(currentPrice/low-1)*100};
+  }
+
   // One calendar month of verified actual observations from independent feeds:
   // US = Alpaca daily IEX bars; non-US = cached private Yahoo 1-hour bars.
   // Prices/currencies are never inferred from archived investment reports.
@@ -493,6 +511,7 @@
       qt>daily.at(-1).t&&qt<=Date.now()+120000&&Date.now()-qt<8*86400000?
       {t:qt,p:price,latest:true}:null;
     const points=recent?[...daily,recent]:daily;
+    const monthRange=monthRangePercentages(points,chartDisplayedPrice(r,q));
     // Apply report-derived price zones only when the recorded quote currency
     // matches the archived band currency (no hidden FX assumptions).
     const sameZoneCurrency=us||typeof r.zones==="string"&&
@@ -534,7 +553,15 @@
       lastLabel+'<small class="mini-chart-legend"><span class="blue-dot">'+escape(us?"IEX closes":"Yahoo 1h · delayed")+'</span>'+
       (levels[0]!=null?'<span class="preferred-dot">Preferred '+escape(quoteMoney(currency,levels[0]))+'</span>':"")+
       (levels[1]!=null?'<span class="acceptable-dot">Acceptable '+escape(quoteMoney(currency,levels[1]))+'</span>':"")+
-      '</small></div>';
+      '</small>'+
+      (monthRange?'<div class="mini-chart-range" aria-label="Current quote compared with the highest and lowest observed 1-month chart closing prices">'+
+        '<span class="mini-chart-range-high">1M high '+escape(quoteMoney(currency,monthRange.high))+
+          ' <strong>'+escape(signedPercent(monthRange.fromHigh))+'</strong></span>'+
+        '<span class="mini-chart-range-low">1M low '+escape(quoteMoney(currency,monthRange.low))+
+          ' <strong>'+escape(signedPercent(monthRange.fromLow))+'</strong></span>'+
+        '</div>':
+        '<small class="mini-chart-range-unavailable">1M comparisons unavailable · quote not verified</small>')+
+      '</div>';
   }
 
   // Keep all existing score, buy-zone and risk-marker helpers unchanged.
