@@ -1140,17 +1140,24 @@
     const failures=[];
     async function retrieve(path,symbols,label){
       const collected={};
-      for(let i=0;i<symbols.length;i+=40){
-        const part=symbols.slice(i,i+40);
-        if(!part.length)continue;
+      // US Alpaca is a heavier gateway because its regular-close and
+      // 24-hour reference lookups are independently verified per symbol.
+      // Keep batches small and fetch them in parallel, so one slow batch
+      // cannot delay/blank all remaining US quotes.
+      const batchSize=path==="/api/prices"?15:40,parts=[];
+      for(let i=0;i<symbols.length;i+=batchSize){
+        const part=symbols.slice(i,i+batchSize);
+        if(part.length)parts.push(part);
+      }
+      await Promise.all(parts.map(async part=>{
         try{
           const res=await fetch(path+"?symbols="+encodeURIComponent(part.join(",")),{credentials:"same-origin",cache:"no-store"});
           const data=await res.json().catch(()=>({}));
           if(!res.ok)throw Error("HTTP "+res.status+(data.error?" · "+String(data.error):""));
           if(!data.quotes||typeof data.quotes!=="object")throw Error("Invalid provider response");
           Object.assign(collected,data.quotes);
-        }catch(e){failures.push(label+": "+String(e?.message||e));}
-      }
+        }catch(e){failures.push(label+" ["+part.join(",")+"]: "+String(e?.message||e));}
+      }));
       return collected;
     }
     async function retrieveHistory(symbols,range="1m"){
