@@ -47,24 +47,55 @@ async function verifyGithubOIDC(token) {
       new TextEncoder().encode(parts[0]+"."+parts[1]));
   }catch{return false;}
 }
-function cleanQuote(ticker,q,now) {
-  if(!/^[A-Z0-9][A-Z0-9.-]{0,18}\.[A-Z]{2,12}$/.test(ticker)||
+/* Actual one-month Yahoo 1h closes are only accepted for the already verified
+   exact quote identity. Reject stale, future or synthetic history points. */
+function cleanHourly(raw,q,now){
+  if(!raw||typeof raw!=="object"||Array.isArray(raw)||
+    raw.feed!=="YFINANCE_YAHOO_1H_BAR_DELAYED"||raw.interval!=="1h"||
+    raw.sourceSymbol!==q.sourceSymbol||raw.currency!==q.currency||
+    raw.exchange!==q.exchange||!Array.isArray(raw.bars)||
+    raw.bars.length<2||raw.bars.length>200)return null;
+  const bars=[];let previous=-Infinity;
+  for(const point of raw.bars){
+    if(!Array.isArray(point)||point.length!==2||
+       !Number.isInteger(point[0])||
+       point[0]*1000>now+120000||point[0]*1000<now-35*86400000||
+       point[0]<=previous||
+       typeof point[1]!=="number"||!Number.isFinite(point[1])||
+       point[1]<=0||point[1]>1e9)return null;
+    previous=point[0];bars.push([point[0],point[1]]);
+  }
+  return {feed:"YFINANCE_YAHOO_1H_BAR_DELAYED",interval:"1h",
+    sourceSymbol:q.sourceSymbol,exchange:q.exchange,currency:q.currency,bars};
+}
+export function cleanQuote(ticker,q,now) {
+  if(!/^[A-Z0-9][A-Z0-9.-]{0,18}\.(?:[A-Z]{2,12}|T)$/.test(ticker)||
     !q||typeof q!=="object"||Array.isArray(q)||typeof q.exchange!=="string"||
     !/^[A-Z0-9]{2,12}$/.test(q.exchange)||
     typeof q.sourceSymbol!=="string"||!/^[-A-Z0-9.^]{1,25}$/.test(q.sourceSymbol)||
     // A canonical archive suffix might be the Yahoo country suffix rather than
     // the ISO exchange abbreviation: SU.PA is XPAR, not "PA".
-    !(ticker.endsWith("."+q.exchange)||ticker===q.sourceSymbol)||
+    !(ticker.endsWith("."+q.exchange)||ticker===q.sourceSymbol||
+      // Stockholm canonical archive .STO differs from Yahoo .ST; require
+      // exact shared class/base identifier and verified XSTO exchange.
+      (q.exchange==="XSTO"&&ticker.endsWith(".STO")&&
+       q.sourceSymbol===ticker.replace(/\.STO$/,".ST")))||
+    // Only Tokyo's exact native JPY listing may use the single-letter .T suffix.
+    (ticker.endsWith(".T")&&(q.exchange!=="TSE"||q.currency!=="JPY"||
+      q.sourceSymbol!==ticker))||
     typeof q.currency!=="string"||!/^[A-Z]{3}$/.test(q.currency)||
     typeof q.price!=="number"||!Number.isFinite(q.price)||q.price<=0||
     !Number.isFinite(Date.parse(q.asOf))||Date.parse(q.asOf)>now+120000||
     now-Date.parse(q.asOf)>8*86400000||
     q.feed!=="YFINANCE_YAHOO_5M_BAR_DELAYED")return null;
   const prev=(typeof q.previousClose==="number"&&Number.isFinite(q.previousClose)&&q.previousClose>0)?q.previousClose:null;
-  return {price:q.price,currency:q.currency,asOf:new Date(q.asOf).toISOString(),
+  const normalized={price:q.price,currency:q.currency,asOf:new Date(q.asOf).toISOString(),
     exchange:q.exchange,sourceSymbol:q.sourceSymbol,
     feed:"YFINANCE_YAHOO_5M_BAR_DELAYED",previousClose:prev,
     previousCloseChangePercent:prev===null?null:Math.round((q.price/prev-1)*100000)/1000};
+  const hourly=cleanHourly(q.hourly,normalized,now);
+  if(hourly)normalized.hourly=hourly;
+  return normalized;
 }
 export default {
   async fetch(request,env) {
@@ -96,8 +127,17 @@ export default {
     const existing=(prior.quotes&&typeof prior.quotes==="object")?prior.quotes:{};
     const all={...existing};
     for(const [ticker,q] of Object.entries(incoming)) {
-      if(!all[ticker]||Date.parse(q.asOf)>=Date.parse(all[ticker].asOf||0))
+      const old=all[ticker];
+      if(!old||Date.parse(q.asOf)>=Date.parse(old.asOf||0)){
+        // A 5-minute quote collection may occur between hourly chart loads.
+        // Retain only valid history for the SAME provider, market and currency.
+        if(!q.hourly&&old&&old.sourceSymbol===q.sourceSymbol&&
+           old.exchange===q.exchange&&old.currency===q.currency){
+          const kept=cleanHourly(old.hourly,q,now);
+          if(kept)q.hourly=kept;
+        }
         all[ticker]=q;
+      }
     }
     // Bound retained size; remove entries older than eight days.
     for(const [ticker,q] of Object.entries(all))
