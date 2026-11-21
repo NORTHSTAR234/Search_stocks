@@ -1006,3 +1006,36 @@ test("verified split-adjusted IEX close is labeled historical, not advertised li
  assert(text.includes('NOT a live quote'));
  assert(text.includes('if(!q){'));
 });
+
+test("one failed Alpaca batch cannot erase valid US prices from other batches",async()=>{
+ const start=source.indexOf("  async function refresh(){"),end=source.indexOf("  // A GitHub HTML report",start);
+ assert(start>=0&&end>start);
+ const body=source.slice(start,end);
+ const symbols=Array.from({length:42},(_,i)=>"TEST"+i);
+ const existing={TEST0:{price:90,currency:"USD",feed:"IEX",asOf:"2026-11-20T20:59:00Z"}};
+ const state={loading:false,rows:symbols.map(t=>({ticker:t,exchange:"US"})),quotes:existing,
+   history:{},yearHistory:{},lastYearRefreshAt:Date.now()};
+ const notices={},events=[];
+ const $=id=>(notices[id]||= {disabled:false,textContent:""});
+ const json=(data,ok=true,status=200)=>({ok,status,json:async()=>data});
+ const fetch=async url=>{
+   if(url.startsWith("/api/prices?")){
+     const chunk=decodeURIComponent(url.split("symbols=")[1]).split(",");
+     events.push(chunk);
+     if(chunk.includes("TEST0"))return json({error:"QUOTE_GATEWAY_UNAVAILABLE"},false,503);
+     return json({quotes:Object.fromEntries(chunk.map(symbol=>[symbol,{
+       price:100,currency:"USD",feed:"IEX",asOf:"2026-11-20T20:59:00Z"}]))});
+   }
+   if(url.startsWith("/api/price-history?"))return json({series:{}});
+   return json({quotes:{}});
+ };
+ const render=()=>{};
+ const make=new Function("state","$","fmt","render","fetch","return "+body+";");
+ await make(state,$,x=>String(x),render,fetch)();
+ assert.equal(events.length,3,"42 stocks must split into 15/15/12 chunks");
+ assert.deepEqual(events.map(a=>a.length).sort((a,b)=>a-b),[12,15,15]);
+ assert.equal(state.quotes.TEST0.price,90,"verified old observation remains during outage");
+ assert.equal(state.quotes.TEST20.price,100,"a successful independent batch supplies its prices");
+ assert.equal(Object.keys(state.quotes).length,28);
+ assert.match($("marketNotice").textContent,/HTTP 503/);
+});
