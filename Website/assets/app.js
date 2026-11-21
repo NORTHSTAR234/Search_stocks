@@ -1186,7 +1186,9 @@
         (usCount<us.length?" · "+(us.length-usCount)+" US tickers awaiting current quote; verified observations are retained and dated.":"")+
         (priorUs>usCount?" · "+(priorUs-usCount)+" US last-known quotes retained.":"")+
         (failures.length?" Provider issues: "+failures.join("; "):"")+
-        " · Quote gateway and 1M chart checked every 5 minutes while visible; 1Y history cached for 12 hours.";
+        " · US IEX daily and non-US delayed Yahoo hourly month charts checked every 5 minutes while visible from private caches. "+
+        " Non-US quotes are collected on GitHub Actions every 20 minutes during trading hours; quote updates are checked every 5 minutes while visible. "+
+        " 1Y US history is refreshed at most every 12 hours; international 1Y weekly data follows its existing private collector.";
       state.providerReady=true;
       render(); // Price cells show first, without awaiting either chart.
       // Reuse the existing 1M history but never let its failure wipe quote cells.
