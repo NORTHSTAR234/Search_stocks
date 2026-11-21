@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "description": "Standard exchange weekdays, trading hours and local IANA time zones. Holidays ignored intentionally. Display all sessions in Australia/Sydney. US market is for the glowing indicator only; existing Alpaca polling is unchanged. New market adds a verified entry here.",
+  "description": "Standard exchange weekdays, trading hours and local IANA time zones. Holidays ignored intentionally. Display all sessions in Australia/Sydney. US market is for the glowing indicator only; existing Alpaca polling is unchanged. New market adds a verified entry here. Source symbol is explicitly exchange-verified separately from the immutable archival ticker.",
   "displayTimeZone": "Australia/Sydney",
   "markets": {
     "ASX": {
@@ -115,12 +115,87 @@
       "priceSource": "alpaca",
       "source": "https://www.nyse.com/markets/hours-calendars",
       "currency": "USD"
+    },
+    "SIX": {
+      "name": "SIX Swiss Exchange",
+      "mic": "XSWX",
+      "timeZone": "Europe/Zurich",
+      "weekdays": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sessions": [
+        {
+          "start": "09:00",
+          "end": "17:30"
+        }
+      ],
+      "source": "https://www.six-group.com/en/products-services/the-swiss-stock-exchange/trading/trading-provisions/trading-hours.html",
+      "priceSource": "yfinance",
+      "yahooSuffix": ".SW",
+      "currency": "CHF"
+    },
+    "XSTO": {
+      "name": "Nasdaq Stockholm",
+      "mic": "XSTO",
+      "timeZone": "Europe/Stockholm",
+      "weekdays": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sessions": [
+        {
+          "start": "09:00",
+          "end": "17:30"
+        }
+      ],
+      "source": "https://www.nasdaq.com/european-market-activity/trading-hours",
+      "priceSource": "yfinance",
+      "yahooSuffix": ".ST",
+      "currency": "SEK"
+    },
+    "XHEL": {
+      "name": "Nasdaq Helsinki",
+      "mic": "XHEL",
+      "timeZone": "Europe/Helsinki",
+      "weekdays": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sessions": [
+        {
+          "start": "10:00",
+          "end": "18:25"
+        }
+      ],
+      "source": "https://www.nasdaq.com/european-market-activity/trading-hours",
+      "priceSource": "yfinance",
+      "yahooSuffix": ".HE",
+      "currency": "EUR"
     }
   },
   "aliases": {
-    "BURSA": "MYX"
+    "BURSA": "MYX",
+    "ST": "XSTO",
+    "STO": "XSTO",
+    "HE": "XHEL",
+    "XSWX": "SIX"
   },
   "sourceSymbolOverrides": {
-    "CBHB.MYX": "0339.KL"
+    "CBHB.MYX": "0339.KL",
+    "SIKA.SIX": "SIKA.SW",
+    "SAND.ST": "SAND.ST",
+    "METSO.HE": "METSO.HE",
+    "EPI-A.STO": "EPI-A.ST",
+    "EPI-B.STO": "EPI-B.ST"
   }
 }
