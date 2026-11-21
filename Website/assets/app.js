@@ -1186,7 +1186,7 @@
         (usCount<us.length?" · "+(us.length-usCount)+" US tickers awaiting current quote; verified observations are retained and dated.":"")+
         (priorUs>usCount?" · "+(priorUs-usCount)+" US last-known quotes retained.":"")+
         (failures.length?" Provider issues: "+failures.join("; "):"")+
-        " · Historical 1M and 1Y charts update separately.";
+        " · Quote gateway and 1M chart checked every 5 minutes while visible; 1Y history cached for 12 hours.";
       state.providerReady=true;
       render(); // Price cells show first, without awaiting either chart.
       // Reuse the existing 1M history but never let its failure wipe quote cells.
