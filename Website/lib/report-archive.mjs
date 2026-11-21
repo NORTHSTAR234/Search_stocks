@@ -449,6 +449,31 @@ export function safeHtmlDocument(info,html){
     .replace(/<meta\b(?=[^>]*http-equiv\s*=\s*["']?refresh\b)[^>]*>/gi,"")
     .replace(/\s+on[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi,"")
     .replace(/\s(?:href|src)\s*=\s*(?:"\s*(?:javascript|vbscript|data:text\/html):[^"]*"|'\s*(?:javascript|vbscript|data:text\/html):[^']*')/gi,' href="#"');
+  // Epiroc A/B use uncommon Unicode outline glyphs for their reason icons.
+  // Render legible numbered fallbacks without mutating the immutable HTML archive.
+  let display=stripped;
+  if(/^(?:EPI-A|EPI-B)\.STO$/i.test(info.ticker)){
+    let reasonNumber=0;
+    display=display.replace(
+      /(<div\s+class=["'](?:reason|driver)["'][^>]*>\s*)<span\s+class=["']ico["'][^>]*>[\s\S]*?<\/span>/gi,
+      (_match,opening)=>{
+        const number=++reasonNumber;
+        return opening+'<span class="ico report-reason-marker" role="img" aria-label="Reason '+number+'">'+number+'</span>';
+      });
+    if(reasonNumber){
+      const markerCss='<style id="report-reason-marker-fallback">'
+        +'.reason > .report-reason-marker,.driver > .report-reason-marker{'
+        +'display:inline-grid!important;place-items:center!important;'
+        +'box-sizing:border-box!important;flex:0 0 34px!important;'
+        +'min-width:34px!important;width:34px!important;height:34px!important;'
+        +'border:2px solid #087a71!important;border-radius:50%!important;'
+        +'background:#e7f4ef!important;color:#09594f!important;'
+        +'font:800 15px/1 system-ui,-apple-system,Segoe UI,Arial,sans-serif!important;'
+        +'}'
+        +'</style>';
+      display=display.replace(/<\/head>/i,markerCss+'</head>');
+    }
+  }
   const nav='<div role="navigation" style="padding:10px 18px;background:#15233a;color:#dbe7f7;font:600 14px system-ui,sans-serif;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><a style="color:#9cc7ff;text-decoration:none" href="/">← All stock reports</a><span>'+escaped(info.ticker)+' · '+escaped(info.timestamp)+'</span><a style="color:#9cc7ff" href="'+escaped(GITHUB+info.path.split("/").map(encodeURIComponent).join("/"))+'" target="_blank" rel="noopener noreferrer">Original GitHub HTML</a></div>';
-  return stripped.replace(/(<body\b[^>]*>)/i,"$1"+nav);
+  return display.replace(/(<body\b[^>]*>)/i,"$1"+nav);
 }
