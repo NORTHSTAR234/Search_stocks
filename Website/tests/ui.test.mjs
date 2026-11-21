@@ -48,9 +48,9 @@ test("three presses cycle normal to favourite star, minimized red X, then normal
   const row={nextElementSibling:{querySelector:()=>({focus:()=>{}})},
     insertAdjacentHTML:()=>{},remove:()=>{}};
   const button={dataset:{rowTicker:record.ticker},closest:selector=>selector==="tr"?row:null};
-  const onClick=new Function("rowTicker","nextRowState","rowStates","saveRowStates","state","tr","render",
+  const onClick=new Function("rowTicker","nextRowState","rowStates","saveRowStates","queueRowPreference","state","tr","render",
     "return function(event){"+extract("onRowStateClick")+"\n}")(
-      ticker,next,states,()=>saved.push(JSON.stringify([...states])),state,()=>"<tr></tr>",()=>{});
+      ticker,next,states,()=>saved.push(JSON.stringify([...states])),()=>{},state,()=>"<tr></tr>",()=>{});
   for(const expected of ["favourite","minimized","normal"]){
     onClick({target:{closest:()=>button},currentTarget:{contains:()=>true}});
     assert.equal(states.get(record.ticker)||"normal",expected);
@@ -155,6 +155,26 @@ test("minimized price and percentage retain gain/loss and separate 1M high/low c
   assert(css.includes(".table-wrap tbody tr.minimized-row .compact-month .mini-chart-range-low{color:#4de0be}"));
   assert(css.includes(".table-wrap tbody tr.minimized-row .compact-musaffa .status-only-cell>.badge{"));
   assert(source.includes("screeningCell(r)+'</div></td>'"),"reuse exact Musaffa severity badge");
+});
+test("cloud preference syncing retains migration, offline queue and browser refresh behavior",()=>{
+  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
+  assert(build.includes('id="preferenceSyncNotice"'));
+  for(const text of [
+    'const ROW_PENDING_KEY="search-stocks:pending-row-states:v1"',
+    'const ROW_MIGRATED_KEY="search-stocks:row-states-migrated:v1"',
+    'async function syncRowPreferences()',
+    'if(!remote.has(ticker)&&!pendingRowChanges.has(ticker)',
+    'if(selection==="normal")combined.delete(ticker);',
+    'if(response.status===409&&data.record',
+    'pendingRowChanges.delete(ticker);',
+    'credentials:"same-origin",cache:"no-store"',
+    'void syncRowPreferences();',
+    'setInterval(()=>{if(document.visibilityState==="visible")void syncRowPreferences();},60000);'
+  ])assert(source.includes(text),text);
+  assert(source.includes('queueRowPreference(ticker,next)'));
+  assert(source.includes('method:"POST",credentials:"same-origin",cache:"no-store"'));
+  assert(source.includes('ROW_PENDING_KEY||event.key===null'));
+  assert(!source.includes('GITHUB_READ_TOKEN'));
 });
 const match=source.match(/const actionKind=v=>\{([\s\S]*?)\};/);
 assert(match,"Dashboard recommendation classifier must exist");

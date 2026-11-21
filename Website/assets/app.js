@@ -47,6 +47,122 @@
     try{window.localStorage.setItem(ROW_STATES_KEY,JSON.stringify([...rowStates]));}
     catch{/* Keep current-tab preference if browser storage is blocked. */}
   }
+  // A local queue survives offline changes and is reconciled against each
+  // stock's D1 revision, rather than overwriting a shared all-ticker list.
+  const ROW_PENDING_KEY="search-stocks:pending-row-states:v1";
+  const ROW_MIGRATED_KEY="search-stocks:row-states-migrated:v1";
+  function loadPendingRowChanges(){
+    try{
+      const saved=JSON.parse(window.localStorage.getItem(ROW_PENDING_KEY)||"[]");
+      return new Map(Array.isArray(saved)?
+        saved.filter(x=>Array.isArray(x)&&x.length===2&&
+          typeof x[0]==="string"&&x[0].length<=30&&
+          /^[A-Z0-9][A-Z0-9.-]*$/.test(x[0])&&
+          (validRowState(x[1])||x[1]==="normal")):[]);
+    }catch{return new Map();}
+  }
+  let pendingRowChanges=loadPendingRowChanges();
+  let preferenceSyncActive=false,preferenceSyncAgain=false;
+  function savePendingRowChanges(){
+    try{window.localStorage.setItem(ROW_PENDING_KEY,JSON.stringify([...pendingRowChanges]));}catch{}
+  }
+  function preferenceStatus(message){
+    const node=$("preferenceSyncNotice");
+    if(node)node.textContent=message;
+  }
+  function queueRowPreference(ticker,selection){
+    pendingRowChanges.set(ticker,selection);
+    savePendingRowChanges();
+    preferenceStatus("Preferences saved in this browser · syncing to your other devices…");
+    if(preferenceSyncActive)preferenceSyncAgain=true;
+    else void syncRowPreferences();
+  }
+  async function syncRowPreferences(){
+    if(preferenceSyncActive){preferenceSyncAgain=true;return;}
+    preferenceSyncActive=true;
+    preferenceSyncAgain=false;
+    try{
+      const result=await fetch("/api/row-preferences",{
+        credentials:"same-origin",cache:"no-store",headers:{Accept:"application/json"}
+      });
+      if(!result.ok)throw Error("Cloudflare preference API "+result.status);
+      const payload=await result.json();
+      if(payload?.schemaVersion!==1||!Array.isArray(payload.records))throw Error("Invalid preferences response");
+      const remote=new Map(),versions=new Map();
+      for(const item of payload.records){
+        if(!item||typeof item.ticker!=="string"||
+          !/^[A-Z0-9][A-Z0-9.-]{0,29}$/.test(item.ticker)||
+          !(validRowState(item.state)||item.state==="normal")||
+          !Number.isSafeInteger(item.version)||item.version<1)continue;
+        remote.set(item.ticker,item.state);
+        versions.set(item.ticker,item.version);
+      }
+      // One-time import for EACH existing browser. Remote values win where
+      // the same ticker was already synced by another device. A remote
+      // 'normal' tombstone prevents stale local favourites reappearing.
+      let migrated=false;
+      try{migrated=window.localStorage.getItem(ROW_MIGRATED_KEY)==="1";}catch{}
+      if(!migrated){
+        for(const [ticker,selection] of rowStates){
+          if(!remote.has(ticker)&&!pendingRowChanges.has(ticker)&&
+            (validRowState(selection))&&/^[A-Z0-9][A-Z0-9.-]{0,29}$/.test(ticker)){
+            pendingRowChanges.set(ticker,selection);
+          }
+        }
+        savePendingRowChanges();
+        try{window.localStorage.setItem(ROW_MIGRATED_KEY,"1");}catch{}
+      }
+      const combined=new Map([...remote].filter(([,v])=>v!=="normal"));
+      for(const [ticker,selection] of pendingRowChanges){
+        if(selection==="normal")combined.delete(ticker);
+        else combined.set(ticker,selection);
+      }
+      rowStates=combined;
+      saveRowStates();
+      if(state.rows.length)render();
+      // Version-aware single-stock writes: a stale phone cannot accidentally
+      // replace an unrelated laptop selection or overwrite another stock.
+      for(const [ticker,selection] of [...pendingRowChanges]){
+        if(pendingRowChanges.get(ticker)!==selection)continue;
+        let revision=versions.get(ticker)||0,committed=false;
+        for(let attempt=0;attempt<3;attempt++){
+          const response=await fetch("/api/row-preferences",{
+            method:"POST",credentials:"same-origin",cache:"no-store",
+            headers:{"Content-Type":"application/json",Accept:"application/json"},
+            body:JSON.stringify({ticker,state:selection,version:revision})
+          });
+          const data=await response.json().catch(()=>({}));
+          if(response.status===409&&data.record&&Number.isSafeInteger(data.record.version)){
+            revision=data.record.version;
+            versions.set(ticker,revision);
+            continue;
+          }
+          if(!response.ok||data?.record?.ticker!==ticker||
+            data.record.state!==selection||!Number.isSafeInteger(data.record.version))
+            throw Error("Preference update failed "+response.status);
+          versions.set(ticker,data.record.version);
+          committed=true;
+          break;
+        }
+        if(!committed)throw Error("Preference conflict; retry next refresh");
+        if(pendingRowChanges.get(ticker)===selection){
+          pendingRowChanges.delete(ticker);
+          savePendingRowChanges();
+        }else preferenceSyncAgain=true;
+      }
+      preferenceStatus(pendingRowChanges.size?
+        "Some ticker changes are pending · retrying automatically.":
+        "Favourites and minimized stocks synced securely across devices · checked "+
+        fmt(new Date().toISOString())+".");
+    }catch{
+      // Never delete local preferences or the pending queue on a failed request.
+      preferenceStatus("Cross-device sync currently unavailable · selections are safe on this browser and will retry.");
+    }finally{
+      preferenceSyncActive=false;
+      if(preferenceSyncAgain){preferenceSyncAgain=false;void syncRowPreferences();}
+    }
+  }
+
   function onRowStateClick(event){
     const button=event.target?.closest?.("button.row-state-toggle[data-row-ticker]");
     if(!button||!event.currentTarget.contains(button))return;
@@ -55,6 +171,7 @@
     const next=nextRowState(rowStates.get(ticker)||"normal");
     if(next==="normal")rowStates.delete(ticker);else rowStates.set(ticker,next);
     saveRowStates();
+    queueRowPreference(ticker,next);
     // Repaint only this stock, preserving table columns and scroll position.
     const currentRow=button.closest("tr");
     const row=state.rows.find(item=>rowTicker(item)===ticker);
@@ -992,6 +1109,7 @@
     if(state.cycleBusy)return;
     state.cycleBusy=true;
     try{
+      void syncRowPreferences();
       await syncGithubReports();
       await refresh();
     }finally{state.cycleBusy=false;}
@@ -1009,6 +1127,7 @@
       }catch{}
       $("marketNotice").textContent="Archive built "+fmt(data.generatedAt)+". Loading Alpaca US prices and cached delayed international prices.";
       render();
+      void syncRowPreferences();
       await refresh();
       const addedReports=await syncGithubReports();
       // A second quote request is necessary only if GitHub added or updated a ticker.
@@ -1016,6 +1135,7 @@
       setInterval(()=>{if(document.visibilityState==="visible")checkAll();},300000);
       // Market-open glow changes at the minute boundary without fetching quotes.
       setInterval(()=>{if(document.visibilityState==="visible")render();},60000);
+      setInterval(()=>{if(document.visibilityState==="visible")void syncRowPreferences();},60000);
       document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkAll();});
     }catch(e){
       $("marketNotice").textContent="Could not load archive: "+e.message;
@@ -1027,10 +1147,12 @@
   $("rows").addEventListener("click",onRowStateClick);
   $("flaggedRows").addEventListener("click",onRowStateClick);
   window.addEventListener("storage",event=>{
-    if(event.key===ROW_STATES_KEY||event.key===null||
+    if(event.key===ROW_STATES_KEY||event.key===ROW_PENDING_KEY||event.key===null||
       event.key===LEGACY_FAVOURITES_KEY&&window.localStorage.getItem(ROW_STATES_KEY)===null){
       rowStates=loadRowStates();
+      pendingRowChanges=loadPendingRowChanges();
       render();
+      void syncRowPreferences();
     }
   });
   ["search","bucket","industry","exchange","order"].forEach(id=>$(id).addEventListener(id==="search"?"input":"change",render));
