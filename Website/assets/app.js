@@ -14,7 +14,7 @@
   function normalizeListing(row){
     const ticker=String(row?.ticker||"").toUpperCase();
     const suffix=ticker.includes(".")?ticker.split(".").at(-1):"";
-    const bySuffix={TWSE:"TWSE",TW:"TWSE",ASX:"ASX",AX:"ASX",MYX:"BURSA",KL:"BURSA",MY:"BURSA",SIX:"SIX",ST:"XSTO",STO:"XSTO",HE:"XHEL"};
+    const bySuffix={TWSE:"TWSE",TW:"TWSE",ASX:"ASX",AX:"ASX",MYX:"BURSA",KL:"BURSA",MY:"BURSA",SIX:"SIX",ST:"XSTO",STO:"XSTO",HE:"XHEL",T:"TSE"};
     const exchange=bySuffix[suffix];
     return exchange&&row.exchange!==exchange?{...row,exchange}:row;
   }
