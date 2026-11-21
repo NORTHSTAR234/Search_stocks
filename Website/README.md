@@ -145,3 +145,35 @@ US owner-only 1M charts request Alpaca IEX `1Day` price history with **`adjustme
 Regression example: NASDAQ SNDK completed an 8-for-1 split effective after the 19 November 2026 session and first traded on the new basis on 20 November 2026. Its 1M pre-20-November raw closes must be divided by 8 (unless already adjusted by Alpaca). **Do not use 9 November's shareholder record date as the chart price cutover.** Corporate-action verification: Sandisk SEC Form 8-K filings dated 29 October and 19 November 2026.
 
 The international hourly path separately uses Yahoo Finance `Close` observations with `auto_adjust=False`: Yahoo's historical Close is normally split-adjusted (but not dividend-adjusted), so do not blindly divide these bars by a corporate-action ratio. If provider status or historical series consistency cannot be verified for a recent international split, mark that 1M chart unavailable until verified; do not infer a split solely from a large price move. Existing owner-only access, refresh intervals, reports, zones and markers remain unchanged.
+
+## 21 November 2026 — Consolidated regular/overnight and new split-safe 1Y chart
+
+The eleven-column dashboard preserves the user's exact existing ticker, action/risk,
+markers, industry, dividend, last report, Musaffa and earnings fields. Column 2 now
+combines **Regular / latest price** (upper half) with **Overnight / vs close** (lower
+half) behind a dotted horizontal divider. The original observation provenance,
+freshness, market-session comparison and overnight 90-minute freshness gate remain
+unchanged. Column 3 is **Live chart · 1Y**; column 4 remains **Live chart · 1M**.
+Minimized rows preserve both signed quote labels compactly and show separate
+1Y and 1M high/low summaries.
+
+The new 1Y chart is *observational*: US uses Alpaca IEX **split-adjusted**
+`1Day` closes for up to 370 days, fetched through the existing private
+`PRICE_PROVIDER` binding (`range=1y`, max 20 symbols/request, at most 270
+bars/ticker). The existing one-month endpoint remains `range=1m` with its
+previous limit and automatic `adjustment=split`. Non-US stocks use the same
+GitHub-OIDC-verified owner-only Yahoo KV quote feed with a separate
+`annual` series containing Yahoo `period=1y`, `interval=1wk` closing prices,
+at most 64 real, timezone-aware weekly bars. The Collector explicitly specifies
+`ignore_tz=False` for weekly data; its `auto_adjust=False` Yahoo Close observations
+are normally already split-adjusted and MUST NOT be divided again.
+
+Both charts refresh in the browser on the existing five-minute visible-tab cycle
+and recalculate red 1Y/1M-high vs current displayed price and green 1Y/1M-low
+vs current displayed price. Missing or invalid history shows an explicit
+unavailable state, NEVER synthetic data. The private cache only accepts
+exactly matching instrument/provider/currency/exchange/time-series identity,
+retains validated 1M and 1Y history between quick quote refreshes, rejects
+stale/future points, and still prevents non-owner access. The 1Y weekly series
+updates on the existing hourly international collector cadence/one-time
+bootstrap; no new paid data service was added.
