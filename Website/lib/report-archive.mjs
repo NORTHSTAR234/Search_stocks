@@ -312,7 +312,8 @@ export function parseHtmlReport(info,html) {
   const upperHead=strip(first.slice(0,6000));
   // Legacy European reports sometimes use natural-language exchange labels; rely
   // on verified canonical listing suffixes while leaving saved HTML immutable.
-  const exchange=/\.STO?$/.test(ticker)?"XSTO":
+  const exchange=ticker.endsWith(".T")?"TSE":
+    /\.STO?$/.test(ticker)?"XSTO":
     ticker.endsWith(".HE")?"XHEL":ticker.endsWith(".SIX")?"SIX":
     ticker.endsWith(".TWSE")||ticker.endsWith(".TW")?"TWSE":
     ticker.endsWith(".ASX")||ticker.endsWith(".AX")?"ASX":
