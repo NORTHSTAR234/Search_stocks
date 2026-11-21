@@ -81,3 +81,19 @@ test("private Yahoo quote receiver accepts exact Yahoo ticker when archive suffi
  assert.equal(cleanQuote("ORG.ASX",{...sample,exchange:"ASX",sourceSymbol:"ORG.AX",currency:"AUD"},now)?.exchange,"ASX");
  assert.equal(cleanQuote("SU.PA",{...sample,asOf:"2026-09-01T00:00:00Z"},now),null);
 });
+
+test("international 1Y weekly bars accept exact provider and reject fabricated closes",async()=>{
+ const {cleanQuote}=await import("../worker/international-quote-ingest.js");
+ const now=Date.parse("2026-11-21T09:30:00Z");
+ const raw={price:430,currency:"SEK",exchange:"XSTO",sourceSymbol:"EPI-A.ST",
+   asOf:"2026-11-20T16:30:00Z",feed:"YFINANCE_YAHOO_5M_BAR_DELAYED",
+   annual:{feed:"YFINANCE_YAHOO_1W_BAR_DELAYED",interval:"1wk",
+     currency:"SEK",exchange:"XSTO",sourceSymbol:"EPI-A.ST",
+     bars:[[Date.parse("2026-01-12T00:00:00Z")/1000,322],
+           [Date.parse("2026-11-16T00:00:00Z")/1000,428]]}};
+ const result=cleanQuote("EPI-A.STO",raw,now);
+ assert.equal(result?.annual?.bars.length,2);
+ assert.deepEqual(result?.annual?.bars.map(b=>b[1]),[322,428]);
+ assert.equal(cleanQuote("EPI-A.STO",{...raw,annual:{...raw.annual,sourceSymbol:"EPI-B.ST"}},now)?.annual,undefined);
+ assert.equal(cleanQuote("EPI-A.STO",{...raw,annual:{...raw.annual,bars:[[1750000000,500],[1740000000,400]]}},now)?.annual,undefined);
+});
