@@ -122,6 +122,35 @@ class MarketSelfDiscovery(unittest.TestCase):
         self.add("SU.PA",row)
         self.assertNotIn("XPAR",module.report_markets(self.registry))
 
+    def test_owner_requested_european_symbols_on_actual_exchanges(self):
+        registry=json.loads((COLLECTOR.parents[1]/"market-exchanges.json").read_text())
+        expected={
+            "SIKA.SIX":("SIX","SIKA.SW","CHF"),
+            "SAND.ST":("XSTO","SAND.ST","SEK"),
+            "METSO.HE":("XHEL","METSO.HE","EUR"),
+            "EPI-A.STO":("XSTO","EPI-A.ST","SEK"),
+            "EPI-B.STO":("XSTO","EPI-B.ST","SEK")
+        }
+        for ticker,(exchange,symbol,currency) in expected.items():
+            record=snapshot(ticker=ticker,source_market_ticker=symbol,
+                            exchange=exchange,currency=currency)
+            record["market_schedule"]={
+                **record["market_schedule"],
+                "exchange":exchange,
+                "mic":registry["markets"][exchange]["mic"],
+                "market_time_zone":registry["markets"][exchange]["timeZone"],
+                "yahoo_ticker":symbol
+            }
+            self.add(ticker,record)
+        opened=module.open_markets(registry,dt.datetime(2026,11,20,12,15,tzinfo=dt.timezone.utc))
+        found=module.discover(registry,opened)
+        for ticker,(exchange,symbol,currency) in expected.items():
+            with self.subTest(ticker=ticker):
+                self.assertEqual(found[ticker]["exchange"],exchange)
+                self.assertEqual(found[ticker]["yahoo"],symbol)
+                self.assertEqual(found[ticker]["currency"],currency)
+        self.assertNotIn("XSTO",module.open_markets(registry,dt.datetime(2026,11,21,12,0,tzinfo=dt.timezone.utc)))
+
     def test_us_alpaca_not_selected_by_international_collector(self):
         self.assertEqual(module.report_markets(self.registry)["US"]["priceSource"],"alpaca")
         self.assertEqual(module.open_markets(self.registry,dt.datetime(2026,11,10,14,30,tzinfo=dt.timezone.utc)),{})
