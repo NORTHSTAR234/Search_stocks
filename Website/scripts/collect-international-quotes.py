@@ -192,7 +192,7 @@ def fetch_prices(symbols):
     import pandas as pd
     import yfinance as yf
     collected={}
-    # Yahoo batched intraday download can silently omit otherwise valid tickers.
+    # The private ingest Worker verifies .STO (XSTO) archives against exact\n    # .ST Yahoo symbol identities, including EPI-A.ST and EPI-B.ST.\n    # Yahoo batched intraday download can silently omit otherwise valid tickers.
     # Retry only a small number of missing instruments individually, with exactly
     # the same timestamp, source-symbol, currency and freshness validation.
     by_yahoo={}
