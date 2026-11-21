@@ -159,6 +159,30 @@ class MarketSelfDiscovery(unittest.TestCase):
         self.assertIn('if observed>now_utc()+dt.timedelta(minutes=2)',code)
         self.assertIn('if not any(ticker in collected for ticker,_ in by_yahoo[symbol])',code)
 
+    def test_tokyo_6301_t_is_exact_native_jpy_yahoo_listing(self):
+        registry=json.loads((COLLECTOR.parents[1]/"market-exchanges.json").read_text())
+        self.assertEqual(registry["aliases"]["T"],"TSE")
+        self.assertEqual(registry["markets"]["TSE"]["mic"],"XTKS")
+        self.assertEqual(registry["markets"]["TSE"]["currency"],"JPY")
+        self.assertEqual(registry["sourceSymbolOverrides"]["6301.T"],"6301.T")
+        row=snapshot(ticker="6301.T",source_market_ticker="6301.T",
+                     exchange="TSE",currency="JPY")
+        row["market_schedule"]={**row["market_schedule"],
+            "exchange":"TSE","mic":"XTKS","market_time_zone":"Asia/Tokyo",
+            "sessions":[{"start":"09:00","end":"11:30"},{"start":"12:30","end":"15:30"}],
+            "yahoo_ticker":"6301.T",
+            "hours_source":"https://www.jpx.co.jp/english/equities/trading/domestic/01.html"}
+        self.add("6301.T",row,bucket="nonhalal")
+        morning=module.open_markets(registry,dt.datetime(2026,11,20,2,0,tzinfo=dt.timezone.utc))
+        self.assertEqual(module.discover(registry,morning)["6301.T"],
+            {"yahoo":"6301.T","exchange":"TSE","timeZone":"Asia/Tokyo","currency":"JPY"})
+        self.assertNotIn("TSE",module.open_markets(registry,
+            dt.datetime(2026,11,20,3,0,tzinfo=dt.timezone.utc)))
+        self.assertIn("TSE",module.open_markets(registry,
+            dt.datetime(2026,11,20,5,0,tzinfo=dt.timezone.utc)))
+        self.assertNotIn("TSE",module.open_markets(registry,
+            dt.datetime(2026,11,21,2,0,tzinfo=dt.timezone.utc)))
+
     def test_us_alpaca_not_selected_by_international_collector(self):
         self.assertEqual(module.report_markets(self.registry)["US"]["priceSource"],"alpaca")
         self.assertEqual(module.open_markets(self.registry,dt.datetime(2026,11,10,14,30,tzinfo=dt.timezone.utc)),{})
