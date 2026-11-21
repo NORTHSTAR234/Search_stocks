@@ -1,8 +1,10 @@
-// Owner-only 1-month Alpaca IEX daily bar gateway. No API secrets reach browser.
+// Owner-only 1-month Alpaca IEX split-adjusted daily bar gateway.
+// Explicit split adjustment is mandatory; do not double-adjust or mix raw and adjusted bars.
+// No API secrets reach browser.
 import {authenticatedOwner} from "./prices.js";
 const json=(v,status=200)=>new Response(JSON.stringify(v),{status,headers:{"Content-Type":"application/json; charset=utf-8","Cache-Control":"private, no-store","X-Content-Type-Options":"nosniff"}});
 export function validateSeries(raw,now=Date.now()){
-  if(!raw||raw.feed!=="IEX"||raw.currency!=="USD"||raw.adjustment!=="raw"||raw.timeframe!=="1Day"||!Array.isArray(raw.bars)||!raw.bars.length||raw.bars.length>32)return null;
+  if(!raw||raw.feed!=="IEX"||raw.currency!=="USD"||raw.adjustment!=="split"||raw.timeframe!=="1Day"||!Array.isArray(raw.bars)||!raw.bars.length||raw.bars.length>32)return null;
   const dates=new Set(),bars=[];
   for(const b of raw.bars){
     const t=Date.parse(b?.asOf),p=Number(b?.close),d=b?.date;
@@ -10,7 +12,7 @@ export function validateSeries(raw,now=Date.now()){
     dates.add(d);bars.push({date:d,asOf:new Date(t).toISOString(),close:p});
   }
   bars.sort((a,b)=>a.date.localeCompare(b.date));
-  return {feed:"IEX",currency:"USD",adjustment:"raw",timeframe:"1Day",bars};
+  return {feed:"IEX",currency:"USD",adjustment:"split",timeframe:"1Day",bars};
 }
 export async function onRequestGet({request,env}){
   if(!env.PRICE_PROVIDER||!env.ACCESS_TEAM_DOMAIN||!env.ACCESS_AUD||!env.OWNER_EMAIL)return json({error:"PRICE_INTEGRATION_NOT_CONFIGURED",series:{}},503);
@@ -24,6 +26,6 @@ export async function onRequestGet({request,env}){
     if(!response.ok)return json({error:"HISTORY_PROVIDER_UNAVAILABLE",upstreamStatus:response.status,series:{}},503);
     const data=await response.json(),series={};
     for(const s of symbols){const validated=validateSeries(data?.series?.[s]);if(validated)series[s]=validated;}
-    return json({series,source:"Alpaca IEX raw daily closes",updatedAt:data?.updatedAt||null});
+    return json({series,source:"Alpaca IEX split-adjusted daily closes",updatedAt:data?.updatedAt||null});
   }catch{return json({error:"HISTORY_PROVIDER_SERVICE_ERROR",series:{}},503);}
 }
