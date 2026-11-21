@@ -1,0 +1,273 @@
+{
+  "schema_version": 1,
+  "purpose": "Per-market deep-review rotation for Investment Checklist Screener; user-shared reports from 17 Nov 2026 are baseline history, not a claim the GitHub outputs contain audited full reports.",
+  "updated_date": "2026-11-18",
+  "policy": {
+    "default_new_deep_reviews_per_run": 3,
+    "revisit_after_days": 30,
+    "material_revisit_triggers": [
+      "price movement materially changes an audited margin of safety",
+      "new earnings or guidance materially changes the thesis",
+      "a prior missing critical evidence gate has been resolved",
+      "user explicitly requests a ticker",
+      "unreviewed qualified candidates have been exhausted"
+    ],
+    "never_auto_exclude_investment_qualified": true
+  },
+  "markets": {
+    "US": {
+      "deep_reviews": [
+        {
+          "ticker": "ADBE",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.5",
+          "stage": "deep_review",
+          "outcome": "quality_watchlist",
+          "origin": "user-provided v1.4 and v1.5 test reports"
+        },
+        {
+          "ticker": "ACN",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.4",
+          "stage": "deep_review",
+          "outcome": "quality_watchlist",
+          "origin": "user-provided v1.4 test report"
+        },
+        {
+          "ticker": "NFLX",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.4",
+          "stage": "deep_review",
+          "outcome": "quality_watchlist",
+          "origin": "user-provided v1.4 test report"
+        },
+        {
+          "ticker": "DECK",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.5",
+          "stage": "deep_review",
+          "outcome": "quality_watchlist",
+          "origin": "user-provided v1.5 test report"
+        },
+        {
+          "ticker": "EVER",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.5",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "user-provided v1.5 test report"
+        },
+        {
+          "ticker": "LULU",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.6",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "in-chat primary SEC 10-K and Q2 FY2026 research",
+          "financial_periods": [
+            "FY2023",
+            "FY2024",
+            "FY2025"
+          ],
+          "quote_date": "2026-11-16",
+          "quote_usd": 105.46,
+          "valuation": "illustrative only, not verified; 5-year bear $44.59 base $88.45",
+          "note": "FY2023-25 ROIC reconstructed approx 47.1%,48.3%,35.2%; FY2026 sales decline and moat durability concern.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1397187/000139718726000020/lulu-20260201.htm",
+            "https://www.sec.gov/Archives/edgar/data/1397187/000139718726000126/lulu-20260802xex991.htm"
+          ]
+        },
+        {
+          "ticker": "TTD",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.6",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "in-chat primary SEC 10-K and Q3 2026 research",
+          "financial_periods": [
+            "FY2023",
+            "FY2024",
+            "FY2025"
+          ],
+          "quote_date": "2026-11-16",
+          "quote_usd": 14.83,
+          "valuation": "illustrative only, not verified; 5-year bear $4.31 base $11.01",
+          "note": "FY2023-25 accounting ROIC approx 13.7%,28.1%,26.8%; substantial stock-based compensation and flat Q3 2026 sales.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1671933/000167193326000014/ttd-20251231.htm",
+            "https://www.sec.gov/Archives/edgar/data/1671933/000167193326000115/ttd-20261109x8kexx991.htm"
+          ]
+        },
+        {
+          "ticker": "EXEL",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.6",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "in-chat primary SEC 10-K and Q3 2026 research",
+          "financial_periods": [
+            "FY2023",
+            "FY2024",
+            "FY2025"
+          ],
+          "quote_date": "2026-11-16",
+          "quote_usd": 67.1,
+          "valuation": "illustrative only, not verified; 5-year bear $17.27 base $41.84",
+          "note": "Specialist biotechnology; traditional ROIC not economically reconstructed due expensed R&D; FY2023-25 ROE approx 8.7%,23.1%,35.5%; franchise and IP concentration risk.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/939767/000093976726000021/exel-20260102.htm",
+            "https://www.sec.gov/Archives/edgar/data/939767/000093976726000114/exel20260930exhibit991.htm"
+          ]
+        },
+        {
+          "ticker": "PRDO",
+          "last_review_date": "2026-11-18",
+          "test_version": "v1.6",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "ChatGPT Investment Checklist US second continuation, 18 Nov 2026 Melbourne",
+          "financial_periods": [
+            "FY2023",
+            "FY2024",
+            "FY2025",
+            "Q3 2026"
+          ],
+          "quote_date": "2026-11-17",
+          "quote_usd": 28.87,
+          "valuation": "5y EPS scenario illustration, bear 14.56 base 29.32 USD/share, not verified; 15% base-MOS watch 24.92 USD",
+          "note": "Revenue/EBIT/FCF reviewed, primary annual and current quarterly filings and 2026 proxy; economic ROIC not fully reconstructed from primary balance-sheet components; Title IV regulatory exposure and South University acquisition remain risks.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1046568/000119312526059331/prdo-20251231.htm",
+            "https://www.sec.gov/Archives/edgar/data/1046568/000119312526449730/prdo-20260930.htm",
+            "https://www.sec.gov/Archives/edgar/data/1046568/000119312526149814/prdo-20260409.htm"
+          ]
+        },
+        {
+          "ticker": "GNTX",
+          "last_review_date": "2026-11-18",
+          "test_version": "v1.6",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "ChatGPT Investment Checklist US second continuation, 18 Nov 2026 Melbourne",
+          "financial_periods": [
+            "FY2023",
+            "FY2024",
+            "FY2025",
+            "Q3 2026"
+          ],
+          "quote_date": "2026-11-17",
+          "quote_usd": 18.79,
+          "valuation": "5y EPS scenario illustration, bear 9.58 base 18.51 USD/share, not verified; 15% base-MOS watch 15.74 USD",
+          "note": "Accounting ROIC approximation using 21% assumed normalized tax, equity+debt-less cash/liquid investments: FY23 23.0%, FY24 19.9%, FY25 19.0%; classifying long-term investments and VOXX acquired businesses remains a material uncertainty. 2026 Q3 margins down. Governance proxy reviewed.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/355811/000035581124000011/gntx-20231231.htm",
+            "https://www.sec.gov/Archives/edgar/data/355811/000035581126000010/gntx-20251231.htm",
+            "https://www.sec.gov/Archives/edgar/data/355811/000035581126000060/exhibit99109302026.htm",
+            "https://www.sec.gov/Archives/edgar/data/355811/000035581126000016/gntx-20260406.htm"
+          ]
+        },
+        {
+          "ticker": "HRMY",
+          "last_review_date": "2026-11-18",
+          "test_version": "v1.6",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "ChatGPT Investment Checklist US second continuation, 18 Nov 2026 Melbourne",
+          "financial_periods": [
+            "FY2023",
+            "FY2024",
+            "FY2025",
+            "Q3 2026"
+          ],
+          "quote_date": "2026-11-17",
+          "quote_usd": 33.01,
+          "valuation": "5y EPS scenario illustration, bear 8.59 base 21.91 USD/share, not verified, excludes patent expiration regime change.",
+          "note": "2025 diluted EPS 2.71; FY23-25 revenue, EBIT, CFO verified; cash flows need adjustment for acquisition/licensing and expensed R&D; WAKIX patent exclusivity to Mar2030 with active litigation, major thesis risk; proxy reviewed; economically meaningful ROIC not verified.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1802665/000110465926018859/hrmy-20251231x10k.htm",
+            "https://www.sec.gov/Archives/edgar/data/1802665/000110465926039449/hrmy-20260514xdef14a.htm",
+            "https://www.sec.gov/Archives/edgar/data/1802665/000110465926122377/hrmy-ex99d2.htm"
+          ]
+        }
+      ],
+      "brief_checks": [
+        {
+          "ticker": "ADMA",
+          "date": "2026-11-17",
+          "origin": "user-provided v1.5 test report",
+          "note": "brief only; not excluded from future deep review"
+        },
+        {
+          "ticker": "EXEL",
+          "date": "2026-11-17",
+          "origin": "user-provided v1.5 test report",
+          "note": "brief only; not excluded from future deep review"
+        },
+        {
+          "ticker": "CRUS",
+          "date": "2026-11-18",
+          "note": "brief price/2026 earnings check only; Apple customer concentration and EPS valuation not audited"
+        },
+        {
+          "ticker": "AOS",
+          "date": "2026-11-18",
+          "note": "brief price/2026 Q3 check only; China divestiture economics not reconciled"
+        }
+      ]
+    },
+    "ASX": {
+      "deep_reviews": [
+        {
+          "ticker": "HSN.ASX",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.2",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "user-provided v1.2 test report"
+        },
+        {
+          "ticker": "JBH.ASX",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.2",
+          "stage": "deep_review",
+          "outcome": "quality_watchlist",
+          "origin": "user-provided v1.2 test report"
+        },
+        {
+          "ticker": "OCL.ASX",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.2",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "user-provided v1.2 test report"
+        },
+        {
+          "ticker": "AOV.ASX",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.3",
+          "stage": "deep_review",
+          "outcome": "provisional",
+          "origin": "user-provided v1.3 test report"
+        },
+        {
+          "ticker": "SUL.ASX",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.3",
+          "stage": "deep_review",
+          "outcome": "conditional_watchlist",
+          "origin": "user-provided v1.3 test report"
+        },
+        {
+          "ticker": "SHL.ASX",
+          "last_review_date": "2026-11-17",
+          "test_version": "v1.3",
+          "stage": "deep_review",
+          "outcome": "conditional_watchlist",
+          "origin": "user-provided v1.3 test report"
+        }
+      ],
+      "brief_checks": []
+    }
+  }
+}

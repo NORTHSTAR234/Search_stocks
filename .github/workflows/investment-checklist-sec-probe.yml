@@ -1,0 +1,27 @@
+name: Investment Checklist SEC live probe
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      SEC_USER_AGENT: "NORTHSTAR234 SearchStocks checklist research (+https://github.com/NORTHSTAR234/Search_stocks/issues)"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate live SEC data for ten selected US issuers
+        run: |
+          python Investment_Checklist/live_sec_probe.py --out sec-probe/US_pilot.json
+      - name: Preserve source audit output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sec-live-pilot-audit
+          path: sec-probe/
+          if-no-files-found: warn
+          retention-days: 14
