@@ -310,7 +310,11 @@ export function parseHtmlReport(info,html) {
   const risk=short(snapshot?.risk||(riskPill||"").replace(/^RISK\s*:\s*/i,"")||riskMatch?.[0]||"NOT RATED",80);
   const exchangeHint=String(snapshot?.exchange||"").toUpperCase();
   const upperHead=strip(first.slice(0,6000));
-  const exchange=ticker.endsWith(".TWSE")||ticker.endsWith(".TW")?"TWSE":
+  // Legacy European reports sometimes use natural-language exchange labels; rely
+  // on verified canonical listing suffixes while leaving saved HTML immutable.
+  const exchange=/\.STO?$/.test(ticker)?"XSTO":
+    ticker.endsWith(".HE")?"XHEL":ticker.endsWith(".SIX")?"SIX":
+    ticker.endsWith(".TWSE")||ticker.endsWith(".TW")?"TWSE":
     ticker.endsWith(".ASX")||ticker.endsWith(".AX")?"ASX":
     ticker.endsWith(".MYX")||/\.(?:KL|MY)$/.test(ticker)?"BURSA":
     ["ASX","TWSE","BURSA","KLSE","MYX"].includes(exchangeHint)?(exchangeHint==="ASX"?"ASX":exchangeHint==="TWSE"?"TWSE":"BURSA"):
