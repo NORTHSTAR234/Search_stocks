@@ -283,7 +283,7 @@
   function yahooPriceLink(r){
     if(r.exchange==="US")return "";
     const symbol=yahooSymbol(r);
-    return symbol?'<small><a href="https://finance.yahoo.com/quote/'+encodeURIComponent(symbol)+'/" target="_blank" rel="noopener noreferrer">View Yahoo Finance quote ↗</a></small>':"";
+    return symbol?'<small><a href="https://finance.yahoo.com/quote/'+encodeURIComponent(symbol)+'/" target="_blank" rel="noopener noreferrer">View on Yahoo Finance (delayed) ↗</a></small>':"";
   }
   function quoteMoney(currency,value){
     const unit=currency==="USD"?"US$":currency==="AUD"?"A$":currency==="TWD"?"NT$":currency==="MYR"?"RM ":currency==="EUR"?"€":currency==="GBP"?"£":currency==="JPY"?"¥":currency==="HKD"?"HK$":currency+" ";
