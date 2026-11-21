@@ -223,7 +223,7 @@ test("US Alpaca refresh remains five minutes; owner-only delayed non-US cache is
  assert(source.includes('retrieve("/api/prices",us,"Alpaca")'));
  assert(source.includes('retrieve("/api/international-prices",international,"Personal Yahoo cache")'));
  assert(!source.includes('eodhdSymbols=new Set('));
- assert(source.includes('state.quotes={...usQuotes,...intlQuotes};'));
+ assert(source.includes('state.quotes={...state.quotes,...usQuotes,...intlQuotes};'));
  assert(source.includes("Non-US quotes are collected on GitHub Actions every 20 minutes"));
  assert(source.includes('function yahooSymbol(r)'));
  assert(source.includes("IEX 24h"));
@@ -954,4 +954,55 @@ test("1Y column uses owner-only verified US daily and international weekly bars"
  assert(css.includes("border-top:2px dotted"));
  assert(source.includes('combinedPriceCell(r)'));
  assert(source.includes('compactYearLine(r)'));
+});
+
+test("prices render and survive a failed quote fetch before annual history completes",async()=>{
+ const begin=source.indexOf("  async function refresh(){");
+ const end=source.indexOf("  // A GitHub HTML report",begin);
+ assert(begin>=0&&end>begin);
+ const body=source.slice(begin,end);
+ const elements=new Map();
+ const $=id=>{
+   if(!elements.has(id))elements.set(id,{disabled:false,textContent:""});
+   return elements.get(id);
+ };
+ const state={loading:false,rows:[{exchange:"US",ticker:"NVDA"}],
+   quotes:{NVDA:{price:129.17,asOf:"2026-11-20T20:59:00Z",currency:"USD",feed:"IEX"}},
+   history:{},yearHistory:{},lastYearRefreshAt:0,providerReady:true};
+ const renders=[],requests=[];
+ let completeAnnual;
+ const annualWait=new Promise(resolve=>{completeAnnual=resolve;});
+ const json=body=>({ok:true,status:200,json:async()=>body});
+ const fetch=async url=>{
+   requests.push(url);
+   if(url.startsWith("/api/prices?"))return json({quotes:{}});
+   if(url.startsWith("/api/price-history?")&&url.includes("range=1y"))return annualWait;
+   if(url.startsWith("/api/price-history?"))return json({series:{NVDA:{
+     feed:"IEX",currency:"USD",adjustment:"split",range:"1m",timeframe:"1Day",
+     bars:[{date:"2026-11-20",asOf:"2026-11-20T21:00:00Z",close:129.17}]
+   }}});
+   return json({quotes:{}});
+ };
+ const make=new Function("state","$","fmt","render","fetch","return "+body+"; ");
+ const refresh=make(state,$,v=>String(v),()=>renders.push({...state.quotes}),fetch);
+ const task=refresh();
+ await new Promise(resolve=>setImmediate(resolve));
+ assert(renders.length>=2,"price and monthly history rendered while 1Y was still pending");
+ assert.equal(renders[0].NVDA.price,129.17,"failed quote fetch cannot blank verified quote");
+ assert(requests.some(x=>x.startsWith("/api/prices?")),"US price fetch attempted");
+ assert(requests.some(x=>x.includes("range=1y")),"annual history eventually fetched");
+ assert.equal(state.loading,true,"annual still loading and quotes already shown");
+ completeAnnual(json({series:{}}));
+ await task;
+ assert.equal(state.loading,false);
+ assert.match($("marketNotice").textContent,/History\/provider|awaiting current quote/);
+});
+test("verified split-adjusted IEX close is labeled historical, not advertised live, when quote is missing",()=>{
+ const start=source.indexOf("  function quoteCell(r){");
+ const end=source.indexOf("  function overnightCell(r){",start);
+ const text=source.slice(start,end);
+ assert(text.includes('old?.adjustment==="split"'));
+ assert(text.includes('Last recorded IEX daily close · historical fallback'));
+ assert(text.includes('NOT a live quote'));
+ assert(text.includes('if(!q){'));
 });
