@@ -916,3 +916,13 @@ test("five European listing identities route to correct Yahoo symbols",()=>{
  assert(source.includes('function yahooPriceLink(r)'));
  assert(source.includes("escape(fmt(q.asOf))+'</small>'+yahooPriceLink(r)+'</div>'"));
 });
+
+test("Komatsu Tokyo is native JPY and maps canonical .T to TSE",()=>{
+ const registry=JSON.parse(readFileSync(new URL("../market-exchanges.json",import.meta.url),"utf8"));
+ assert.equal(registry.aliases.T,"TSE");
+ assert.equal(registry.sourceSymbolOverrides["6301.T"],"6301.T");
+ assert.equal(registry.markets.TSE.mic,"XTKS");
+ assert.equal(registry.markets.TSE.currency,"JPY");
+ assert.deepEqual(registry.markets.TSE.sessions,[{start:"09:00",end:"11:30"},{start:"12:30",end:"15:30"}]);
+ assert(source.includes('HE:"XHEL",T:"TSE"'));
+});
