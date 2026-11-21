@@ -730,7 +730,9 @@ test("non-US chart draws actual hourly bars only for an exact verified source/cu
   assert(section.includes('new RegExp('));
   assert(section.includes('Latest Yahoo · delayed'));
   assert(section.includes('Waiting for verified delayed Yahoo hourly bars'));
-  assert(section.includes('Actual Alpaca IEX 1-month daily raw closes'));
+  assert(section.includes('Actual Alpaca IEX 1-month daily split-adjusted closes'));
+  assert(section.includes('usHistory?.adjustment==="split"'));
+  assert(!section.includes('Actual Alpaca IEX 1-month daily raw closes'));
   assert(!source.includes("query1.finance.yahoo.com")&&!source.includes("query2.finance.yahoo.com"));
 });
 
