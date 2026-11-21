@@ -270,6 +270,7 @@ class AnnualChartDataValidation(unittest.TestCase):
     def test_one_year_is_gated_to_verified_quotes_and_same_collector_schedule(self):
         code=COLLECTOR.read_text()
         self.assertIn('period="1y",interval="1wk",auto_adjust=False',code)
+        self.assertIn('ignore_tz=False,prepost=False',code)
         self.assertIn('quotes[ticker]["annual"]=series',code)
         self.assertIn('if args.bootstrap or now_utc().minute<16:',code)
         self.assertIn('if ticker in quotes',code)
