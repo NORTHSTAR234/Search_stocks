@@ -96,13 +96,13 @@ test("red-X compact rows have one line and exactly eleven unchanged columns",()=
   const f=source.match(/function compactTr\(r,ticker,active,control,context\)\{([\s\S]*?)\n  \}/);
   assert(f,"compact row renderer exists");
   const compiled=new Function("escape","compactLine","compactPrice","compactOvernight",
-    "compactMonthLine","compactAction","compactMarkers","compactDividend","compactMusaffa",
+    "compactYearLine","compactMonthLine","compactAction","compactMarkers","compactDividend","compactMusaffa",
     "compactPercentTone","screeningCell",
     'return function(r,ticker,active,control,context){'+f[1]+'\n}');
   const escape=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
   const line=(v,tone="")=>'<span class="compact-value '+tone+'" title="'+escape(v)+'">'+escape(v)+'</span>';
-  const row=compiled(escape,line,()=>"$120.00 · -2.5%",()=>"+2.0%",()=>
-    '<span class="compact-value"><span class="mini-chart-range-high">High -4%</span> / <span class="mini-chart-range-low">Low +5%</span></span>',
+  const chartLine=()=>'<span class="compact-value"><span class="mini-chart-range-high">High -4%</span> / <span class="mini-chart-range-low">Low +5%</span></span>';
+  const row=compiled(escape,line,()=>"$120.00 · -2.5%",()=>"+2.0%",chartLine,chartLine,
     ()=>"WATCH · HIGH",()=>"I 80 / E 25",()=>"1.20% yield",()=>"VERIFIED HALAL",
     value=>value.includes("-2.5%")?"loss":"gain",
     ()=>'<div class="musaffa-cell"><span class="badge good">VERIFIED HALAL</span></div>');
@@ -120,7 +120,7 @@ test("red-X compact rows have one line and exactly eleven unchanged columns",()=
   assert.match(html,/class="badge good"/,"compact Musaffa keeps existing badge colour");
   assert(css.includes("min-width:2200px!important"),"table fixed width preserved");
   assert(css.includes(".table-wrap th:nth-child(1) {width:11%}"));
-  for(const field of ["compactPrice(r)","compactOvernight(r)","compactMonth(r)",
+  for(const field of ["compactPrice(r)","compactOvernight(r)","compactYear(r)","compactYearLine(r)","compactMonth(r)",
     "compactMonthLine(r)","compactAction(r)","compactMarkers(r,context)",
     "compactDividend(r)","compactMusaffa(r)","screeningCell(r)"])
     assert(source.includes(field),field+" preserved in compact layout");
@@ -247,10 +247,11 @@ test("international quote links remain when the owner cache has no quote",()=>{
  assert(source.includes('retrieve("/api/international-prices",international,"Personal Yahoo cache")'));
 });
 
-test("regular and overnight have distinct columns and signed price/percentage colors",()=>{
+test("combined regular and overnight retain signed price/percentage colors",()=>{
  assert(source.includes("function quoteCell(r)"));
  assert(source.includes("function overnightCell(r)"));
- assert(source.includes("'<td>'+overnightCell(r)+'</td>'"));
+ assert(source.includes("'<td>'+combinedPriceCell(r)+'</td>'"));
+ assert(source.includes("function combinedPriceCell(r)"));
  assert(source.includes("Last US regular close · consolidated"));
  assert(source.includes("Indicative · 15-min delayed"));
  assert(source.includes("vs regular close"));
@@ -334,7 +335,7 @@ test("dashboard columns match specified new order and remove duplicate report co
  assert(list);
  const headings=JSON.parse(list[1]);
  assert.deepEqual(headings,[
- "Company / ticker","Regular / latest price","Overnight / vs close","Live chart · 1M","Action / Risk","Markers",
+ "Company / ticker","Regular / latest price / Overnight / vs close","Live chart · 1Y","Live chart · 1M","Action / Risk","Markers",
  "Industry category","Dividend / yield","Last report (AEDT/AEST)",
  "Musaffa status / grade / screening date","Next earnings / confirmation"]);
  assert.equal(headings.length,11);
@@ -879,14 +880,14 @@ test("eleven columns follow owner's exact order in BOTH stock tables",()=>{
  const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
  const labels=JSON.parse(build.split("\n").find(line=>line.includes("const labels=")).split("const labels=")[1].trim().replace(/;$/,""));
  assert.deepEqual(labels,[
-  "Company / ticker","Regular / latest price","Overnight / vs close",
+  "Company / ticker","Regular / latest price / Overnight / vs close","Live chart · 1Y",
   "Live chart · 1M","Action / Risk","Markers","Industry category","Dividend / yield",
   "Last report (AEDT/AEST)","Musaffa status / grade / screening date",
   "Next earnings / confirmation"
  ]);
  const tr=source.slice(source.indexOf("  function tr(r){"),source.indexOf("  function syncExchangeFilters(){"));
  const tokens=[
-  "ethicalFirstColumn(r)","quoteCell(r)","overnightCell(r)","monthChartCell(r)",
+  "ethicalFirstColumn(r)","combinedPriceCell(r)","yearChartCell(r)","monthChartCell(r)",
   "badge(action,actionKind(action))","markersCell(r,context)","industryCell(r)",
   "dividendCell(r)","fmt(r.timestamp)","screeningCell(r)","cap(r.earnings,110)"
  ];
@@ -925,4 +926,32 @@ test("Komatsu Tokyo is native JPY and maps canonical .T to TSE",()=>{
  assert.equal(registry.markets.TSE.currency,"JPY");
  assert.deepEqual(registry.markets.TSE.sessions,[{start:"09:00",end:"11:30"},{start:"12:30",end:"15:30"}]);
  assert(source.includes('HE:"XHEL",T:"TSE"'));
+});
+
+test("1Y column uses owner-only verified US daily and international weekly bars",()=>{
+ const css=readFileSync(new URL("../assets/style.css",import.meta.url),"utf8");
+ const build=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
+ const start=source.indexOf("function yearChartCell(r){");
+ const end=source.indexOf("function markersCell(r,context)",start);
+ assert(start>0&&end>start);
+ const year=source.slice(start,end);
+ assert(year.includes("state.yearHistory[r.ticker]"));
+ assert(year.includes('usHistory?.adjustment==="split"&&usHistory?.range==="1y"'));
+ assert(year.includes("q?.annual"));
+ assert(year.includes('weekly?.feed==="YFINANCE_YAHOO_1W_BAR_DELAYED"'));
+ assert(year.includes('weekly?.interval==="1wk"'));
+ assert(year.includes('weekly?.sourceSymbol===q.sourceSymbol'));
+ assert(year.includes('weekly?.exchange===q.exchange'));
+ assert(year.includes('weekly?.currency===q.currency'));
+ assert(year.includes("380*86400000"));
+ assert(year.includes("1Y high ")&&year.includes("1Y low "));
+ assert(year.includes('monthRangePercentages(points,chartDisplayedPrice(r,q))'));
+ assert(source.includes("state.yearHistory={...state.yearHistory,...year};"));
+ assert(source.includes('retrieveHistory(us,"1y")'));
+ assert(source.includes('range==="1y"?"&range=1y":""'));
+ assert(build.includes('"Live chart · 1Y","Live chart · 1M"'));
+ assert(css.includes(".combined-price-overnight{"));
+ assert(css.includes("border-top:2px dotted"));
+ assert(source.includes('combinedPriceCell(r)'));
+ assert(source.includes('compactYearLine(r)'));
 });
