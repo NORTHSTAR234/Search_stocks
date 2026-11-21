@@ -14,7 +14,7 @@
   function normalizeListing(row){
     const ticker=String(row?.ticker||"").toUpperCase();
     const suffix=ticker.includes(".")?ticker.split(".").at(-1):"";
-    const bySuffix={TWSE:"TWSE",TW:"TWSE",ASX:"ASX",AX:"ASX",MYX:"BURSA",KL:"BURSA",MY:"BURSA"};
+    const bySuffix={TWSE:"TWSE",TW:"TWSE",ASX:"ASX",AX:"ASX",MYX:"BURSA",KL:"BURSA",MY:"BURSA",SIX:"SIX",ST:"XSTO",STO:"XSTO",HE:"XHEL"};
     const exchange=bySuffix[suffix];
     return exchange&&row.exchange!==exchange?{...row,exchange}:row;
   }
@@ -280,6 +280,11 @@
     const suffix=registry?.markets?.[key]?.yahooSuffix;
     return suffix&&ticker.endsWith("."+key)?ticker.slice(0,-key.length-1)+suffix:null;
   }
+  function yahooPriceLink(r){
+    if(r.exchange==="US")return "";
+    const symbol=yahooSymbol(r);
+    return symbol?'<small><a href="https://finance.yahoo.com/quote/'+encodeURIComponent(symbol)+'/" target="_blank" rel="noopener noreferrer">View Yahoo Finance quote ↗</a></small>':"";
+  }
   function quoteMoney(currency,value){
     const unit=currency==="USD"?"US$":currency==="AUD"?"A$":currency==="TWD"?"NT$":currency==="MYR"?"RM ":currency==="EUR"?"€":currency==="GBP"?"£":currency==="JPY"?"¥":currency==="HKD"?"HK$":currency+" ";
     return unit+Number(value).toLocaleString("en-AU",{minimumFractionDigits:2,maximumFractionDigits:3});
@@ -319,8 +324,7 @@
   function quoteCell(r){
     const q=state.quotes[r.ticker.toUpperCase()];
     if(!q){
-      const symbol=yahooSymbol(r);
-      const link=symbol?'<small><a href="https://finance.yahoo.com/quote/'+encodeURIComponent(symbol)+'/" target="_blank" rel="noopener noreferrer">View on Yahoo Finance (delayed) ↗</a></small>':"";
+      const link=yahooPriceLink(r);
       return '<span class="muted">PRICE UNAVAILABLE</span><small>'+(r.exchange==="US"?"No verified Alpaca quote":"No cached international quote yet")+'</small>'+link;
     }
     const currency=q.currency;
@@ -373,7 +377,7 @@
       (valid?'<span class="change '+color+'">'+escape(signedPercent(change))+
         (isEodhd?' vs previous close':' IEX 24h')+'</span>':'<small class="muted">Change unavailable</small>')+
       '<small>'+escape(q.feed==="YFINANCE_YAHOO_5M_BAR_DELAYED"?"Yahoo Finance · 5-min bar (delayed)":(q.feed||"Unknown feed"))+(isEodhd?" · delayed observation":" · latest trade")+
-      ' · '+escape(fmt(q.asOf))+'</small></div>';
+      ' · '+escape(fmt(q.asOf))+'</small>'+yahooPriceLink(r)+'</div>';
   }
   function overnightCell(r){
     if(r.exchange!=="US")return '<small class="muted">US overnight only</small>';
