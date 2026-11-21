@@ -68,9 +68,9 @@ test("new standalone HTML report extracts fields without borrowing prior Markdow
  assert(!rendered.includes("<script>"));assert(rendered.includes("<style>"));
 });
 
-test("dashboard uses independent regular and overnight columns",()=>{
+test("dashboard combines regular and overnight with annual chart in the released column",()=>{
  const code=readFileSync(new URL("../build.mjs",import.meta.url),"utf8");
- assert(code.includes('"Company / ticker","Regular / latest price","Overnight / vs close","Live chart · 1M"'));
+ assert(code.includes('"Company / ticker","Regular / latest price / Overnight / vs close","Live chart · 1Y","Live chart · 1M"'));
  assert(code.includes('"Markers","Industry category","Dividend / yield","Last report (AEDT/AEST)"'));
  assert(code.includes('colspan="11"'));
 });
