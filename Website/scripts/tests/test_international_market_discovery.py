@@ -151,6 +151,14 @@ class MarketSelfDiscovery(unittest.TestCase):
                 self.assertEqual(found[ticker]["currency"],currency)
         self.assertNotIn("XSTO",module.open_markets(registry,dt.datetime(2026,11,21,12,0,tzinfo=dt.timezone.utc)))
 
+    def test_missing_yahoo_batch_results_have_bounded_single_quote_retry(self):
+        code=COLLECTOR.read_text()
+        self.assertIn('for symbol in missing[:8]:',code)
+        self.assertIn('yf.Ticker(symbol).history(period="5d",interval="5m"',code)
+        self.assertIn('"feed":"YFINANCE_YAHOO_5M_BAR_DELAYED"',code)
+        self.assertIn('if observed>now_utc()+dt.timedelta(minutes=2)',code)
+        self.assertIn('if not any(ticker in collected for ticker,_ in by_yahoo[symbol])',code)
+
     def test_us_alpaca_not_selected_by_international_collector(self):
         self.assertEqual(module.report_markets(self.registry)["US"]["priceSource"],"alpaca")
         self.assertEqual(module.open_markets(self.registry,dt.datetime(2026,11,10,14,30,tzinfo=dt.timezone.utc)),{})
