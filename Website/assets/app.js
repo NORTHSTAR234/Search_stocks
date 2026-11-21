@@ -1,7 +1,7 @@
 (() => {
   "use strict";
   const $ = id => document.getElementById(id);
-  const state={rows:[],quotes:{},history:{},markets:{},loading:false,generatedAt:null,providerReady:true,githubTreeSha:null,syncing:false,cycleBusy:false};
+  const state={rows:[],quotes:{},history:{},yearHistory:{},markets:{},loading:false,generatedAt:null,providerReady:true,githubTreeSha:null,syncing:false,cycleBusy:false};
   const INDUSTRY_CATEGORIES=[
     "Technology & Communications","Healthcare & Pharmaceuticals","Financial Services",
     "Consumer Essentials","Consumer Discretionary","Industrials, Construction & Transportation",
@@ -414,6 +414,14 @@
       ' ('+escape(signedPercent(pct))+') vs regular close</span>'+
       '<small>Observed '+escape(fmt(night.asOf))+'</small></div>';
   }
+  function combinedPriceCell(r){
+    return '<div class="combined-price-cell">'+
+      '<div class="combined-price-main"><small class="combined-price-section">Regular / latest price</small>'+
+        quoteCell(r)+'</div>'+
+      '<div class="combined-price-overnight"><small class="combined-price-section">Overnight / vs close</small>'+
+        overnightCell(r)+'</div>'+
+      '</div>';
+  }
   // Show the same two-card visual treatment as Investment / Entry, retaining
   // the exact archived values. Colors distinguish field purpose, not a live signal.
   function splitReportPair(value){
@@ -735,6 +743,88 @@
       '</div>';
   }
 
+  // A verified 1Y chart: split-adjusted US IEX daily or Yahoo weekly closes.
+  function yearChartCell(r){
+    const us=r.exchange==="US",q=state.quotes[r.ticker];
+    const weekly=us?null:q?.annual;
+    const verifiedHourly=!us&&q?.feed==="YFINANCE_YAHOO_5M_BAR_DELAYED"&&
+      weekly?.feed==="YFINANCE_YAHOO_1W_BAR_DELAYED"&&weekly?.interval==="1wk"&&
+      weekly?.currency===q.currency&&weekly?.exchange===q.exchange&&
+      weekly?.sourceSymbol===q.sourceSymbol&&/^[A-Z]{3}$/.test(weekly.currency)&&
+      Array.isArray(weekly.bars)&&weekly.bars.length>=2&&weekly.bars.length<=64;
+    // US history must be provider split-adjusted. Do not plot raw pre/post-split
+    // observations together or re-divide split-adjusted prices on the client.
+    const usHistory=us?state.yearHistory[r.ticker]:null;
+    const bars=us?(usHistory?.adjustment==="split"&&usHistory?.range==="1y"?usHistory.bars:null):verifiedHourly?weekly.bars:null;
+    if(!Array.isArray(bars)||bars.length<2)return '<div class="mini-chart-empty">1Y history unavailable<small>'+
+      (us?'Waiting for verified split-adjusted IEX daily bars':'Waiting for verified delayed Yahoo weekly bars')+'</small></div>';
+    const currency=us?"USD":weekly.currency;
+    const observations=us?bars.map(b=>({t:Date.parse(b.asOf),p:Number(b.close),date:b.date})):
+      bars.map(b=>({t:Number(b?.[0])*1000,p:Number(b?.[1]),date:null}));
+    const daily=observations.filter(b=>Number.isFinite(b.t)&&b.t<Date.now()+120000&&
+      b.t>=Date.now()-380*86400000&&Number.isFinite(b.p)&&b.p>0).sort((a,b)=>a.t-b.t);
+    if(daily.length<2)return '<div class="mini-chart-empty">1Y history unavailable<small>Insufficient verified observations</small></div>';
+    const qt=Date.parse(q?.asOf),price=Number(q?.price);
+    const sameFeed=us?q?.feed==="IEX"&&q?.currency==="USD":
+      q?.feed==="YFINANCE_YAHOO_5M_BAR_DELAYED"&&q?.currency===currency;
+    // A new observed trade/bar can extend the chart; this is not a forecast.
+    const recent=sameFeed&&Number.isFinite(qt)&&Number.isFinite(price)&&price>0&&
+      qt>daily.at(-1).t&&qt<=Date.now()+120000&&Date.now()-qt<8*86400000?
+      {t:qt,p:price,latest:true}:null;
+    const points=recent?[...daily,recent]:daily;
+    const yearRange=monthRangePercentages(points,chartDisplayedPrice(r,q));
+    // Apply report-derived price zones only when the recorded quote currency
+    // matches the archived band currency (no hidden FX assumptions).
+    const sameZoneCurrency=us||typeof r.zones==="string"&&
+      new RegExp("\\b"+currency+"\\b","i").test(r.zones);
+    const levels=sameZoneCurrency&&Array.isArray(r.zoneBands)?r.zoneBands.slice(0,2).map(b=>
+      Array.isArray(b)&&b.length===2&&Number.isFinite(Number(b[0]))&&Number.isFinite(Number(b[1]))&&Number(b[0])>0&&Number(b[0])<=Number(b[1])?
+      (Number(b[0])+Number(b[1]))/2:null):[];
+    const values=points.map(b=>b.p).concat(levels.filter(v=>v!=null));
+    const lower=Math.min(...values),upper=Math.max(...values),pad=Math.max((upper-lower)*.12,upper*.008,.2);
+    const y=v=>(105-(v-lower+pad)/(upper-lower+2*pad)*95).toFixed(1);
+    const first=points[0].t,last=points.at(-1).t,span=Math.max(1,last-first);
+    const x=v=>(6+(v-first)/span*248).toFixed(1);
+    const d=points.map((b,i)=>(i?"L":"M")+x(b.t)+","+y(b.p)).join(" ");
+    const ref=(v,color)=>v==null?"":'<line x1="6" x2="254" y1="'+y(v)+'" y2="'+y(v)+'" stroke="'+color+'" stroke-width="1.7" stroke-dasharray="5 3"/>';
+    const lastPoint=points.at(-1);
+    const zone=us?"America/New_York":state.markets?.markets?.[r.exchange]?.timeZone||"UTC";
+    const dayLabel=b=>{
+      if(b.date)return String(b.date).slice(0,7);
+      try{return new Intl.DateTimeFormat("en-GB",{timeZone:zone,month:"short",year:"2-digit"}).format(new Date(b.t));}
+      catch{return new Date(b.t).toISOString().slice(0,7);}
+    };
+    const provider=us?"IEX":"Yahoo weekly";
+    const description=us?"Actual Alpaca IEX 1-year daily split-adjusted closes (not consolidated; no dividend adjustment).":
+      "Actual delayed Yahoo Finance 1-year weekly closing-price observations in "+currency+"; not real-time or consolidated.";
+    const tooltip=description+(recent?" Latest observed "+(us?"IEX trade":"Yahoo 5-minute bar")+" "+price+" at "+q.asOf+".":"")+
+      (levels[0]!=null?" Preferred midpoint "+levels[0]+".":"")+
+      (levels[1]!=null?" Acceptable midpoint "+levels[1]+".":"");
+    const lastLabel=recent?'<small class="mini-chart-latest">'+(us?"Latest IEX":"Latest Yahoo · delayed")+
+      ' '+escape(quoteMoney(currency,price))+' · '+escape(fmt(q.asOf))+'</small>':
+      '<small class="mini-chart-latest">Last '+escape(provider)+' '+escape(quoteMoney(currency,lastPoint.p))+
+      ' · '+escape(fmt(new Date(lastPoint.t).toISOString()))+'</small>';
+    return '<div class="mini-chart"><svg class="mini-chart-svg" viewBox="0 0 260 112" role="img" aria-label="'+escape(tooltip)+'">'+
+      '<title>'+escape(tooltip)+'</title>'+
+      '<line x1="6" x2="254" y1="58" y2="58" stroke="#425671" stroke-dasharray="3 5" opacity=".5"/>'+
+      ref(levels[0]??null,"#31d0b8")+ref(levels[1]??null,"#ffd05e")+
+      '<path d="'+d+'" fill="none" stroke="#8dabff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>'+
+      '<circle cx="'+x(lastPoint.t)+'" cy="'+y(lastPoint.p)+'" r="4" fill="#8dabff" stroke="#132136" stroke-width="1.5"/>'+
+      '</svg><div class="mini-chart-axis"><span>'+escape(dayLabel(daily[0]))+'</span><span>'+escape(dayLabel(daily.at(-1)))+'</span></div>'+
+      lastLabel+'<small class="mini-chart-legend"><span class="blue-dot">'+escape(us?"IEX closes · split-adjusted":"Yahoo 1wk · delayed")+'</span>'+
+      (levels[0]!=null?'<span class="preferred-dot">Preferred '+escape(quoteMoney(currency,levels[0]))+'</span>':"")+
+      (levels[1]!=null?'<span class="acceptable-dot">Acceptable '+escape(quoteMoney(currency,levels[1]))+'</span>':"")+
+      '</small>'+
+      (yearRange?'<div class="mini-chart-range" aria-label="Current quote compared with the 1-year observed closing-price range including the current quote">'+
+        '<span class="mini-chart-range-high">1Y high '+escape(quoteMoney(currency,yearRange.high))+
+          ' <strong>'+escape(signedPercent(yearRange.fromHigh))+'</strong></span>'+
+        '<span class="mini-chart-range-low">1Y low '+escape(quoteMoney(currency,yearRange.low))+
+          ' <strong>'+escape(signedPercent(yearRange.fromLow))+'</strong></span>'+
+        '</div>':
+        '<small class="mini-chart-range-unavailable">1Y comparisons unavailable · quote not verified</small>')+
+      '</div>';
+  }
+
   // Keep all existing score, buy-zone and risk-marker helpers unchanged.
   function markersCell(r,context){
     return '<div class="markers-stack">'+
@@ -842,6 +932,34 @@
     return range?"High "+signedPercent(range.fromHigh)+" / Low "+signedPercent(range.fromLow):
       "1M unavailable";
   }
+  function compactYear(r){
+    const us=r.exchange==="US",q=state.quotes[rowTicker(r)];
+    const weekly=us?null:q?.annual;
+    const valid=!us&&q?.feed==="YFINANCE_YAHOO_5M_BAR_DELAYED"&&
+      weekly?.feed==="YFINANCE_YAHOO_1W_BAR_DELAYED"&&weekly?.interval==="1wk"&&
+      weekly?.currency===q.currency&&weekly?.exchange===q.exchange&&
+      weekly?.sourceSymbol===q.sourceSymbol&&
+      Array.isArray(weekly.bars)&&weekly.bars.length>=2&&weekly.bars.length<=64;
+    const history=us?state.yearHistory[rowTicker(r)]:null;
+    const bars=us?(history?.adjustment==="split"&&history?.range==="1y"?history.bars:null):
+      valid?weekly.bars:null;
+    if(!Array.isArray(bars)||bars.length<2)return "1Y unavailable";
+    const points=(us?bars.map(b=>({t:Date.parse(b.asOf),p:Number(b.close)})):
+      bars.map(b=>({t:Number(b?.[0])*1000,p:Number(b?.[1])})))
+      .filter(p=>Number.isFinite(p.t)&&p.t<Date.now()+120000&&
+        p.t>=Date.now()-380*86400000&&Number.isFinite(p.p)&&p.p>0);
+    if(points.length<2)return "1Y unavailable";
+    const range=monthRangePercentages(points,chartDisplayedPrice(r,q));
+    return range?"High "+signedPercent(range.fromHigh)+" / Low "+signedPercent(range.fromLow):
+      "1Y unavailable";
+  }
+  function compactYearLine(r){
+    const summary=compactYear(r),cut=summary.indexOf(" / Low ");
+    if(!summary.startsWith("High ")||cut<0)return compactLine(summary);
+    return '<span class="compact-value compact-month" title="'+escape(summary)+'">'+
+      '<span class="mini-chart-range-high">'+escape(summary.slice(0,cut))+'</span>'+
+      ' / <span class="mini-chart-range-low">'+escape(summary.slice(cut+3))+'</span></span>';
+  }
   function compactAction(r){
     const first=String(r.action||"").replace(/^[^A-Za-z]+/,"").trim();
     const verdict=(first.match(/^(?:STRONG BUY|STRONG SELL|BUY|SELL|WATCH|WAIT|HOLD|REDUCE|AVOID|EXIT)\b/i)||[])[0]||
@@ -886,8 +1004,9 @@
     return '<tr class="minimized-row"><td><div class="ticker-first-line">'+control+
       '<a class="ticker'+active+'" href="'+escape(r.reportPath)+'" title="'+escape(r.company||r.ticker)+
       '">'+escape(r.ticker)+'</a></div></td>'+
-      '<td>'+compactLine(priceSummary,compactPercentTone(priceSummary))+'</td>'+
-      '<td>'+compactLine(overnightSummary,compactPercentTone(overnightSummary))+'</td>'+
+      '<td><div class="compact-combined">'+compactLine(priceSummary,compactPercentTone(priceSummary))+
+        '<span class="compact-combined-separator">/</span>'+compactLine(overnightSummary,compactPercentTone(overnightSummary))+'</div></td>'+
+      '<td>'+compactYearLine(r)+'</td>'+
       '<td>'+compactMonthLine(r)+'</td>'+
       '<td>'+compactLine(compactAction(r))+'</td>'+
       '<td class="markers-cell">'+compactLine(compactMarkers(r,context))+'</td>'+
@@ -915,8 +1034,8 @@
       '<a class="ticker'+active+'" href="'+escape(r.reportPath)+'"'+
       (market?.open?' title="Market in regular weekday session"':'')+'>'+escape(r.ticker)+'</a></div>'+
       '<small>'+escape(r.company)+'</small>'+status+ethicalFirstColumn(r)+'</td>'+
-    '<td>'+quoteCell(r)+'</td>'+
-    '<td>'+overnightCell(r)+'</td>'+
+    '<td>'+combinedPriceCell(r)+'</td>'+
+    '<td>'+yearChartCell(r)+'</td>'+
     '<td>'+monthChartCell(r)+'</td>'+
     '<td>'+badge(action,actionKind(action))+'<small>Risk: '+escape(cap(r.risk,78))+'</small>'+
       '<small>Own: '+escape(cap(r.ownerAction,75))+'</small>'+zoneInsight(context)+'</td>'+
@@ -1020,34 +1139,37 @@
       }
       return collected;
     }
-    async function retrieveHistory(symbols){
+    async function retrieveHistory(symbols,range="1m"){
       const result={};
-      for(let i=0;i<symbols.length;i+=40){
-        const part=symbols.slice(i,i+40);
+      for(let i=0;i<symbols.length;i+=(range==="1y"?20:40)){
+        const part=symbols.slice(i,i+(range==="1y"?20:40));
         try{
-          const response=await fetch("/api/price-history?symbols="+encodeURIComponent(part.join(",")),{credentials:"same-origin",cache:"no-store"});
+          const response=await fetch("/api/price-history?symbols="+encodeURIComponent(part.join(","))+(range==="1y"?"&range=1y":""),{credentials:"same-origin",cache:"no-store"});
           const data=await response.json().catch(()=>({}));
           if(!response.ok||!data.series||typeof data.series!=="object")
             throw Error("HTTP "+response.status+(data.error?" · "+String(data.error):""));
           Object.assign(result,data.series);
-        }catch(e){failures.push("Alpaca IEX 1M history: "+String(e?.message||e));}
+        }catch(e){failures.push("Alpaca IEX "+(range==="1y"?"1Y":"1M")+" history: "+String(e?.message||e));}
       }
       return result;
     }
     try{
       const international=state.rows.filter(r=>r.exchange!=="US").map(r=>r.ticker);
-      const [usQuotes,intlQuotes,month]=await Promise.all([
+      const [usQuotes,intlQuotes,month,year]=await Promise.all([
         retrieve("/api/prices",us,"Alpaca"),
         retrieve("/api/international-prices",international,"Personal Yahoo cache"),
-        retrieveHistory(us)
+        retrieveHistory(us),
+        retrieveHistory(us,"1y")
       ]);
       state.quotes={...usQuotes,...intlQuotes};
       state.history={...state.history,...month};
+      state.yearHistory={...state.yearHistory,...year};
       const usCount=Object.keys(usQuotes).length,intlCount=Object.keys(intlQuotes).length;
       $("marketNotice").textContent="Quote observations: "+usCount+
         " US tickers via Alpaca · "+intlCount+" non-US delayed Yahoo quotes (private cache) · Updated "+
         fmt(new Date().toISOString())+
         " · US IEX daily and non-US delayed Yahoo hourly month charts checked every 5 minutes while visible from private caches. "+
+        " 1Y charts use split-adjusted US daily closes and verified delayed Yahoo weekly closes. "+
         "Non-US quotes are collected on GitHub Actions every 20 minutes during regular market hours, subject to data-feed and scheduler delays."+
         (failures.length?" Provider issues: "+failures.join("; "):"");
       state.providerReady=true;
