@@ -28,3 +28,23 @@ test("split-adjusted chart input preserves historical adjusted bars without divi
  assert.deepEqual(result?.bars.map(b=>b.close),[100,101]);
  assert.equal(validateSeries({...sandisk,adjustment:"raw"},now),null);
 });
+
+test("1Y split-adjusted IEX history accepts genuine daily closes and rejects 1M/raw masquerading",()=>{
+ const now=Date.parse("2026-11-21T00:00:00Z");
+ const annual={...sample,range:"1y",bars:[
+   {date:"2026-01-09",asOf:"2026-01-09T21:00:00Z",close:120},
+   {date:"2026-11-20",asOf:"2026-11-20T21:00:00Z",close:155}
+ ]};
+ assert.deepEqual(validateSeries(annual,now,"1y")?.bars.map(b=>b.close),[120,155]);
+ assert.equal(validateSeries({...annual,adjustment:"raw"},now,"1y"),null);
+ assert.equal(validateSeries({...annual,range:"1m"},now,"1y"),null);
+ assert.equal(validateSeries(annual,now,"1m"),null);
+ assert.equal(validateSeries({...annual,bars:[...annual.bars,...annual.bars]},now,"1y"),null);
+});
+test("1Y gateway forwards the range only through owner-authorized provider and validates batch limits",async()=>{
+ const request=new Request("https://example.test/api/price-history?symbols=AAPL&range=1y");
+ assert.equal((await onRequestGet({request,env:{}})).status,503);
+ const env={PRICE_PROVIDER:{fetch:()=>{throw Error("Provider must never be called for unauthorized user")}},
+   ACCESS_TEAM_DOMAIN:"team.cloudflareaccess.com",ACCESS_AUD:"aud",OWNER_EMAIL:"owner@example.com"};
+ assert.equal((await onRequestGet({request,env})).status,403);
+});
