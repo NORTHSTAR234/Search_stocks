@@ -181,6 +181,32 @@
       "priceSource": "yfinance",
       "yahooSuffix": ".HE",
       "currency": "EUR"
+    },
+    "TSE": {
+      "name": "Tokyo Stock Exchange (Japan Exchange Group)",
+      "mic": "XTKS",
+      "timeZone": "Asia/Tokyo",
+      "weekdays": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sessions": [
+        {
+          "start": "09:00",
+          "end": "11:30"
+        },
+        {
+          "start": "12:30",
+          "end": "15:30"
+        }
+      ],
+      "source": "https://www.jpx.co.jp/english/equities/trading/domestic/01.html",
+      "priceSource": "yfinance",
+      "yahooSuffix": ".T",
+      "currency": "JPY"
     }
   },
   "aliases": {
@@ -188,7 +214,8 @@
     "ST": "XSTO",
     "STO": "XSTO",
     "HE": "XHEL",
-    "XSWX": "SIX"
+    "XSWX": "SIX",
+    "T": "TSE"
   },
   "sourceSymbolOverrides": {
     "CBHB.MYX": "0339.KL",
@@ -196,6 +223,7 @@
     "SAND.ST": "SAND.ST",
     "METSO.HE": "METSO.HE",
     "EPI-A.STO": "EPI-A.ST",
-    "EPI-B.STO": "EPI-B.ST"
+    "EPI-B.STO": "EPI-B.ST",
+    "6301.T": "6301.T"
   }
 }
