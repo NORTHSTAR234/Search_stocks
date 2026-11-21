@@ -382,7 +382,9 @@ def fetch_annual_history(symbols):
         batch=all_symbols[start:start+25]
         try:
             data=yf.download(batch,period="1y",interval="1wk",auto_adjust=False,
-                             prepost=False,progress=False,group_by="ticker",
+                             # Yahoo/yfinance defaults to ignoring time zones for daily+ bars.
+                             # Keep native exchange-aware timestamps for checked cache ingestion.
+                             ignore_tz=False,prepost=False,progress=False,group_by="ticker",
                              threads=True,timeout=20)
         except Exception as exc:
             print("Yahoo annual history unavailable:",type(exc).__name__,file=sys.stderr)
