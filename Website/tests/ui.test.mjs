@@ -898,3 +898,21 @@ test("eleven columns follow owner's exact order in BOTH stock tables",()=>{
  assert(build.includes('<tbody id="flaggedRows"><tr>'));
  assert(source.includes("primary.map(tr)")&&source.includes("flagged.map(tr)"));
 });
+
+test("five European listing identities route to correct Yahoo symbols",()=>{
+ const registry=JSON.parse(readFileSync(new URL("../market-exchanges.json",import.meta.url),"utf8"));
+ const targets={
+   "SIKA.SIX":["SIX","SIKA.SW","CHF"],
+   "SAND.ST":["XSTO","SAND.ST","SEK"],
+   "METSO.HE":["XHEL","METSO.HE","EUR"],
+   "EPI-A.STO":["XSTO","EPI-A.ST","SEK"],
+   "EPI-B.STO":["XSTO","EPI-B.ST","SEK"]
+ };
+ for(const [ticker,[exchange,symbol,currency]] of Object.entries(targets)){
+   assert.equal(registry.sourceSymbolOverrides[ticker],symbol);
+   assert.equal(registry.markets[exchange].currency,currency);
+ }
+ assert(source.includes('SIX:"SIX",ST:"XSTO",STO:"XSTO",HE:"XHEL"'));
+ assert(source.includes('function yahooPriceLink(r)'));
+ assert(source.includes("escape(fmt(q.asOf))+'</small>'+yahooPriceLink(r)+'</div>'"));
+});
