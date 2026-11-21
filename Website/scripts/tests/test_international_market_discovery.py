@@ -253,3 +253,23 @@ class HourlyChartDataValidation(unittest.TestCase):
         self.assertIn('if ticker in quotes',src)
         self.assertIn('quotes[ticker]["hourly"]=series',src)
         self.assertIn('"feed":"YFINANCE_YAHOO_1H_BAR_DELAYED"',src)
+
+class AnnualChartDataValidation(unittest.TestCase):
+    def test_actual_weekly_closes_are_compacted_without_synthetic_prices(self):
+        now=dt.datetime(2026,11,20,18,0,tzinfo=dt.timezone.utc)
+        bars=module.compact_annual_bars([
+            (now-dt.timedelta(days=350),123.7),
+            (now-dt.timedelta(days=7),145.2),
+            (now-dt.timedelta(days=7),146.1),
+            (now-dt.timedelta(days=400),50.0),
+            (now+dt.timedelta(days=2),180.0),
+            (now-dt.timedelta(days=1),float("nan"))
+        ],now)
+        self.assertEqual(len(bars),2)
+        self.assertEqual([p[1] for p in bars],[123.7,146.1])
+    def test_one_year_is_gated_to_verified_quotes_and_same_collector_schedule(self):
+        code=COLLECTOR.read_text()
+        self.assertIn('period="1y",interval="1wk",auto_adjust=False',code)
+        self.assertIn('quotes[ticker]["annual"]=series',code)
+        self.assertIn('if args.bootstrap or now_utc().minute<16:',code)
+        self.assertIn('if ticker in quotes',code)
