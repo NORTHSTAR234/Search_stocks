@@ -192,10 +192,42 @@ def fetch_prices(symbols):
     import pandas as pd
     import yfinance as yf
     collected={}
-    # Yahoo imposes variable throttling; limit requests and batch across markets.
+    # Yahoo batched intraday download can silently omit otherwise valid tickers.
+    # Retry only a small number of missing instruments individually, with exactly
+    # the same timestamp, source-symbol, currency and freshness validation.
     by_yahoo={}
     for ticker,meta in sorted(symbols.items()):
         by_yahoo.setdefault(meta["yahoo"],[]).append((ticker,meta))
+
+    def record(symbol,frame):
+        try:
+            if frame is None or frame.empty:return False
+            closes=frame["Close"].dropna()
+            closes=closes[closes>0]
+            if closes.empty:return False
+            latest_ts=closes.index[-1]
+            if latest_ts.tzinfo is None:return False
+            observed=latest_ts.to_pydatetime().astimezone(UTC)
+            if observed>now_utc()+dt.timedelta(minutes=2) or now_utc()-observed>dt.timedelta(days=8):return False
+            price=float(closes.iloc[-1])
+            if not math.isfinite(price) or price<=0:return False
+            for ticker,meta in by_yahoo[symbol]:
+                zone=ZoneInfo(meta["timeZone"])
+                local_day=observed.astimezone(zone).date()
+                prev_bars=closes[[ts.tz_convert(zone).date()<local_day for ts in closes.index]]
+                prev=float(prev_bars.iloc[-1]) if not prev_bars.empty else None
+                currency=meta["currency"]
+                if not currency:continue
+                collected[ticker]={
+                    "price":price,"currency":currency,"exchange":meta["exchange"],
+                    "sourceSymbol":symbol,"asOf":observed.isoformat().replace("+00:00","Z"),
+                    "feed":"YFINANCE_YAHOO_5M_BAR_DELAYED",
+                    "previousClose":prev if prev and math.isfinite(prev) and prev>0 else None
+                }
+            return True
+        except (ValueError,TypeError,KeyError,AttributeError,IndexError):
+            return False
+
     all_symbols=list(by_yahoo)
     for start in range(0,len(all_symbols),25):
         batch=all_symbols[start:start+25]
@@ -203,11 +235,7 @@ def fetch_prices(symbols):
             data=yf.download(batch,period="5d",interval="5m",auto_adjust=False,
                              prepost=False,progress=False,group_by="ticker",
                              threads=True,timeout=20)
-        except Exception as e:
-            print("Yahoo batch unavailable:",type(e).__name__,file=sys.stderr)
-            continue
-        for symbol in batch:
-            try:
+            for symbol in batch:
                 if len(batch)==1 and not isinstance(data.columns,pd.MultiIndex):
                     frame=data
                 elif isinstance(data.columns,pd.MultiIndex):
@@ -217,30 +245,27 @@ def fetch_prices(symbols):
                         frame=data.xs(symbol,axis=1,level=1)
                     else:continue
                 else:continue
-                closes=frame["Close"].dropna()
-                closes=closes[closes>0]
-                if closes.empty:continue
-                latest_ts=closes.index[-1]
-                if latest_ts.tzinfo is None:continue
-                observed=latest_ts.to_pydatetime().astimezone(UTC)
-                if observed>now_utc()+dt.timedelta(minutes=2) or now_utc()-observed>dt.timedelta(days=8):continue
-                price=float(closes.iloc[-1])
-                for ticker,meta in by_yahoo[symbol]:
-                    zone=ZoneInfo(meta["timeZone"])
-                    today=observed.astimezone(zone).date()
-                    previous=closes[[ts.tz_convert(zone).date()<today for ts in closes.index]]
-                    prev=float(previous.iloc[-1]) if not previous.empty else None
-                    if not math.isfinite(price) or price<=0:continue
-                    currency=meta["currency"]
-                    if not currency:continue
-                    collected[ticker]={
-                      "price":price,"currency":currency,"exchange":meta["exchange"],
-                      "sourceSymbol":symbol,"asOf":observed.isoformat().replace("+00:00","Z"),
-                      "feed":"YFINANCE_YAHOO_5M_BAR_DELAYED",
-                      "previousClose":prev if prev and math.isfinite(prev) and prev>0 else None
-                    }
-            except (ValueError,TypeError,KeyError,AttributeError,IndexError):
-                continue
+                record(symbol,frame)
+        except Exception as exc:
+            print("Yahoo batch unavailable:",type(exc).__name__,file=sys.stderr)
+
+        # Yahoo sometimes has valid single-symbol intraday history even when a
+        # multi-ticker 5m batch silently omits the listing. Limited budget
+        # prevents an extra request storm or additional paid services.
+        missing=[symbol for symbol in batch
+                 if not any(ticker in collected for ticker,_ in by_yahoo[symbol])]
+        for symbol in missing[:8]:
+            try:
+                frame=yf.Ticker(symbol).history(period="5d",interval="5m",
+                                               auto_adjust=False,prepost=False)
+                record(symbol,frame)
+            except Exception as exc:
+                print("Yahoo individual retry unavailable:",symbol,type(exc).__name__,
+                      file=sys.stderr)
+    missing=[symbol for symbol in all_symbols
+             if not any(ticker in collected for ticker,_ in by_yahoo[symbol])]
+    if missing:
+        print("No verified 5m Yahoo data for:",",".join(missing[:20]),file=sys.stderr)
     return collected
 
 
