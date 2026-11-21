@@ -287,6 +287,9 @@ def fetch_hourly_history(symbols):
     for start in range(0,len(all_symbols),25):
         batch=all_symbols[start:start+25]
         try:
+            # Yahoo historical Close is generally split-adjusted already; auto_adjust=False
+            # disables dividend/other adjusted-close substitution, NOT a request for raw
+            # pre-split quotes. Do not apply a split ratio again to these Close bars.
             data=yf.download(batch,period="1mo",interval="1h",auto_adjust=False,
                              prepost=False,progress=False,group_by="ticker",
                              threads=True,timeout=20)
