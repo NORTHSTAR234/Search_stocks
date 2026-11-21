@@ -15,7 +15,7 @@
       "matchedReports": 9
     }
   },
-  "revision": "9b7b4d65877429090601f8389eca23b7",
+  "revision": "4f70437c165d79b19b8ccb2edbadeb4b",
   "rows": [
     {
       "company": "MediaTek Inc.",
@@ -1898,7 +1898,7 @@
     {
       "company": "Epiroc AB (publ) — Class A",
       "ticker": "EPI-A.STO",
-      "exchange": "OTHER",
+      "exchange": "XSTO",
       "bucket": "halal",
       "timestamp": "2026-11-20T20:03:34Z",
       "industryCategory": "Industrials, Construction & Transportation",
@@ -2391,7 +2391,7 @@
     {
       "company": "Sandvik AB (publ)",
       "ticker": "SAND.ST",
-      "exchange": "OTHER",
+      "exchange": "XSTO",
       "bucket": "halal",
       "timestamp": "2026-11-20T20:03:16Z",
       "industryCategory": "Industrials, Construction & Transportation",
@@ -2853,7 +2853,7 @@
     {
       "company": "Epiroc AB (publ) — Class B",
       "ticker": "EPI-B.STO",
-      "exchange": "OTHER",
+      "exchange": "XSTO",
       "bucket": "nonhalal",
       "timestamp": "2026-11-20T20:02:35Z",
       "industryCategory": "Industrials, Construction & Transportation",
