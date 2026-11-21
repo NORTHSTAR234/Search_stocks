@@ -68,6 +68,26 @@ function cleanHourly(raw,q,now){
   return {feed:"YFINANCE_YAHOO_1H_BAR_DELAYED",interval:"1h",
     sourceSymbol:q.sourceSymbol,exchange:q.exchange,currency:q.currency,bars};
 }
+/* Verified weekly Yahoo closes for a 1Y chart, never generated in browser. */
+function cleanAnnual(raw,q,now){
+  if(!raw||typeof raw!=="object"||Array.isArray(raw)||
+    raw.feed!=="YFINANCE_YAHOO_1W_BAR_DELAYED"||raw.interval!=="1wk"||
+    raw.sourceSymbol!==q.sourceSymbol||raw.currency!==q.currency||
+    raw.exchange!==q.exchange||!Array.isArray(raw.bars)||
+    raw.bars.length<2||raw.bars.length>64)return null;
+  const bars=[];let previous=-Infinity;
+  for(const point of raw.bars){
+    if(!Array.isArray(point)||point.length!==2||
+       !Number.isInteger(point[0])||
+       point[0]*1000>now+120000||point[0]*1000<now-380*86400000||
+       point[0]<=previous||
+       typeof point[1]!=="number"||!Number.isFinite(point[1])||
+       point[1]<=0||point[1]>1e9)return null;
+    previous=point[0];bars.push([point[0],point[1]]);
+  }
+  return {feed:"YFINANCE_YAHOO_1W_BAR_DELAYED",interval:"1wk",
+    sourceSymbol:q.sourceSymbol,exchange:q.exchange,currency:q.currency,bars};
+}
 export function cleanQuote(ticker,q,now) {
   if(!/^[A-Z0-9][A-Z0-9.-]{0,18}\.(?:[A-Z]{2,12}|T)$/.test(ticker)||
     !q||typeof q!=="object"||Array.isArray(q)||typeof q.exchange!=="string"||
@@ -95,6 +115,8 @@ export function cleanQuote(ticker,q,now) {
     previousCloseChangePercent:prev===null?null:Math.round((q.price/prev-1)*100000)/1000};
   const hourly=cleanHourly(q.hourly,normalized,now);
   if(hourly)normalized.hourly=hourly;
+  const annual=cleanAnnual(q.annual,normalized,now);
+  if(annual)normalized.annual=annual;
   return normalized;
 }
 export default {
@@ -131,10 +153,16 @@ export default {
       if(!old||Date.parse(q.asOf)>=Date.parse(old.asOf||0)){
         // A 5-minute quote collection may occur between hourly chart loads.
         // Retain only valid history for the SAME provider, market and currency.
-        if(!q.hourly&&old&&old.sourceSymbol===q.sourceSymbol&&
+        if(old&&old.sourceSymbol===q.sourceSymbol&&
            old.exchange===q.exchange&&old.currency===q.currency){
-          const kept=cleanHourly(old.hourly,q,now);
-          if(kept)q.hourly=kept;
+          if(!q.hourly){
+            const kept=cleanHourly(old.hourly,q,now);
+            if(kept)q.hourly=kept;
+          }
+          if(!q.annual){
+            const kept=cleanAnnual(old.annual,q,now);
+            if(kept)q.annual=kept;
+          }
         }
         all[ticker]=q;
       }
