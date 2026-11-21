@@ -346,6 +346,72 @@ def fetch_hourly_history(symbols):
                 continue
     return result
 
+def compact_annual_bars(values, now=None):
+    """Actual weekly Yahoo Close observations for a year, never interpolated.
+    Yahoo's historical Close is already split-adjusted (auto_adjust=False
+    retains the close series rather than dividend-adjusted Adj Close).
+    """
+    now=now or now_utc()
+    floor=now-dt.timedelta(days=380)
+    points={}
+    for timestamp,close in values:
+        try:
+            observed=timestamp.to_pydatetime() if hasattr(timestamp,"to_pydatetime") else timestamp
+            if not isinstance(observed,dt.datetime) or observed.tzinfo is None:continue
+            observed=observed.astimezone(UTC)
+            price=float(close)
+            if observed<floor or observed>now+dt.timedelta(minutes=2):continue
+            if not math.isfinite(price) or price<=0 or price>1e9:continue
+            epoch=int(observed.timestamp())
+            points[epoch]=[epoch,round(price,6)]
+        except (ValueError,TypeError,OverflowError):
+            continue
+    bars=[points[t] for t in sorted(points)][-64:]
+    return bars if len(bars)>=2 else []
+
+def fetch_annual_history(symbols):
+    """One-year weekly bars using the same exact verified Yahoo identities."""
+    import pandas as pd
+    import yfinance as yf
+    by_yahoo={}
+    for ticker,meta in sorted(symbols.items()):
+        by_yahoo.setdefault(meta["yahoo"],[]).append((ticker,meta))
+    results={}
+    all_symbols=list(by_yahoo)
+    for start in range(0,len(all_symbols),25):
+        batch=all_symbols[start:start+25]
+        try:
+            data=yf.download(batch,period="1y",interval="1wk",auto_adjust=False,
+                             prepost=False,progress=False,group_by="ticker",
+                             threads=True,timeout=20)
+        except Exception as exc:
+            print("Yahoo annual history unavailable:",type(exc).__name__,file=sys.stderr)
+            continue
+        for symbol in batch:
+            try:
+                if len(batch)==1 and not isinstance(data.columns,pd.MultiIndex):
+                    frame=data
+                elif isinstance(data.columns,pd.MultiIndex):
+                    if symbol in data.columns.get_level_values(0):
+                        frame=data[symbol]
+                    elif symbol in data.columns.get_level_values(1):
+                        frame=data.xs(symbol,axis=1,level=1)
+                    else:continue
+                else:continue
+                bars=compact_annual_bars(frame["Close"].dropna().items())
+                if not bars:continue
+                for ticker,meta in by_yahoo[symbol]:
+                    results[ticker]={
+                        "feed":"YFINANCE_YAHOO_1W_BAR_DELAYED",
+                        "interval":"1wk",
+                        "sourceSymbol":symbol,"exchange":meta["exchange"],
+                        "currency":meta["currency"],"bars":bars
+                    }
+            except (ValueError,TypeError,KeyError,AttributeError,IndexError):
+                continue
+    return results
+
+
 def github_oidc():
     url=os.environ["ACTIONS_ID_TOKEN_REQUEST_URL"]
     token=os.environ["ACTIONS_ID_TOKEN_REQUEST_TOKEN"]
@@ -425,6 +491,18 @@ def main():
         for ticker,series in hourly.items():
             quotes[ticker]["hourly"]=series
     print("One-month hourly bars available for",len(hourly),"verified listings")
+    # Weekly 1Y history is fetched alongside monthly bars on hourly/one-time
+    # refreshes. The private Worker retains annual data between price updates.
+    annual={}
+    if args.bootstrap or now_utc().minute<16:
+        verified={ticker:meta for ticker,meta in symbols.items() if ticker in quotes}
+        try:
+            annual=fetch_annual_history(verified)
+        except Exception as exc:
+            print("Annual chart collection failed:",type(exc).__name__,file=sys.stderr)
+        for ticker,series in annual.items():
+            quotes[ticker]["annual"]=series
+    print("One-year weekly bars available for",len(annual),"verified listings")
     result=publish(quotes)
     if result.get("status")!="UPDATED":
         raise RuntimeError("Private ingest failed")
