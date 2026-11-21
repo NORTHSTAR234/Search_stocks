@@ -658,9 +658,12 @@
       hourly?.currency===q.currency&&hourly?.exchange===q.exchange&&
       hourly?.sourceSymbol===q.sourceSymbol&&/^[A-Z]{3}$/.test(hourly.currency)&&
       Array.isArray(hourly.bars)&&hourly.bars.length>=2&&hourly.bars.length<=200;
-    const bars=us?state.history[r.ticker]?.bars:verifiedHourly?hourly.bars:null;
+    // US history must be provider split-adjusted. Do not plot raw pre/post-split
+    // observations together or re-divide split-adjusted prices on the client.
+    const usHistory=us?state.history[r.ticker]:null;
+    const bars=us?(usHistory?.adjustment==="split"?usHistory.bars:null):verifiedHourly?hourly.bars:null;
     if(!Array.isArray(bars)||bars.length<2)return '<div class="mini-chart-empty">1M history unavailable<small>'+
-      (us?'No verified IEX daily bars':'Waiting for verified delayed Yahoo hourly bars')+'</small></div>';
+      (us?'Waiting for verified split-adjusted IEX daily bars':'Waiting for verified delayed Yahoo hourly bars')+'</small></div>';
     const currency=us?"USD":hourly.currency;
     const observations=us?bars.map(b=>({t:Date.parse(b.asOf),p:Number(b.close),date:b.date})):
       bars.map(b=>({t:Number(b?.[0])*1000,p:Number(b?.[1]),date:null}));
@@ -698,7 +701,7 @@
       catch{return new Date(b.t).toISOString().slice(5,10);}
     };
     const provider=us?"IEX":"Yahoo 1h";
-    const description=us?"Actual Alpaca IEX 1-month daily raw closes (not consolidated).":
+    const description=us?"Actual Alpaca IEX 1-month daily split-adjusted closes (not consolidated; no dividend adjustment).":
       "Actual delayed Yahoo Finance 1-month 1-hour closing-bar observations in "+currency+"; not real-time or consolidated.";
     const tooltip=description+(recent?" Latest observed "+(us?"IEX trade":"Yahoo 5-minute bar")+" "+price+" at "+q.asOf+".":"")+
       (levels[0]!=null?" Preferred midpoint "+levels[0]+".":"")+
@@ -714,7 +717,7 @@
       '<path d="'+d+'" fill="none" stroke="#8dabff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>'+
       '<circle cx="'+x(lastPoint.t)+'" cy="'+y(lastPoint.p)+'" r="4" fill="#8dabff" stroke="#132136" stroke-width="1.5"/>'+
       '</svg><div class="mini-chart-axis"><span>'+escape(dayLabel(daily[0]))+'</span><span>'+escape(dayLabel(daily.at(-1)))+'</span></div>'+
-      lastLabel+'<small class="mini-chart-legend"><span class="blue-dot">'+escape(us?"IEX closes":"Yahoo 1h · delayed")+'</span>'+
+      lastLabel+'<small class="mini-chart-legend"><span class="blue-dot">'+escape(us?"IEX closes · split-adjusted":"Yahoo 1h · delayed")+'</span>'+
       (levels[0]!=null?'<span class="preferred-dot">Preferred '+escape(quoteMoney(currency,levels[0]))+'</span>':"")+
       (levels[1]!=null?'<span class="acceptable-dot">Acceptable '+escape(quoteMoney(currency,levels[1]))+'</span>':"")+
       '</small>'+
