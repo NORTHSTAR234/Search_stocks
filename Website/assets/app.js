@@ -336,7 +336,7 @@
           Number.isFinite(p)&&p>0)
         return '<div class="session-prices"><small class="price-label">Last recorded IEX daily close · historical fallback</small>'+
           '<strong class="quote-value">'+escape(quoteMoney("USD",p))+'</strong>'+
-          '<small>Observed '+escape(fmt(last.asOf))+' · split-adjusted · NOT a live quote</small>'+
+          '<small>New York session '+escape(last.date)+' · split-adjusted · NOT a live quote</small>'+
           '</div>';
       const link=yahooPriceLink(r);
       return '<span class="muted">PRICE UNAVAILABLE</span><small>'+(r.exchange==="US"?"No verified Alpaca quote":"No cached international quote yet")+'</small>'+link;
