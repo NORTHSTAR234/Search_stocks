@@ -507,3 +507,20 @@ main:not(.report-layout)>.panel .table-footer{
 .table-wrap tbody tr.minimized-row .compact-musaffa .screening-original{
   flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap
 }
+
+/* One consolidated price column. Retain the usual US overnight provenance. */
+.table-wrap .combined-price-cell{display:flex;flex-direction:column;min-width:0}
+.table-wrap .combined-price-main,.table-wrap .combined-price-overnight{min-width:0}
+.table-wrap .combined-price-section{
+  display:block;margin:0 0 5px;color:#a8bdd2;font-size:.67rem;font-weight:780;
+  letter-spacing:.02em;line-height:1.25
+}
+.table-wrap .combined-price-overnight{border-top:2px dotted #607994;margin-top:12px;padding-top:10px}
+.table-wrap .combined-price-overnight .session-prices{margin:0}
+.table-wrap .compact-combined{display:flex;align-items:center;gap:5px;min-width:0;white-space:nowrap}
+.table-wrap .compact-combined .compact-value{flex:1 1 auto;min-width:0;width:auto}
+.table-wrap .compact-combined-separator{color:#6884a1;flex:none}
+.table-wrap th:nth-child(2){width:13%}
+.table-wrap th:nth-child(3){width:12%}
+.table-wrap th:nth-child(4){width:12%}
+.table-wrap .mini-chart-legend,.table-wrap .mini-chart-range{max-width:100%}
