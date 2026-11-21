@@ -1,7 +1,7 @@
 (() => {
   "use strict";
   const $ = id => document.getElementById(id);
-  const state={rows:[],quotes:{},history:{},yearHistory:{},markets:{},loading:false,generatedAt:null,providerReady:true,githubTreeSha:null,syncing:false,cycleBusy:false};
+  const state={rows:[],quotes:{},history:{},yearHistory:{},lastYearRefreshAt:0,markets:{},loading:false,generatedAt:null,providerReady:true,githubTreeSha:null,syncing:false,cycleBusy:false};
   const INDUSTRY_CATEGORIES=[
     "Technology & Communications","Healthcare & Pharmaceuticals","Financial Services",
     "Consumer Essentials","Consumer Discretionary","Industrials, Construction & Transportation",
@@ -324,6 +324,20 @@
   function quoteCell(r){
     const q=state.quotes[r.ticker.toUpperCase()];
     if(!q){
+      // A verified split-adjusted IEX daily close is an explicit HISTORICAL
+      // fallback, never a fabricated or current quote. Keeps useful verified
+      // prices visible if the independent live-trade gateway is interrupted.
+      const old=state.history[r.ticker.toUpperCase()];
+      const last=r.exchange==="US"&&old?.adjustment==="split"&&
+        old?.feed==="IEX"&&old?.currency==="USD"&&Array.isArray(old?.bars)?
+        old.bars.at(-1):null;
+      const t=Date.parse(last?.asOf),p=Number(last?.close);
+      if(Number.isFinite(t)&&t<=Date.now()+120000&&Date.now()-t<8*86400000&&
+          Number.isFinite(p)&&p>0)
+        return '<div class="session-prices"><small class="price-label">Last recorded IEX daily close · historical fallback</small>'+
+          '<strong class="quote-value">'+escape(quoteMoney("USD",p))+'</strong>'+
+          '<small>Observed '+escape(fmt(last.asOf))+' · split-adjusted · NOT a live quote</small>'+
+          '</div>';
       const link=yahooPriceLink(r);
       return '<span class="muted">PRICE UNAVAILABLE</span><small>'+(r.exchange==="US"?"No verified Alpaca quote":"No cached international quote yet")+'</small>'+link;
     }
@@ -1155,24 +1169,42 @@
     }
     try{
       const international=state.rows.filter(r=>r.exchange!=="US").map(r=>r.ticker);
-      const [usQuotes,intlQuotes,month,year]=await Promise.all([
+      // CRITICAL: the immediate quote feeds are independent of 1M / 1Y chart
+      // requests. NEVER make current prices wait for annual history.
+      const [usQuotes,intlQuotes]=await Promise.all([
         retrieve("/api/prices",us,"Alpaca"),
-        retrieve("/api/international-prices",international,"Personal Yahoo cache"),
-        retrieveHistory(us),
-        retrieveHistory(us,"1y")
+        retrieve("/api/international-prices",international,"Personal Yahoo cache")
       ]);
-      state.quotes={...usQuotes,...intlQuotes};
-      state.history={...state.history,...month};
-      state.yearHistory={...state.yearHistory,...year};
+      // Do not destroy last verified observations on a transient API outage.
+      // The quote cells retain real asOf timestamps and never call older data live.
+      state.quotes={...state.quotes,...usQuotes,...intlQuotes};
       const usCount=Object.keys(usQuotes).length,intlCount=Object.keys(intlQuotes).length;
-      $("marketNotice").textContent="Quote observations: "+usCount+
-        " US tickers via Alpaca · "+intlCount+" non-US delayed Yahoo quotes (private cache) · Updated "+
+      const priorUs=us.filter(t=>state.quotes[t]).length;
+      $("marketNotice").textContent="Latest price refresh: "+usCount+
+        " US quotes · "+intlCount+" non-US delayed Yahoo quotes · "+
         fmt(new Date().toISOString())+
-        " · US IEX daily and non-US delayed Yahoo hourly month charts checked every 5 minutes while visible from private caches. "+
-        " 1Y charts use split-adjusted US daily closes and verified delayed Yahoo weekly closes. "+
-        "Non-US quotes are collected on GitHub Actions every 20 minutes during regular market hours, subject to data-feed and scheduler delays."+
-        (failures.length?" Provider issues: "+failures.join("; "):"");
+        (usCount<us.length?" · "+(us.length-usCount)+" US tickers awaiting current quote; verified observations are retained and dated.":"")+
+        (priorUs>usCount?" · "+(priorUs-usCount)+" US last-known quotes retained.":"")+
+        (failures.length?" Provider issues: "+failures.join("; "):"")+
+        " · Historical 1M and 1Y charts update separately.";
       state.providerReady=true;
+      render(); // Price cells show first, without awaiting either chart.
+      // Reuse the existing 1M history but never let its failure wipe quote cells.
+      const month=await retrieveHistory(us);
+      state.history={...state.history,...month};
+      render();
+      // Historical daily closes do not need a provider call every five minutes.
+      // One successful/error-bounded attempt per 12 hours avoids rate limits
+      // and prevents the large annual payload from starving live quotes.
+      if(Date.now()-state.lastYearRefreshAt>=12*3600000){
+        state.lastYearRefreshAt=Date.now();
+        const year=await retrieveHistory(us,"1y");
+        state.yearHistory={...state.yearHistory,...year};
+        render();
+      }
+      if(failures.length){
+        $("marketNotice").textContent+=" · History/provider status: "+failures.join("; ");
+      }
     }finally{state.loading=false;$("refresh").disabled=false;render();}
   }
   // A GitHub HTML report is added or replaces the same ticker's older snapshot.
